@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{6C23F620-30DE-4067-8C17-10B60F6228FC}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SNSsoftware</RootNamespace>
+    <AssemblyName>SNSsoftware</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>SNSsoftware.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>SNSsoftware.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Canonicalize, Version=1.3.4876.18158, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Canonicalize.1.3\lib\net40\Canonicalize.dll</HintPath>
+    </Reference>
+    <Reference Include="CKEditor.NET, Version=3.6.6.2, Culture=neutral, PublicKeyToken=e379cdf2f8354999, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\CKEditor.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v19.1.Web, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v19.1.Web.WebForms, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Map.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v19.1.Export, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Resources.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v19.1.Core, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v19.1.Presets, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v19.1.Win, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraMap.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v19.1, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v19.1.Web, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v19.1.Web.WebForms, Version=19.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="MetaBuilders.WebControls, Version=0.9.4.26382, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MetaBuilders.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportViewer.Common.v12.12.0.0.1\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportViewer.WebForms.v12.12.0.0.0\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>packages\NLog.4.7.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>packages\Oracle.ManagedDataAccess.19.6.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.InteropServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Thread" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Tinify, Version=1.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Tinify.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\Cufex_Components\Cufex_MasterMenu.ascx" />
+    <Content Include="Controls\Cufex_Components\Cufex_MasterHeader.ascx" />
+    <Content Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx" />
+    <Content Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx" />
+    <Content Include="Cufex\Cufex_Configuration_Suppliers.aspx" />
+    <Content Include="Cufex\Cufex_Configuration_ShipTo.aspx" />
+    <Content Include="Cufex\Cufex_ReportsandKPIs_ReportDesigner.aspx" />
+    <Content Include="Cufex\Cufex_ReportsandKPIs_ReportViewer.aspx" />
+    <Content Include="Cufex\Cufex_ReportsandKPIs_ViewReports.aspx" />
+    <Content Include="Cufex\Cufex_ResetPasswordByCode.aspx" />
+    <Content Include="Cufex\Cufex_ForgotPassword.aspx" />
+    <Content Include="Cufex\Cufex.aspx" />
+    <Content Include="Cufex\Cufex_Configuration_Items.aspx" />
+    <Content Include="Cufex\Cufex_Security_Profile_ChangePassword.aspx" />
+    <Content Include="Cufex\Cufex_Security_Profile_ProfilesDetails.aspx" />
+    <Content Include="Cufex\Cufex_Security_Profile_Profiles.aspx" />
+    <Content Include="Cufex\Cufex_Security_Profile_UsersControl.aspx" />
+    <Content Include="Cufex\Cufex_Security_Profile_UserProfile.aspx" />
+    <Content Include="Cufex\Cufex_Security_Profile_Users.aspx" />
+    <Content Include="Cufex\Cufex_Inventory_Balance.aspx" />
+    <Content Include="Cufex\Cufex_Warehouse_OrderManagement.aspx" />
+    <Content Include="Cufex\Cufex_Warehouse_Shipment.aspx" />
+    <Content Include="Cufex\Cufex_Warehouse_ASN.aspx" />
+    <Content Include="Cufex\Cufex_Warehouse_PO.aspx" />
+    <Content Include="Cufex\Cufex_Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="JS\Cufex\MainQuery.js" />
+    <Content Include="JS\Cufex\MainQuery.min.js">
+      <DependentUpon>MainQuery.js</DependentUpon>
+    </Content>
+    <Content Include="JS\Cufex\Master.js" />
+    <Content Include="JS\Cufex\Master.min.js">
+      <DependentUpon>Master.js</DependentUpon>
+    </Content>
+    <Content Include="JS\Dashboards\DeleteExtension.js" />
+    <Content Include="JS\Dashboards\SaveAsExtension.js" />
+    <Content Include="JS\JqueryMain\jquery-3.4.1.min.js" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.2\src\AdvancedShipNoticeAPI.java" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.2\src\APIBase.java" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.4\src\AdvancedShipNoticeAPI.java" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.4\src\APIBase.java" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE11\src\AdvancedShipNoticeAPI.java" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE11\src\APIBase.java" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\CURRENCYCODES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\CURRENCYCODESVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\DEFAULTUSER.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\FIELDS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\ORDERMANAG.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\ORDERMANAGDETAIL.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PORTALBUTTONS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PORTALBUTTONSVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PORTALREPORTS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PORTALREPORTSVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PORTALTRN.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PORTALUSERS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PORTALWIDGETS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PROFILEDETAIL.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PROFILEDETAILREPORTS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\PROFILES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\REPORTSPARAM.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\REPORTSPARAMVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\SKUCATALOGUE.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\SYSCONFIG.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\SYSCONFIGVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\USERCONTROL.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\USERCONTROLFACILITY.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\USERPROFILE.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\ORACLE\USERWIDGETS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\CURRENCYCODES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\CURRENCYCODESVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\DEFAULTUSER.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\FIELDS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\ORDERMANAG.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\ORDERMANAGDETAIL.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PORTALBUTTONS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PORTALBUTTONSVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PORTALREPORTS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PORTALREPORTSVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PORTALTRN.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PORTALUSERS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PORTALWIDGETS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PROFILEDETAIL.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PROFILEDETAILREPORTS.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\PROFILES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\REPORTSPARAM.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\REPORTSPARAMVALUES.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\SKUCATALOGUE.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\SYSCONFIG.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\USERCONTROL.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\USERCONTROLFACILITY.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\USERPROFILE.txt" />
+    <Content Include="Portal Dependencies\Custom Tables\SQL\USERWIDGETS.txt" />
+    <Content Include="Portal Dependencies\Infor Patches\Inventory issue\patch102\src\dexternalapis\InventoryBalanceAPI.java" />
+    <Content Include="Portal Dependencies\Notes.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getABCAnalysis.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getAdjustments.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getCloseToExpiry.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getPacking.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getReceivedGoods.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getReceivingSheet.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getShipSummary.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getSkus.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getStock.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getStockMvmt.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\getWarehousesummary.txt" />
+    <Content Include="Portal Dependencies\stored procedures\Oracle\testrun.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getABCAnalysis.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getAdjustments.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getCloseToExpiry.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getPacking.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getReceivedGoods.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getReceivingSheet.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getShipSummary.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getSkus.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getStock.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getStockMvmt.txt" />
+    <Content Include="Portal Dependencies\stored procedures\SQL\getWarehousesummary.txt" />
+    <Content Include="Portal Dependencies\Storer SCE11 base bug\src\StorerAPI.java" />
+    <Content Include="Style\ChosenSelect\chosen.css" />
+    <Content Include="Style\ChosenSelect\chosen.min.css">
+      <DependentUpon>chosen.css</DependentUpon>
+    </Content>
+    <Content Include="Style\Cufex\Cufex_Style.css" />
+    <Content Include="Style\Cufex\Cufex_Style.min.css">
+      <DependentUpon>Cufex_Style.css</DependentUpon>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\Resources.designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\clsGlobals.vb" />
+    <Compile Include="Classes\CustomDashboardStorage.vb" />
+    <Compile Include="Classes\CustomReportDesignerExceptionHandler.vb" />
+    <Compile Include="Classes\CustomReportStorageWebExtension.vb" />
+    <Compile Include="Classes\DataSourceWizardConnectionStringsProvider.vb" />
+    <Compile Include="Classes\DesignerTask.vb" />
+    <Compile Include="Classes\EmptyReport.Designer.vb">
+      <DependentUpon>EmptyReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\EmptyReport.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\TextLog.vb" />
+    <Compile Include="Classes\MultiLingualControl.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\MultiLingualMasterPage.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonMethods.vb" />
+    <Compile Include="Classes\MultiLingualPage.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\Security.vb" />
+    <Compile Include="Classes\SQLExec.vb" />
+    <Compile Include="Classes\URLRewriter.vb" />
+    <Compile Include="Classes\UserInfo.vb" />
+    <Compile Include="Controls\Cufex_Components\Cufex_MasterMenu.ascx.designer.vb">
+      <DependentUpon>Cufex_MasterMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Cufex_Components\Cufex_MasterMenu.ascx.vb">
+      <DependentUpon>Cufex_MasterMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Cufex_Components\Cufex_MasterHeader.ascx.designer.vb">
+      <DependentUpon>Cufex_MasterHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Cufex_Components\Cufex_MasterHeader.ascx.vb">
+      <DependentUpon>Cufex_MasterHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx.designer.vb">
+      <DependentUpon>Cufex_Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx.vb">
+      <DependentUpon>Cufex_Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx.designer.vb">
+      <DependentUpon>Cufex_Configuration_ItemCatalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx.vb">
+      <DependentUpon>Cufex_Configuration_ItemCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_Suppliers.aspx.designer.vb">
+      <DependentUpon>Cufex_Configuration_Suppliers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_Suppliers.aspx.vb">
+      <DependentUpon>Cufex_Configuration_Suppliers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_ShipTo.aspx.designer.vb">
+      <DependentUpon>Cufex_Configuration_ShipTo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_ShipTo.aspx.vb">
+      <DependentUpon>Cufex_Configuration_ShipTo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ReportsandKPIs_ReportDesigner.aspx.designer.vb">
+      <DependentUpon>Cufex_ReportsandKPIs_ReportDesigner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ReportsandKPIs_ReportDesigner.aspx.vb">
+      <DependentUpon>Cufex_ReportsandKPIs_ReportDesigner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ReportsandKPIs_ReportViewer.aspx.designer.vb">
+      <DependentUpon>Cufex_ReportsandKPIs_ReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ReportsandKPIs_ReportViewer.aspx.vb">
+      <DependentUpon>Cufex_ReportsandKPIs_ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ReportsandKPIs_ViewReports.aspx.designer.vb">
+      <DependentUpon>Cufex_ReportsandKPIs_ViewReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ReportsandKPIs_ViewReports.aspx.vb">
+      <DependentUpon>Cufex_ReportsandKPIs_ViewReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ResetPasswordByCode.aspx.designer.vb">
+      <DependentUpon>Cufex_ResetPasswordByCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ResetPasswordByCode.aspx.vb">
+      <DependentUpon>Cufex_ResetPasswordByCode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ForgotPassword.aspx.designer.vb">
+      <DependentUpon>Cufex_ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_ForgotPassword.aspx.vb">
+      <DependentUpon>Cufex_ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex.aspx.designer.vb">
+      <DependentUpon>Cufex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex.aspx.vb">
+      <DependentUpon>Cufex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_Items.aspx.designer.vb">
+      <DependentUpon>Cufex_Configuration_Items.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Configuration_Items.aspx.vb">
+      <DependentUpon>Cufex_Configuration_Items.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_ChangePassword.aspx.designer.vb">
+      <DependentUpon>Cufex_Security_Profile_ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_ChangePassword.aspx.vb">
+      <DependentUpon>Cufex_Security_Profile_ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_ProfilesDetails.aspx.designer.vb">
+      <DependentUpon>Cufex_Security_Profile_ProfilesDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_ProfilesDetails.aspx.vb">
+      <DependentUpon>Cufex_Security_Profile_ProfilesDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_Profiles.aspx.designer.vb">
+      <DependentUpon>Cufex_Security_Profile_Profiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_Profiles.aspx.vb">
+      <DependentUpon>Cufex_Security_Profile_Profiles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_UsersControl.aspx.designer.vb">
+      <DependentUpon>Cufex_Security_Profile_UsersControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_UsersControl.aspx.vb">
+      <DependentUpon>Cufex_Security_Profile_UsersControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_UserProfile.aspx.designer.vb">
+      <DependentUpon>Cufex_Security_Profile_UserProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_UserProfile.aspx.vb">
+      <DependentUpon>Cufex_Security_Profile_UserProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_Users.aspx.designer.vb">
+      <DependentUpon>Cufex_Security_Profile_Users.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Security_Profile_Users.aspx.vb">
+      <DependentUpon>Cufex_Security_Profile_Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Inventory_Balance.aspx.designer.vb">
+      <DependentUpon>Cufex_Inventory_Balance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Inventory_Balance.aspx.vb">
+      <DependentUpon>Cufex_Inventory_Balance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_OrderManagement.aspx.designer.vb">
+      <DependentUpon>Cufex_Warehouse_OrderManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_OrderManagement.aspx.vb">
+      <DependentUpon>Cufex_Warehouse_OrderManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_Shipment.aspx.designer.vb">
+      <DependentUpon>Cufex_Warehouse_Shipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_Shipment.aspx.vb">
+      <DependentUpon>Cufex_Warehouse_Shipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_ASN.aspx.designer.vb">
+      <DependentUpon>Cufex_Warehouse_ASN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_ASN.aspx.vb">
+      <DependentUpon>Cufex_Warehouse_ASN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_PO.aspx.designer.vb">
+      <DependentUpon>Cufex_Warehouse_PO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_PO.aspx.vb">
+      <DependentUpon>Cufex_Warehouse_PO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Default.aspx.designer.vb">
+      <DependentUpon>Cufex_Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Default.aspx.vb">
+      <DependentUpon>Cufex_Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Site.Master.designer.vb">
+      <DependentUpon>Cufex_Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Site.Master.vb">
+      <DependentUpon>Cufex_Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Site.Master.designer.vb">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Master.vb">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webservices\ActionButtons.ashx.vb">
+      <DependentUpon>ActionButtons.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\UpdateProfileDetail.ashx.vb">
+      <DependentUpon>UpdateProfileDetail.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\FetchPriceCurrency.ashx.vb">
+      <DependentUpon>FetchPriceCurrency.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\AutoPostBackDetailsDropDowns.ashx.vb">
+      <DependentUpon>AutoPostBackDetailsDropDowns.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\DeleteItems.ashx.vb">
+      <DependentUpon>DeleteItems.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\SearchDropDowns.ashx.vb">
+      <DependentUpon>SearchDropDowns.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\DisplayDropDowns.ashx.vb">
+      <DependentUpon>DisplayDropDowns.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\DisplayItems.ashx.vb">
+      <DependentUpon>DisplayItems.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\AutoPostBackDropDowns.ashx.vb">
+      <DependentUpon>AutoPostBackDropDowns.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\GetItems.ashx.vb">
+      <DependentUpon>GetItems.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\SaveItems.ashx.vb">
+      <DependentUpon>SaveItems.ashx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Resources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Resources.designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="Classes\EmptyReport.resx">
+      <DependentUpon>EmptyReport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Code\abc_analysis.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>abc_analysis.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="App_Code\abc_analysis.xss">
+      <DependentUpon>abc_analysis.xsd</DependentUpon>
+    </Content>
+    <None Include="bundleconfig.json" />
+    <Content Include="Cufex\Cufex_Site.Master" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\PublishProfiles\Bilal.pubxml" />
+    <None Include="My Project\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <Content Include="Site.Master" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.2\bin\AdvancedShipNoticeAPI.class" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.2\bin\APIBase.class" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.4\bin\AdvancedShipNoticeAPI.class" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE10.4\bin\APIBase.class" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE11\bin\AdvancedShipNoticeAPI.class" />
+    <Content Include="Portal Dependencies\Custom Explode Asn\SCE11\bin\APIBase.class" />
+    <Content Include="Portal Dependencies\free3of9.zip" />
+    <Content Include="Portal Dependencies\Infor Patches\Inventory issue\patch102\bin\dexternalapis\InventoryBalanceAPI.class" />
+    <Content Include="Portal Dependencies\Infor Patches\Inventory issue\patch1042_1855577_565256.zip" />
+    <Content Include="Portal Dependencies\ReportViewer.msi" />
+    <Content Include="Portal Dependencies\SQLSysClrTypes.msi" />
+    <Content Include="Portal Dependencies\Storer SCE11 base bug\bin\StorerAPI.class" />
+    <Content Include="rpt_abc_analysis.rdlc" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="Webservices\GetItems.ashx" />
+    <Content Include="Webservices\DeleteItems.ashx" />
+    <Content Include="Webservices\DisplayItems.ashx" />
+    <Content Include="Webservices\SaveItems.ashx" />
+    <Content Include="Webservices\AutoPostBackDropDowns.ashx" />
+    <Content Include="Webservices\DisplayDropDowns.ashx" />
+    <Content Include="Webservices\SearchDropDowns.ashx" />
+    <Content Include="Webservices\AutoPostBackDetailsDropDowns.ashx" />
+    <Content Include="Webservices\FetchPriceCurrency.ashx" />
+    <Content Include="Webservices\UpdateProfileDetail.ashx" />
+    <Content Include="Webservices\ActionButtons.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\Dashboards\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51623</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51623/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

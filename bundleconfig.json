@@ -1,0 +1,50 @@
+[
+  {
+    "outputFileName": "Style/Style.min.css",
+    "inputFiles": [
+      "Style/Style.css"
+    ]
+  },
+  {
+    "outputFileName": "Style/EN/Default.min.css",
+    "inputFiles": [
+      "Style/EN/Default.css"
+    ]
+  },
+  {
+    "outputFileName": "Style/EN/Master.min.css",
+    "inputFiles": [
+      "Style/EN/Master.css"
+    ]
+  },
+  {
+    "outputFileName": "Style/Cufex/Cufex_Style.min.css",
+    "inputFiles": [
+      "Style/Cufex/Cufex_Style.css"
+    ]
+  },
+  {
+    "outputFileName": "JS/Cufex/Master.min.js",
+    "inputFiles": [
+      "JS/Cufex/Master.js"
+    ]
+  },
+  {
+    "outputFileName": "JS/Cufex/MainQuery.min.js",
+    "inputFiles": [
+      "JS/Cufex/MainQuery.js"
+    ]
+  },
+  {
+    "outputFileName": "Style/ChosenSelect/chosen.min.css",
+    "inputFiles": [
+      "Style/ChosenSelect/chosen.css"
+    ]
+  },
+  {
+    "outputFileName": "Style/IonIcons/ionicons.min.css",
+    "inputFiles": [
+      "Style/IonIcons/ionicons.css"
+    ]
+  }
+]

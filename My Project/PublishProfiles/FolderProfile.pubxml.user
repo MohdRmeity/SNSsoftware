@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\nader\Desktop\SNS Software Update</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Code/abc_analysis.Designer.vb">
+      <publishTime>03/24/2020 13:48:41</publishTime>
+    </File>
+    <File Include="App_Code/abc_analysis.xss">
+      <publishTime>06/24/2019 22:55:46</publishTime>
+    </File>
+    <File Include="App_GlobalResources/Resources.resx">
+      <publishTime>09/26/2019 01:02:55</publishTime>
+    </File>
+    <File Include="bin/Canonicalize.dll">
+      <publishTime>05/08/2013 11:05:44</publishTime>
+    </File>
+    <File Include="bin/CKEditor.NET.dll">
+      <publishTime>07/15/2014 13:47:02</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Charts.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:52:14</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v19.2.Web.dll">
+      <publishTime>03/22/2020 22:52:14</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v19.2.Web.WebForms.dll">
+      <publishTime>03/22/2020 22:52:14</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Data.v19.2.dll">
+      <publishTime>03/22/2020 22:52:20</publishTime>
+    </File>
+    <File Include="bin/DevExpress.DataAccess.v19.2.dll">
+      <publishTime>03/22/2020 22:52:14</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Map.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:52:40</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Office.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Pdf.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/DevExpress.PivotGrid.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Printing.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/DevExpress.RichEdit.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:53:16</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Sparkline.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Utils.v19.2.dll">
+      <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.Resources.v19.2.dll">
+      <publishTime>03/22/2020 22:52:56</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.v19.2.dll">
+      <publishTime>03/22/2020 22:52:07</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Xpo.v19.2.dll">
+      <publishTime>03/22/2020 22:53:07</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraCharts.v19.2.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraGauges.v19.2.Core.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraGauges.v19.2.Presets.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraGauges.v19.2.Win.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraMap.v19.2.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraReports.v19.2.dll">
+      <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/HtmlAgilityPack.dll">
+      <publishTime>03/22/2020 13:46:52</publishTime>
+    </File>
+    <File Include="bin/HtmlAgilityPack.pdb">
+      <publishTime>03/22/2020 13:46:50</publishTime>
+    </File>
+    <File Include="bin/MetaBuilders.WebControls.dll">
+      <publishTime>01/22/2011 15:31:50</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>09/05/2018 16:10:50</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ReportViewer.Common.dll">
+      <publishTime>01/11/2017 09:52:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ReportViewer.WebForms.dll">
+      <publishTime>01/11/2017 08:06:48</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/09/2019 00:56:44</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>03/20/2020 16:52:32</publishTime>
+    </File>
+    <File Include="bin/Oracle.ManagedDataAccess.dll">
+      <publishTime>12/02/2019 19:26:18</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe.config">
+      <publishTime>08/08/2018 12:18:12</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.rsp">
+      <publishTime>08/08/2018 12:09:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe.config">
+      <publishTime>08/08/2018 12:18:34</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.rsp">
+      <publishTime>08/08/2018 12:09:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>08/08/2018 12:09:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
+      <publishTime>12/05/2017 09:36:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
+      <publishTime>12/05/2017 09:36:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Managed.Core.targets">
+      <publishTime>08/08/2018 12:09:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>08/08/2018 12:09:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Win32.Primitives.dll">
+      <publishTime>11/05/2016 18:55:32</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.AppContext.dll">
+      <publishTime>11/05/2016 18:55:34</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>05/16/2018 03:29:34</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Console.dll">
+      <publishTime>11/05/2016 18:55:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.DiagnosticSource.dll">
+      <publishTime>11/05/2016 18:55:52</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.FileVersionInfo.dll">
+      <publishTime>11/05/2016 18:55:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
+      <publishTime>11/05/2016 18:55:52</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Globalization.Calendars.dll">
+      <publishTime>11/05/2016 18:56:02</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Compression.dll">
+      <publishTime>11/05/2016 18:56:08</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.Compression.ZipFile.dll">
+      <publishTime>11/05/2016 18:56:04</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.dll">
+      <publishTime>11/05/2016 18:56:08</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
+      <publishTime>11/05/2016 18:56:08</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Net.Http.dll">
+      <publishTime>11/05/2016 18:56:30</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Net.Sockets.dll">
+      <publishTime>11/05/2016 18:56:34</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>05/16/2018 03:29:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Runtime.InteropServices.RuntimeInformation.dll">
+      <publishTime>11/05/2016 18:57:00</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Algorithms.dll">
+      <publishTime>11/05/2016 18:57:14</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Encoding.dll">
+      <publishTime>11/05/2016 18:57:08</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
+      <publishTime>11/05/2016 18:57:18</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
+      <publishTime>11/05/2016 18:57:18</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
+      <publishTime>11/05/2016 18:57:20</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Threading.Tasks.Extensions.dll">
+      <publishTime>11/05/2016 18:57:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.ValueTuple.dll">
+      <publishTime>11/05/2016 18:57:30</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.ReaderWriter.dll">
+      <publishTime>11/05/2016 18:57:36</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XmlDocument.dll">
+      <publishTime>11/05/2016 18:57:34</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.dll">
+      <publishTime>11/05/2016 18:57:40</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Xml.XPath.XDocument.dll">
+      <publishTime>11/05/2016 18:57:34</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe.config">
+      <publishTime>08/08/2018 12:18:18</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.rsp">
+      <publishTime>08/08/2018 12:09:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>08/08/2018 05:38:48</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>08/08/2018 12:18:16</publishTime>
+    </File>
+    <File Include="bin/SNSsoftware.dll">
+      <publishTime>03/24/2020 14:02:34</publishTime>
+    </File>
+    <File Include="bin/SNSsoftware.pdb">
+      <publishTime>03/24/2020 14:02:34</publishTime>
+    </File>
+    <File Include="bin/SNSsoftware.xml">
+      <publishTime>03/24/2020 14:02:33</publishTime>
+    </File>
+    <File Include="bin/Tinify.dll">
+      <publishTime>05/24/2018 10:15:50</publishTime>
+    </File>
+    <File Include="Controls/Cufex_Components/Cufex_MasterHeader.ascx">
+      <publishTime>03/20/2020 01:19:32</publishTime>
+    </File>
+    <File Include="Controls/Cufex_Components/Cufex_MasterMenu.ascx">
+      <publishTime>11/26/2019 12:22:28</publishTime>
+    </File>
+    <File Include="Controls/Cufex_PlugIns/Cufex_Logout.aspx">
+      <publishTime>11/26/2019 11:41:34</publishTime>
+    </File>
+    <File Include="Cufex/Cufex.aspx">
+      <publishTime>03/01/2020 03:57:07</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Configuration_ItemCatalogue.aspx">
+      <publishTime>03/20/2020 01:59:14</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Configuration_Items.aspx">
+      <publishTime>03/20/2020 01:59:20</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Configuration_ShipTo.aspx">
+      <publishTime>03/20/2020 01:59:32</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Configuration_Suppliers.aspx">
+      <publishTime>03/20/2020 01:59:41</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Default.aspx">
+      <publishTime>03/23/2020 21:39:19</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_ForgotPassword.aspx">
+      <publishTime>03/01/2020 03:57:21</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Inventory_Balance.aspx">
+      <publishTime>03/20/2020 02:44:27</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_ReportsandKPIs_ViewReports.aspx">
+      <publishTime>03/20/2020 02:49:21</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_ResetPasswordByCode.aspx">
+      <publishTime>03/01/2020 03:57:36</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Profile_ChangePassword.aspx">
+      <publishTime>03/01/2020 03:40:33</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Profile_Profiles.aspx">
+      <publishTime>03/20/2020 01:55:41</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Profile_ProfilesDetails.aspx">
+      <publishTime>03/20/2020 02:31:35</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Profile_UserProfile.aspx">
+      <publishTime>03/20/2020 02:48:48</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Profile_Users.aspx">
+      <publishTime>03/20/2020 02:00:22</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Profile_UsersControl.aspx">
+      <publishTime>03/20/2020 01:56:37</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Site.Master">
+      <publishTime>03/20/2020 01:17:40</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Warehouse_ASN.aspx">
+      <publishTime>03/20/2020 02:00:36</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Warehouse_OrderManagement.aspx">
+      <publishTime>03/20/2020 02:00:42</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Warehouse_PO.aspx">
+      <publishTime>03/20/2020 02:00:49</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Warehouse_Shipment.aspx">
+      <publishTime>03/20/2020 02:00:57</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/26/2019 11:41:34</publishTime>
+    </File>
+    <File Include="JS/Cufex/MainQuery.js">
+      <publishTime>12/16/2019 19:47:00</publishTime>
+    </File>
+    <File Include="JS/Cufex/MainQuery.min.js">
+      <publishTime>12/16/2019 19:46:48</publishTime>
+    </File>
+    <File Include="JS/Cufex/Master.js">
+      <publishTime>03/24/2020 13:57:47</publishTime>
+    </File>
+    <File Include="JS/Cufex/Master.min.js">
+      <publishTime>03/20/2020 03:09:30</publishTime>
+    </File>
+    <File Include="JS/Dashboards/DeleteExtension.js">
+      <publishTime>03/24/2020 13:57:47</publishTime>
+    </File>
+    <File Include="JS/Dashboards/SaveAsExtension.js">
+      <publishTime>03/24/2020 13:57:47</publishTime>
+    </File>
+    <File Include="JS/JqueryMain/jquery-3.4.1.min.js">
+      <publishTime>12/22/2019 13:51:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.2/bin/AdvancedShipNoticeAPI.class">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.2/bin/APIBase.class">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.2/src/AdvancedShipNoticeAPI.java">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.2/src/APIBase.java">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.4/bin/AdvancedShipNoticeAPI.class">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.4/bin/APIBase.class">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.4/src/AdvancedShipNoticeAPI.java">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE10.4/src/APIBase.java">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE11/bin/AdvancedShipNoticeAPI.class">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE11/bin/APIBase.class">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE11/src/AdvancedShipNoticeAPI.java">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Explode Asn/SCE11/src/APIBase.java">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/CURRENCYCODES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/CURRENCYCODESVALUES.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/DEFAULTUSER.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/FIELDS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/ORDERMANAG.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/ORDERMANAGDETAIL.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PORTALBUTTONS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PORTALBUTTONSVALUES.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PORTALREPORTS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PORTALREPORTSVALUES.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PORTALTRN.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PORTALUSERS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PORTALWIDGETS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PROFILEDETAIL.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PROFILEDETAILREPORTS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/PROFILES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/REPORTSPARAM.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/REPORTSPARAMVALUES.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/SKUCATALOGUE.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/SYSCONFIG.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/SYSCONFIGVALUES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/USERCONTROL.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/USERCONTROLFACILITY.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/USERPROFILE.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/ORACLE/USERWIDGETS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/CURRENCYCODES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/CURRENCYCODESVALUES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/DEFAULTUSER.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/FIELDS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/ORDERMANAG.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/ORDERMANAGDETAIL.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PORTALBUTTONS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PORTALBUTTONSVALUES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PORTALREPORTS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PORTALREPORTSVALUES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PORTALTRN.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PORTALUSERS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PORTALWIDGETS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PROFILEDETAIL.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PROFILEDETAILREPORTS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/PROFILES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/REPORTSPARAM.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/REPORTSPARAMVALUES.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/SKUCATALOGUE.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/SYSCONFIG.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/USERCONTROL.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/USERCONTROLFACILITY.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/USERPROFILE.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Custom Tables/SQL/USERWIDGETS.txt">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/free3of9.zip">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Infor Patches/Inventory issue/patch102/bin/dexternalapis/InventoryBalanceAPI.class">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Infor Patches/Inventory issue/patch102/src/dexternalapis/InventoryBalanceAPI.java">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Infor Patches/Inventory issue/patch1042_1855577_565256.zip">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Notes.txt">
+      <publishTime>06/24/2019 22:55:06</publishTime>
+    </File>
+    <File Include="Portal Dependencies/ReportViewer.msi">
+      <publishTime>06/24/2019 22:55:06</publishTime>
+    </File>
+    <File Include="Portal Dependencies/SQLSysClrTypes.msi">
+      <publishTime>06/24/2019 22:55:06</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getABCAnalysis.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getAdjustments.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getCloseToExpiry.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getPacking.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getReceivedGoods.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getReceivingSheet.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getShipSummary.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getSkus.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getStock.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getStockMvmt.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/getWarehousesummary.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/Oracle/testrun.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getABCAnalysis.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getAdjustments.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getCloseToExpiry.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getPacking.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getReceivedGoods.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getReceivingSheet.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getShipSummary.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getSkus.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getStock.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getStockMvmt.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/stored procedures/SQL/getWarehousesummary.txt">
+      <publishTime>06/24/2019 22:55:05</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Storer SCE11 base bug/bin/StorerAPI.class">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="Portal Dependencies/Storer SCE11 base bug/src/StorerAPI.java">
+      <publishTime>06/24/2019 22:55:04</publishTime>
+    </File>
+    <File Include="rpt_abc_analysis.rdlc">
+      <publishTime>06/24/2019 22:55:47</publishTime>
+    </File>
+    <File Include="Site.Master">
+      <publishTime>12/09/2019 09:59:56</publishTime>
+    </File>
+    <File Include="Style/ChosenSelect/chosen.css">
+      <publishTime>03/24/2020 13:57:47</publishTime>
+    </File>
+    <File Include="Style/ChosenSelect/chosen.min.css">
+      <publishTime>02/08/2020 02:23:42</publishTime>
+    </File>
+    <File Include="Style/Cufex/Cufex_Style.css">
+      <publishTime>03/23/2020 00:49:26</publishTime>
+    </File>
+    <File Include="Style/Cufex/Cufex_Style.min.css">
+      <publishTime>03/23/2020 00:49:26</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>03/24/2020 14:02:34</publishTime>
+    </File>
+    <File Include="Webservices/ActionButtons.ashx">
+      <publishTime>03/03/2020 11:46:56</publishTime>
+    </File>
+    <File Include="Webservices/AutoPostBackDetailsDropDowns.ashx">
+      <publishTime>02/20/2020 00:41:07</publishTime>
+    </File>
+    <File Include="Webservices/AutoPostBackDropDowns.ashx">
+      <publishTime>02/09/2020 04:56:34</publishTime>
+    </File>
+    <File Include="Webservices/DeleteItems.ashx">
+      <publishTime>12/16/2019 22:51:10</publishTime>
+    </File>
+    <File Include="Webservices/DisplayDropDowns.ashx">
+      <publishTime>02/08/2020 01:26:35</publishTime>
+    </File>
+    <File Include="Webservices/DisplayItems.ashx">
+      <publishTime>01/11/2020 17:19:06</publishTime>
+    </File>
+    <File Include="Webservices/FetchPriceCurrency.ashx">
+      <publishTime>02/24/2020 00:16:35</publishTime>
+    </File>
+    <File Include="Webservices/GetItems.ashx">
+      <publishTime>12/16/2019 18:07:12</publishTime>
+    </File>
+    <File Include="Webservices/SaveItems.ashx">
+      <publishTime>01/11/2020 16:25:48</publishTime>
+    </File>
+    <File Include="Webservices/SearchDropDowns.ashx">
+      <publishTime>02/18/2020 01:30:47</publishTime>
+    </File>
+    <File Include="Webservices/UpdateProfileDetail.ashx">
+      <publishTime>03/01/2020 01:47:38</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

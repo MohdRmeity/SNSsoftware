@@ -1,0 +1,9 @@
+User-Agent: *
+Disallow: /bin/
+Disallow: /controls/ 
+Disallow: /WebSite/ScriptResource.axd  
+Disallow: /WebSite/WebResource.axd  
+Allow: / 
+User-agent: Libwww-perl
+Disallow: /
+ 

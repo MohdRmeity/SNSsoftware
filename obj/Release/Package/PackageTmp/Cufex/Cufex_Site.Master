@@ -1,0 +1,270 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Cufex_Site.Master.vb" Inherits="SNSsoftware.Cufex_Site" %>
+
+<!DOCTYPE html>
+<%@ Register Src="~/Controls/Cufex_Components/Cufex_MasterHeader.ascx" TagPrefix="uc1" TagName="Cufex_MasterHeader" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>SNS software</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, minimum-scale=0.8,  user-scalable=yes" />
+    <asp:ContentPlaceHolder ID="metaPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <asp:ContentPlaceHolder ID="Cufex_CommonCss" runat="server">
+
+        <link href="<%= sAppPath %>style/Jquery/jquery-ui.min.css?<%=AppVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= sAppPath %>Style/Cufex/PiroBox_style.min.css?<%=AppVersion %>" type="text/css" rel="stylesheet" />
+        <link href="<%= sAppPath %>Style/Cufex/mCustomScrollbar/jquery.mCustomScrollbar.min.css?<%=AppVersion %>" type="text/css" rel="stylesheet" />
+
+        <link href="<%= sAppPath %>Style/Cufex/CustomSelect.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
+        <link href="<%= sAppPath %>Style/Cufex/sweet-alert.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
+        <link href="<%= sAppPath %>Style/Cufex/Cufex_Style.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
+        <link href="<%= sAppPath %>Style/ChosenSelect/chosen.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
+        <noscript>
+            <link href="<%= sAppPath %>Style/JQuery/normalize.css" rel="stylesheet" type="text/css" />
+        </noscript>
+        <link href="<%= sAppPath %>Style/Jcrop/jquery.Jcrop.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
+        <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet" />
+        <link rel="shortcut icon" href="<%=sAppPath %>favicon.ico" />
+
+
+    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="Cufex_HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body id="MasterPageBodyTag" runat="server" spellcheck="true">
+    <form id="form1" runat="server">
+        <div class="SpinnerProgContainer preloader">
+            <%--<div class="spinner"></div>--%>
+            <div class="lds-ripple">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <div class="DivMain" id="DivMainContainer" runat="server">
+            <script type="text/javascript">
+                var sAppPath = "<%= sAppPath %>";
+                var BUserCode = "<%= BUserCode%>";
+            </script>
+
+            <script src="<%=sAppPath %>JS/JqueryMain/jquery-3.4.1.min.js?v=<%=AppVersion%>" type="text/javascript"></script>
+            <script src="<%= sAppPath %>js/JqueryMain/jquery-migrate-1.4.1.min.js?v=<%=AppVersion%>" type="text/javascript"></script>
+
+
+            <input type="hidden" class="sAppPath" value="<%=sAppPath %>" />
+            <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server">
+            </asp:ScriptManager>
+            <div class="u-relative">
+                <div class="u-table u-width100" id="TableNotloggedIn" runat="server">
+                    <div class="u-tableCell">
+                        <div class="floatL widthMenu AnimateMe">
+                            <div class="MenuContainer AnimateMe">
+                                <div class="u-ht-xs-20"></div>
+                                <div class="u-pl-xs-20 PositionRelative">
+                                    <div class="PinMenu">
+                                        <div class="MenuPin Pinned"></div>
+                                    </div>
+                                    <div class="MainLogoContainer">
+                                        <div class="MainLogo u-relative">
+                                            WMS Portal  <a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home", Nothing)%>" class="u-imgLink Logo" title="SNS software"></a>
+                                        </div>
+                                    </div>
+                                    <div class="OpenMenu Closed">
+                                        <div class="MenuArrowRight"></div>
+                                    </div>
+                                    <div class="u-ht-xs-55"></div>
+                                    <div class="GtitleContainer">
+                                        <div class="Gtitle">MAIN</div>
+                                    </div>
+                                    <div class="u-ht-xs-20"></div>
+                                </div>
+                                <div class="AllMenuItems">
+                                    <div visible="false" id="DivMain_Home_Def" runat="server">
+                                        <div class="u-relative u-pl-xs-20  u-pt-xs-5">
+                                            <div class="Selector"></div>
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Home_Def_MenuArrow" runat="server">
+                                                <div class="u-inlineBlock MenuIcon Home">
+                                                </div>
+                                                <div class="u-inlineBlock valignT">
+                                                    <div class="u-ht-xs-5"></div>
+                                                    <span class="textalignL MenuItemName">Home</span>
+                                                </div>
+                                            </div>
+                                            <div visible="false" id="DivSubMain_Home_Def_OrdersManager" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home_Def_OrdersManager", Nothing)%>">Orders Manager</a></div>
+                                            <div visible="false" id="DivSubMain_Home_Def_Inventory_Management" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home_Def_Inventory_Management", Nothing)%>">Inventory Management</a></div>
+                                            <div visible="false" id="DivSubMain_Home_Def_Inbound" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home_Def_Inbound", Nothing)%>">Inbound</a></div>
+                                        </div>
+                                    </div>
+                                    <div visible="false" id="DivMain_Security" runat="server">
+                                        <div class="u-relative  u-pl-xs-20  u-pt-xs-5">
+                                            <div class="Selector"></div>
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Security_MenuArrow" runat="server">
+                                                <div class="u-inlineBlock MenuIcon Security">
+                                                </div>
+                                                <div class="u-inlineBlock valignT">
+                                                    <div class="u-ht-xs-5"></div>
+                                                    <span class="textalignL MenuItemName">Security</span>
+                                                </div>
+                                            </div>
+                                            <div visible="false" id="DivSubMain_Security_Profile" runat="server">
+                                                <div class="u-relative">
+                                                    Profile
+                                                    <div visible="false" id="DivSubSubMain_Security_Profile_ChangePassword" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_ChangePassword", Nothing)%>">Change Password</a></div>
+                                                    <div visible="false" id="DivSubSubMain_Security_Profile_Users" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_Users", Nothing)%>">Users</a></div>
+                                                    <div visible="false" id="DivSubSubMain_Security_Profile_UsersControl" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_UsersControl", Nothing)%>">Users Control</a></div>
+                                                    <div visible="false" id="DivSubSubMain_Security_Profile_Profiles" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_Profiles", Nothing)%>">Profiles</a></div>
+                                                    <div visible="false" id="DivSubSubMain_Security_Profile_UserProfile" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_UserProfile", Nothing)%>">Users Profile</a></div>
+                                                </div>
+                                            </div>
+                                            <%--<div visible="false" id="DivSubMain_Security_Settings" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Settings_General", Nothing)%>">Settings</a></div>--%>
+                                        </div>
+                                    </div>
+
+                                    <div visible="false" id="DivMain_Configuration" runat="server">
+                                        <div class="u-relative  u-pl-xs-20  u-pt-xs-5">
+                                            <div class="Selector"></div>
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Configuration_MenuArrow" runat="server">
+                                                <div class="u-inlineBlock MenuIcon Configuration">
+                                                </div>
+                                                <div class="u-inlineBlock valignT">
+                                                    <div class="u-ht-xs-5"></div>
+                                                    <span class="textalignL MenuItemName">Configuration</span>
+                                                </div>
+                                            </div>
+                                            <div visible="false" id="DivSubMain_Configuration_ShipTo" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipTo", Nothing)%>">Ship To</a></div>
+                                            <div visible="false" id="DivSubMain_Configuration_Suppliers" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Suppliers", Nothing)%>">Suppliers</a></div>
+                                            <div visible="false" id="DivSubMain_Configuration_Items" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)%>">Items</a></div>
+                                            <div visible="false" id="DivSubMain_Configuration_ItemCatalogue" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)%>">Item Catalogue</a></div>
+
+                                        </div>
+                                    </div>
+                                    <div visible="false" id="DivMain_Warehouse" runat="server">
+                                        <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
+                                            <div class="Selector"></div>
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Warehouse_MenuArrow" runat="server">
+                                                <div class="u-inlineBlock MenuIcon Warehouse">
+                                                </div>
+                                                <div class="u-inlineBlock valignT">
+                                                    <div class="u-ht-xs-5"></div>
+                                                    <span class="textalignL MenuItemName">Warehouse</span>
+                                                </div>
+                                            </div>
+                                            <div visible="false" id="DivSubMain_Warehouse_PO" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)%>">Purchase Order</a></div>
+                                            <div visible="false" id="DivSubMain_Warehouse_ASN" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)%>">ASN</a></div>
+                                            <div visible="false" id="DivSubMain_Warehouse_Shipment" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)%>">Shipment</a></div>
+                                            <div visible="false" id="DivSubMain_Warehouse_OrderManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)%>">Order Management</a></div>
+                                        </div>
+                                    </div>
+                                    <div visible="false" id="DivMain_Inventory" runat="server">
+                                        <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
+                                            <div class="Selector"></div>
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Inventory_MenuArrow" runat="server">
+                                                <div class="u-inlineBlock MenuIcon Inventory">
+                                                </div>
+                                                <div class="u-inlineBlock valignT">
+                                                    <div class="u-ht-xs-5"></div>
+                                                    <span class="textalignL MenuItemName">Inventory</span>
+                                                </div>
+                                            </div>
+                                            <div visible="false" id="DivSubMain_Inventory_Balance" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Inventory_Balance", Nothing)%>">Balance</a></div>
+                                        </div>
+                                    </div>
+                                    <div visible="false" id="DivMain_ReportsandKPIs" runat="server">
+                                        <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
+                                            <div class="Selector"></div>
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_ReportsandKPIs_MenuArrow" runat="server">
+                                                <div class="u-inlineBlock MenuIcon Reports">
+                                                </div>
+                                                <div class="u-inlineBlock valignT">
+                                                    <div class="u-ht-xs-5"></div>
+                                                    <span class="textalignL MenuItemName">Reports & KPIs</span>
+                                                </div>
+                                            </div>
+                                            <div visible="false" id="DivSubMain_ReportsandKPIs_ViewReports" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-ReportsandKPIs_ViewReports", Nothing)%>">View Reports</a></div>
+                                            <%--<div visible="false" id="DivSubMain_ReportsandKPIs_NewReports" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-ReportsandKPIs_NewReports", Nothing)%>">New Report</a></div>--%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="floatL widthContent AnimateMe">
+                            <div class="DivMain zindexMain" id="DivMain" runat="server">
+                                <div class="iWantMyChildrenFloatHeight u-relative">
+                                    <div class="u-ht-xs-70">
+                                    </div>
+                                    <div class="WhiteHead">
+                                        <uc1:Cufex_MasterHeader runat="server" ID="Cufex_MasterHeader" />
+                                    </div>
+                                    <asp:ContentPlaceHolder ID="Cufex_MainContent" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                                <div class="FooterExtraMobile" style="position: relative; height: 140px; display: none"></div>
+                            </div>
+                            <div class="DeniedDivError" id="DivDenied" runat="server" visible="false">
+                                <div class="NormalDiv1118Max">
+                                    <span class="colorBlue">Warning:</span> You are not allowed to access this section of the system
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <asp:ContentPlaceHolder ID="LogInContainer" runat="server">
+                </asp:ContentPlaceHolder>
+                <div class="PointsMenu">
+                </div>
+            </div>
+        </div>
+
+
+        <asp:UpdatePanel ID="panel1" runat="server">
+            <ContentTemplate>
+                <input id="fromdefault" runat="server" type="hidden" />
+                <input id="AlertTitle" runat="server" type="hidden" class="AlertTitle" value="" />
+                <input id="AlertText" runat="server" type="hidden" class="AlertText" value="" />
+                <input id="AlertType" runat="server" type="hidden" class="AlertType" value="" />
+                <input id="AlertallowOutsideClick" runat="server" type="hidden" class="AlertallowOutsideClick" value="" />
+                <input id="AlertshowCancelButton" runat="server" type="hidden" class="AlertshowCancelButton" value="" />
+                <input id="AlertconfirmButtonText" runat="server" type="hidden" class="AlertconfirmButtonText" value="" />
+                <input id="AlertconfirmButtonColor" runat="server" type="hidden" class="AlertconfirmButtonColor" value="#CD3067" />
+                <input id="AlertcancelButtonText" runat="server" type="hidden" class="AlertcancelButtonText" value="" />
+                <input id="AlertcloseOnConfirm" runat="server" type="hidden" class="AlertcloseOnConfirm" value="" />
+                <input id="AlertimageUrl" runat="server" type="hidden" class="AlertimageUrl" value="" />
+                <input id="AlertimageSize" runat="server" type="hidden" class="AlertimageSize" value="" />
+                <input id="Alerttimer" runat="server" type="hidden" class="Alerttimer" value="" />
+                <input id="HiddenMenuStatus" runat="server" type="hidden" class="HiddenMenuStatus" value="0" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
+
+        <script type="text/javascript" src="<%= sAppPath %>js/CaroufredSel/jquery.mousewheel.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/CaroufredSel/jquery.touchSwipe.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/CaroufredSel/jquery.transit.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/CaroufredSel/jquery.ba-throttle-debounce.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/mCustomScrollBar/jquery.mCustomScrollbar.concat.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/jquery.KeyPressfunctionsOverride.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/PiroBox/pirobox_extended_feb_2011.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/MsgBox/sweet-alert.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>JS/chosen.jquery.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/MainQuery.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/Master.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>JS/ColResizable/colResizable-1.6.min.js?v=<%=AppVersion%>"></script>
+
+
+        <asp:ContentPlaceHolder ID="Cufex_ScriptContent" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <script type="text/javascript" src="<%= sAppPath %>js/JqueryMain/jquery-ui.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>js/JqueryMain/modernizr.custom.js?v=<%=AppVersion%>"></script>
+
+
+        <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/legacy.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>JS/Jcrop/jquery.Jcrop.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" data-pace-options='{ "document": false }' src="<%= sAppPath %>js/Pace-Modified.min.js?v=<%=AppVersion%>"></script>
+        <input type="hidden" class="Cufex_Forms" value="1" />
+    </form>
+</body>
+</html>
