@@ -236,7 +236,8 @@ Public Class GetItems
                 MyRecords += "                        " & !Email
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
-                MyRecords += "                        " & IIf(!Active = 1, "<div class='GreenStatus'>Active</div>", "<div class='RedStatus'>Not Active</div>")
+                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrdActive' type='checkbox' " & IIf(Val(!Active) = 1, "checked", "") & " id='ChkActive" & i & "' data-id='" & !ID & "' />"
+                MyRecords += "                        <label for='ChkActive" & i & "'><span class='CheckBoxStyle'></span></label>"
                 MyRecords += "                    </td>"
                 MyRecords += "                </tr>"
             End With

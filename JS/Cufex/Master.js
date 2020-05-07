@@ -1460,6 +1460,13 @@ function DisplayItem(DisplayID, QueryURL) {
                         else if ($(myclass).attr("type") == "checkbox") {
                             myclass.prop("checked", myvalue);
                         }
+                        else if ($(myclass).attr("type") == "password") {
+                            myclass.attr("type", "text");
+                            myclass.attr("value", myvalue);
+                            setTimeout(function () {
+                                myclass.attr("type", "password");
+                            }, 100);
+                        }
                     } else if (myclass.is("select")) {
                         if ($('.MainPageTitle').attr("data-id") == "Warehouse_PO" || $('.MainPageTitle').attr("data-id") == "Warehouse_ASN" || $('.MainPageTitle').attr("data-id") == "Warehouse_SO" || $('.MainPageTitle').attr("data-id") == "Warehouse_OrderManagement" || $('.MainPageTitle').attr("data-id") == "SKUCATALOGUE") {
                             if (myclass.hasClass("InputAutoPostBack")) {
@@ -1974,6 +1981,10 @@ function LoadItems() {
                             UpdateProfileDetail($(this), "Read Only", QueryUrlStr, TabName, ActionName);
                         });
                     }
+
+                    $('.chkSelectGrdActive').change(function () {
+                        UpdateUserActive($(this));
+                    });
 
                     if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
                         setTimeout(function () {
@@ -2601,10 +2612,10 @@ function UpdateProfileDetail(MyCheckbox, Type, QueryUrlStr, TabName, ActionName)
     }
     function OnLoadSuccess(response) {
         var obj = jQuery.parseJSON(response);
-        var showPreloader = true;
+        var success = true;
         if (Object.keys(obj).length > 0) {
             if (obj.Error != null) {
-                showPreloader = false;
+                success = false;
                 swal({
                     title: "Update",
                     text: obj.Error.replace(/<br\s*\/?>/gim, "\n"),
@@ -2625,7 +2636,60 @@ function UpdateProfileDetail(MyCheckbox, Type, QueryUrlStr, TabName, ActionName)
         } else {
             alert("Couldn't Update Permission");
         }
-        if (showPreloader) {
+        if (success) {
+            AvoidWebServiceRaceCondition = 0;
+        }
+    }
+    function OnLoadError(response) {
+        alert(response.error);
+        AvoidWebServiceRaceCondition = 0;
+    }
+}
+
+function UpdateUserActive(MyCheckbox) {
+    AvoidWebServiceRaceCondition = 0;
+    if (AvoidWebServiceRaceCondition == 0) {
+        AvoidWebServiceRaceCondition = 1;
+
+        var pageUrl = sAppPath + 'WebServices/UpdateUserActive.ashx';
+
+        var data = new FormData();
+        data.append("MyID", MyCheckbox.data("id"));
+        data.append("Active", MyCheckbox.is(':checked'));
+
+        $.ajax({
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            url: pageUrl + "/Update",
+            success: OnLoadSuccess,
+            error: OnLoadError
+        });
+    }
+    function OnLoadSuccess(response) {
+        var obj = jQuery.parseJSON(response);
+        var success = true;
+        if (Object.keys(obj).length > 0) {
+            if (obj.Error != null) {
+                success = false;
+                swal({
+                    title: "Update",
+                    text: obj.Error.replace(/<br\s*\/?>/gim, "\n"),
+                    type: 'error',
+                    confirmButtonColor: $('.AlertconfirmButtonColor').val(),
+                    showCancelButton: false
+                });
+                AvoidWebServiceRaceCondition = 0;
+            }
+            else {
+                MyCheckbox.closest('.GridResults').find(".chkSelectGrdActive").prop("checked", MyCheckbox.is(':checked'));
+                $(".RecordHeader").find(".InputActive").val(MyCheckbox.is(':checked') ? 1 : 0);
+            }
+        } else {
+            alert("Couldn't Update User Active");
+        }
+        if (success) {
             AvoidWebServiceRaceCondition = 0;
         }
     }

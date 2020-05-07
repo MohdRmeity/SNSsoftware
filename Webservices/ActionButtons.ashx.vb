@@ -11,7 +11,9 @@ Public Class ActionButtons
         Dim MyItems As String = HttpContext.Current.Request.Item("MyItems")
         Dim ActionID As Integer = Val(HttpContext.Current.Request.Item("ActionID"))
 
-        If SearchTable = "Warehouse_SO" Then
+        If SearchTable = "PORTALUSERS" Then
+            tmp = ResetUserConfiguration(MyItems)
+        ElseIf SearchTable = "Warehouse_SO" Then
             tmp = AllocateSO(MyItems)
         ElseIf SearchTable = "Warehouse_OrderManagement" Then
             If ActionID = 1 Then
@@ -35,6 +37,12 @@ Public Class ActionButtons
         context.Response.Write(sw)
         context.Response.End()
     End Sub
+    Private Function ResetUserConfiguration(ByVal MyItems As String) As String
+        Dim sql As String = " Delete From PORTALUSERSCONFIGURATION where UserKey in "
+        sql += " (select UserKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS "
+        sql += " where ID in (" & MyItems & ")) "
+        Return (New SQLExec).Execute(sql)
+    End Function
     Private Function AllocateSO(ByVal MyItems As String) As String
         Dim tmp As String = "", AndFilter As String = "", Sql As String = "", Command As String = "", wname As String = "", warehouselevel As String = ""
         Dim wnameRow As DataRow() = Nothing
@@ -93,7 +101,6 @@ Public Class ActionButtons
         Next
         Return tmp
     End Function
-
     Private Function ReleaseToSCEOrder(ByVal MyItems As String) As String
         Dim tmp As String = "", ordermanagkey As String = "", warehouse As String = "",
         externorderkey As String = "", wmsokey As String = "", Owner As String = ""
@@ -222,7 +229,6 @@ Public Class ActionButtons
         End If
         Return tmp
     End Function
-
     Private Function OrderStatusUpdate(ByVal ordermanagkey As String, ByVal warehouse As String, ByVal status As String, ByVal okey As String) As String
         Dim sql As String = " Update " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ordermanag "
         sql += " set ORDERMANAGSTATUS= '" & status & " , notes2= '" & okey & "'"
