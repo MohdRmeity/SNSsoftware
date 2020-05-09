@@ -56,15 +56,15 @@
                     <td class="GridCell GridHead selectAllWidth">
                         <div class="AdjustColumns"></div>
                     </td>
-                    <td class="GridCell GridHead" data-id="Facility">
-                        <span class="MyTitleHead">Facility</span>
+                    <td class="GridCell GridHead" data-id="POKey">
+                        <span class="MyTitleHead">PO Key</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="POKey">
-                        <span class="MyTitleHead">PO Key</span>
+                    <td class="GridCell GridHead" data-id="Facility">
+                        <span class="MyTitleHead">Facility</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -188,10 +188,10 @@
                         <div class="GridSearch"></div>
                     </td>
                     <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="POKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="POKey" />
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="ExternPOKey" />
@@ -403,7 +403,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="floatL Width100 PageResizer"></div>
                     <div class="floatL Width100 RecordDetail">
                         <div class="floatL">
                             <div class="MainPageTitle MainPageDetailTitle" data-text="Records Details">
@@ -568,7 +567,7 @@
             </div>
         </div>
 
-        <div style="position: relative; height: 70px;"></div>
+        <div style="position: relative; height: 15px;"></div>
         <div class="New_Modify_Record_PopUp">
             <div style="position: relative;">
                 <div class="MyAbso_Record_PopUpContainer">
@@ -750,7 +749,7 @@
                         Drag to customize your preferred columns order
                     </div>
                     <div class="circle"></div>
-                    <div style="position: relative; height: 400px; width: 100%;" class="content_4 GridColumnsChooser">
+                    <div style="position: relative; height: 380px; width: 100%;" class="content_4 GridColumnsChooser">
                     </div>
                     <div class="iWantMyChildrenFloatHeight">
                         <div class="floatL Width100">
@@ -772,8 +771,8 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-        <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="1" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="POKey" data-columnname="PO Key" data-priority="2" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="POKey" data-columnname="PO Key" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="ExternPOKey" data-columnname="Extern PO" data-priority="3" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="PODate" data-columnname="PO Date" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Status" data-columnname="Status" data-priority="5" data-hidden="false" />

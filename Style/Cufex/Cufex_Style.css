@@ -518,7 +518,7 @@ body {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0 50px;
-    min-width: 400px;
+    min-width: 320px;
 }
 
     .NormalDiv1118Max.ZeroPadding {
@@ -12959,10 +12959,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 
 .NewHeaderRecord {
-    padding: 19px 0;
+    padding: 19px 0 50px 0;
 }
 
-.PageResizer {
+.ui-resizable-s {
     border: 2px solid #e9eaec;
     width: 100%;
     height: 33px;
@@ -12972,6 +12972,9 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 15px 19px;
+    background-color: #F8F9FB;
+    bottom: 0;
+    z-index: 0 !important;
 }
 
 .RecordDetail {
@@ -12980,6 +12983,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 /*#endregion*/
 
 /*#region Popup */
+.MyContainerPopup .mCSB_container {
+    width: 100% !important;
+}
+
 .New_Modify_Record_PopUp {
     display: none;
     width: 100%;
@@ -13029,11 +13036,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 .FloatRecordNew {
-    width: 20%;
+    width: 25%;
     padding: 5px;
 }
 
-    .FloatRecordNew:nth-child(5n+1) {
+    .FloatRecordNew:nth-child(4n+1) {
         padding-left: 0;
     }
 
@@ -13250,11 +13257,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 
 .Details_FloatRecordNew {
-    width: 20%;
+    width: 25%;
     padding: 5px;
 }
 
-    .Details_FloatRecordNew:nth-child(5n+1) {
+    .Details_FloatRecordNew:nth-child(4n+1) {
         padding-left: 0;
     }
 
@@ -13306,7 +13313,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .Details_FloatRecordField {
     width: 270px;
-    height: 39px;
+    height: 41px;
 }
 
 .Details_textRecordStyle {
@@ -13343,7 +13350,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .btnDeleteDtl {
     position: absolute;
     top: 10px;
-    right: 27px;
+    right: 15px;
     width: 32px;
     height: 32px;
     background-image: url(../../images/Cufex_Images/btnDeleteDtl.png);
@@ -13358,11 +13365,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .PasswordInfo {
     color: #3673ff;
-    padding-top:10px;
+    padding-top: 10px;
     padding-left: 21px;
     padding-right: 21px;
-    padding-bottom:21px;
-    line-height:1.3;
+    padding-bottom: 21px;
+    line-height: 1.3;
 }
 
 /*#endregion*/
@@ -13376,7 +13383,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: absolute;
     height: 100%;
     background-color: rgba(19, 24, 32, 0.8);
-    padding-top: 60px;
+    padding-top: 45px;
     z-index: 10;
 }
 
@@ -13525,41 +13532,232 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 /*#region Responsive */
 
-@media all and (max-width:1310px) {
+@media all and (max-width:1320px) {
+
     .FloatRecord {
+        width: 50%;
         max-width: 100%;
     }
 
-    .FloatRecordField {
-        width: calc(100%-135px);
+    .FloatRecordTitle, .FloatRecordField {
+        width: 100%;
     }
 
-    .RecordHeader .FloatRecordSep {
-        display: none;
+    .FloatRecordTitle {
+        padding-top: 0;
+        height: 30px;
     }
 
-        .RecordHeader .FloatRecordSep:last-child {
-            display: block;
+    .Details_FloatRecord {
+        width: 33.33%;
+        max-width: 100%;
+    }
+
+        .Details_FloatRecord:nth-child(3n+3) {
+            padding-right: 35px;
+        }
+
+    .Details_FloatRecordTitle, .Details_FloatRecordField {
+        width: 100%;
+    }
+
+    .FloatRecordNew, .Details_FloatRecordNew {
+        width: 33.33%;
+    }
+
+        .FloatRecordNew:nth-child(4n+1), .Details_FloatRecordNew:nth-child(4n+1) {
+            padding-left: 5px;
+        }
+
+        .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
+            padding-left: 0;
         }
 }
 
-@media all and (max-width: 1150px) {
+@media all and (max-width: 1080px) {
     .MainHeader .floatL .floatL {
         width: 100%;
+    }
+
+    .MainHeaderProfileDetails .floatL .floatL {
+        width: unset;
     }
 
     .MainPageDesc {
         padding-bottom: 25px;
     }
 
+    .MainHeaderProfileDetails .MainPageDesc {
+        padding-bottom: 0;
+    }
+
     .ActionHiddenButtons {
         top: 125px;
     }
+
+    .FloatRecordNew, .Details_FloatRecordNew {
+        width: 50%;
+    }
+
+        .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
+            padding-left: 5px;
+        }
+
+        .FloatRecordNew:nth-child(2n+1), .Details_FloatRecordNew:nth-child(2n+1) {
+            padding-left: 0;
+        }
+
+    .NewHeaderRecord {
+        padding: 10px 0 50px 0;
+    }
 }
 
-@media all and (max-width:800px) {
+@media all and (max-width:860px) {
     .NormalDiv1118Max {
         padding: 0 20px;
+    }
+
+    .Details_FloatRecord {
+        width: 50%;
+    }
+
+        .Details_FloatRecord:nth-child(3n+3) {
+            padding-right: 10px;
+        }
+
+        .Details_FloatRecord:nth-child(2n+2) {
+            padding-right: 35px;
+        }
+}
+
+@media all and (max-width:650px) {
+    .R_PopupTitle {
+        padding-bottom: 25px;
+    }
+
+    .FloatRecord {
+        width: 100%;
+    }
+
+    .FloatRecordSep {
+        display: none;
+    }
+
+        .FloatRecordSep:last-child {
+            display: block;
+        }
+
+    .Details_FloatRecord {
+        width: 100%;
+        padding-right: 35px;
+    }
+
+        .Details_FloatRecord:nth-child(3n+3) {
+            padding-right: 35px;
+        }
+
+    .NewHeaderRecord {
+        padding: 10px 0 0 0;
+    }
+
+    .ui-resizable-s {
+        display: none !important;
+    }
+
+    .RecordDetail {
+        padding-top: 25px;
+    }
+
+    .FloatRecordNew, .Details_FloatRecordNew {
+        width: 100%;
+        padding: 0;
+    }
+
+        .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
+            padding-left: 0;
+        }
+}
+
+@media all and (max-width:550px) {
+
+    .MainHeader:not(.MainHeaderProfileDetails) table, .MainHeader:not(.MainHeaderProfileDetails) table tbody, .MainHeader:not(.MainHeaderProfileDetails) table tr {
+        width: 100%;
+        display: block;
+        float: left;
+    }
+
+        .MainHeader:not(.MainHeaderProfileDetails) table td {
+            width: 50%;
+            display: block;
+            float: left;
+        }
+
+            .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(1), .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(5), .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(7) {
+                padding-right: 10px;
+            }
+
+            .MainHeader:not(.MainHeaderProfileDetails) table td div, .MainHeader:not(.MainHeaderProfileDetails) table td a {
+                margin-bottom: 10px;
+            }
+
+            .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(9) div, .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(7) a {
+                margin-bottom: 0;
+            }
+
+
+    .MainHeaderProfileDetails table td a {
+        margin-bottom: 25px;
+    }
+
+    .RecordDetail table, .RecordDetail table tbody, .RecordDetail table tr {
+        width: 100%;
+        display: block;
+        float: left;
+    }
+
+    .RecordDetail table {
+        padding-top: 10px;
+    }
+
+        .RecordDetail table td {
+            width: 50%;
+            display: block;
+            float: left;
+        }
+
+            .RecordDetail table td:nth-child(1), .RecordDetail table td:nth-child(3) {
+                padding-right: 10px;
+            }
+
+    .btnQuickEntry, .btnAddNew, .btnDelete, .btnSave, .btnDeleteDetail, .btnSaveDetail {
+        padding-top: 8px;
+    }
+
+    .btnNew {
+        padding-top: 10px;
+    }
+
+    .MainHeaderProfileDetails .btnDelete {
+        padding-top: 0;
+    }
+
+    .ActionHiddenButtons {
+        top: 170px;
+    }
+
+    .BackDetail {
+        float: right;
+        margin-top: 10px;
+    }
+
+    .DetailsGridView {
+        padding-top: 25px !important;
+    }
+}
+
+@media all and (max-width:448px){
+    .MainHeaderProfileDetails .MainPageDesc{
+        padding-bottom:25px;
     }
 }
 

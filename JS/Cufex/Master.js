@@ -39,6 +39,10 @@ function SetDefaults() {
         if (!$(e.target).closest(".chosen-container").length > 0) {
             $(".NewHeaderRecord").addClass("u-overflowHidden");
         }
+
+        if (!$(e.target).closest(".widthMenu").length > 0 && !$('.MenuPin').hasClass("Pinned") && !MenuClosed) {
+            CloseMenu(true);
+        }
     });
 
     $(window).resize(function () {
@@ -124,6 +128,10 @@ function SNSFunctions() {
         $('.BackDetail').hide();
         $(".VerticalSep,.btnSaveDetail").hide();
         $(".MainPageDetailTitle").html($(".MainPageDetailTitle").data("text"));
+        if ($(window).width() > 550) {
+            $(".btnDelete").parent("td").css("padding-right", "0px");
+            $(".ActionHiddenButtons").css("right", "0");
+        }
 
         $('.NewHeaderRecord, .NewDetailRecord').find('input:text').each(function () {
             var $this = $(this);
@@ -165,6 +173,12 @@ function SNSFunctions() {
         $('.btnAddNew,.btnQuickEntry').show();
         $('.btnAddNew').parent("td").prev("td").show();
         $(".MainPageDesc").html($(".MainPageDesc").data("text"));
+
+        if ($(window).width() <= 550) {
+            $(".btnDelete").parent("td").css("padding-right", "10px");
+            $(".btnDelete").parent("td").css("margin-bottom", "10px");
+            $(".btnActions").parent("td").css("padding-right", "0px");
+        }
 
         setTimeout(function () { InitColResizable(); }, 300);
     });
@@ -221,6 +235,8 @@ function SNSFunctions() {
         setTimeout(function () {
             InitColResizable();
         }, 300);
+
+        SetMasterResize();
     });
 
     $(".NewHeaderRecord").resizable({
@@ -441,16 +457,7 @@ function SNSFunctions() {
         $(".NewHeaderRecord").removeClass("u-overflowHidden");
     });
 
-
-
     if ($(".MyTab").length > 0) {
-        function MoveTabLine(index) {
-            $(".MyTabLine").animate({
-                width: $(".MyTab").eq(index).outerWidth() + "px",
-                left: ($(".MyTab").eq(index).offset().left - $(".widthMenu").width()) + "px"
-            }, 200);
-        }
-
         MoveTabLine(0);
         $('.MyTab').click(function () {
             $('.MyTab').removeClass("Active");
@@ -474,12 +481,22 @@ function SNSFunctions() {
                 LoadItems();
                 setTimeout(function () { InitColResizable(); }, 300);
             }
+            SetMasterResize();
         });
     }
 
-    if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0 && isFirstLoad) {
-        AvoidWebServiceRaceCondition = 0;
-        LoadItems();
+    //if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0 && isFirstLoad) {
+    //    AvoidWebServiceRaceCondition = 0;
+    //    LoadItems();
+    //}
+
+    if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
+        setTimeout(function () {
+            var MyID = $(".HiddenID").val();
+            $(".HiddenID").val(0);
+            if ($(".NewRecord").length > 0) DisplayItemNew(MyID, '');
+            else DisplayItem(MyID, '');
+        }, 1500);
     }
 }
 
@@ -573,6 +590,7 @@ function SetGridActions() {
         if ($(".GridResults").length > 0) {
             SortTable($(this).index(), dir);
             PageTable(GridName);
+            $('.Arrow-Left-Back-First').trigger("click");
         }
     });
 
@@ -590,7 +608,9 @@ function SetGridActions() {
         if ($(".GridResults").length > 0) {
             SortTable($(this).closest(".GridCell").index(), "asc");
             PageTable(GridName);
+            $('.Arrow-Left-Back-First').trigger("click");
         }
+
     });
 
     $(".GridContainer").on('click', '.SortDown', function (e) {
@@ -607,6 +627,7 @@ function SetGridActions() {
         if ($(".GridResults").length > 0) {
             SortTable($(this).closest(".GridCell").index(), "desc");
             PageTable(GridName);
+            $('.Arrow-Left-Back-First').trigger("click");
         }
     });
 
@@ -1021,7 +1042,7 @@ function DeleteItems(MyItems) {
                 }, 500);
             }
         } else {
-            alert("Couldn't Delete Your Record");
+            console.log("Couldn't Delete Your Record");
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
@@ -1034,7 +1055,7 @@ function DeleteItems(MyItems) {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -1099,7 +1120,7 @@ function DeleteItemsDetails(MyItems) {
                 }, 500);
             }
         } else {
-            alert("Couldn't Delete Your Record");
+            console.log("Couldn't Delete Your Record");
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
@@ -1109,7 +1130,7 @@ function DeleteItemsDetails(MyItems) {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -1215,7 +1236,7 @@ function SaveItems() {
                 }, 500);
             }
         } else {
-            alert("Couldn't Save Your Record");
+            console.log("Couldn't Save Your Record");
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
@@ -1225,7 +1246,7 @@ function SaveItems() {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -1303,7 +1324,7 @@ function SaveItemsNew() {
                 }, 500);
             }
         } else {
-            alert("Couldn't Save Your Record");
+            console.log("Couldn't Save Your Record");
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
@@ -1316,7 +1337,7 @@ function SaveItemsNew() {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -1394,7 +1415,7 @@ function SaveItemsDetails() {
                 }, 500);
             }
         } else {
-            alert("Couldn't Save Your Record");
+            console.log("Couldn't Save Your Record");
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
@@ -1407,7 +1428,7 @@ function SaveItemsDetails() {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -1498,7 +1519,7 @@ function DisplayItem(DisplayID, QueryURL) {
                 $('.FloatRecordField').find('input:password').val('');
 
                 $('.New_Modify_Record_PopUp').fadeIn(function () {
-                    setOnCufex_Resize();
+                    SetMasterResize();
                     $('.AddDetailsBtn').show();
 
                     $('.btnDeleteDtl').click(function () {
@@ -1627,7 +1648,7 @@ function DisplayItem(DisplayID, QueryURL) {
                 }, 500);
             }
         } else {
-            alert("This record does not exist");
+            console.log("This record does not exist");
         }
 
         if (success) {
@@ -1638,14 +1659,14 @@ function DisplayItem(DisplayID, QueryURL) {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
     }
 }
 
-function DisplayItemNew(DisplayID) {
+function DisplayItemNew(DisplayID, QueryURL) {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
         $(".preloader").fadeIn();
@@ -1718,6 +1739,11 @@ function DisplayItemNew(DisplayID) {
                 $('.MyRecordID').val(DisplayID);
                 $(".ActionsDetails,.DetailsGridView").show();
                 $(".NewDetailRecord").hide();
+
+                if (QueryURL != "") {
+                    var MyLink = $('.HiddenDetailLink').val();
+                    window.history.pushState('object or string', DisplayID, MyLink + QueryURL);
+                }
             }
             else {
                 success = false;
@@ -1735,7 +1761,7 @@ function DisplayItemNew(DisplayID) {
                 }, 500);
             }
         } else {
-            alert("This record does not exist");
+            console.log("This record does not exist");
         }
 
         if (success) {
@@ -1756,7 +1782,7 @@ function DisplayItemNew(DisplayID) {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -1851,7 +1877,7 @@ function DisplayItemDetails(DisplayID) {
                 }, 500);
             }
         } else {
-            alert("This record does not exist");
+            console.log("This record does not exist");
         }
 
         if (success) {
@@ -1862,7 +1888,7 @@ function DisplayItemDetails(DisplayID) {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -1961,13 +1987,15 @@ function LoadItems() {
                         if ($('.MainPageTitle').attr("data-id") != "PROFILES") {
                             var myID = $(this).attr("data-id");
                             var myQueryURL = $(this).attr("data-queryurl");
+                            if ($(".NewRecord").length > 0) myQueryURL = "";
                             DisplayItem(myID, myQueryURL);
                         }
                     });
 
                     $(".HeaderGridView").find(".GridContainer").on('click', '.editStyle', function () {
                         var myID = $(this).attr("data-id");
-                        DisplayItemNew(myID);
+                        var myQueryURL = $(this).attr("data-queryurl");
+                        DisplayItemNew(myID, myQueryURL);
                     });
 
                     if (TabName != "") {
@@ -1986,12 +2014,15 @@ function LoadItems() {
                         UpdateUserActive($(this));
                     });
 
-                    if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
-                        setTimeout(function () {
-                            AvoidWebServiceRaceCondition = 0;
-                            DisplayItem($(".HiddenID").val(), '');
-                        }, 1000);
-                    }
+                    //if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
+                    //    setTimeout(function () {
+                    //        var MyID = $(".HiddenID").val();
+                    //        $(".HiddenID").val(0);
+                    //        AvoidWebServiceRaceCondition = 0;
+                    //        if ($(".NewRecord").length > 0) DisplayItemNew(MyID, '');
+                    //        else DisplayItem(MyID, '');
+                    //    }, 1000);
+                    //}
 
                 } else {
                     $(".HeaderGridView").find('.NoResults').show();
@@ -2006,7 +2037,7 @@ function LoadItems() {
         }
 
         function OnLoadError(response) {
-            alert(response.error);
+            console.log(response.error);
             $('.preloader').fadeOut(300, function () {
                 AvoidWebServiceRaceCondition = 0;
             });
@@ -2102,12 +2133,13 @@ function LoadItemsDetails() {
 
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
-            if ($(".DetailsGridView").find(".GridContainer").data("resizemode") == "fit") setOnCufex_Resize();
+            //if ($(".DetailsGridView").find(".GridContainer").data("resizemode") == "fit") setOnCufex_Resize();
+            setOnCufex_Resize();
         });
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -2162,7 +2194,7 @@ function DisplayDropDowns() {
                 });
             }
         } else {
-            alert("Couldn't Display Drop Downs");
+            console.log("Couldn't Display Drop Downs");
         }
 
         $('.preloader').fadeOut(300, function () {
@@ -2171,7 +2203,7 @@ function DisplayDropDowns() {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -2288,7 +2320,7 @@ function AutoPostBack(value) {
                 });
             }
         } else {
-            alert("Couldn't Display Drop Downs");
+            console.log("Couldn't Display Drop Downs");
         }
 
         if (success) {
@@ -2302,7 +2334,7 @@ function AutoPostBack(value) {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
             IsAutoPostBack = false;
@@ -2359,14 +2391,14 @@ function AutoPostBackDetails(thiss, value) {
                 }
             });
         } else {
-            alert("Couldn't Display Drop Downs");
+            console.log("Couldn't Display Drop Downs");
         }
         AvoidWebServiceRaceCondition = 0;
         IsAutoPostBackDetails = false;
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         AvoidWebServiceRaceCondition = 0;
         IsAutoPostBackDetails = false;
     }
@@ -2423,7 +2455,7 @@ function GetSkuDropDown(MyDropDown, MyFacility, MyOwner, MySelectedValue) {
                     });
                 }
             } else {
-                alert("Couldn't Load Items");
+                console.log("Couldn't Load Items");
             }
 
             if (showPreloader) {
@@ -2434,7 +2466,7 @@ function GetSkuDropDown(MyDropDown, MyFacility, MyOwner, MySelectedValue) {
         }
 
         function OnLoadError(response) {
-            alert(response.error);
+            console.log(response.error);
             $('.preloader').fadeOut(300, function () {
                 AvoidWebServiceRaceCondition = 0;
             });
@@ -2507,12 +2539,12 @@ function SetPriceAndCurrency() {
                 }
             });
         } else {
-            alert("Couldn't Set Price and Currency");
+            console.log("Couldn't Set Price and Currency");
         }
         AvoidWebServiceRaceCondition = 0;
     }
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         AvoidWebServiceRaceCondition = 0;
     }
 }
@@ -2559,7 +2591,7 @@ function ExecuteAction(MyItems, ActionID) {
                 });
             }
         } else {
-            alert("Couldn't Execute Action");
+            console.log("Couldn't Execute Action");
         }
 
         if (success) {
@@ -2573,7 +2605,7 @@ function ExecuteAction(MyItems, ActionID) {
     }
 
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         $('.preloader').fadeOut(300, function () {
             AvoidWebServiceRaceCondition = 0;
         });
@@ -2634,14 +2666,14 @@ function UpdateProfileDetail(MyCheckbox, Type, QueryUrlStr, TabName, ActionName)
                 }
             }
         } else {
-            alert("Couldn't Update Permission");
+            console.log("Couldn't Update Permission");
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
         }
     }
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         AvoidWebServiceRaceCondition = 0;
     }
 }
@@ -2687,14 +2719,14 @@ function UpdateUserActive(MyCheckbox) {
                 $(".RecordHeader").find(".InputActive").val(MyCheckbox.is(':checked') ? 1 : 0);
             }
         } else {
-            alert("Couldn't Update User Active");
+            console.log("Couldn't Update User Active");
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
         }
     }
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         AvoidWebServiceRaceCondition = 0;
     }
 }
@@ -2798,7 +2830,7 @@ function GetUserConfiguration() {
                 }, timer);
             }
         } else {
-            alert("Couldn't Get User Configuration");
+            console.log("Couldn't Get User Configuration");
         }
 
         AvoidWebServiceRaceCondition = 0;
@@ -2807,7 +2839,7 @@ function GetUserConfiguration() {
         }, 300);
     }
     function OnLoadError(response) {
-        alert(response.error);
+        console.log(response.error);
         AvoidWebServiceRaceCondition = 0;
         setTimeout(function () {
             InitColResizable();
@@ -2816,82 +2848,84 @@ function GetUserConfiguration() {
 }
 
 function SetUserConfigution() {
-    AvoidWebServiceRaceCondition = 0;
-    if (AvoidWebServiceRaceCondition == 0) {
-        AvoidWebServiceRaceCondition = 1;
-        var ColumnsNames = ""
-        var ColumnsPriorities = ""
-        var ColumnsWidthes = ""
-        var ColumnsHidden = ""
-        var GridTypes = ""
+    if ($(".MainPageTitle").length > 0) {
+        AvoidWebServiceRaceCondition = 0;
+        if (AvoidWebServiceRaceCondition == 0) {
+            AvoidWebServiceRaceCondition = 1;
+            var ColumnsNames = ""
+            var ColumnsPriorities = ""
+            var ColumnsWidthes = ""
+            var ColumnsHidden = ""
+            var GridTypes = ""
 
-        $(".GridAdjust").children(".GridCell").each(function (e) {
-            var $this = $(this);
-            if ($this.closest(".HeaderGridView").length > 0) GridTypes += "Header" + ",";
-            else GridTypes += "Detail" + ",";
+            $(".GridAdjust").children(".GridCell").each(function (e) {
+                var $this = $(this);
+                if ($this.closest(".HeaderGridView").length > 0) GridTypes += "Header" + ",";
+                else GridTypes += "Detail" + ",";
 
-            if ($this.data("id") == null) {
-                ColumnsNames += e.toString() + ",";
-                ColumnsPriorities += "0" + ",";
-                ColumnsHidden += "0" + ",";
-            }
-            else {
-                ColumnsNames += $this.data("id") + ",";
-                ColumnsPriorities += ($this.data("priority") == null ? "500" : $this.data("priority")) + ",";
-                ColumnsHidden += ($this.attr("data-hidden") == "true" ? "1" : "0") + ",";
-            }
-            ColumnsWidthes += $this.outerWidth() + ",";
-        });
+                if ($this.data("id") == null) {
+                    ColumnsNames += e.toString() + ",";
+                    ColumnsPriorities += "0" + ",";
+                    ColumnsHidden += "0" + ",";
+                }
+                else {
+                    ColumnsNames += $this.data("id") + ",";
+                    ColumnsPriorities += ($this.data("priority") == null ? "500" : $this.data("priority")) + ",";
+                    ColumnsHidden += ($this.attr("data-hidden") == "true" ? "1" : "0") + ",";
+                }
+                ColumnsWidthes += $this.outerWidth() + ",";
+            });
 
-        var pageUrl = sAppPath + 'WebServices/UserConfiguration.ashx';
+            var pageUrl = sAppPath + 'WebServices/UserConfiguration.ashx';
 
-        var data = new FormData();
-        data.append("ActionType", "set");
-        data.append("SearchTable", $('.MainPageTitle').attr("data-id"));
-        data.append("MenuOpen", MenuClosed ? 0 : 1);
-        data.append("ColumnsNames", ColumnsNames.slice(0, -1));
-        data.append("ColumnsPriorities", ColumnsPriorities.slice(0, -1));
-        data.append("ColumnsWidthes", ColumnsWidthes.slice(0, -1));
-        data.append("ColumnsHidden", ColumnsHidden.slice(0, -1));
-        data.append("GridTypes", GridTypes.slice(0, -1));
+            var data = new FormData();
+            data.append("ActionType", "set");
+            data.append("SearchTable", $('.MainPageTitle').attr("data-id"));
+            data.append("MenuOpen", MenuClosed ? 0 : 1);
+            data.append("ColumnsNames", ColumnsNames.slice(0, -1));
+            data.append("ColumnsPriorities", ColumnsPriorities.slice(0, -1));
+            data.append("ColumnsWidthes", ColumnsWidthes.slice(0, -1));
+            data.append("ColumnsHidden", ColumnsHidden.slice(0, -1));
+            data.append("GridTypes", GridTypes.slice(0, -1));
 
-        $.ajax({
-            type: "POST",
-            contentType: false,
-            processData: false,
-            data: data,
-            url: pageUrl + "/UserConfigurationAction",
-            success: OnLoadSuccess,
-            error: OnLoadError
-        });
-    }
-    function OnLoadSuccess(response) {
-        var obj = jQuery.parseJSON(response);
-        if (Object.keys(obj).length > 0) {
-            if (obj.Error != null) {
-                swal({
-                    title: "Update",
-                    text: obj.Error,
-                    type: 'error',
-                    confirmButtonColor: $('.AlertconfirmButtonColor').val(),
-                    showCancelButton: false
-                });
-                AvoidWebServiceRaceCondition = 0;
-            }
-        } else {
-            alert("Couldn't Set User Configuration");
+            $.ajax({
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: data,
+                url: pageUrl + "/UserConfigurationAction",
+                success: OnLoadSuccess,
+                error: OnLoadError
+            });
         }
-        setTimeout(function () {
-            AvoidWebServiceRaceCondition = 0;
-            $(".preloader").fadeOut();
-        }, 300);
-    }
-    function OnLoadError(response) {
-        alert(response.error);
-        setTimeout(function () {
-            AvoidWebServiceRaceCondition = 0;
-            $(".preloader").fadeOut();
-        }, 300);
+        function OnLoadSuccess(response) {
+            var obj = jQuery.parseJSON(response);
+            if (Object.keys(obj).length > 0) {
+                if (obj.Error != null) {
+                    swal({
+                        title: "Update",
+                        text: obj.Error,
+                        type: 'error',
+                        confirmButtonColor: $('.AlertconfirmButtonColor').val(),
+                        showCancelButton: false
+                    });
+                    AvoidWebServiceRaceCondition = 0;
+                }
+            } else {
+                console.log("Couldn't Set User Configuration");
+            }
+            setTimeout(function () {
+                AvoidWebServiceRaceCondition = 0;
+                $(".preloader").fadeOut();
+            }, 300);
+        }
+        function OnLoadError(response) {
+            console.log(response.error);
+            setTimeout(function () {
+                AvoidWebServiceRaceCondition = 0;
+                $(".preloader").fadeOut();
+            }, 300);
+        }
     }
 }
 
@@ -3350,6 +3384,13 @@ function SetMenuFunctionality() {
 //    });
 //}
 
+function MoveTabLine(index) {
+    $(".MyTabLine").animate({
+        width: $(".MyTab").eq(index).outerWidth() + "px",
+        left: ($(".MyTab").eq(index).offset().left - $(".widthMenu").width()) + "px"
+    }, 200);
+}
+
 function setOnCufex_Resize() {
     $('.CufexLogoTD,.addSpacebeforeHeader').css({ "height": "72px" });
     $('.BackMenuDiv').css({ "width": "0px" });
@@ -3367,6 +3408,31 @@ function setOnCufex_Resize() {
         });
     }
 
+    if ($(window).width() <= 860 && !MenuClosed) CloseMenu(false);
+
+    if ($(window).width() <= 550) {
+        if ($(".btnSave:visible").length > 0) {
+            $(".btnDelete").parent("td").css("padding-right", "0px");
+            $(".btnDelete").parent("td").css("margin-bottom", "10px");
+            $(".btnActions").parent("td").css("padding-right", "10px");
+            $(".ActionHiddenButtons").css("right", "unset");
+        }
+        else {
+            $(".btnDelete").parent("td").css("padding-right", "10px");
+            $(".btnDelete").parent("td").css("margin-bottom", "0px");
+            if ($(".NewRecord").length > 0) $(".btnActions").parent("td").css("padding-right", "0px");
+            else $(".btnActions").parent("td").css("padding-right", "10px");
+            $(".ActionHiddenButtons").css("right", "0");
+        }
+    } else {
+        $(".btnDelete").parent("td").css("padding-right", "0px");
+        $(".ActionHiddenButtons").css("right", "0");
+    }
+
+    if ($(".MyTab").length > 0) {
+        MoveTabLine($(".MyTab.Active").index());
+    }
+
     $(".content_3").mCustomScrollbar("update");
     $(".content_3").width(0);
     $(".content_3").width($('.MainHeader').width());
@@ -3375,5 +3441,4 @@ function setOnCufex_Resize() {
     $(".content_4").mCustomScrollbar("update");
 
 
-    if ($(window).width() <= 800 && !MenuClosed) CloseMenu();
 }

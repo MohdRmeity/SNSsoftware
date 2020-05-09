@@ -640,11 +640,11 @@ Public Class GetItems
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&po=" & !POKey & "'>"
-                MyRecords += "                        " & !Facility
+                MyRecords += "                        " & !POKey
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !POKey
+                MyRecords += "                        " & !Facility
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
                 MyRecords += "                        " & !ExternPOKey
@@ -717,11 +717,11 @@ Public Class GetItems
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&receipt=" & !ReceiptKey & "'>"
-                MyRecords += "                        " & !Facility
+                MyRecords += "                        " & !ReceiptKey
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !ReceiptKey
+                MyRecords += "                        " & !Facility
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
                 MyRecords += "                        " & !StorerKey
@@ -787,14 +787,14 @@ Public Class GetItems
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&order=" & !OrderKey & "'>"
-                MyRecords += "                        " & !Facility
+                MyRecords += "                        " & !OrderKey
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !StorerKey
+                MyRecords += "                        " & !Facility
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
-                MyRecords += "                        " & !OrderKey
+                MyRecords += "                        " & !StorerKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !ExternOrderKey
@@ -869,14 +869,14 @@ Public Class GetItems
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&externkey=" & !ExternOrderKey & "'>"
-                MyRecords += "                        " & !Facility
+                MyRecords += "                        " & !OrderManagKey
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !StorerKey
+                MyRecords += "                        " & !Facility
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
-                MyRecords += "                        " & !OrderManagKey
+                MyRecords += "                        " & !StorerKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !ExternOrderKey

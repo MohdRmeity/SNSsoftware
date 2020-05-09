@@ -63,6 +63,13 @@
                     <td class="GridCell GridHead selectAllWidth">
                         <div class="AdjustColumns"></div>
                     </td>
+                    <td class="GridCell GridHead" data-id="OrderKey">
+                        <span class="MyTitleHead">Order</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
                     <td class="GridCell GridHead" data-id="Facility">
                         <span class="MyTitleHead">Facility</span>
                         <div class="AbsoSorting">
@@ -72,13 +79,6 @@
                     </td>
                     <td class="GridCell GridHead" data-id="StorerKey">
                         <span class="MyTitleHead">Owner</span>
-                        <div class="AbsoSorting">
-                            <div class="SortUp"></div>
-                            <div class="SortDown"></div>
-                        </div>
-                    </td>
-                    <td class="GridCell GridHead" data-id="OrderKey">
-                        <span class="MyTitleHead">Order</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -188,13 +188,13 @@
                         <div class="GridSearch"></div>
                     </td>
                     <td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="OrderKey" />
+                    </td>
+                    <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
-                    </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="OrderKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="ExternOrderKey" />
@@ -387,7 +387,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="floatL Width100 PageResizer"></div>
                     <div class="floatL Width100 RecordDetail">
                         <div class="floatL">
                             <div class="MainPageTitle MainPageDetailTitle" data-text="Records Details">
@@ -826,7 +825,7 @@
             </div>
         </div>
 
-        <div style="position: relative; height: 70px;"></div>
+        <div style="position: relative; height: 15px;"></div>
 
         <div class="New_Modify_Record_PopUp">
             <div style="position: relative;">
@@ -1094,7 +1093,7 @@
                         Drag to customize your preferred columns order
                     </div>
                     <div class="circle"></div>
-                    <div style="position: relative; height: 400px; width: 100%;" class="content_4 GridColumnsChooser">
+                    <div style="position: relative; height: 380px; width: 100%;" class="content_4 GridColumnsChooser">
                     </div>
                     <div class="iWantMyChildrenFloatHeight">
                         <div class="floatL Width100">
@@ -1116,9 +1115,9 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-        <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="1" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="2" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="OrderKey" data-columnname="Order" data-priority="3" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="OrderKey" data-columnname="Order" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="3" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="ExternOrderKey" data-columnname="Extern Order Key" data-priority="4" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Consignee" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ConsigneeName" data-columnname="Consignee Name" data-priority="6" data-hidden="false" />
@@ -1133,8 +1132,8 @@
         <input type="hidden" class="MyFields" value="SUsr4" data-columnname="UDF4" data-priority="15" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SUsr5" data-columnname="UDF5" data-priority="16" data-hidden="false" />
 
-        <input type="hidden" class="MyDetailsFields" value="ExternLineNo" data-columnname="Extern Line#" data-priority="1" data-hidden="false" data-primarykey="true"  />
-        <input type="hidden" class="MyDetailsFields" value="Sku" data-columnname="Item" data-priority="2" data-hidden="false" data-primarykey="true"  />
+        <input type="hidden" class="MyDetailsFields" value="ExternLineNo" data-columnname="Extern Line#" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyDetailsFields" value="Sku" data-columnname="Item" data-priority="2" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyDetailsFields" value="OpenQty" data-columnname="Open Qty" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="PackKey" data-columnname="Pack" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="UOM" data-columnname="UOM" data-priority="5" data-hidden="false" />

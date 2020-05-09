@@ -288,7 +288,7 @@
             </div>
         </div>
 
-        <div style="position: relative; height: 70px;"></div>
+        <div style="position: relative; height: 15px;"></div>
         <div class="New_Modify_Record_PopUp">
             <div style="position: relative;">
                 <div class="MyAbso_Record_PopUpContainer">
@@ -384,7 +384,7 @@
                         Drag to customize your preferred columns order
                     </div>
                     <div class="circle"></div>
-                    <div style="position: relative; height: 400px; width: 100%;" class="content_4 GridColumnsChooser">
+                    <div style="position: relative; height: 380px; width: 100%;" class="content_4 GridColumnsChooser">
                     </div>
                     <div class="iWantMyChildrenFloatHeight">
                         <div class="floatL Width100">
