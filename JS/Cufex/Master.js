@@ -435,7 +435,12 @@ function SNSFunctions() {
     });
 
     $('.btnSave').click(function () {
-        SaveItemsNew();
+        if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
+            SaveItems();
+        }
+        else {
+            SaveItemsNew();
+        }
     });
 
     $('.btnSaveDetail').click(function () {
@@ -1140,7 +1145,6 @@ function DeleteItemsDetails(MyItems) {
 function SaveItems() {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
-        //if ($('.MainPageTitle').attr("data-id") == "Warehouse_PO" || $('.MainPageTitle').attr("data-id") == "Warehouse_ASN" || $('.MainPageTitle').attr("data-id") == "Warehouse_SO") $('.preloader').fadeIn();
 
         $(".preloader").fadeIn();
 
@@ -1151,20 +1155,26 @@ function SaveItems() {
         data.append("MyID", $('.MyRecordID').val());
         data.append("DetailsCount", $('.RecordsContainer_Inside:visible').length);
 
-        $('.MyFields').each(function () {
-            var myField = $(this).val();
-            if ($('.RecordHeader').find('.Input' + myField).is("input")) {
-                if ($('.RecordHeader').find('.Input' + myField).attr("type") == "text" || $('.RecordHeader').find('.Input' + myField).attr("type") == "password") {
+        if ($('.MainPageTitle').attr("data-id") != "ChangePassword") {
+            $('.MyFields').each(function () {
+                var myField = $(this).val();
+                if ($('.RecordHeader').find('.Input' + myField).is("input")) {
+                    if ($('.RecordHeader').find('.Input' + myField).attr("type") == "text" || $('.RecordHeader').find('.Input' + myField).attr("type") == "password") {
+                        data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).val());
+                    }
+                    else if ($('.RecordHeader').find('.Input' + myField).attr("type") == "checkbox") {
+                        data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).prop("checked"));
+                    }
+                }
+                else if ($('.RecordHeader').find('.Input' + myField).is("select")) {
                     data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).val());
                 }
-                else if ($('.RecordHeader').find('.Input' + myField).attr("type") == "checkbox") {
-                    data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).prop("checked"));
-                }
-            }
-            else if ($('.RecordHeader').find('.Input' + myField).is("select")) {
-                data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).val());
-            }
-        });
+            });
+        } else {
+            data.append("Field_OriginalPassword", $('.NewHeaderRecord').find('.InputOriginalPassword').val());
+            data.append("Field_NewPassword", $('.NewHeaderRecord').find('.InputNewPassword').val());
+            data.append("Field_ConfirmPassword", $('.NewHeaderRecord').find('.InputConfirmPassword').val());
+        }
 
         $('.MyDetailsFields').each(function () {
             var myField = $(this).val();
@@ -1215,6 +1225,7 @@ function SaveItems() {
                             showCancelButton: false
                         });
                         $('.preloader').fadeOut(300, function () {
+                            $('.NewHeaderRecord').find('input').val('');
                             AvoidWebServiceRaceCondition = 0;
                         });
                     }, 500);
@@ -1896,13 +1907,7 @@ function DisplayItemDetails(DisplayID) {
 }
 
 function LoadItems() {
-    var TabName = $(".MyTab.Active").data("id");
-    var QueryUrlStr = $(".QueryUrlStr").val();
-
-    if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
-        $('.btnQuickEntry').trigger("click");
-    }
-    else {
+    if ($('.MainPageTitle').attr("data-id") != "ChangePassword") {
         if (AvoidWebServiceRaceCondition == 0) {
             AvoidWebServiceRaceCondition = 1;
             $(".HeaderGridView").find('.GridResults').remove();
@@ -1911,6 +1916,9 @@ function LoadItems() {
             isFirstLoad = false;
 
             var pageUrl = sAppPath + 'WebServices/GetItems.ashx';
+
+            var TabName = $(".MyTab.Active").data("id");
+            var QueryUrlStr = $(".QueryUrlStr").val();
 
             var data = new FormData();
             data.append("SearchQuery", SearchQuery);
@@ -2848,7 +2856,7 @@ function GetUserConfiguration() {
 }
 
 function SetUserConfigution() {
-    if ($(".MainPageTitle").length > 0) {
+    if ($(".HeaderGridView").length > 0) {
         AvoidWebServiceRaceCondition = 0;
         if (AvoidWebServiceRaceCondition == 0) {
             AvoidWebServiceRaceCondition = 1;

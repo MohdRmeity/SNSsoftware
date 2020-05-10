@@ -141,8 +141,13 @@ Public Class Cufex_Site
                             CType(Cufex_MainContent.FindControl("btnQuickEntry"), HtmlAnchor).Visible = CanAddNew
                         End If
 
-                        If CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor) IsNot Nothing Then
-                            CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor).Visible = CanAddNew
+                        If Not CanAddNew Then
+                            If CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor) IsNot Nothing Then
+                                CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor).Visible = CanAddNew
+                            End If
+                            If CType(Cufex_MainContent.FindControl("btnNew"), HtmlAnchor) IsNot Nothing Then
+                                CType(Cufex_MainContent.FindControl("btnNew"), HtmlAnchor).Visible = CanAddNew
+                            End If
                         End If
 
                         If CType(Cufex_MainContent.FindControl("btnSave"), HtmlGenericControl) IsNot Nothing Then
@@ -151,6 +156,10 @@ Public Class Cufex_Site
 
                         If CType(Cufex_MainContent.FindControl("btnSaveHeader"), HtmlAnchor) IsNot Nothing Then
                             CType(Cufex_MainContent.FindControl("btnSaveHeader"), HtmlAnchor).Visible = CanSave
+                        End If
+
+                        If CType(Cufex_MainContent.FindControl("btnSaveDetail"), HtmlAnchor) IsNot Nothing Then
+                            CType(Cufex_MainContent.FindControl("btnSaveDetail"), HtmlAnchor).Visible = CanSave
                         End If
 
                         If CType(Cufex_MainContent.FindControl("TableAction1"), HtmlTableCell) IsNot Nothing Then
@@ -163,6 +172,10 @@ Public Class Cufex_Site
 
                         If CType(Cufex_MainContent.FindControl("btnDelete"), HtmlAnchor) IsNot Nothing Then
                             CType(Cufex_MainContent.FindControl("btnDelete"), HtmlAnchor).Visible = CanDelete
+                        End If
+
+                        If CType(Cufex_MainContent.FindControl("btnDeleteDetail"), HtmlAnchor) IsNot Nothing Then
+                            CType(Cufex_MainContent.FindControl("btnDeleteDetail"), HtmlAnchor).Visible = CanDelete
                         End If
 
                         If Not CanSearch Then
@@ -187,58 +200,34 @@ Public Class Cufex_Site
         End If
     End Sub
     Public Sub FixMenuVisibleItems()
-
         SetMenuItemsClass()
 
         DivMain_Home_Def.Visible = True
 
-        DivMain_Security.Visible = True
-        DivSubMain_Security_ChangePassword.Visible = True
+        DivSubMain_Security_ChangePassword.Visible = CommonMethods.getPermission("Security->Change Password (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Security_Users.Visible = CommonMethods.getPermission("Security->Users (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Security_UsersControl.Visible = CommonMethods.getPermission("Security->User Control (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Security_UserProfile.Visible = CommonMethods.getPermission("Security->User Profile (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Security_Profiles.Visible = CommonMethods.getPermission("Security->Profiles (Screen)", Session("userkey").ToString) <> "0"
+        DivMain_Security.Visible = DivSubMain_Security_ChangePassword.Visible Or DivSubMain_Security_Users.Visible Or DivSubMain_Security_UsersControl.Visible Or DivSubMain_Security_UserProfile.Visible Or DivSubMain_Security_Profiles.Visible
 
-        DivMain_Security.Visible = True
-        DivSubMain_Security_Users.Visible = True
+        DivSubMain_Configuration_ShipTo.Visible = CommonMethods.getPermission("Configuration->Ship To (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Configuration_ShipFrom.Visible = CommonMethods.getPermission("Configuration->Suppliers (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Configuration_Items.Visible = CommonMethods.getPermission("Configuration->Items (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Configuration_ItemCatalogue.Visible = CommonMethods.getPermission("Configuration->Item Catalogue (Screen)", Session("userkey").ToString) <> "0"
+        DivMain_Configuration.Visible = DivSubMain_Configuration_ShipTo.Visible Or DivSubMain_Configuration_ShipFrom.Visible Or DivSubMain_Configuration_Items.Visible Or DivSubMain_Configuration_ItemCatalogue.Visible
 
-        DivMain_Security.Visible = True
-        DivSubMain_Security_UsersControl.Visible = True
+        DivSubMain_Warehouse_PO.Visible = CommonMethods.getPermission("Warehouse->Purchase Order (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Warehouse_ASN.Visible = CommonMethods.getPermission("Warehouse->ASN Receipt (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Warehouse_Shipment.Visible = CommonMethods.getPermission("Warehouse->Shipment Order (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Warehouse_OrderManagement.Visible = CommonMethods.getPermission("Warehouse->Order Management (Screen)", Session("userkey").ToString) <> "0"
+        DivMain_Warehouse.Visible = DivSubMain_Warehouse_PO.Visible Or DivSubMain_Warehouse_ASN.Visible Or DivSubMain_Warehouse_Shipment.Visible Or DivSubMain_Warehouse_OrderManagement.Visible
 
-        DivMain_Security.Visible = True
-        DivSubMain_Security_UserProfile.Visible = True
+        DivSubMain_Inventory_Balance.Visible = CommonMethods.getPermission("Inventory->Inventory Balance (Screen)", Session("userkey").ToString) <> "0"
+        DivMain_Inventory.Visible = DivSubMain_Inventory_Balance.Visible
 
-        DivMain_Security.Visible = True
-        DivSubMain_Security_Profiles.Visible = True
-
-        DivMain_Security.Visible = True
-        'DivSubMain_Security_Settings.Visible = True
-
-        DivMain_Configuration.Visible = True
-        DivSubMain_Configuration_ShipTo.Visible = True
-
-        DivMain_Configuration.Visible = True
-        DivSubMain_Configuration_ShipFrom.Visible = True
-
-        DivMain_Configuration.Visible = True
-        DivSubMain_Configuration_Items.Visible = True
-
-        DivMain_Configuration.Visible = True
-        DivSubMain_Configuration_ItemCatalogue.Visible = True
-
-        DivMain_Warehouse.Visible = True
-        DivSubMain_Warehouse_PO.Visible = True
-
-        DivMain_Warehouse.Visible = True
-        DivSubMain_Warehouse_ASN.Visible = True
-
-        DivMain_Warehouse.Visible = True
-        DivSubMain_Warehouse_Shipment.Visible = True
-
-        DivMain_Warehouse.Visible = True
-        DivSubMain_Warehouse_OrderManagement.Visible = True
-
-        DivMain_Inventory.Visible = True
-        DivSubMain_Inventory_Balance.Visible = True
-
-        DivMain_Reporting.Visible = True
-        DivSubMain_Reporting_ViewReports.Visible = True
+        DivSubMain_Reporting_ViewReports.Visible = CommonMethods.getPermission("ReportsAndKPIs->Reports (Screen)", Session("userkey").ToString) <> "0"
+        DivMain_Reporting.Visible = DivSubMain_Reporting_ViewReports.Visible
     End Sub
 
     Private Sub SetMenuItemsClass()

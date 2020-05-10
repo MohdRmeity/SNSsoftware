@@ -79,7 +79,7 @@
                                     <div class="u-ht-xs-35"></div>
                                 </div>
                                 <div class="AllMenuItems">
-                                    <div visible="false" id="DivMain_Home_Def" runat="server" style="margin-bottom: 0 !important;">
+                                    <div id="DivMain_Home_Def" runat="server" style="margin-bottom: 0 !important;">
                                         <a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home", Nothing)%>">
                                             <div class="u-relative u-pl-xs-20  u-pt-xs-5">
                                                 <div class="Selector"></div>
@@ -94,7 +94,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div visible="false" id="DivMain_Security" runat="server">
+                                    <div id="DivMain_Security" runat="server">
                                         <div class="u-relative  u-pl-xs-20  u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Security_MenuArrow" runat="server">
@@ -105,15 +105,15 @@
                                                     <span class="textalignL MenuItemName">Security</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Security_ChangePassword" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_ChangePassword", Nothing)%>">Change Password</a></div>
-                                            <div visible="false" id="DivSubMain_Security_Users" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Users", Nothing)%>">Users</a></div>
-                                            <div visible="false" id="DivSubMain_Security_UsersControl" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UsersControl", Nothing)%>">Users Control</a></div>
-                                            <div visible="false" id="DivSubMain_Security_Profiles" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)%>">Profiles</a></div>
-                                            <div visible="false" id="DivSubMain_Security_UserProfile" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UserProfile", Nothing)%>">Users Profile</a></div>
+                                            <div id="DivSubMain_Security_ChangePassword" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_ChangePassword", Nothing)%>">Change Password</a></div>
+                                            <div id="DivSubMain_Security_Users" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Users", Nothing)%>">Users</a></div>
+                                            <div id="DivSubMain_Security_UsersControl" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UsersControl", Nothing)%>">Users Control</a></div>
+                                            <div id="DivSubMain_Security_Profiles" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)%>">Profiles</a></div>
+                                            <div id="DivSubMain_Security_UserProfile" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UserProfile", Nothing)%>">Users Profile</a></div>
                                         </div>
                                     </div>
 
-                                    <div visible="false" id="DivMain_Configuration" runat="server">
+                                    <div id="DivMain_Configuration" runat="server">
                                         <div class="u-relative  u-pl-xs-20  u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Configuration_MenuArrow" runat="server">
@@ -124,14 +124,14 @@
                                                     <span class="textalignL MenuItemName">Configuration</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Configuration_ShipTo" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipTo", Nothing)%>">Ship To</a></div>
-                                            <div visible="false" id="DivSubMain_Configuration_ShipFrom" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipFrom", Nothing)%>">Ship From</a></div>
-                                            <div visible="false" id="DivSubMain_Configuration_Items" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)%>">Items</a></div>
-                                            <div visible="false" id="DivSubMain_Configuration_ItemCatalogue" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)%>">Item Catalogue</a></div>
+                                            <div id="DivSubMain_Configuration_ShipTo" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipTo", Nothing)%>">Ship To</a></div>
+                                            <div id="DivSubMain_Configuration_ShipFrom" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipFrom", Nothing)%>">Ship From</a></div>
+                                            <div id="DivSubMain_Configuration_Items" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)%>">Items</a></div>
+                                            <div id="DivSubMain_Configuration_ItemCatalogue" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)%>">Item Catalogue</a></div>
 
                                         </div>
                                     </div>
-                                    <div visible="false" id="DivMain_Warehouse" runat="server">
+                                    <div id="DivMain_Warehouse" runat="server">
                                         <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Warehouse_MenuArrow" runat="server">
@@ -142,13 +142,13 @@
                                                     <span class="textalignL MenuItemName">Warehouse</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Warehouse_PO" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)%>">Purchase Order</a></div>
-                                            <div visible="false" id="DivSubMain_Warehouse_ASN" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)%>">ASN</a></div>
-                                            <div visible="false" id="DivSubMain_Warehouse_Shipment" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)%>">Shipment</a></div>
-                                            <div visible="false" id="DivSubMain_Warehouse_OrderManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)%>">Order Management</a></div>
+                                            <div id="DivSubMain_Warehouse_PO" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)%>">Purchase Order</a></div>
+                                            <div id="DivSubMain_Warehouse_ASN" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)%>">ASN</a></div>
+                                            <div id="DivSubMain_Warehouse_Shipment" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)%>">Shipment</a></div>
+                                            <div id="DivSubMain_Warehouse_OrderManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)%>">Order Management</a></div>
                                         </div>
                                     </div>
-                                    <div visible="false" id="DivMain_Inventory" runat="server">
+                                    <div id="DivMain_Inventory" runat="server">
                                         <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Inventory_MenuArrow" runat="server">
@@ -159,10 +159,10 @@
                                                     <span class="textalignL MenuItemName">Inventory</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Inventory_Balance" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Inventory_Balance", Nothing)%>">Balance</a></div>
+                                            <div id="DivSubMain_Inventory_Balance" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Inventory_Balance", Nothing)%>">Balance</a></div>
                                         </div>
                                     </div>
-                                    <div visible="false" id="DivMain_Reporting" runat="server">
+                                    <div id="DivMain_Reporting" runat="server">
                                         <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Reporting_MenuArrow" runat="server">
@@ -173,7 +173,7 @@
                                                     <span class="textalignL MenuItemName">Reporting</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Reporting_ViewReports" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Reporting_ViewReports", Nothing)%>">View Reports</a></div>
+                                            <div id="DivSubMain_Reporting_ViewReports" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Reporting_ViewReports", Nothing)%>">View Reports</a></div>
                                         </div>
                                     </div>
                                 </div>

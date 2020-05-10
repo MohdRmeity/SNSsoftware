@@ -2009,18 +2009,9 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Cufex_Security_ChangePassword._btnQuickEntry">
+<member name="F:SNSsoftware.Cufex_Security_ChangePassword._btnSaveHeader">
 <summary>
-btnQuickEntry control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Cufex_Security_ChangePassword._btnSave">
-<summary>
-btnSave control.
+btnSaveHeader control.
 </summary>
 <remarks>
 Auto-generated field.
