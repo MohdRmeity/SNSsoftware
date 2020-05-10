@@ -161,7 +161,7 @@ Public Class SaveItems
         , password As String = HttpContext.Current.Request.Item("Field_Password") _
         , confirm As String = HttpContext.Current.Request.Item("Field_ConfirmPassword") _
         , active As String = HttpContext.Current.Request.Item("Field_Active") _
-        , key As String = ""
+        , originalpass As String = "", keypass As String = ""
 
         If String.IsNullOrEmpty(userkey) Then
             IsValid = False
@@ -183,33 +183,57 @@ Public Class SaveItems
             tmp += "Email must be defined <br/>"
         End If
 
-        If String.IsNullOrEmpty(password) Then
-            IsValid = False
-            tmp += "Password must be defined <br/>"
-        Else
-            Dim checkcomplex As Boolean = CommonMethods.checkPassComplexity(password)
-            If Not checkcomplex Then
+        If Not EditOperation Then
+            If String.IsNullOrEmpty(password) Then
                 IsValid = False
-                If password.Length < 10 Then
-                    tmp += "Password must have at least 10 characters <br/>"
+                tmp += "Password must be defined <br/>"
+            Else
+                Dim checkcomplex As Boolean = CommonMethods.checkPassComplexity(password)
+                If Not checkcomplex Then
+                    IsValid = False
+                    If password.Length < 10 Then
+                        tmp += "Password must have at least 10 characters <br/>"
+                    Else
+                        tmp += "Password must have one upper case letter, one lower case letter and one base 10 digits (0 to 9) <br/>"
+                    End If
+                End If
+            End If
+
+            If Not String.IsNullOrEmpty(confirm) Then
+                If confirm <> password Then
+                    IsValid = False
+                    tmp += "Password and Confirm Password do not match! <br/>"
+                End If
+            ElseIf Not String.IsNullOrEmpty(password) Then
+                IsValid = False
+                tmp += "Confirm Password must be filled <br/>"
+            End If
+        Else
+            originalpass = CommonMethods.getPassword(userkey)
+            keypass = CommonMethods.getpasskey(userkey)
+            If String.IsNullOrEmpty(password) Then
+                IsValid = False
+                tmp += "Password must be defined <br/>"
+            ElseIf originalpass <> password Then
+                Dim checkcomplex As Boolean = CommonMethods.checkPassComplexity(password)
+                If confirm <> password Then
+                    IsValid = False
+                    tmp += "Confirm Password must be filled <br/>"
+                ElseIf Not checkcomplex Then
+                    IsValid = False
+                    If password.Length < 10 Then
+                        tmp += "Password must have at least 10 characters <br/>"
+                    Else
+                        tmp += "Password must have one upper case letter, one lower case letter and one base 10 digits (0 to 9) <br/>"
+                    End If
                 Else
-                    tmp += "Password must have one upper case letter, one lower case letter and one base 10 digits (0 to 9) <br/>"
+                    keypass = CommonMethods.CreateSalt(password.Length)
+                    originalpass = CommonMethods.GenerateHash(password, keypass)
                 End If
             End If
         End If
 
-        If Not String.IsNullOrEmpty(confirm) Then
-            If confirm <> password Then
-                IsValid = False
-                tmp += "Password and Confirm Password do not match! <br/>"
-            End If
-        ElseIf Not String.IsNullOrEmpty(password) Then
-            IsValid = False
-            tmp += "Confirm Password must be filled <br/>"
-        End If
-
         If IsValid Then
-            Dim keyh As String = CommonMethods.CreateSalt(password.Length)
             If EditOperation Then
                 Try
                     If CommonMethods.dbtype = "sql" Then
@@ -217,11 +241,11 @@ Public Class SaveItems
                         Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As SqlCommand = New SqlCommand(updatequery, conn)
-                        cmd.Parameters.AddWithValue("@flag", IIf(active = "true", 1, 0))
-                        cmd.Parameters.AddWithValue("@passw", CommonMethods.GenerateHash(password, keyh))
+                        cmd.Parameters.AddWithValue("@flag", active)
+                        cmd.Parameters.AddWithValue("@passw", originalpass)
                         cmd.Parameters.AddWithValue("@email", email)
                         cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey").ToString)
-                        cmd.Parameters.AddWithValue("@hkey", keyh)
+                        cmd.Parameters.AddWithValue("@hkey", keypass)
                         cmd.Parameters.AddWithValue("@userk", userkey)
                         cmd.ExecuteNonQuery()
                         conn.Close()
@@ -230,11 +254,11 @@ Public Class SaveItems
                         Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As OracleCommand = New OracleCommand(updatequery, conn)
-                        cmd.Parameters.Add(New OracleParameter("flag", IIf(active = "true", 1, 0)))
-                        cmd.Parameters.Add(New OracleParameter("passw", CommonMethods.GenerateHash(password, keyh)))
+                        cmd.Parameters.Add(New OracleParameter("flag", active))
+                        cmd.Parameters.Add(New OracleParameter("passw", originalpass))
                         cmd.Parameters.Add(New OracleParameter("email", email))
                         cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey").ToString))
-                        cmd.Parameters.Add(New OracleParameter("hkey", keyh))
+                        cmd.Parameters.Add(New OracleParameter("hkey", keypass))
                         cmd.Parameters.Add(New OracleParameter("userk", userkey))
                         cmd.ExecuteNonQuery()
                         conn.Close()
@@ -247,6 +271,7 @@ Public Class SaveItems
             Else
                 Dim exist As Integer = CommonMethods.checkUserExist(LCase(userkey))
                 If exist = 0 Then
+                    Dim keyh As String = CommonMethods.CreateSalt(password.Length)
                     Try
                         If CommonMethods.dbtype = "sql" Then
                             Dim insert As String = "set dateformat dmy insert into  dbo.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE , HASHKEY) values ( @act, @ukey, @fname, @lname, @email, @passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', '" & Now & "', '" & Now & "', @keyh);"
@@ -255,7 +280,7 @@ Public Class SaveItems
                             conn.Open()
 
                             Dim cmd As SqlCommand = New SqlCommand(insert, conn)
-                            cmd.Parameters.AddWithValue("@act", IIf(active = "true", 1, 0))
+                            cmd.Parameters.AddWithValue("@act", active)
                             cmd.Parameters.AddWithValue("@ukey", LCase(userkey))
                             cmd.Parameters.AddWithValue("@fname", firstname)
                             cmd.Parameters.AddWithValue("@lname", lastname)
@@ -272,7 +297,7 @@ Public Class SaveItems
                             conn.Open()
 
                             Dim cmd As OracleCommand = New OracleCommand(insert, conn)
-                            cmd.Parameters.Add(New OracleParameter("act", IIf(active = "true", 1, 0)))
+                            cmd.Parameters.Add(New OracleParameter("act", active))
                             cmd.Parameters.Add(New OracleParameter("ukey", LCase(userkey)))
                             cmd.Parameters.Add(New OracleParameter("fname", firstname))
                             cmd.Parameters.Add(New OracleParameter("lname", lastname))

@@ -4,7 +4,7 @@
     <div style="height: 33px;"></div>
 
     <div class="NormalDiv1118Max">
-        <div class="MainHeader">
+        <div class="MainHeader MainHeaderProfileDetails">
             <div class="iWantMyChildrenFloatHeight" style="position: relative;">
                 <div class="floatL Width100">
                     <div class="floatL">
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div style="height: 25px;"></div>
+    <div style="height:25px;"></div>
 
     <div class="MainTabs">
         <div class="NormalDiv1118Max">
@@ -216,7 +216,7 @@
             </div>
         </div>
 
-        <div style="position: relative; height: 70px;"></div>
+        <div style="position: relative; height: 15px;"></div>
     </div>
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />

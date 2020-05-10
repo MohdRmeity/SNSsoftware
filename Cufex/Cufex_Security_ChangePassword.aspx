@@ -56,6 +56,9 @@
                                         <input type="password" class="textRecordStyle InputConfirmPassword" />
                                     </div>
                                 </div>
+                                <div class="floatL Width100 PasswordInfo">
+                                    * Password must be at least 10 characters, have one upper case letter, one lower case letter and one base 10 digits (0 to 9)
+                                </div>
                             </div>
                         </div>
                     </div>

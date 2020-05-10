@@ -27,6 +27,13 @@
                                 <a id="btnDelete" runat="server" class="btnDelete AnimateMe">Delete
                                 </a>
                             </td>
+                            <td id="TableAction1" runat="server" style="width: 13px;"></td>
+                            <td id="TableAction2" runat="server">
+                                <div class="btnActions">Actions</div>
+                                <div class="ActionHiddenButtons">
+                                    <div class="BtnDoSomeThing AnimateMe" data-id="1"><span class="ion-ios-trending-up MyFontIon"></span><span style="vertical-align: 4px;">Reset Configuration</span></div>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -144,7 +151,7 @@
             </div>
         </div>
 
-        <div style="position: relative; height: 70px;"></div>
+        <div style="position: relative; height: 15px;"></div>
         <div class="New_Modify_Record_PopUp">
             <div style="position: relative;">
                 <div class="MyAbso_Record_PopUpContainer">
@@ -164,19 +171,6 @@
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">First Name*</div>
-                                    <div class="FloatRecordField floatL">
-                                        <input type="text" class="textRecordStyle InputFirstName" />
-                                    </div>
-                                </div>
-                                <div class="FloatRecordSep floatL"></div>
-                                <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Last Name*</div>
-                                    <div class="FloatRecordField floatL">
-                                        <input type="text" class="textRecordStyle InputLastName" />
-                                    </div>
-                                </div>
-                                <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Email*</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputEmail" />
@@ -184,10 +178,9 @@
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Status*</div>
+                                    <div class="FloatRecordTitle floatL">First Name*</div>
                                     <div class="FloatRecordField floatL">
-                                        <label for="checkbox-1">Active</label>
-                                        <input type="checkbox" name="checkbox-1" id="checkbox-1" class="checkRadio InputActive" checked="" />
+                                        <input type="text" class="textRecordStyle InputFirstName" />
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
@@ -198,10 +191,25 @@
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">Last Name*</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="text" class="textRecordStyle InputLastName" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecord floatL DisplayNone">
+                                    <div class="FloatRecordTitle floatL">Status*</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="text" class="textRecordStyle InputActive" data-value="1" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Confirm Password*</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="password" class="textRecordStyle InputConfirmPassword" />
                                     </div>
+                                </div>
+                                <div class="floatL Width100 PasswordInfo">
+                                    * Password must be at least 10 characters, have one upper case letter, one lower case letter and one base 10 digits (0 to 9)
                                 </div>
                             </div>
                         </div>
@@ -217,7 +225,7 @@
                         Drag to customize your preferred columns order
                     </div>
                     <div class="circle"></div>
-                    <div style="position: relative; height: 400px; width: 100%;" class="content_4 GridColumnsChooser">
+                    <div style="position: relative; height: 380px; width: 100%;" class="content_4 GridColumnsChooser">
                     </div>
                     <div class="iWantMyChildrenFloatHeight">
                         <div class="floatL Width100">

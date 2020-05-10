@@ -101,7 +101,7 @@ Public Class DisplayItems
                             End If
 
                             If Not .IsNull("Active") Then
-                                SavedFields += ";;;Active:::" & IIf(Val(!Active) = 1, "true", "false")
+                                SavedFields += ";;;Active:::" & !Active
                             End If
 
                             If Not .IsNull("Password") Then
