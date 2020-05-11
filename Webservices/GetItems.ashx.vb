@@ -82,7 +82,7 @@ Public Class GetItems
         End If
 
         If SearchTable = "REPORTSPROFILEDETAIL" Then
-            SQL += " select distinct top " & CommonMethods.TopCount & " (REPORT) , REPORT_NAME " & IIf(TabName <> "undefined", ",ID, EDIT", "") & " from " & SearchTable & " where 1=1 " & AndFilter
+            SQL += " select distinct top " & CommonMethods.TopCount & " (REPORT) , REPORT_NAME " & IIf(TabName <> "", ",ID, EDIT", "") & " from " & SearchTable & " where 1=1 " & AndFilter
         End If
 
         SearchItem(SearchQuery, SearchTable, SQL)
@@ -107,7 +107,7 @@ Public Class GetItems
                 GetUserProfileRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "PROFILES" Then
                 GetProfilesRecords(OBJTable, MyRecords)
-            ElseIf TabName <> "undefined" Then
+            ElseIf TabName <> "" Then
                 If TabName = "Actions" Then
                     GetProfileDetailRecords(OBJTable, MyRecords)
                 ElseIf TabName = "Reports" Then

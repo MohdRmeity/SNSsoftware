@@ -141,13 +141,12 @@ Public Class Cufex_Site
                             CType(Cufex_MainContent.FindControl("btnQuickEntry"), HtmlAnchor).Visible = CanAddNew
                         End If
 
-                        If Not CanAddNew Then
-                            If CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor) IsNot Nothing Then
-                                CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor).Visible = CanAddNew
-                            End If
-                            If CType(Cufex_MainContent.FindControl("btnNew"), HtmlAnchor) IsNot Nothing Then
-                                CType(Cufex_MainContent.FindControl("btnNew"), HtmlAnchor).Visible = CanAddNew
-                            End If
+                        If CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor) IsNot Nothing Then
+                            CType(Cufex_MainContent.FindControl("btnAddNew"), HtmlAnchor).Visible = CanAddNew
+                        End If
+
+                        If CType(Cufex_MainContent.FindControl("btnNew"), HtmlAnchor) IsNot Nothing Then
+                            CType(Cufex_MainContent.FindControl("btnNew"), HtmlAnchor).Visible = CanAddNew
                         End If
 
                         If CType(Cufex_MainContent.FindControl("btnSave"), HtmlGenericControl) IsNot Nothing Then

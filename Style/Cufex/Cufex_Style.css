@@ -13755,9 +13755,9 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 }
 
-@media all and (max-width:448px){
-    .MainHeaderProfileDetails .MainPageDesc{
-        padding-bottom:25px;
+@media all and (max-width:448px) {
+    .MainHeaderProfileDetails .MainPageDesc {
+        padding-bottom: 25px;
     }
 }
 

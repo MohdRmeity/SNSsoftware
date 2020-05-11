@@ -480,20 +480,16 @@ function SNSFunctions() {
                     $('.btnDelete').removeClass("DisplayNone");
                     setOnCufex_Resize();
                 }
-                CurrentPage = 1;
+                CurrentPage = 0;
                 $(".SearchClass").val("");
                 SearchQuery = "";
+                SortBy = "id desc";
                 LoadItems();
                 setTimeout(function () { InitColResizable(); }, 300);
             }
             SetMasterResize();
         });
     }
-
-    //if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0 && isFirstLoad) {
-    //    AvoidWebServiceRaceCondition = 0;
-    //    LoadItems();
-    //}
 
     if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
         setTimeout(function () {
@@ -539,11 +535,21 @@ function PageTable($this) {
     $("." + $this).find('.GridResults').hide().slice(MyPage * MyNumberOfRecordsInPage, (MyPage + 1) * MyNumberOfRecordsInPage).show();
 }
 
+function PageTableTab($this) {
+    var TableSize = $("." + $this).find(".GridResults").size();
+    var PageFirstRowNo = 1 + (CurrentPage * NumberOfRecordsInPage);
+    var PageLastRowNo = (CurrentPage + 1) * NumberOfRecordsInPage > TableSize ? TableSize : (CurrentPage + 1) * NumberOfRecordsInPage
+    $('.PagingNumbers').html(PageFirstRowNo + "-" + PageLastRowNo + " of " + TableSize);
+    $("." + $this).find('.GridResults').hide().slice(CurrentPage * NumberOfRecordsInPage, (CurrentPage + 1) * NumberOfRecordsInPage).show();
+}
+
 function SetGridActions() {
     function SortTable(n, dir) {
         var table, rows, switching, i, x, y, shouldSwitch, switchcount = 0;
         var GridIndex = $(".HeaderGridView:visible").length > 0 ? 0 : 1;
-        table = document.getElementsByClassName("GridContainer")[GridIndex];
+        var GridName = "GridContainer";
+        if ($(".MyTab").length > 0) GridName = "Grid" + $(".MyTab.Active").data("id");
+        table = document.getElementsByClassName(GridName)[GridIndex];
         switching = true;
         while (switching) {
             switching = false;
@@ -577,6 +583,11 @@ function SetGridActions() {
         var $MyGrid = $(".HeaderGridView:visible").length > 0 ? $(".HeaderGridView") : $(".DetailsGridView");
         var GridName = $(".HeaderGridView:visible").length > 0 ? "HeaderGridView" : "DetailsGridView";
 
+        if ($("MyTab").length > 0) {
+            $MyGrid = $(".Grid" + $(".MyTab.Active").data("id"));
+            GridName = "Grid" + $(".MyTab.Active").data("id");
+        }
+
         if ($(this).find(".SortUp").hasClass("Active")) {
             $MyGrid.find(".SortUp,.SortDown").removeClass("Active");
             $(this).find(".SortDown").addClass("Active");
@@ -594,7 +605,8 @@ function SetGridActions() {
 
         if ($(".GridResults").length > 0) {
             SortTable($(this).index(), dir);
-            PageTable(GridName);
+            if ($("MyTab").length > 0) PageTableTab(GridName);
+            else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
         }
     });
@@ -604,6 +616,11 @@ function SetGridActions() {
         var $MyGrid = $(".HeaderGridView:visible").length > 0 ? $(".HeaderGridView") : $(".DetailsGridView");
         var GridName = $(".HeaderGridView:visible").length > 0 ? "HeaderGridView" : "DetailsGridView";
 
+        if ($("MyTab").length > 0) {
+            $MyGrid = $(".Grid" + $(".MyTab.Active").data("id"));
+            GridName = "Grid" + $(".MyTab.Active").data("id");
+        }
+
         $MyGrid.find(".SortUp,.SortDown").removeClass("Active");
         $(this).addClass("Active");
 
@@ -612,7 +629,8 @@ function SetGridActions() {
 
         if ($(".GridResults").length > 0) {
             SortTable($(this).closest(".GridCell").index(), "asc");
-            PageTable(GridName);
+            if ($("MyTab").length > 0) PageTableTab(GridName);
+            else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
         }
 
@@ -623,6 +641,11 @@ function SetGridActions() {
         var $MyGrid = $(".HeaderGridView:visible").length > 0 ? $(".HeaderGridView") : $(".DetailsGridView");
         var GridName = $(".HeaderGridView:visible").length > 0 ? "HeaderGridView" : "DetailsGridView";
 
+        if ($("MyTab").length > 0) {
+            $MyGrid = $(".Grid" + $(".MyTab.Active").data("id"));
+            GridName = "Grid" + $(".MyTab.Active").data("id");
+        }
+
         $MyGrid.find(".SortUp,.SortDown").removeClass("Active");
         $(this).addClass("Active");
 
@@ -631,7 +654,8 @@ function SetGridActions() {
 
         if ($(".GridResults").length > 0) {
             SortTable($(this).closest(".GridCell").index(), "desc");
-            PageTable(GridName);
+            if ($("MyTab").length > 0) PageTableTab(GridName);
+            else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
         }
     });
@@ -868,7 +892,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Right-Forward').removeClass("Disabled");
                 $(".HeaderGridView").find('.Arrow-Right-Forward-Last').removeClass("Disabled");
             }
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         }
         else {
             CurrentPageDetails = parseInt(CurrentPageDetails) - 1;
@@ -904,7 +929,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Right-Forward-Last').removeClass("Disabled");
             }
             CurrentPage = 0;
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         }
         else {
             if (CurrentPageDetails == 0) return;
@@ -940,7 +966,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Left-Back').removeClass("Disabled");
                 $(".HeaderGridView").find('.Arrow-Left-Back-First').removeClass("Disabled");
             }
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         } else {
             CurrentPageDetails = parseInt(CurrentPageDetails) + 1;
             if (CurrentPageDetails >= MaxPagesDetails) {
@@ -975,7 +1002,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Left-Back-First').removeClass("Disabled");
             }
             CurrentPage = MaxPages - 1;
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         } else {
             if (CurrentPageDetails == MaxPagesDetails - 1) return;
             $(".DetailsGridView").find('.Arrow-Right-Forward-Last').addClass("Disabled");
@@ -1917,7 +1945,8 @@ function LoadItems() {
 
             var pageUrl = sAppPath + 'WebServices/GetItems.ashx';
 
-            var TabName = $(".MyTab.Active").data("id");
+            var TabName = "";
+            if ($(".MyTab").length > 0) TabName = $(".MyTab.Active").data("id");
             var QueryUrlStr = $(".QueryUrlStr").val();
 
             var data = new FormData();
@@ -1946,21 +1975,18 @@ function LoadItems() {
 
                     if (TabName == "Actions") {
                         $(".GridActions").find('.SearchStyle').after(obj.Records);
-                        $('.PagingNumbers').html("1-" + $(".GridActions").find('.GridResults').size() + " of " + $(".GridActions").find('.GridResults').size());
                     }
                     else if (TabName == "Reports") {
                         $(".GridReports").find('.SearchStyle').after(obj.Records);
-                        $('.PagingNumbers').html("1-" + $(".GridReports").find('.GridResults').size() + " of " + $(".GridReports").find('.GridResults').size());
-
                     }
                     else if (TabName == "Dashboards") {
                         $(".GridDashboards").find('.SearchStyle').after(obj.Records);
-                        $('.PagingNumbers').html("1-" + $(".GridDashboards").find('.GridResults').size() + " of " + $(".GridDashboards").find('.GridResults').size());
                     }
                     else {
                         $(".HeaderGridView").find('.SearchStyle').after(obj.Records);
                     }
-                    if (TabName === undefined) {
+
+                    if (TabName == "") {
                         $(".HeaderGridView").find(".GridResults").each(function () {
                             var $this = $(this);
                             $this.children(".GridCell[data-id]").each(function (e) {
@@ -1976,12 +2002,11 @@ function LoadItems() {
                         MaxPages = Math.ceil($(".HeaderGridView").find('.GridResults').size() / NumberOfRecordsInPage);
                     }
                     else {
-                        MaxPages = 1;
+                        PageTableTab("Grid" + TabName);
+                        MaxPages = Math.ceil($(".Grid" + TabName).find('.GridResults').size() / NumberOfRecordsInPage);
                     }
 
-                    setTimeout(function () { InitColResizable(); }, 300);
-
-
+                    setTimeout(function () { InitColResizable();}, 300);
 
                     if (MaxPages == 1 || CurrentPage == MaxPages - 1) {
                         $(".HeaderGridView").find(".Arrow-Right-Forward").addClass("Disabled");
@@ -2018,19 +2043,11 @@ function LoadItems() {
                         });
                     }
 
-                    $('.chkSelectGrdActive').change(function () {
-                        UpdateUserActive($(this));
-                    });
-
-                    //if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
-                    //    setTimeout(function () {
-                    //        var MyID = $(".HiddenID").val();
-                    //        $(".HiddenID").val(0);
-                    //        AvoidWebServiceRaceCondition = 0;
-                    //        if ($(".NewRecord").length > 0) DisplayItemNew(MyID, '');
-                    //        else DisplayItem(MyID, '');
-                    //    }, 1000);
-                    //}
+                    if ($('.MainPageTitle').attr("data-id") != "PORTALUSERS") {
+                        $('.chkSelectGrdActive').change(function () {
+                            UpdateUserActive($(this));
+                        });
+                    }
 
                 } else {
                     $(".HeaderGridView").find('.NoResults').show();
@@ -2041,6 +2058,7 @@ function LoadItems() {
 
             $('.preloader').fadeOut(300, function () {
                 AvoidWebServiceRaceCondition = 0;
+                setOnCufex_Resize();
             });
         }
 
@@ -2842,16 +2860,11 @@ function GetUserConfiguration() {
         }
 
         AvoidWebServiceRaceCondition = 0;
-        setTimeout(function () {
-            InitColResizable();
-        }, 300);
+        setTimeout(function () { InitColResizable();}, 300);
     }
     function OnLoadError(response) {
         console.log(response.error);
         AvoidWebServiceRaceCondition = 0;
-        setTimeout(function () {
-            InitColResizable();
-        }, 300);
     }
 }
 
@@ -3443,10 +3456,8 @@ function setOnCufex_Resize() {
 
     $(".content_3").mCustomScrollbar("update");
     $(".content_3").width(0);
-    $(".content_3").width($('.MainHeader').width());
-    $(".mCSB_container").width($(".content_3").width());
+    $(".content_3,.JCLRgrips").width($('.MainHeader').width());
+    $('.mCSB_container').width($('.MainHeader').width());
 
     $(".content_4").mCustomScrollbar("update");
-
-
 }

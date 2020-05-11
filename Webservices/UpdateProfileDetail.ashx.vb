@@ -22,7 +22,7 @@ Public Class UpdateProfileDetail
             SetStr += "Edit = '" & Edit & "', ReadOnly = '" & MyReadOnly & "'"
             AndFilter += " ScreenButtonName "
         ElseIf TabName = "Reports" Then
-            SearchTable = IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PROFILEDETAILREPORTS"
+            SearchTable = IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "REPORTSPROFILEDETAIL"
             SetStr += "Edit = '" & Edit & "'"
             AndFilter += " Report_Name "
         ElseIf TabName = "Dashboards" Then
@@ -35,7 +35,7 @@ Public Class UpdateProfileDetail
         sql += "Update " & SearchTable & SetStr & " where 1=1 " & AndFilter
         tmp = tb.Execute(sql)
 
-        If tmp = "" Then
+        If tmp = "" And TabName = "Actions" Then
             Try
                 Dim FormName As String = ActionName.Substring(0, ActionName.IndexOf("-"))
                 If LCase(ActionName).Contains("screen") Then
