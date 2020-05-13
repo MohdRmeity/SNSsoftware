@@ -15,9 +15,10 @@ Public Class SaveItems
         Dim mySearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim MyID As String = HttpContext.Current.Request.Item("MyID")
         Dim DetailsCount As Integer = Val(HttpContext.Current.Request.Item("DetailsCount"))
+        Dim MyDataTable As DataTable = Nothing
 
         If MyID.Contains("?") Then
-            MyID = GetMyID(mySearchTable, MyID)
+            MyID = CommonMethods.GetMyID(mySearchTable, MyID)
         End If
 
         Dim sb As New StringBuilder()
@@ -35,9 +36,15 @@ Public Class SaveItems
             ElseIf mySearchTable = "USERPROFILE" Then
                 writer.WriteValue(SaveUserProfile())
             ElseIf mySearchTable = "PROFILES" Then
-                writer.WriteValue(SaveProfile())
+                MyDataTable = SaveProfile()
+                writer.WriteValue(MyDataTable.Rows(0)!tmp)
+                writer.WritePropertyName("url")
+                writer.WriteValue(MyDataTable.Rows(0)!url)
             ElseIf mySearchTable = "ChangePassword" Then
-                writer.WriteValue(SaveNewPassword())
+                MyDataTable = SaveNewPassword()
+                writer.WriteValue(MyDataTable.Rows(0)!tmp)
+                writer.WritePropertyName("url")
+                writer.WriteValue(MyDataTable.Rows(0)!url)
             ElseIf mySearchTable.Contains("enterprise.storer") Then
                 Dim type As String = mySearchTable(mySearchTable.Length - 1)
                 writer.WriteValue(SaveConfiguration(MyID, type))
@@ -61,8 +68,12 @@ Public Class SaveItems
         context.Response.End()
 
     End Sub
-    Private Function SaveNewPassword() As String
-        Dim tmp As String = ""
+    Private Function SaveNewPassword() As DataTable
+        Dim MyTable As New DataTable
+        MyTable.Columns.Add("tmp", GetType(String))
+        MyTable.Columns.Add("url", GetType(String))
+
+        Dim tmp As String = "", url As String = ""
         Dim IsValid As Boolean = True
         Dim OriginalPassword As String = HttpContext.Current.Request.Item("Field_OriginalPassword") _
         , NewPassword As String = HttpContext.Current.Request.Item("Field_NewPassword") _
@@ -148,7 +159,10 @@ Public Class SaveItems
             End If
         End If
 
-        Return tmp
+        If tmp = "" Then url = clsGlobals.sAppPath & "Controls/Cufex_Plugins/Cufex_Logout.aspx"
+
+        MyTable.Rows.Add(tmp, url)
+        Return MyTable
     End Function
     Private Function SaveUser(ByVal MyID As Integer) As String
         Dim tmp As String = ""
@@ -506,8 +520,12 @@ Public Class SaveItems
         End If
         Return tmp
     End Function
-    Private Function SaveProfile() As String
-        Dim tmp As String = ""
+    Private Function SaveProfile() As DataTable
+        Dim MyTable As New DataTable
+        MyTable.Columns.Add("tmp", GetType(String))
+        MyTable.Columns.Add("url", GetType(String))
+
+        Dim tmp As String = "", url As String = ""
         Dim IsValid As Boolean = True
         Dim profilename As String = UCase(HttpContext.Current.Request.Item("Field_ProfileName"))
 
@@ -619,7 +637,13 @@ Public Class SaveItems
                 tmp = "Error: Profile Name already exists!"
             End If
         End If
-        Return tmp
+
+        If tmp = "" Then
+            Dim page As Page = New Page
+            url = HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Security_ProfilesDetails", Nothing)) & "?profile=" & profilename
+        End If
+        MyTable.Rows.Add(tmp, url)
+        Return MyTable
     End Function
     Private Function SaveConfiguration(ByVal MyID As Integer, ByVal type As String) As String
         Dim tmp As String = "", Command As String = ""
@@ -3040,72 +3064,6 @@ Public Class SaveItems
         Return tmp
     End Function
 
-    Private Function GetMyID(ByVal SearchTable As String, ByVal StrID As String) As Integer
-        Dim MyID As Integer = 0
-        Dim AndFilter As String = ""
-        Dim sql As String = ""
-        Dim tb As SQLExec = New SQLExec
-        Dim ds As DataSet = Nothing
-        Select Case SearchTable
-            Case "PORTALUSERS", "SKUCATALOGUE"
-                MyID = StrID.Split("=")(1)
-            Case "USERCONTROL"
-                sql += "Select " & IIf(CommonMethods.dbtype = "sql", "ID", "SerialKey") & " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & SearchTable & " where UserKey = '" & StrID.Split("=")(1) & "'"
-            Case "enterprise.storer2", "enterprise.storer5"
-                sql += "Select SerialKey from " & SearchTable.Remove(SearchTable.Length - 1) & " where StorerKey = '" & StrID.Split("=")(1) & "' and Type = " & SearchTable(SearchTable.Length - 1)
-            Case "enterprise.sku"
-                sql += "Select SerialKey from " & SearchTable & " where StorerKey = '" & StrID.Split("=")(1).Split("&")(0) & "' and Sku = '" & StrID.Split("=")(2) & "'"
-            Case "Warehouse_PO", "Warehouse_ASN", "Warehouse_SO", "Warehouse_OrderManagement"
-                Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
-                Dim suppliers As String() = CommonMethods.getSupplierPerUser(HttpContext.Current.Session("userkey").ToString)
-                Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
-                If owners IsNot Nothing And suppliers IsNot Nothing And consignees IsNot Nothing Then
-                    Dim ownersstr As String = String.Join("','", owners)
-                    ownersstr = "'" & ownersstr & "'"
-                    If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
-
-                    If SearchTable = "Warehouse_PO" Then
-                        Dim suppliersstr As String = String.Join("','", suppliers)
-                        suppliersstr = "'" & suppliersstr & "'"
-                        If Not UCase(suppliersstr).Contains("'ALL'") Then AndFilter += " and SellerName IN (" & suppliersstr & ")"
-                    End If
-
-                    If SearchTable = "Warehouse_SO" Or SearchTable = "Warehouse_OrderManagement" Then
-                        Dim consigneesstr As String = String.Join("','", consignees)
-                        consigneesstr = "'" & consigneesstr & "'"
-                        If Not UCase(consigneesstr).Contains("'ALL'") Then AndFilter += " and ConsigneeKey IN (" & consigneesstr & ")"
-                    End If
-
-                    Dim warehouse As String = StrID.Split("=")(1).Split("&")(0)
-                    Dim warehouselevel As String = warehouse
-                    If SearchTable <> "Warehouse_OrderManagement" Then
-                        If LCase(warehouse.Substring(0, 6)) = "infor_" Then
-                            warehouselevel = warehouse.Substring(6, warehouse.Length - 6)
-                        End If
-                        warehouselevel = warehouselevel.Split("_")(1)
-                    End If
-
-                    sql += "Select SerialKey from " & warehouselevel
-                    If SearchTable = "Warehouse_PO" Then
-                        sql += ".PO where POKey = "
-                    ElseIf SearchTable = "Warehouse_ASN" Then
-                        sql += ".Receipt where ReceiptKey = "
-                    ElseIf SearchTable = "Warehouse_SO" Then
-                        sql += ".Orders where OrderKey = "
-                    ElseIf SearchTable = "Warehouse_OrderManagement" Then
-                        sql = "Select SerialKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where WHSEID = '" & warehouselevel & "' and ExternOrderKey = "
-                    End If
-                    sql += "'" & StrID.Split("=")(2) & "'" & AndFilter
-                End If
-        End Select
-
-        If sql <> "" Then
-            ds = tb.Cursor(sql)
-            If ds.Tables(0).Rows.Count > 0 Then MyID = ds.Tables(0).Rows(0)(0)
-        End If
-
-        Return Val(MyID)
-    End Function
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable
         Get
             Return False

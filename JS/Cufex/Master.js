@@ -1242,22 +1242,22 @@ function SaveItems() {
         if (Object.keys(obj).length > 0) {
             if ($.trim(obj.tmp) == '') {
                 $('.ClosePopup').trigger("click");
-                if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
-                    success = false;
-                    setTimeout(function () {
-                        swal({
-                            title: "Save",
-                            text: "Password Changed",
-                            type: 'success',
-                            confirmButtonColor: $('.AlertconfirmButtonColor').val(),
-                            showCancelButton: false
-                        });
-                        $('.preloader').fadeOut(300, function () {
-                            $('.NewHeaderRecord').find('input').val('');
-                            AvoidWebServiceRaceCondition = 0;
-                        });
-                    }, 500);
-                }
+                //if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
+                //    success = false;
+                //    setTimeout(function () {
+                //        swal({
+                //            title: "Save",
+                //            text: "Password Changed",
+                //            type: 'success',
+                //            confirmButtonColor: $('.AlertconfirmButtonColor').val(),
+                //            showCancelButton: false
+                //        });
+                //        $('.preloader').fadeOut(300, function () {
+                //            $('.NewHeaderRecord').find('input').val('');
+                //            AvoidWebServiceRaceCondition = 0;
+                //        });
+                //    }, 500);
+                //}
             }
             else {
                 success = false;
@@ -1280,7 +1280,8 @@ function SaveItems() {
         if (success) {
             AvoidWebServiceRaceCondition = 0;
             isFirstLoad = true;
-            LoadItems();
+            if (obj.url !== undefined) location.href = obj.url;
+            else LoadItems();
         }
     }
 
@@ -2006,7 +2007,7 @@ function LoadItems() {
                         MaxPages = Math.ceil($(".Grid" + TabName).find('.GridResults').size() / NumberOfRecordsInPage);
                     }
 
-                    setTimeout(function () { InitColResizable();}, 300);
+                    setTimeout(function () { InitColResizable(); }, 300);
 
                     if (MaxPages == 1 || CurrentPage == MaxPages - 1) {
                         $(".HeaderGridView").find(".Arrow-Right-Forward").addClass("Disabled");
@@ -2017,18 +2018,18 @@ function LoadItems() {
                     }
 
                     $(".HeaderGridView").find(".GridContainer").on('click', '.editStyleNew', function () {
-                        if ($('.MainPageTitle').attr("data-id") != "PROFILES") {
-                            var myID = $(this).attr("data-id");
-                            var myQueryURL = $(this).attr("data-queryurl");
-                            if ($(".NewRecord").length > 0) myQueryURL = "";
-                            DisplayItem(myID, myQueryURL);
-                        }
+                        var myID = $(this).attr("data-id");
+                        var myQueryURL = $(this).attr("data-queryurl");
+                        if ($(".NewRecord").length > 0) myQueryURL = "";
+                        DisplayItem(myID, myQueryURL);
                     });
 
                     $(".HeaderGridView").find(".GridContainer").on('click', '.editStyle', function () {
-                        var myID = $(this).attr("data-id");
-                        var myQueryURL = $(this).attr("data-queryurl");
-                        DisplayItemNew(myID, myQueryURL);
+                        if ($('.MainPageTitle').attr("data-id") != "PROFILES") {
+                            var myID = $(this).attr("data-id");
+                            var myQueryURL = $(this).attr("data-queryurl");
+                            DisplayItemNew(myID, myQueryURL);
+                        }
                     });
 
                     if (TabName != "") {
@@ -2860,7 +2861,7 @@ function GetUserConfiguration() {
         }
 
         AvoidWebServiceRaceCondition = 0;
-        setTimeout(function () { InitColResizable();}, 300);
+        setTimeout(function () { InitColResizable(); }, 300);
     }
     function OnLoadError(response) {
         console.log(response.error);

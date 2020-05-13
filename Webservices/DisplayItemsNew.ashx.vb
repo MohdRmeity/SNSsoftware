@@ -19,7 +19,7 @@ Public Class DisplayItemsNew
         Dim Sql As String = ""
 
         If MyID.Contains("?") Then
-            MyID = GetMyID(mySearchTable, MyID)
+            MyID = CommonMethods.GetMyID(mySearchTable, MyID)
         End If
 
         Dim primKey As String = "SerialKey"
@@ -891,72 +891,73 @@ Public Class DisplayItemsNew
             End If
         End If
     End Sub
-    Private Function GetMyID(ByVal SearchTable As String, ByVal StrID As String) As Integer
-        Dim MyID As Integer = 0
-        Dim AndFilter As String = ""
-        Dim sql As String = ""
-        Dim tb As SQLExec = New SQLExec
-        Dim ds As DataSet = Nothing
-        Select Case SearchTable
-            Case "PORTALUSERS", "SKUCATALOGUE"
-                MyID = StrID.Split("=")(1)
-            Case "USERCONTROL"
-                sql += "Select " & IIf(CommonMethods.dbtype = "sql", "ID", "SerialKey") & " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & SearchTable & " where UserKey = '" & StrID.Split("=")(1) & "'"
-            Case "enterprise.storer2", "enterprise.storer5"
-                sql += "Select SerialKey from " & SearchTable.Remove(SearchTable.Length - 1) & " where StorerKey = '" & StrID.Split("=")(1) & "' and Type = " & SearchTable(SearchTable.Length - 1)
-            Case "enterprise.sku"
-                sql += "Select SerialKey from " & SearchTable & " where StorerKey = '" & StrID.Split("=")(1).Split("&")(0) & "' and Sku = '" & StrID.Split("=")(2) & "'"
-            Case "Warehouse_PO", "Warehouse_ASN", "Warehouse_SO", "Warehouse_OrderManagement"
-                Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
-                Dim suppliers As String() = CommonMethods.getSupplierPerUser(HttpContext.Current.Session("userkey").ToString)
-                Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
-                If owners IsNot Nothing And suppliers IsNot Nothing And consignees IsNot Nothing Then
-                    Dim ownersstr As String = String.Join("','", owners)
-                    ownersstr = "'" & ownersstr & "'"
-                    If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
 
-                    If SearchTable = "Warehouse_PO" Then
-                        Dim suppliersstr As String = String.Join("','", suppliers)
-                        suppliersstr = "'" & suppliersstr & "'"
-                        If Not UCase(suppliersstr).Contains("'ALL'") Then AndFilter += " and SellerName IN (" & suppliersstr & ")"
-                    End If
+    'Private Function GetMyID(ByVal SearchTable As String, ByVal StrID As String) As Integer
+    '    Dim MyID As Integer = 0
+    '    Dim AndFilter As String = ""
+    '    Dim sql As String = ""
+    '    Dim tb As SQLExec = New SQLExec
+    '    Dim ds As DataSet = Nothing
+    '    Select Case SearchTable
+    '        Case "PORTALUSERS", "SKUCATALOGUE"
+    '            MyID = StrID.Split("=")(1)
+    '        Case "USERCONTROL"
+    '            sql += "Select " & IIf(CommonMethods.dbtype = "sql", "ID", "SerialKey") & " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & SearchTable & " where UserKey = '" & StrID.Split("=")(1) & "'"
+    '        Case "enterprise.storer2", "enterprise.storer5"
+    '            sql += "Select SerialKey from " & SearchTable.Remove(SearchTable.Length - 1) & " where StorerKey = '" & StrID.Split("=")(1) & "' and Type = " & SearchTable(SearchTable.Length - 1)
+    '        Case "enterprise.sku"
+    '            sql += "Select SerialKey from " & SearchTable & " where StorerKey = '" & StrID.Split("=")(1).Split("&")(0) & "' and Sku = '" & StrID.Split("=")(2) & "'"
+    '        Case "Warehouse_PO", "Warehouse_ASN", "Warehouse_SO", "Warehouse_OrderManagement"
+    '            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+    '            Dim suppliers As String() = CommonMethods.getSupplierPerUser(HttpContext.Current.Session("userkey").ToString)
+    '            Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
+    '            If owners IsNot Nothing And suppliers IsNot Nothing And consignees IsNot Nothing Then
+    '                Dim ownersstr As String = String.Join("','", owners)
+    '                ownersstr = "'" & ownersstr & "'"
+    '                If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
 
-                    If SearchTable = "Warehouse_SO" Or SearchTable = "Warehouse_OrderManagement" Then
-                        Dim consigneesstr As String = String.Join("','", consignees)
-                        consigneesstr = "'" & consigneesstr & "'"
-                        If Not UCase(consigneesstr).Contains("'ALL'") Then AndFilter += " and ConsigneeKey IN (" & consigneesstr & ")"
-                    End If
+    '                If SearchTable = "Warehouse_PO" Then
+    '                    Dim suppliersstr As String = String.Join("','", suppliers)
+    '                    suppliersstr = "'" & suppliersstr & "'"
+    '                    If Not UCase(suppliersstr).Contains("'ALL'") Then AndFilter += " and SellerName IN (" & suppliersstr & ")"
+    '                End If
 
-                    Dim warehouse As String = StrID.Split("=")(1).Split("&")(0)
-                    Dim warehouselevel As String = warehouse
-                    If SearchTable <> "Warehouse_OrderManagement" Then
-                        If LCase(warehouse.Substring(0, 6)) = "infor_" Then
-                            warehouselevel = warehouse.Substring(6, warehouse.Length - 6)
-                        End If
-                        warehouselevel = warehouselevel.Split("_")(1)
-                    End If
+    '                If SearchTable = "Warehouse_SO" Or SearchTable = "Warehouse_OrderManagement" Then
+    '                    Dim consigneesstr As String = String.Join("','", consignees)
+    '                    consigneesstr = "'" & consigneesstr & "'"
+    '                    If Not UCase(consigneesstr).Contains("'ALL'") Then AndFilter += " and ConsigneeKey IN (" & consigneesstr & ")"
+    '                End If
 
-                    sql += "Select SerialKey from " & warehouselevel
-                    If SearchTable = "Warehouse_PO" Then
-                        sql += ".PO where POKey = "
-                    ElseIf SearchTable = "Warehouse_ASN" Then
-                        sql += ".Receipt where ReceiptKey = "
-                    ElseIf SearchTable = "Warehouse_SO" Then
-                        sql += ".Orders where OrderKey = "
-                    ElseIf SearchTable = "Warehouse_OrderManagement" Then
-                        sql = "Select SerialKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where WHSEID = '" & warehouselevel & "' and ExternOrderKey = "
-                    End If
-                    sql += "'" & StrID.Split("=")(2) & "'" & AndFilter
-                End If
-        End Select
+    '                Dim warehouse As String = StrID.Split("=")(1).Split("&")(0)
+    '                Dim warehouselevel As String = warehouse
+    '                If SearchTable <> "Warehouse_OrderManagement" Then
+    '                    If LCase(warehouse.Substring(0, 6)) = "infor_" Then
+    '                        warehouselevel = warehouse.Substring(6, warehouse.Length - 6)
+    '                    End If
+    '                    warehouselevel = warehouselevel.Split("_")(1)
+    '                End If
 
-        If sql <> "" Then
-            ds = tb.Cursor(sql)
-            If ds.Tables(0).Rows.Count > 0 Then MyID = ds.Tables(0).Rows(0)(0)
-        End If
+    '                sql += "Select SerialKey from " & warehouselevel
+    '                If SearchTable = "Warehouse_PO" Then
+    '                    sql += ".PO where POKey = "
+    '                ElseIf SearchTable = "Warehouse_ASN" Then
+    '                    sql += ".Receipt where ReceiptKey = "
+    '                ElseIf SearchTable = "Warehouse_SO" Then
+    '                    sql += ".Orders where OrderKey = "
+    '                ElseIf SearchTable = "Warehouse_OrderManagement" Then
+    '                    sql = "Select SerialKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where WHSEID = '" & warehouselevel & "' and ExternOrderKey = "
+    '                End If
+    '                sql += "'" & StrID.Split("=")(2) & "'" & AndFilter
+    '            End If
+    '    End Select
 
-        Return Val(MyID)
-    End Function
+    '    If sql <> "" Then
+    '        ds = tb.Cursor(sql)
+    '        If ds.Tables(0).Rows.Count > 0 Then MyID = ds.Tables(0).Rows(0)(0)
+    '    End If
+
+    '    Return Val(MyID)
+    'End Function
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable
         Get
             Return False

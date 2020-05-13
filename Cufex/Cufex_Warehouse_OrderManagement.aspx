@@ -1129,9 +1129,9 @@
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
         <input type="hidden" class="MyFields" value="OrderManagKey" data-columnname="Order Manag Key" data-priority="1" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" />
         <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="3" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ExternOrderKey" data-columnname="Extern Order Key" data-priority="4" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="ExternOrderKey" data-columnname="Extern Order Key" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Consignee" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ConsigneeName" data-columnname="Consignee Name" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyFields" value="OrderManagStatus" data-columnname="Status" data-priority="7" data-hidden="false" />
