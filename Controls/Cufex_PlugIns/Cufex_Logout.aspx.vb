@@ -17,7 +17,7 @@
         Session("BLog") = 0
         Session("LogMeOut") = 1
 
-        Response.Redirect(Page.GetRouteUrl("SNSsoftware-CMS", Nothing))
+        Response.Redirect(Page.GetRouteUrl("SNSsoftware-Home", Nothing))
     End Sub
 
 End Class

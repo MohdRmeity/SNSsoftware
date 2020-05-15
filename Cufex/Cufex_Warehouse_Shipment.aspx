@@ -133,7 +133,7 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="Actual Ship Date">
+                    <td class="GridCell GridHead" data-id="ActualShipDate">
                         <span class="MyTitleHead">Actual Ship Date</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>

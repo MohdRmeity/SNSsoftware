@@ -868,7 +868,7 @@ Public Class GetItems
                 MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?ordermanagkey=" & !OrderManagKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
-                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&externkey=" & !ExternOrderKey & "'>"
+                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)) & "?ordermanagkey=" & !OrderManagKey & "'>"
                 MyRecords += "                        " & !OrderManagKey
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"

@@ -18,6 +18,9 @@ Public Class GetItemsDetails
         Dim SQL As String = " set dateformat dmy select * from "
 
         If SearchTable <> "Warehouse_OrderManagement" Then
+            If Facility = "" Then
+                Facility = HttpContext.Current.Request.UrlReferrer.Query.Substring(HttpContext.Current.Request.UrlReferrer.Query.IndexOf("=") + 1).Split("&")(0)
+            End If
             Dim warehouselevel As String = ""
             If LCase(Facility.Substring(0, 6)) = "infor_" Then
                 warehouselevel = Facility.Substring(6, Facility.Length - 6)
