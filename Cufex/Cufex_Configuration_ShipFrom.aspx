@@ -1,4 +1,11 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Cufex/Cufex_Site.Master" CodeBehind="Cufex_Configuration_ShipFrom.aspx.vb" Inherits="SNSsoftware.Cufex_Configuration_ShipFrom" %>
+<asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
+    <style>
+        .ui-resizable-s {
+            display: none !important;
+        }
+    </style>
+</asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
     <%--Page Title--%>

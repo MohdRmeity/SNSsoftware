@@ -82,7 +82,7 @@ Public Class GetItems
         End If
 
         If SearchTable = "REPORTSPROFILEDETAIL" Then
-            SQL += " select distinct top " & CommonMethods.TopCount & " (REPORT) , REPORT_NAME " & IIf(TabName <> "undefined", ",ID, EDIT", "") & " from " & SearchTable & " where 1=1 " & AndFilter
+            SQL += " select distinct top " & CommonMethods.TopCount & " (REPORT) , REPORT_NAME " & IIf(TabName <> "", ",ID, EDIT", "") & " from " & SearchTable & " where 1=1 " & AndFilter
         End If
 
         SearchItem(SearchQuery, SearchTable, SQL)
@@ -107,7 +107,7 @@ Public Class GetItems
                 GetUserProfileRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "PROFILES" Then
                 GetProfilesRecords(OBJTable, MyRecords)
-            ElseIf TabName <> "undefined" Then
+            ElseIf TabName <> "" Then
                 If TabName = "Actions" Then
                     GetProfileDetailRecords(OBJTable, MyRecords)
                 ElseIf TabName = "Reports" Then
@@ -308,7 +308,7 @@ Public Class GetItems
                     MyRecords += "                        <label for='ChkSelect" & i & "'><span class='CheckBoxStyle'></span></label>"
                     MyRecords += "                    </td>"
                     MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
-                    MyRecords += "                        <a href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Security_ProfilesDetails", Nothing)) & "?profile=" & !ProfileName & "'><div class='editStyleNew' data-id='" & MyID & "'></div></a>"
+                    MyRecords += "                        <a href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Security_ProfilesDetails", Nothing)) & "?profile=" & !ProfileName & "'><div class='editStyle' data-id='" & MyID & "'></div></a>"
                     MyRecords += "                    </td>"
                     MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
                     MyRecords += "                    </td>"
@@ -862,13 +862,13 @@ Public Class GetItems
                 MyRecords += "                        <label for='ChkSelect" & i & "'><span class='CheckBoxStyle'></span></label>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
-                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&externkey=" & !ExternOrderKey & "'></div>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?ordermanagkey=" & !OrderManagKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
-                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&externkey=" & !ExternOrderKey & "'></div>"
+                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?ordermanagkey=" & !OrderManagKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
-                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&externkey=" & !ExternOrderKey & "'>"
+                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)) & "?ordermanagkey=" & !OrderManagKey & "'>"
                 MyRecords += "                        " & !OrderManagKey
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"

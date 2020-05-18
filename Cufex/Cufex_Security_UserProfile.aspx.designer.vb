@@ -48,22 +48,4 @@ Partial Public Class Cufex_Security_UserProfile
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSave As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''cmbProfileName control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbProfileName As Global.System.Web.UI.HtmlControls.HtmlSelect
-    
-    '''<summary>
-    '''cmbUser control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbUser As Global.System.Web.UI.HtmlControls.HtmlSelect
 End Class

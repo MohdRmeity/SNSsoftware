@@ -13094,6 +13094,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .FloatRecordField {
     width: 300px;
+    position:relative;
 }
 
 .textRecordStyle {
@@ -13117,6 +13118,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-color: rgba(120, 131, 152, 0.4);
     }
 
+    .textRecordStyle.Error {
+        padding-right:25px;
+        border: 1px solid #b0494e;
+    }
+
     .textRecordStyle:focus {
         outline: none;
     }
@@ -13126,6 +13132,22 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-repeat: no-repeat;
         background-position: 95% center;
     }
+
+.ErrorIcon {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url(../../images/Cufex_Images/Error.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
 .UserAddEditContainer {
     position: relative;
@@ -13755,9 +13777,9 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 }
 
-@media all and (max-width:448px){
-    .MainHeaderProfileDetails .MainPageDesc{
-        padding-bottom:25px;
+@media all and (max-width:448px) {
+    .MainHeaderProfileDetails .MainPageDesc {
+        padding-bottom: 25px;
     }
 }
 

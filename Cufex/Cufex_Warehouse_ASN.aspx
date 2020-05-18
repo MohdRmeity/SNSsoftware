@@ -1192,7 +1192,7 @@
         <input type="hidden" class="MyFields" value="Status" data-columnname="Status" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ReceiptType" data-columnname="Type" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyFields" value="POKey" data-columnname="PO Number" data-priority="7" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ExternReceiptKey" data-columnname="Extern Receipt Key" data-priority="8" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="ExternReceiptKey" data-columnname="Extern Receipt Key" data-priority="8" data-hidden="false" />
         <input type="hidden" class="MyFields" value="CarrierKey" data-columnname="Carrier" data-priority="9" data-hidden="false" />
         <input type="hidden" class="MyFields" value="WarehouseReference" data-columnname="Warehouse Reference" data-priority="10" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ContainerKey" data-columnname="Container Key" data-priority="11" data-hidden="false" />

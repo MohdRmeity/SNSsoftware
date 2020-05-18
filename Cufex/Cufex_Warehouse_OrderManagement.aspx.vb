@@ -9,9 +9,8 @@ Partial Public Class Cufex_Warehouse_OrderManagement
             myMasterPage.section = Cufex_Site.SectionName.Warehouse
             myMasterPage.Subsection = Cufex_Site.SubSectionName.Warehouse_OrderManagement
 
-            Dim MyWarehouse As String = Request.QueryString("warehouse")
-            Dim MyExternKey As String = Request.QueryString("externkey")
-            If MyWarehouse <> "" And MyExternKey <> "" Then HiddenID.Value = "?warehouse=" & MyWarehouse & "&externkey=" & MyExternKey
+            Dim MyOrderManagKey As String = Request.QueryString("ordermanagkey")
+            If MyOrderManagKey <> "" Then HiddenID.Value = "?ordermanagkey=" & MyOrderManagKey
         End If
     End Sub
 End Class

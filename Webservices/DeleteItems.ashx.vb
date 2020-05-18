@@ -70,20 +70,14 @@ Public Class DeleteItems
             sql += " delete from " & SearchTable & " where " & primKey & " In (" & MyItems & ") "
             tmp = tb.Execute(sql)
         ElseIf SearchTable = "REPORTSPORTAL" Then
-            If CommonMethods.dbtype <> "sql" Then
-                SearchTable = "System." & SearchTable
-                primKey = "ReportID"
-            Else
-                primKey = "ReportID"
-            End If
+            primKey = "ReportID"
+            If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable
             sql += " delete from REPORTSPROFILEDETAIL where report In (" & MyItems & ") "
             sql += " delete from " & SearchTable & " where " & primKey & " In (" & MyItems & ") "
             tmp = tb.Execute(sql)
         ElseIf SearchTable = "PROFILEDETAIL" Then
             sql += " delete from " & SearchTable & "DASHBOARDS where " & primKey & " In (" & MyItems & ") and PROFILENAME ='" & QueryUrlStr & "'"
             tmp = tb.Execute(sql)
-
-
         ElseIf SearchTable.Contains("enterprise.storer") Then
             primKey = "SerialKey"
             Dim type As String = SearchTable(SearchTable.Length - 1)

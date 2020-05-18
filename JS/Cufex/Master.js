@@ -76,6 +76,7 @@ function SNSFunctions() {
 
     $('.btnQuickEntry').click(function () {
         $('.AddDetailsBtn').hide();
+        $(".ErrorIcon").remove();
         $('.MyRecordID').val(0);
         $('.FloatRecordField, .Details_FloatRecordField').find('input:text').each(function () {
             var $this = $(this);
@@ -95,6 +96,7 @@ function SNSFunctions() {
         });
 
         $('.FloatRecordField').find('input:password').val('');
+        $('.FloatRecordField').find('input:password').removeClass("Error");
         $('.FloatRecordField').find('input:checkbox').prop("false");
         $('.FloatRecordField').find('select').val('').trigger('chosen:updated');
         $('.FloatRecordField').find('select').prop('disabled', false).trigger("chosen:updated");
@@ -282,9 +284,11 @@ function SNSFunctions() {
         if ($('.MainPageTitle').attr("data-id") == "PROFILEDETAIL") {
             LoadItems();
         }
-        GetUserConfiguration();
         DisplayDropDowns();
     }
+
+    GetUserConfiguration();
+
 
     $('.InputAutoPostBack').on('change', function () {
         AutoPostBack($(this).chosen().val());
@@ -426,16 +430,31 @@ function SNSFunctions() {
 
     $('.ClosePopup').click(function () {
         $('.RecordsContainer_Inside:visible').remove();
+        $('.FloatRecordField').find('input:password').removeClass("Error");
+        $(".ErrorIcon").remove();
         $('.New_Modify_Record_PopUp').fadeOut();
         $('.MyRecordID').val(0);
     });
 
     $('.SaveRecordNow').click(function () {
-        SaveItems();
+        if ($('.MainPageTitle').attr("data-id") == "PORTALUSERS") {
+            if (!$("input[type='password']").hasClass("Error")) {
+                SaveItems();
+            }
+        } else {
+            SaveItems();
+        }
     });
 
     $('.btnSave').click(function () {
-        SaveItemsNew();
+        if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
+            if (!$("input[type='password']").hasClass("Error")) {
+                SaveItems();
+            }
+        }
+        else {
+            SaveItemsNew();
+        }
     });
 
     $('.btnSaveDetail').click(function () {
@@ -475,9 +494,10 @@ function SNSFunctions() {
                     $('.btnDelete').removeClass("DisplayNone");
                     setOnCufex_Resize();
                 }
-                CurrentPage = 1;
+                CurrentPage = 0;
                 $(".SearchClass").val("");
                 SearchQuery = "";
+                SortBy = "id desc";
                 LoadItems();
                 setTimeout(function () { InitColResizable(); }, 300);
             }
@@ -485,12 +505,13 @@ function SNSFunctions() {
         });
     }
 
-    //if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0 && isFirstLoad) {
-    //    AvoidWebServiceRaceCondition = 0;
-    //    LoadItems();
-    //}
-
     if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
+        AvoidWebServiceRaceCondition = 0;
+        if ($(".NewRecord").length > 0) {
+            $('.btnAddNew').trigger("click");
+        } else {
+            $('.btnQuickEntry').trigger("click");
+        }
         setTimeout(function () {
             var MyID = $(".HiddenID").val();
             $(".HiddenID").val(0);
@@ -498,6 +519,17 @@ function SNSFunctions() {
             else DisplayItem(MyID, '');
         }, 1500);
     }
+
+    $("input[type='password']").blur(function () {
+        $(this).removeClass("Error");
+        $(this).siblings(".ErrorIcon").remove();
+        if ($(this).val() != "") {
+            if (!$(this).val().match(/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{10,}$/)) {
+                $(this).addClass("Error");
+                $(this).after("<div class='ErrorIcon' title='Password must be at least 10 characters, have one upper case letter, one lower case letter and one base 10 digits (0 to 9)'></div>");
+            }
+        }
+    });
 }
 
 function ChangeColumnsOrder(row) {
@@ -534,11 +566,21 @@ function PageTable($this) {
     $("." + $this).find('.GridResults').hide().slice(MyPage * MyNumberOfRecordsInPage, (MyPage + 1) * MyNumberOfRecordsInPage).show();
 }
 
+function PageTableTab($this) {
+    var TableSize = $("." + $this).find(".GridResults").size();
+    var PageFirstRowNo = 1 + (CurrentPage * NumberOfRecordsInPage);
+    var PageLastRowNo = (CurrentPage + 1) * NumberOfRecordsInPage > TableSize ? TableSize : (CurrentPage + 1) * NumberOfRecordsInPage
+    $('.PagingNumbers').html(PageFirstRowNo + "-" + PageLastRowNo + " of " + TableSize);
+    $("." + $this).find('.GridResults').hide().slice(CurrentPage * NumberOfRecordsInPage, (CurrentPage + 1) * NumberOfRecordsInPage).show();
+}
+
 function SetGridActions() {
     function SortTable(n, dir) {
         var table, rows, switching, i, x, y, shouldSwitch, switchcount = 0;
         var GridIndex = $(".HeaderGridView:visible").length > 0 ? 0 : 1;
-        table = document.getElementsByClassName("GridContainer")[GridIndex];
+        var GridName = "GridContainer";
+        if ($(".MyTab").length > 0) GridName = "Grid" + $(".MyTab.Active").data("id");
+        table = document.getElementsByClassName(GridName)[GridIndex];
         switching = true;
         while (switching) {
             switching = false;
@@ -572,6 +614,11 @@ function SetGridActions() {
         var $MyGrid = $(".HeaderGridView:visible").length > 0 ? $(".HeaderGridView") : $(".DetailsGridView");
         var GridName = $(".HeaderGridView:visible").length > 0 ? "HeaderGridView" : "DetailsGridView";
 
+        if ($("MyTab").length > 0) {
+            $MyGrid = $(".Grid" + $(".MyTab.Active").data("id"));
+            GridName = "Grid" + $(".MyTab.Active").data("id");
+        }
+
         if ($(this).find(".SortUp").hasClass("Active")) {
             $MyGrid.find(".SortUp,.SortDown").removeClass("Active");
             $(this).find(".SortDown").addClass("Active");
@@ -589,7 +636,8 @@ function SetGridActions() {
 
         if ($(".GridResults").length > 0) {
             SortTable($(this).index(), dir);
-            PageTable(GridName);
+            if ($("MyTab").length > 0) PageTableTab(GridName);
+            else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
         }
     });
@@ -599,6 +647,11 @@ function SetGridActions() {
         var $MyGrid = $(".HeaderGridView:visible").length > 0 ? $(".HeaderGridView") : $(".DetailsGridView");
         var GridName = $(".HeaderGridView:visible").length > 0 ? "HeaderGridView" : "DetailsGridView";
 
+        if ($("MyTab").length > 0) {
+            $MyGrid = $(".Grid" + $(".MyTab.Active").data("id"));
+            GridName = "Grid" + $(".MyTab.Active").data("id");
+        }
+
         $MyGrid.find(".SortUp,.SortDown").removeClass("Active");
         $(this).addClass("Active");
 
@@ -607,7 +660,8 @@ function SetGridActions() {
 
         if ($(".GridResults").length > 0) {
             SortTable($(this).closest(".GridCell").index(), "asc");
-            PageTable(GridName);
+            if ($("MyTab").length > 0) PageTableTab(GridName);
+            else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
         }
 
@@ -618,6 +672,11 @@ function SetGridActions() {
         var $MyGrid = $(".HeaderGridView:visible").length > 0 ? $(".HeaderGridView") : $(".DetailsGridView");
         var GridName = $(".HeaderGridView:visible").length > 0 ? "HeaderGridView" : "DetailsGridView";
 
+        if ($("MyTab").length > 0) {
+            $MyGrid = $(".Grid" + $(".MyTab.Active").data("id"));
+            GridName = "Grid" + $(".MyTab.Active").data("id");
+        }
+
         $MyGrid.find(".SortUp,.SortDown").removeClass("Active");
         $(this).addClass("Active");
 
@@ -626,7 +685,8 @@ function SetGridActions() {
 
         if ($(".GridResults").length > 0) {
             SortTable($(this).closest(".GridCell").index(), "desc");
-            PageTable(GridName);
+            if ($("MyTab").length > 0) PageTableTab(GridName);
+            else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
         }
     });
@@ -863,7 +923,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Right-Forward').removeClass("Disabled");
                 $(".HeaderGridView").find('.Arrow-Right-Forward-Last').removeClass("Disabled");
             }
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         }
         else {
             CurrentPageDetails = parseInt(CurrentPageDetails) - 1;
@@ -899,7 +960,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Right-Forward-Last').removeClass("Disabled");
             }
             CurrentPage = 0;
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         }
         else {
             if (CurrentPageDetails == 0) return;
@@ -935,7 +997,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Left-Back').removeClass("Disabled");
                 $(".HeaderGridView").find('.Arrow-Left-Back-First').removeClass("Disabled");
             }
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         } else {
             CurrentPageDetails = parseInt(CurrentPageDetails) + 1;
             if (CurrentPageDetails >= MaxPagesDetails) {
@@ -970,7 +1033,8 @@ function SetGridActions() {
                 $(".HeaderGridView").find('.Arrow-Left-Back-First').removeClass("Disabled");
             }
             CurrentPage = MaxPages - 1;
-            PageTable("HeaderGridView");
+            if ($("MyTab").length > 0) PageTableTab("Grid" + $(".MyTab.Active").data("id"));
+            else PageTable("HeaderGridView");
         } else {
             if (CurrentPageDetails == MaxPagesDetails - 1) return;
             $(".DetailsGridView").find('.Arrow-Right-Forward-Last').addClass("Disabled");
@@ -988,6 +1052,7 @@ function SetGridActions() {
 function DeleteItems(MyItems) {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
+        console.log("Delete Items API Start Time: " + GetTime());
 
         swal({
             title: "Delete",
@@ -1052,6 +1117,7 @@ function DeleteItems(MyItems) {
             isFirstLoad = true;
             LoadItems();
         }
+        console.log("Delete Items API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1064,6 +1130,7 @@ function DeleteItems(MyItems) {
 
 function DeleteItemsDetails(MyItems) {
     if (AvoidWebServiceRaceCondition == 0) {
+        console.log("Delete Items Details API Start Time: " + GetTime());
         AvoidWebServiceRaceCondition = 1;
 
         swal({
@@ -1127,6 +1194,7 @@ function DeleteItemsDetails(MyItems) {
             isFirstLoad = true;
             LoadItemsDetails();
         }
+        console.log("Delete Items Details API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1140,8 +1208,7 @@ function DeleteItemsDetails(MyItems) {
 function SaveItems() {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
-        //if ($('.MainPageTitle').attr("data-id") == "Warehouse_PO" || $('.MainPageTitle').attr("data-id") == "Warehouse_ASN" || $('.MainPageTitle').attr("data-id") == "Warehouse_SO") $('.preloader').fadeIn();
-
+        console.log("Save Item API Start Time: " + GetTime());
         $(".preloader").fadeIn();
 
         var pageUrl = sAppPath + 'WebServices/SaveItems.ashx';
@@ -1151,30 +1218,36 @@ function SaveItems() {
         data.append("MyID", $('.MyRecordID').val());
         data.append("DetailsCount", $('.RecordsContainer_Inside:visible').length);
 
-        $('.MyFields').each(function () {
-            var myField = $(this).val();
-            if ($('.RecordHeader').find('.Input' + myField).is("input")) {
-                if ($('.RecordHeader').find('.Input' + myField).attr("type") == "text" || $('.RecordHeader').find('.Input' + myField).attr("type") == "password") {
+        if ($('.MainPageTitle').attr("data-id") != "ChangePassword") {
+            $('.MyFields').each(function () {
+                var myField = $(this).val();
+                if ($('.RecordHeader').find('.Input' + myField).is("input")) {
+                    if ($('.RecordHeader').find('.Input' + myField).attr("type") == "text" || $('.RecordHeader').find('.Input' + myField).attr("type") == "password") {
+                        data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).val());
+                    }
+                    else if ($('.RecordHeader').find('.Input' + myField).attr("type") == "checkbox") {
+                        data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).prop("checked"));
+                    }
+                }
+                else if ($('.RecordHeader').find('.Input' + myField).is("select")) {
                     data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).val());
                 }
-                else if ($('.RecordHeader').find('.Input' + myField).attr("type") == "checkbox") {
-                    data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).prop("checked"));
-                }
-            }
-            else if ($('.RecordHeader').find('.Input' + myField).is("select")) {
-                data.append("Field_" + myField, $('.RecordHeader').find('.Input' + myField).val());
-            }
-        });
+            });
+        } else {
+            data.append("Field_OriginalPassword", $('.NewHeaderRecord').find('.InputOriginalPassword').val());
+            data.append("Field_NewPassword", $('.NewHeaderRecord').find('.InputNewPassword').val());
+            data.append("Field_ConfirmPassword", $('.NewHeaderRecord').find('.InputConfirmPassword').val());
+        }
 
         $('.MyDetailsFields').each(function () {
             var myField = $(this).val();
             var myFieldValue = "";
             $('.RecordsContainer_Inside:visible').each(function (e) {
                 if (e == 0) {
-                    myFieldValue += $(this).find('.InputDetails' + myField).eq(e).val();
+                    myFieldValue += $(this).find('.InputDetails' + myField).val();
                 }
                 else {
-                    myFieldValue += "~~~" + $(this).find('.InputDetails' + myField).eq(e).val();
+                    myFieldValue += "~~~" + $(this).find('.InputDetails' + myField).val();
                 }
             });
             if ($('.RecordsContainer_Inside:visible').find('.InputDetails' + myField).is("input")) {
@@ -1204,21 +1277,22 @@ function SaveItems() {
         if (Object.keys(obj).length > 0) {
             if ($.trim(obj.tmp) == '') {
                 $('.ClosePopup').trigger("click");
-                if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
-                    success = false;
-                    setTimeout(function () {
-                        swal({
-                            title: "Save",
-                            text: "Password Changed",
-                            type: 'success',
-                            confirmButtonColor: $('.AlertconfirmButtonColor').val(),
-                            showCancelButton: false
-                        });
-                        $('.preloader').fadeOut(300, function () {
-                            AvoidWebServiceRaceCondition = 0;
-                        });
-                    }, 500);
-                }
+                //if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
+                //    success = false;
+                //    setTimeout(function () {
+                //        swal({
+                //            title: "Save",
+                //            text: "Password Changed",
+                //            type: 'success',
+                //            confirmButtonColor: $('.AlertconfirmButtonColor').val(),
+                //            showCancelButton: false
+                //        });
+                //        $('.preloader').fadeOut(300, function () {
+                //            $('.NewHeaderRecord').find('input').val('');
+                //            AvoidWebServiceRaceCondition = 0;
+                //        });
+                //    }, 500);
+                //}
             }
             else {
                 success = false;
@@ -1241,8 +1315,10 @@ function SaveItems() {
         if (success) {
             AvoidWebServiceRaceCondition = 0;
             isFirstLoad = true;
-            LoadItems();
+            if (obj.url !== undefined) location.href = obj.url;
+            else LoadItems();
         }
+        console.log("Save Item API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1256,6 +1332,7 @@ function SaveItems() {
 function SaveItemsNew() {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
+        console.log("Save Item New API Start Time: " + GetTime());
         $(".preloader").fadeIn();
         var pageUrl = sAppPath + 'WebServices/SaveItemsNew.ashx';
 
@@ -1334,6 +1411,7 @@ function SaveItemsNew() {
             isFirstLoad = true;
             LoadItems();
         }
+        console.log("Save Item New API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1347,6 +1425,7 @@ function SaveItemsNew() {
 function SaveItemsDetails() {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
+        console.log("Save Item Details API Start Time: " + GetTime());
         $(".preloader").fadeIn();
         var pageUrl = sAppPath + 'WebServices/SaveItemsDetails.ashx';
 
@@ -1425,6 +1504,7 @@ function SaveItemsDetails() {
             LoadItemsDetails();
             $(".NewHeaderRecord").find(".InputStatus").val(obj.Status);
         }
+        console.log("Save Item Details API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1439,7 +1519,9 @@ function DisplayItem(DisplayID, QueryURL) {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
 
-        $(".preloader").fadeIn();
+        console.log("Display Item API Start Time: " + GetTime());
+
+        if (QueryURL != "") $(".preloader").fadeIn();
 
         var pageUrl = sAppPath + 'WebServices/DisplayItems.ashx';
 
@@ -1515,13 +1597,15 @@ function DisplayItem(DisplayID, QueryURL) {
                 });
 
                 $('.AddDetailsBtn').hide();
+                $(".ErrorIcon").remove();
                 $('.MyRecordID').val(DisplayID);
                 $('.FloatRecordField').find('input:password').val('');
+
 
                 $('.New_Modify_Record_PopUp').fadeIn(function () {
                     SetMasterResize();
                     $('.AddDetailsBtn').show();
-
+                    $('.FloatRecordField').find('input:password').removeClass("Error");
                     $('.btnDeleteDtl').click(function () {
                         var $this = $(this);
                         $this.parent('.RecordsContainer_Inside').remove();
@@ -1656,6 +1740,8 @@ function DisplayItem(DisplayID, QueryURL) {
                 AvoidWebServiceRaceCondition = 0;
             });
         }
+
+        console.log("Display Item API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1669,6 +1755,7 @@ function DisplayItem(DisplayID, QueryURL) {
 function DisplayItemNew(DisplayID, QueryURL) {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
+        console.log("Display Item New API Start Time: " + GetTime());
         $(".preloader").fadeIn();
         $('html, body').animate({ scrollTop: 0 }, 'slow', "easeInOutCubic");
         var pageUrl = sAppPath + 'WebServices/DisplayItemsNew.ashx';
@@ -1779,6 +1866,8 @@ function DisplayItemNew(DisplayID, QueryURL) {
                 });
             }
         }
+
+        console.log("Display Item New API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1792,9 +1881,9 @@ function DisplayItemNew(DisplayID, QueryURL) {
 function DisplayItemDetails(DisplayID) {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
+        console.log("Display Item Details New API Start Time: " + GetTime());
         $(".preloader").fadeIn();
         var pageUrl = sAppPath + 'WebServices/DisplayItemsDetails.ashx';
-
         var data = new FormData();
         data.append("SearchTable", $('.MainPageTitle').attr("data-id"));
         data.append("MyID", DisplayID);
@@ -1885,6 +1974,8 @@ function DisplayItemDetails(DisplayID) {
                 AvoidWebServiceRaceCondition = 0;
             });
         }
+
+        console.log("Display Item Details New API End Time: " + GetTime());
     }
 
     function OnLoadError(response) {
@@ -1896,13 +1987,7 @@ function DisplayItemDetails(DisplayID) {
 }
 
 function LoadItems() {
-    var TabName = $(".MyTab.Active").data("id");
-    var QueryUrlStr = $(".QueryUrlStr").val();
-
-    if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
-        $('.btnQuickEntry').trigger("click");
-    }
-    else {
+    if ($('.MainPageTitle').attr("data-id") != "ChangePassword") {
         if (AvoidWebServiceRaceCondition == 0) {
             AvoidWebServiceRaceCondition = 1;
             $(".HeaderGridView").find('.GridResults').remove();
@@ -1911,6 +1996,10 @@ function LoadItems() {
             isFirstLoad = false;
 
             var pageUrl = sAppPath + 'WebServices/GetItems.ashx';
+
+            var TabName = "";
+            if ($(".MyTab").length > 0) TabName = $(".MyTab.Active").data("id");
+            var QueryUrlStr = $(".QueryUrlStr").val();
 
             var data = new FormData();
             data.append("SearchQuery", SearchQuery);
@@ -1938,21 +2027,18 @@ function LoadItems() {
 
                     if (TabName == "Actions") {
                         $(".GridActions").find('.SearchStyle').after(obj.Records);
-                        $('.PagingNumbers').html("1-" + $(".GridActions").find('.GridResults').size() + " of " + $(".GridActions").find('.GridResults').size());
                     }
                     else if (TabName == "Reports") {
                         $(".GridReports").find('.SearchStyle').after(obj.Records);
-                        $('.PagingNumbers').html("1-" + $(".GridReports").find('.GridResults').size() + " of " + $(".GridReports").find('.GridResults').size());
-
                     }
                     else if (TabName == "Dashboards") {
                         $(".GridDashboards").find('.SearchStyle').after(obj.Records);
-                        $('.PagingNumbers').html("1-" + $(".GridDashboards").find('.GridResults').size() + " of " + $(".GridDashboards").find('.GridResults').size());
                     }
                     else {
                         $(".HeaderGridView").find('.SearchStyle').after(obj.Records);
                     }
-                    if (TabName === undefined) {
+
+                    if (TabName == "") {
                         $(".HeaderGridView").find(".GridResults").each(function () {
                             var $this = $(this);
                             $this.children(".GridCell[data-id]").each(function (e) {
@@ -1968,12 +2054,11 @@ function LoadItems() {
                         MaxPages = Math.ceil($(".HeaderGridView").find('.GridResults').size() / NumberOfRecordsInPage);
                     }
                     else {
-                        MaxPages = 1;
+                        PageTableTab("Grid" + TabName);
+                        MaxPages = Math.ceil($(".Grid" + TabName).find('.GridResults').size() / NumberOfRecordsInPage);
                     }
 
                     setTimeout(function () { InitColResizable(); }, 300);
-
-
 
                     if (MaxPages == 1 || CurrentPage == MaxPages - 1) {
                         $(".HeaderGridView").find(".Arrow-Right-Forward").addClass("Disabled");
@@ -1984,18 +2069,18 @@ function LoadItems() {
                     }
 
                     $(".HeaderGridView").find(".GridContainer").on('click', '.editStyleNew', function () {
-                        if ($('.MainPageTitle').attr("data-id") != "PROFILES") {
-                            var myID = $(this).attr("data-id");
-                            var myQueryURL = $(this).attr("data-queryurl");
-                            if ($(".NewRecord").length > 0) myQueryURL = "";
-                            DisplayItem(myID, myQueryURL);
-                        }
+                        var myID = $(this).attr("data-id");
+                        var myQueryURL = $(this).attr("data-queryurl");
+                        if ($(".NewRecord").length > 0) myQueryURL = "";
+                        DisplayItem(myID, myQueryURL);
                     });
 
                     $(".HeaderGridView").find(".GridContainer").on('click', '.editStyle', function () {
-                        var myID = $(this).attr("data-id");
-                        var myQueryURL = $(this).attr("data-queryurl");
-                        DisplayItemNew(myID, myQueryURL);
+                        if ($('.MainPageTitle').attr("data-id") != "PROFILES") {
+                            var myID = $(this).attr("data-id");
+                            var myQueryURL = $(this).attr("data-queryurl");
+                            DisplayItemNew(myID, myQueryURL);
+                        }
                     });
 
                     if (TabName != "") {
@@ -2010,19 +2095,11 @@ function LoadItems() {
                         });
                     }
 
-                    $('.chkSelectGrdActive').change(function () {
-                        UpdateUserActive($(this));
-                    });
-
-                    //if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
-                    //    setTimeout(function () {
-                    //        var MyID = $(".HiddenID").val();
-                    //        $(".HiddenID").val(0);
-                    //        AvoidWebServiceRaceCondition = 0;
-                    //        if ($(".NewRecord").length > 0) DisplayItemNew(MyID, '');
-                    //        else DisplayItem(MyID, '');
-                    //    }, 1000);
-                    //}
+                    if ($('.MainPageTitle').attr("data-id") != "PORTALUSERS") {
+                        $('.chkSelectGrdActive').change(function () {
+                            UpdateUserActive($(this));
+                        });
+                    }
 
                 } else {
                     $(".HeaderGridView").find('.NoResults').show();
@@ -2033,6 +2110,7 @@ function LoadItems() {
 
             $('.preloader').fadeOut(300, function () {
                 AvoidWebServiceRaceCondition = 0;
+                //setOnCufex_Resize();
             });
         }
 
@@ -2216,7 +2294,10 @@ function AutoPostBack(value) {
     if (AvoidWebServiceRaceCondition == 0) {
         IsAutoPostBack = true;
         AvoidWebServiceRaceCondition = 1;
-        if ($('.MainPageTitle').attr("data-id") == "SKUCATALOGUE" && value != "") $('.preloader').fadeIn();
+        if ($('.MainPageTitle').attr("data-id") == "SKUCATALOGUE" && value != "") {
+            console.log("Display Sku DropDown API Start Time: " + GetTime());
+            $('.preloader').fadeIn();
+        }
 
         var pageUrl = sAppPath + 'WebServices/AutoPostBackDropDowns.ashx';
 
@@ -2330,6 +2411,10 @@ function AutoPostBack(value) {
                     IsAutoPostBack = false;
                 });
             }, 500);
+        }
+
+        if ($('.MainPageTitle').attr("data-id") == "SKUCATALOGUE" && value != "") {
+            console.log("Display Sku DropDown API End Time: " + GetTime());
         }
     }
 
@@ -2741,7 +2826,7 @@ function GetUserConfiguration() {
 
         var data = new FormData();
         data.append("ActionType", "get");
-        data.append("SearchTable", $('.MainPageTitle').attr("data-id"));
+        data.append("SearchTable", $(".MainPageTitle").length > 0 ? $('.MainPageTitle').attr("data-id") : "");
 
         $.ajax({
             type: "POST",
@@ -2756,9 +2841,10 @@ function GetUserConfiguration() {
     function OnLoadSuccess(response) {
         var obj = jQuery.parseJSON(response);
         if (Object.keys(obj).length > 0) {
-            if (obj.ColumnsNames != "") {
-                if (obj.MenuOpen == "0") CloseMenu(false);
 
+            if (obj.MenuOpen == "0") CloseMenu(false);
+
+            if (obj.ColumnsNames != "") {
                 var ColumnsNamesArr = obj.ColumnsNames.split(",");
                 var ColumnsPrioritiesArr = obj.ColumnsPriorities.split(",");
                 var ColumnsHiddenArr = obj.ColumnsHidden.split(",");
@@ -2811,10 +2897,19 @@ function GetUserConfiguration() {
                         }
                     }
 
-                    ShowHideColumns($(".GridRow"));
-                    ChangeColumnsOrder($(".GridRow"));
+                    ShowHideColumns($(".HeaderGridView").find(".GridRow"));
+                    ChangeColumnsOrder($(".HeaderGridView").find(".GridRow"));
 
-                    $(".GridRow").not(".NoResults").each(function () {
+                    ShowHideColumns($(".DetailsGridView").find(".GridRow"));
+                    ChangeColumnsOrder($(".DetailsGridView").find(".GridRow"));
+
+                    $(".HeaderGridView").find(".GridRow").not(".NoResults").each(function () {
+                        var $thisChild = $(this).children(".GridCell[data-priority]");
+                        $thisChild.removeClass("borderRight0");
+                        $thisChild.eq($thisChild.length - 1).addClass("borderRight0");
+                    });
+
+                    $(".DetailsGridView").find(".GridRow").not(".NoResults").each(function () {
                         var $thisChild = $(this).children(".GridCell[data-priority]");
                         $thisChild.removeClass("borderRight0");
                         $thisChild.eq($thisChild.length - 1).addClass("borderRight0");
@@ -2834,30 +2929,25 @@ function GetUserConfiguration() {
         }
 
         AvoidWebServiceRaceCondition = 0;
-        setTimeout(function () {
-            InitColResizable();
-        }, 300);
+        setTimeout(function () { InitColResizable(); }, 500);
     }
     function OnLoadError(response) {
         console.log(response.error);
         AvoidWebServiceRaceCondition = 0;
-        setTimeout(function () {
-            InitColResizable();
-        }, 300);
     }
 }
 
 function SetUserConfigution() {
-    if ($(".MainPageTitle").length > 0) {
-        AvoidWebServiceRaceCondition = 0;
-        if (AvoidWebServiceRaceCondition == 0) {
-            AvoidWebServiceRaceCondition = 1;
-            var ColumnsNames = ""
-            var ColumnsPriorities = ""
-            var ColumnsWidthes = ""
-            var ColumnsHidden = ""
-            var GridTypes = ""
+    AvoidWebServiceRaceCondition = 0;
+    if (AvoidWebServiceRaceCondition == 0) {
+        AvoidWebServiceRaceCondition = 1;
+        var ColumnsNames = ""
+        var ColumnsPriorities = ""
+        var ColumnsWidthes = ""
+        var ColumnsHidden = ""
+        var GridTypes = ""
 
+        if ($(".GridAdjust").length > 0) {
             $(".GridAdjust").children(".GridCell").each(function (e) {
                 var $this = $(this);
                 if ($this.closest(".HeaderGridView").length > 0) GridTypes += "Header" + ",";
@@ -2875,57 +2965,57 @@ function SetUserConfigution() {
                 }
                 ColumnsWidthes += $this.outerWidth() + ",";
             });
-
-            var pageUrl = sAppPath + 'WebServices/UserConfiguration.ashx';
-
-            var data = new FormData();
-            data.append("ActionType", "set");
-            data.append("SearchTable", $('.MainPageTitle').attr("data-id"));
-            data.append("MenuOpen", MenuClosed ? 0 : 1);
-            data.append("ColumnsNames", ColumnsNames.slice(0, -1));
-            data.append("ColumnsPriorities", ColumnsPriorities.slice(0, -1));
-            data.append("ColumnsWidthes", ColumnsWidthes.slice(0, -1));
-            data.append("ColumnsHidden", ColumnsHidden.slice(0, -1));
-            data.append("GridTypes", GridTypes.slice(0, -1));
-
-            $.ajax({
-                type: "POST",
-                contentType: false,
-                processData: false,
-                data: data,
-                url: pageUrl + "/UserConfigurationAction",
-                success: OnLoadSuccess,
-                error: OnLoadError
-            });
         }
-        function OnLoadSuccess(response) {
-            var obj = jQuery.parseJSON(response);
-            if (Object.keys(obj).length > 0) {
-                if (obj.Error != null) {
-                    swal({
-                        title: "Update",
-                        text: obj.Error,
-                        type: 'error',
-                        confirmButtonColor: $('.AlertconfirmButtonColor').val(),
-                        showCancelButton: false
-                    });
-                    AvoidWebServiceRaceCondition = 0;
-                }
-            } else {
-                console.log("Couldn't Set User Configuration");
+
+        var pageUrl = sAppPath + 'WebServices/UserConfiguration.ashx';
+
+        var data = new FormData();
+        data.append("ActionType", "set");
+        data.append("SearchTable", $(".MainPageTitle").length > 0 ? $('.MainPageTitle').attr("data-id") : "");
+        data.append("MenuOpen", $(".MenuPin").hasClass("Pinned") ? 1 : 0);
+        data.append("ColumnsNames", ColumnsNames.slice(0, -1));
+        data.append("ColumnsPriorities", ColumnsPriorities.slice(0, -1));
+        data.append("ColumnsWidthes", ColumnsWidthes.slice(0, -1));
+        data.append("ColumnsHidden", ColumnsHidden.slice(0, -1));
+        data.append("GridTypes", GridTypes.slice(0, -1));
+
+        $.ajax({
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            url: pageUrl + "/UserConfigurationAction",
+            success: OnLoadSuccess,
+            error: OnLoadError
+        });
+    }
+    function OnLoadSuccess(response) {
+        var obj = jQuery.parseJSON(response);
+        if (Object.keys(obj).length > 0) {
+            if (obj.Error != null) {
+                swal({
+                    title: "Update",
+                    text: obj.Error,
+                    type: 'error',
+                    confirmButtonColor: $('.AlertconfirmButtonColor').val(),
+                    showCancelButton: false
+                });
+                AvoidWebServiceRaceCondition = 0;
             }
-            setTimeout(function () {
-                AvoidWebServiceRaceCondition = 0;
-                $(".preloader").fadeOut();
-            }, 300);
+        } else {
+            console.log("Couldn't Set User Configuration");
         }
-        function OnLoadError(response) {
-            console.log(response.error);
-            setTimeout(function () {
-                AvoidWebServiceRaceCondition = 0;
-                $(".preloader").fadeOut();
-            }, 300);
-        }
+        setTimeout(function () {
+            AvoidWebServiceRaceCondition = 0;
+            $(".preloader").fadeOut();
+        }, 300);
+    }
+    function OnLoadError(response) {
+        console.log(response.error);
+        setTimeout(function () {
+            AvoidWebServiceRaceCondition = 0;
+            $(".preloader").fadeOut();
+        }, 300);
     }
 }
 
@@ -3064,10 +3154,15 @@ function SetMenuFunctionality() {
         $('.iconOpen').stop(true, true).toggleClass('rotate180');
     });
 
+    $(".widthMenu").mouseenter(function (e) {
+        e.stopPropagation();
+        if (MenuClosed) OpenMenu();
+    });
+
     $(".widthMenu").mouseleave(function (e) {
         e.stopPropagation();
         if (!$('.MenuPin').hasClass("Pinned") && !MenuClosed) {
-            CloseMenu(true);
+            CloseMenu(false);
         }
     });
 
@@ -3138,6 +3233,7 @@ function SetMenuFunctionality() {
         }
         else {
             $(".MenuPin").addClass("Pinned");
+            SetConfigTimer();
         }
     });
 
@@ -3391,6 +3487,11 @@ function MoveTabLine(index) {
     }, 200);
 }
 
+function GetTime() {
+    var dt = new Date();
+    return dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+}
+
 function setOnCufex_Resize() {
     $('.CufexLogoTD,.addSpacebeforeHeader').css({ "height": "72px" });
     $('.BackMenuDiv').css({ "width": "0px" });
@@ -3436,9 +3537,7 @@ function setOnCufex_Resize() {
     $(".content_3").mCustomScrollbar("update");
     $(".content_3").width(0);
     $(".content_3").width($('.MainHeader').width());
-    $(".mCSB_container").width($(".content_3").width());
+    $('.mCSB_container').width($('.MainHeader').width());
 
     $(".content_4").mCustomScrollbar("update");
-
-
 }

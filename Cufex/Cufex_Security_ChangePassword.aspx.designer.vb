@@ -14,20 +14,11 @@ Option Explicit On
 Partial Public Class Cufex_Security_ChangePassword
     
     '''<summary>
-    '''btnQuickEntry control.
+    '''btnSaveHeader control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnQuickEntry As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
-    '''btnSave control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSave As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents btnSaveHeader As Global.System.Web.UI.HtmlControls.HtmlAnchor
 End Class

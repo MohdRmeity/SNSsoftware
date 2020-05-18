@@ -122,19 +122,19 @@
                     </div>
                     <div style="position: relative; height: 500px; width: 100%;" class="MyContainerPopup GetFullHeightForPopup content_4">
                         <div class="iWantMyChildrenFloatHeight">
-                            <div class="floatL Width100">
-                                <div class="FloatRecord floatL RecordHeader">
+                            <div class="floatL Width100 RecordHeader">
+                                <div class="FloatRecord floatL">
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">Profile Name*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Profile Name" multiple class="chosen-select InputProfileName" id="cmbProfileName" runat="server">
+                                        <select data-placeholder="Select Profile Name" multiple class="chosen-select InputProfileName">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">User ID*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputUserKey" id="cmbUser" runat="server">
+                                        <select data-placeholder="Select Users" multiple class="chosen-select InputUserKey">
                                         </select>
                                     </div>
                                 </div>

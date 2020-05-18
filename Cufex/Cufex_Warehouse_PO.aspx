@@ -773,7 +773,7 @@
 
         <input type="hidden" class="MyFields" value="POKey" data-columnname="PO Key" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="ExternPOKey" data-columnname="Extern PO" data-priority="3" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="ExternPOKey" data-columnname="Extern PO" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyFields" value="PODate" data-columnname="PO Date" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Status" data-columnname="Status" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="POType" data-columnname="Type" data-priority="6" data-hidden="false" />
