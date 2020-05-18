@@ -11,7 +11,10 @@ Public Class DeleteItems
         Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim MyItems As String = HttpContext.Current.Request.Item("MyItems")
         Dim QueryUrlStr As String = HttpContext.Current.Request.Item("QueryUrlStr")
-
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -begin
+        Dim useRest As String = ConfigurationManager.AppSettings("UseRestAPI")
+        Dim version As String = ConfigurationManager.AppSettings("version")
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -end
         Dim primKey As String = "ID"
         If SearchTable = "PORTALUSERS" Then
             If CommonMethods.dbtype <> "sql" Then
@@ -86,7 +89,12 @@ Public Class DeleteItems
             Dim type As String = SearchTable(SearchTable.Length - 1)
             SearchTable = SearchTable.Remove(SearchTable.Length - 1)
             Dim dsItem As DataSet = tb.Cursor("Select StorerKey from " & SearchTable & " where " & primKey & " In (" & MyItems & ")")
-            tmp = DeleteConfiguration(dsItem.Tables(0), type)
+            'ghina karame - 11/05/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+            If useRest = "1" & version >= "11" Then
+
+            Else
+                tmp = DeleteConfiguration(dsItem.Tables(0), type)
+            End If
         ElseIf SearchTable = "enterprise.sku" Then
             primKey = "SerialKey"
             Dim dsItem As DataSet = tb.Cursor("Select StorerKey, Sku from " & SearchTable & " where " & primKey & " In (" & MyItems & ")")
