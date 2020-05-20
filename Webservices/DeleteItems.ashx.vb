@@ -89,10 +89,19 @@ Public Class DeleteItems
             Else
                 tmp = DeleteConfiguration(dsItem.Tables(0), type)
             End If
+            'ghina karame - 11/05/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
         ElseIf SearchTable = "enterprise.sku" Then
             primKey = "SerialKey"
             Dim dsItem As DataSet = tb.Cursor("Select StorerKey, Sku from " & SearchTable & " where " & primKey & " In (" & MyItems & ")")
-            tmp = DeleteItem(dsItem.Tables(0))
+            'ghina karame - 11/05/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+            If useRest = "1" & version >= "11" Then
+                tmp = DeleteRestItem(dsItem.Tables(0))
+
+            Else
+                tmp = DeleteItem(dsItem.Tables(0))
+            End If
+            'ghina karame - 11/05/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
+
         ElseIf SearchTable = "SKUCATALOGUE" Then
             primKey = "SerialKey"
             If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable
@@ -313,6 +322,16 @@ Public Class DeleteItems
                 Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>ShipmentOrder</MessageType> <Action>delete</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId></Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(!Facility) & "</SystemID>		</Recipient>	</Head>	<Body><ShipmentOrder> " & Command & "</ShipmentOrder></Body></Message>"
                 tmp = CommonMethods.DeleteXml(xml, !Facility.ToString, "Order", !OrderKey.ToString)
             End With
+        Next
+        Return tmp
+    End Function
+    'ghina karame - 19/05/2020 - created a function to delete an item through rest call
+    Private Function DeleteRestItem(ByVal objTable As DataTable) As String
+        Dim tmp As String = "", Command As String = ""
+        Dim enterprise As String = CommonMethods.getEnterpriseDBName()
+        For i = 0 To objTable.Rows.Count - 1
+            Command = "/" & enterprise & "/items/" & objTable.Rows(i)!Sku.ToString & "/" & objTable.Rows(i)!Storerkey.ToString & ""
+            tmp = CommonMethods.DeleteRest(Command, "ALL", "Item", UCase(objTable.Rows(i)!StorerKey.ToString) & "-" & UCase(objTable.Rows(i)!Sku.ToString))
         Next
         Return tmp
     End Function

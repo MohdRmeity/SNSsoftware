@@ -2000,6 +2000,7 @@ function LoadItems() {
             var TabName = "";
             if ($(".MyTab").length > 0) TabName = $(".MyTab.Active").data("id");
             var QueryUrlStr = $(".QueryUrlStr").val();
+           
 
             var data = new FormData();
             data.append("SearchQuery", SearchQuery);

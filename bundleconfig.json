@@ -46,5 +46,11 @@
     "inputFiles": [
       "Style/IonIcons/ionicons.css"
     ]
+  },
+  {
+    "outputFileName": "JS/Dashboards/DeleteExtension.min.js",
+    "inputFiles": [
+      "JS/Dashboards/DeleteExtension.js"
+    ]
   }
 ]

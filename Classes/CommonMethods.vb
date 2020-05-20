@@ -24,6 +24,10 @@ Public Class CommonMethods
     Public Shared datef As String = ConfigurationManager.AppSettings("datef")
     Public Shared DashboardRefreshTime As String = ConfigurationManager.AppSettings("DashboardRefreshTimeInSeconds")
     Public Shared TopCount As String = ConfigurationManager.AppSettings("TopCount")
+    'ghina karame - take the resturl from the webconfig - begin
+    Public Shared restURL As String = ConfigurationManager.AppSettings("RestURL")
+    Public Shared tenant As String = ConfigurationManager.AppSettings("Tenant")
+    'ghina karame - take the resturl from the webconfig - end
     Public Shared Function AreEqual(ByVal plainTextInput As String, ByVal hashedInput As String, ByVal salt As String) As Boolean
         Dim newHashedPin As String = GenerateHash(plainTextInput, salt)
         Return newHashedPin.Equals(hashedInput)
@@ -802,6 +806,7 @@ Public Class CommonMethods
         End If
         Return soap
     End Function
+
     Public Shared Function getCodeDD(ByVal warehouse As String, ByVal table As String, ByVal listname As String) As DataTable
         Dim sql As String = ""
         If warehouse <> "enterprise" Then
@@ -1300,5 +1305,53 @@ Public Class CommonMethods
         End If
 
         Return Val(MyID)
+    End Function
+    ' ghina karame - 19/05/2020-  method that calls the REST DELETE action
+    Public Shared Function DeleteRest(ByVal uri As String, ByVal facility As String, ByVal type As String, ByVal source As String) As String
+        Dim request As HttpWebRequest
+        Dim response As HttpWebResponse = Nothing
+        Dim responseMessage As String
+        Dim wr As WebResponse
+        uri = restURL + uri
+
+        'Try
+        '    ' Create the web request  
+        '    request = WebRequest.Create("" & uri)
+        '    request.Method = "DELETE"
+        '    ' Get response  
+
+        '    wr = request.GetResponse()
+
+        '    ' Get the response stream into a reader  
+        '    reader = New StreamReader(response.GetResponseStream())
+
+        '    ' Console application output  
+        '    Console.WriteLine(reader.ReadToEnd())
+        'Finally
+        '    If Not response Is Nothing Then response.Close()
+        'End Try
+        'Return reader.ReadToEnd()
+
+        Try
+
+            request = WebRequest.Create(uri)
+            request.Method = "DELETE"
+            request.Headers("Tenant") = tenant
+            request.Headers("Username") = username
+            request.Headers("Password") = password
+
+            wr = request.GetResponse()
+
+        Catch wex As WebException
+
+            responseMessage = New StreamReader(wex.Response.GetResponseStream()).ReadToEnd()
+            responseMessage = Regex.Replace(responseMessage, ":\\?\*", "")
+            If responseMessage.Contains("00096") Then
+                responseMessage = "Error: Unable to delete item, it is already used in WMS"
+            End If
+
+        End Try
+        Return responseMessage
+
     End Function
 End Class

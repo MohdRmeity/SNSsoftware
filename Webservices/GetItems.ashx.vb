@@ -107,14 +107,14 @@ Public Class GetItems
                 GetUserProfileRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "PROFILES" Then
                 GetProfilesRecords(OBJTable, MyRecords)
-            ElseIf TabName <> "" Then
-                If TabName = "Actions" Then
-                    GetProfileDetailRecords(OBJTable, MyRecords)
-                ElseIf TabName = "Reports" Then
-                    GetProfileDetailReportsRecords(OBJTable, MyRecords)
-                ElseIf TabName = "Dashboards" Then
-                    GetProfileDetailDashboardsRecords(OBJTable, MyRecords)
-                End If
+                'ElseIf TabName <> "" Then
+                '    If TabName = "Actions" Then
+                '        GetProfileDetailRecords(OBJTable, MyRecords)
+                '    ElseIf TabName = "Reports" Then
+                '        GetProfileDetailReportsRecords(OBJTable, MyRecords)
+                '    ElseIf TabName = "Dashboards" Then
+                '        GetProfileDetailDashboardsRecords(OBJTable, MyRecords)
+                '    End If
             ElseIf SearchTable = "enterprise.storer" Then
                 GetConfigurationRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "enterprise.sku" Then
