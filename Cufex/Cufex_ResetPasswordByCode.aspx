@@ -25,11 +25,13 @@
                             <div class="floatL Width100 MarginMe">
                                 <asp:TextBox ID="txtCode" runat="server" placeholder="Code" ClientIDMode="Static" CssClass="MyLogInTextBox TxtUsername"></asp:TextBox>
                             </div>
-                            <div class="floatL Width100 MarginMe">
-                                <asp:TextBox ID="txtPassword" runat="server" placeholder="Password" ClientIDMode="Static" TextMode="Password" CssClass="MyLogInTextBox TxtPassword"></asp:TextBox>
+                            <div class="floatL Width100 MarginMe PositionRelative">
+                                <asp:TextBox ID="txtPassword" runat="server" placeholder="Password" ClientIDMode="Static" TextMode="Password" CssClass="MyLogInTextBox TxtPassword textRecordStylePassword"></asp:TextBox>
                             </div>
                             <div class="floatL Width100">
-                                <asp:TextBox ID="txtConfirmPassword" runat="server" placeholder="Confirm Password" ClientIDMode="Static" TextMode="Password" CssClass="MyLogInTextBox TxtPassword"></asp:TextBox>
+                                <div class="PositionRelative">
+                                    <asp:TextBox ID="txtConfirmPassword" runat="server" placeholder="Confirm Password" ClientIDMode="Static" TextMode="Password" CssClass="MyLogInTextBox TxtPassword textRecordStylePassword"></asp:TextBox>
+                                </div>
                                 <div class="LoginValidator">
                                     <asp:CustomValidator ID="CVError1" runat="server" Display="Dynamic" CssClass="LogInError" ErrorMessage=""></asp:CustomValidator>
                                     <asp:RequiredFieldValidator ID="rqCode" runat="server" ControlToValidate="txtCode" CssClass="LogInError" Display="Dynamic" ErrorMessage=""></asp:RequiredFieldValidator>

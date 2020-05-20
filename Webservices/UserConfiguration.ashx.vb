@@ -24,14 +24,10 @@ Public Class UserConfiguration
                 Dim ColumnsWidthes As String = ""
                 Dim ColumnsHidden As String = ""
                 Dim GridTypes As String = ""
-                Dim MenuOpen As String = "1"
 
                 If ds IsNot Nothing Then
                     If ds.Tables(0).Rows.Count > 0 Then
                         UserConfigTable = ds.Tables(0)
-                    End If
-                    If ds.Tables(1).Rows.Count > 0 Then
-                        MenuOpen = ds.Tables(1).Rows(0)!MenuOpen
                     End If
                 End If
 
@@ -61,9 +57,6 @@ Public Class UserConfiguration
 
                 writer.WritePropertyName("GridTypes")
                 writer.WriteValue(GridTypes)
-
-                writer.WritePropertyName("MenuOpen")
-                writer.WriteValue(MenuOpen)
             End If
 
             writer.WriteEndObject()
@@ -120,17 +113,19 @@ Public Class UserConfiguration
         Return tmp
     End Function
     Private Function GetUserConfiguration() As DataSet
-        Dim sql As String = ""
-        Dim tb As SQLExec = New SQLExec
-        Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
-        Dim UserKey As String = HttpContext.Current.Session("userkey").ToString
+        Try
+            Dim sql As String = ""
+            Dim tb As SQLExec = New SQLExec
+            Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
+            Dim UserKey As String = HttpContext.Current.Session("userkey").ToString
 
-        sql += " Select * from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
-        sql += " where UserKey = '" & UserKey & "' and ScreenName = '" & SearchTable & "' order by ID asc "
-        sql += " Select MenuOpen from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS"
-        sql += " where UserKey = '" & UserKey & "'"
+            sql += " Select * from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
+            sql += " where UserKey = '" & UserKey & "' and ScreenName = '" & SearchTable & "' order by ID asc "
 
-        Return tb.Cursor(sql)
+            Return tb.Cursor(sql)
+        Catch ex As Exception
+        End Try
+        Return Nothing
     End Function
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable
         Get

@@ -171,22 +171,9 @@
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Email*</div>
-                                    <div class="FloatRecordField floatL">
-                                        <input type="text" class="textRecordStyle InputEmail" />
-                                    </div>
-                                </div>
-                                <div class="FloatRecordSep floatL"></div>
-                                <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">First Name*</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputFirstName" />
-                                    </div>
-                                </div>
-                                <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Password*</div>
-                                    <div class="FloatRecordField floatL">
-                                        <input type="password" class="textRecordStyle InputPassword" />
                                     </div>
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
@@ -194,6 +181,19 @@
                                     <div class="FloatRecordTitle floatL">Last Name*</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputLastName" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">Email*</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="text" class="textRecordStyle InputEmail" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecordSep floatL"></div>
+                                <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">Password*</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="password" class="textRecordStyle textRecordStylePassword InputPassword" />
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL DisplayNone">
@@ -205,7 +205,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Confirm Password*</div>
                                     <div class="FloatRecordField floatL">
-                                        <input type="password" class="textRecordStyle InputConfirmPassword" />
+                                        <input type="password" class="textRecordStyle textRecordStylePassword InputConfirmPassword" />
                                     </div>
                                 </div>
                                 <div class="floatL Width100 PasswordInfo">

@@ -130,6 +130,7 @@ Public Class Cufex_Site
             UserInfo.LoginUser = HttpContext.Current.Session("userkey").ToString
             If Not Page.IsPostBack Then
                 FixMenuVisibleItems()
+                HiddenMenuOpen.Value = CommonMethods.GetUserMenuOpen()
             End If
 
             If Not section = SectionName.Home Then

@@ -2969,12 +2969,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         display: none;
     }
 
-
-
-
-
-
-
 .PreloaderContainerB {
     width: 180px;
     height: 180px;
@@ -13094,7 +13088,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .FloatRecordField {
     width: 300px;
-    position:relative;
+    position: relative;
 }
 
 .textRecordStyle {
@@ -13119,7 +13113,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 
     .textRecordStyle.Error {
-        padding-right:25px;
+        padding-right: 25px;
         border: 1px solid #b0494e;
     }
 

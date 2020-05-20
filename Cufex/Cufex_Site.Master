@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <div class="DivMain" id="DivMainContainer" runat="server">
+        <div class="DivMain" id="DivMainContainer" runat="server" style="opacity:0;">
             <script type="text/javascript">
                 var sAppPath = "<%= sAppPath %>";
                 var BUserCode = "<%= BUserCode%>";
@@ -253,6 +253,7 @@
         <script type="text/javascript" src="<%= sAppPath %>JS/Jcrop/jquery.Jcrop.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" data-pace-options='{ "document": false }' src="<%= sAppPath %>js/Pace-Modified.min.js?v=<%=AppVersion%>"></script>
         <input type="hidden" class="Cufex_Forms" value="1" />
+        <input type="hidden" id="HiddenMenuOpen" runat="server" class="HiddenMenuOpen" value="1" />
     </form>
 </body>
 </html>

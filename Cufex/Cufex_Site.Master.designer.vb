@@ -516,4 +516,13 @@ Partial Public Class Cufex_Site
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Cufex_ScriptContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
+    
+    '''<summary>
+    '''HiddenMenuOpen control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenMenuOpen As Global.System.Web.UI.HtmlControls.HtmlInputHidden
 End Class

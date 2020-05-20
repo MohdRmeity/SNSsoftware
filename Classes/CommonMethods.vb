@@ -1301,4 +1301,11 @@ Public Class CommonMethods
 
         Return Val(MyID)
     End Function
+    Public Shared Function GetUserMenuOpen() As Integer
+        Dim MenuOpen As Integer = 1
+        Dim sql As String = "Select MenuOpen from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS Where UserKey = '" & HttpContext.Current.Session("userkey") & "'"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        If ds.Tables(0).Rows.Count > 0 Then MenuOpen = Val(ds.Tables(0).Rows(0)!MenuOpen)
+        Return MenuOpen
+    End Function
 End Class

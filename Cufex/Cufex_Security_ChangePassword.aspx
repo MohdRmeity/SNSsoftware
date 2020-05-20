@@ -39,19 +39,19 @@
                             <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                             <div class="FloatRecordTitleNew">Original Password<span>*</span></div>
                             <div style="position:relative;">
-                                <input type="password" class="textRecordStyle InputOriginalPassword" />
+                                <input type="password" class="textRecordStyle textRecordStylePassword InputOriginalPassword" />
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">New Password<span>*</span></div>
                             <div style="position:relative;">
-                                <input type="password" class="textRecordStyle InputNewPassword" />
+                                <input type="password" class="textRecordStyle textRecordStylePassword InputNewPassword" />
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Confirm Password<span>*</span></div>
                             <div style="position:relative;">
-                                <input type="password" class="textRecordStyle InputConfirmPassword" />
+                                <input type="password" class="textRecordStyle textRecordStylePassword InputConfirmPassword" />
                             </div>
                         </div>
                         <div class="floatL Width100 PasswordInfo" style="padding-left: 0; padding-right: 0;">

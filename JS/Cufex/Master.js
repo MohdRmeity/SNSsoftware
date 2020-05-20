@@ -28,6 +28,14 @@ $(window).load(function () {
 });
 
 function SetDefaults() {
+    if ($(".HiddenMenuOpen").val() == 0) {
+        CloseMenu(false);
+        setTimeout(function () {
+            $(".DivMain").css({ opacity: 1 });
+        }, 300);
+    } else {
+        $(".DivMain").css({ opacity: 1 });
+    }
     SNSFunctions();
     //PictureUpload();
     SetMenuFunctionality();
@@ -520,7 +528,7 @@ function SNSFunctions() {
         }, 1500);
     }
 
-    $("input[type='password']").blur(function () {
+    $(".textRecordStylePassword").blur(function () {
         $(this).removeClass("Error");
         $(this).siblings(".ErrorIcon").remove();
         if ($(this).val() != "") {
@@ -1521,7 +1529,7 @@ function DisplayItem(DisplayID, QueryURL) {
 
         console.log("Display Item API Start Time: " + GetTime());
 
-        if (QueryURL != "") $(".preloader").fadeIn();
+        $(".preloader").fadeIn();
 
         var pageUrl = sAppPath + 'WebServices/DisplayItems.ashx';
 
@@ -2841,8 +2849,6 @@ function GetUserConfiguration() {
     function OnLoadSuccess(response) {
         var obj = jQuery.parseJSON(response);
         if (Object.keys(obj).length > 0) {
-
-            if (obj.MenuOpen == "0") CloseMenu(false);
 
             if (obj.ColumnsNames != "") {
                 var ColumnsNamesArr = obj.ColumnsNames.split(",");
