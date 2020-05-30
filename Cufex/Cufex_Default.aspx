@@ -71,10 +71,88 @@
         }
     </script>
 
+    <style>
+        .MainDashboardSettings {
+            padding: 10px 20px;
+        }
+
+        .TimerSettings {
+            position: relative;
+            background-image: url(../../images/Cufex_Images/settings.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .TimerSettingsInner {
+            z-index: 1;
+            position: absolute;
+            top: 26px;
+            left: -35px;
+            width: 75px;
+            background-color: #FFF;
+            display: none;
+        }
+
+        .TimeDiv {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+            .TimeDiv:first-child {
+                padding-top: 10px;
+            }
+
+            .TimeDiv:last-child {
+                padding-bottom: 10px;
+            }
+
+            .TimeDiv:hover {
+                background-color: #3673ff;
+                color: #FFF;
+            }
+
+        .ReloadButton {
+            background-image: url(../../images/Cufex_Images/return.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 16px;
+            height: 16px;
+            border: none;
+            margin-right: 10px;
+              cursor: pointer;
+        }
+    </style>
+
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
     <div class="NormalDiv1118Max ZeroPadding">
+        <div class="MainDashboardSettings">
+            <div class="iWantMyChildrenFloatHeight">
+                <div class="floatL Width100">
+                    <div class="floatR">
+                        <div class="TimerSettings">
+                            <div class="TimerSettingsInner">
+                                <div class="TimeDiv AnimateMe" data-time="30">30 Sec</div>
+                                <div class="TimeDiv AnimateMe" data-time="60">1 Min</div>
+                                <div class="TimeDiv AnimateMe" data-time="300">5 Min</div>
+                                <div class="TimeDiv AnimateMe" data-time="600">10 Min</div>
+                                <div class="TimeDiv AnimateMe" data-time="900">15 Min</div>
+                                <div class="TimeDiv AnimateMe" data-time="1800">30 Min</div>
+                                <div class="TimeDiv AnimateMe" data-time="2700">45 Min</div>
+                                <div class="TimeDiv AnimateMe" data-time="3600">1 H</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floatR">
+                        <asp:Button ID="btnReload" runat="server" Text="" CssClass="ReloadButton"   OnClientClick="javascript:reloaddate();return false;"  />
+                    </div>
+                </div>
+            </div>
+        </div>
         <dx:ASPxTimer ID="ASPxTimer1" runat="server" ClientInstanceName="timer">
             <ClientSideEvents Tick="function(s, e) {webDesigner.ReloadData();}" />
         </dx:ASPxTimer>
@@ -86,8 +164,22 @@
             <BackendOptions Uri="" />
             <DataRequestOptions ItemDataRequestMode="Auto" />
         </dx:ASPxDashboard>
+        <asp:Button runat="server" ID="MyHiddenButton" ClientIDMode="Static" Text="" Style="display: none;" OnClick="MyHiddenButton_Click" />
+        <input class="HiddenTime" id="HiddenTime" runat="server" type="hidden" value="0" />
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".TimerSettings").click(function () {
+                $(".TimerSettingsInner").slideToggle();
+            });
+
+            $(".TimeDiv").click(function (e) {
+                $(".HiddenTime").val($(this).data("time"));
+                document.getElementById("MyHiddenButton").click();
+            });
+        });
+    </script>
 </asp:Content>
 
