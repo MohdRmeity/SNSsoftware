@@ -1349,7 +1349,8 @@ Public Class CommonMethods
             If responseMessage.Contains("00096") Then
                 responseMessage = "Error: Unable to delete item, it is already used in WMS"
             End If
-
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.Error(wex, "", "")
         End Try
         Return responseMessage
 
