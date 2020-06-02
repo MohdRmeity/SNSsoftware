@@ -10,8 +10,10 @@ Imports System.Security.Cryptography
 Imports System.Web.Services.Description
 Imports System.Xml
 Imports System.Xml.Serialization
+Imports Newtonsoft.Json
 Imports NLog
 Imports Oracle.ManagedDataAccess.Client
+Imports Formatting = Newtonsoft.Json.Formatting
 
 Public Class CommonMethods
     Public Shared dbconx As String = ConfigurationManager.ConnectionStrings("DBConnect").ConnectionString
@@ -1355,4 +1357,82 @@ Public Class CommonMethods
         Return responseMessage
 
     End Function
+
+    ' ghina karame - 19/05/2020-  method that calls the REST POST action
+    Public Shared Function SaveRest(ByVal uri As String, ByVal JsonData As String) As String
+        Dim response As String
+        Dim wr As WebResponse
+        uri = restURL + uri
+
+
+        ' Dim JsonData As String = "{""storerkey"":""LM00004"",""sku"":""testa"",""descr"":""abc1""}"
+        Dim myRequest As HttpWebRequest = PostJSON(JsonData, uri)
+
+        'Console.WriteLine("Response of Request:{0}", GetResponse(myRequest))
+
+        'Console.ReadKey()
+
+        Return GetResponse(myRequest)
+
+
+    End Function
+
+    'ghina karame  - RESTAPI - 02/06/2020- method to post the json request
+    Public Shared Function PostJSON(ByVal JsonData As String, ByVal uri As String) As HttpWebRequest
+        Dim objhttpWebRequest As HttpWebRequest
+        Try
+            Dim httpWebRequest = DirectCast(WebRequest.Create(uri), HttpWebRequest)
+            httpWebRequest.ContentType = "application/json"
+            httpWebRequest.Headers("Tenant") = tenant
+            httpWebRequest.Headers("Username") = username
+            httpWebRequest.Headers("Password") = password
+            httpWebRequest.Method = "POST"
+
+            Using streamWriter = New StreamWriter(httpWebRequest.GetRequestStream())
+
+
+                streamWriter.Write(JsonData)
+                streamWriter.Flush()
+                streamWriter.Close()
+            End Using
+
+            objhttpWebRequest = httpWebRequest
+
+        Catch ex As Exception
+            Console.WriteLine("Send Request Error[{0}]", ex.Message)
+
+            Return Nothing
+        End Try
+
+        Return objhttpWebRequest
+
+    End Function
+    'ghina karame  - RESTAPI - 02/06/2020- method to get the response of the post request
+    ' method return empty if response is successfull i.e. status code is 200
+    Public Shared Function GetResponse(ByVal httpWebRequest As HttpWebRequest) As String
+        Dim strResponse As String = "Bad Request:400"
+        Try
+            Dim httpResponse = DirectCast(httpWebRequest.GetResponse(), HttpWebResponse)
+
+            Using streamReader = New StreamReader(httpResponse.GetResponseStream())
+                Dim result = streamReader.ReadToEnd()
+
+                If httpResponse.StatusCode = 200 Then
+                    strResponse = ""
+
+                Else
+                    strResponse = result.ToString()
+                End If
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("GetResponse Error[{0}]", ex.Message)
+
+            Return ex.Message
+        End Try
+
+        Return strResponse
+
+    End Function
+
+
 End Class

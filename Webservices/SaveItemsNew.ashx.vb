@@ -14,6 +14,10 @@ Public Class SaveItemsNew
 
         Dim mySearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim MyID As Integer = Val(HttpContext.Current.Request.Item("MyID"))
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -begin
+        Dim useRest As String = ConfigurationManager.AppSettings("UseRestAPI")
+        Dim version As String = ConfigurationManager.AppSettings("version")
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -end
 
         Dim sb As New StringBuilder()
         Dim sw As New StringWriter(sb)
@@ -25,9 +29,23 @@ Public Class SaveItemsNew
 
             If mySearchTable.Contains("enterprise.storer") Then
                 Dim type As String = mySearchTable(mySearchTable.Length - 1)
-                writer.WriteValue(SaveConfiguration(MyID, type))
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+                If useRest = "1" & version >= "11" Then
+                    writer.WriteValue(SaveRestTradingPartner(MyID, type))
+                Else
+                    writer.WriteValue(SaveConfiguration(MyID, type))
+                End If
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
+
             ElseIf mySearchTable = "enterprise.sku" Then
-                writer.WriteValue(SaveItem(MyID))
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+                If useRest = "1" & version >= "11" Then
+                    writer.WriteValue(SaveRestItem(MyID))
+                Else
+                    writer.WriteValue(SaveItem(MyID))
+                End If
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
+
             ElseIf mySearchTable = "SKUCATALOGUE" Then
                 writer.WriteValue(SaveItemCatalogue(MyID))
             ElseIf mySearchTable = "Warehouse_PO" Then
@@ -307,6 +325,301 @@ Public Class SaveItemsNew
         End If
         Return tmp
     End Function
+    'ghina karame - RESTAPI - 02/06/2020- method that prepares the json data to send to post rest api
+    Private Function SaveRestTradingPartner(ByVal MyID As Integer, ByVal type As String) As String
+        Dim tmp As String = "", Command As String = ""
+        Dim IsValid As Boolean = True
+        Dim EditOperation As Boolean = MyID <> 0
+        Dim uri As String
+        Dim r As Regex = New Regex("[~`!#$%^&*()+=|\{}':;,<>/?[\]""]")
+        Dim storer As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
+        , company As String = HttpContext.Current.Request.Item("Field_Company") _
+        , descr As String = HttpContext.Current.Request.Item("Field_Description") _
+        , country As String = HttpContext.Current.Request.Item("Field_Country") _
+        , city As String = HttpContext.Current.Request.Item("Field_City") _
+        , state As String = HttpContext.Current.Request.Item("Field_State") _
+        , zip As String = HttpContext.Current.Request.Item("Field_Zip") _
+        , Address1 As String = HttpContext.Current.Request.Item("Field_Address1") _
+        , Address2 As String = HttpContext.Current.Request.Item("Field_Address2") _
+        , Address3 As String = HttpContext.Current.Request.Item("Field_Address3") _
+        , Address4 As String = HttpContext.Current.Request.Item("Field_Address4") _
+        , Address5 As String = HttpContext.Current.Request.Item("Field_Address5") _
+        , Address6 As String = HttpContext.Current.Request.Item("Field_Address6") _
+        , Contact1 As String = HttpContext.Current.Request.Item("Field_Contact1") _
+        , Contact2 As String = HttpContext.Current.Request.Item("Field_Contact2") _
+        , Email1 As String = HttpContext.Current.Request.Item("Field_Email1") _
+        , Email2 As String = HttpContext.Current.Request.Item("Field_Email2") _
+        , Phone1 As String = HttpContext.Current.Request.Item("Field_Phone1") _
+        , Phone2 As String = HttpContext.Current.Request.Item("Field_Phone2") _
+        , UDf1 As String = HttpContext.Current.Request.Item("Field_SUsr1") _
+        , UDf2 As String = HttpContext.Current.Request.Item("Field_SUsr2") _
+        , UDf3 As String = HttpContext.Current.Request.Item("Field_SUsr3") _
+        , UDf4 As String = HttpContext.Current.Request.Item("Field_SUsr4") _
+        , UDf5 As String = HttpContext.Current.Request.Item("Field_SUsr5") _
+        , isoCode As String = ""
+
+        If Not String.IsNullOrEmpty(storer) And Trim(storer) <> "" Then
+            If r.IsMatch(storer) Then
+                IsValid = False
+                tmp += IIf(type = "2", "Ship To", "Supplier") & " cannot have any special characters <br/>"
+            Else
+                'Command += "<StorerKey>" & storer & "</StorerKey><Type>" & type & "</Type>"
+                Command += "{""storerkey"":""" + storer + """"
+                Command += ",""type"":""" + type + """"
+            End If
+        Else
+            IsValid = False
+            tmp += IIf(type = "2", "Ship To", "Supplier") & " cannot be Empty <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(company) Then
+            If r.IsMatch(company) Then
+                IsValid = False
+                tmp += "Company cannot have any special characters <br/>"
+            Else
+                'Command += "<Company>" & company & "</Company>"
+                Command += ",""company"":""" + company + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(descr) Then
+            If r.IsMatch(descr) Then
+                IsValid = False
+                tmp += "Description cannot have any special characters <br/>"
+            Else
+                'Command += "<Description>" & descr & "</Description>"
+                Command += ",""description"":""" + descr + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(country) Then
+            'Command += "<Country>" & country & "</Country>"
+            Command += ",""country"":""" + country + """"
+            isoCode = CommonMethods.getISOCountryCode(country)
+            If Not String.IsNullOrEmpty(isoCode) Then
+                'Command += "<ISOCntryCode>" & isoCode & "</ISOCntryCode>"
+                Command += ",""isocntrycode"":""" + isoCode + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(city) Then
+            If r.IsMatch(city) Then
+                IsValid = False
+                tmp += "City cannot have any special characters <br/>"
+            Else
+                'Command += "<City>" & city & "</City>"
+                Command += ",""city"":""" + city + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(state) Then
+            If r.IsMatch(state) Then
+                IsValid = False
+                tmp += "State cannot have any special characters <br/>"
+            Else
+                'Command += "<State>" & state & "</State>"
+                Command += ",""state"":""" + state + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(zip) Then
+            If r.IsMatch(zip) Then
+                IsValid = False
+                tmp += "Zip Code cannot have any special characters <br/>"
+            Else
+                'Command += "<Zip>" & zip & "</Zip>"
+                Command += ",""zip"":""" + zip + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Address1) Then
+            If r.IsMatch(Address1) Then
+                IsValid = False
+                tmp += "Address1 cannot have any special characters <br/>"
+            Else
+                'Command += "<Address1>" & Address1 & "</Address1>"
+                Command += ",""address1"":""" + Address1 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Address2) Then
+            If r.IsMatch(Address2) Then
+                IsValid = False
+                tmp += "Address2 cannot have any special characters <br/>"
+            Else
+                'Command += "<Address2>" & Address2 & "</Address2>"
+                Command += ",""address2"":""" + Address2 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Address3) Then
+            If r.IsMatch(Address3) Then
+                IsValid = False
+                tmp += "Address3 cannot have any special characters <br/>"
+            Else
+                'Command += "<Address3>" & Address3 & "</Address3>"
+                Command += ",""address3"":""" + Address3 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Address4) Then
+            If r.IsMatch(Address4) Then
+                IsValid = False
+                tmp += "Address4 cannot have any special characters <br/>"
+            Else
+                'Command += "<Address4>" & Address4 & "</Address4>"
+                Command += ",""address4"":""" + Address4 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Address5) Then
+            If r.IsMatch(Address5) Then
+                IsValid = False
+                tmp += "Address5 cannot have any special characters <br/>"
+            Else
+                'Command += "<Address5>" & Address5 & "</Address5>"
+                Command += ",""address5"":""" + Address5 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Address6) Then
+            If r.IsMatch(Address6) Then
+                IsValid = False
+                tmp += "Address6 cannot have any special characters <br/>"
+            Else
+                'Command += "<Address6>" & Address6 & "</Address6>"
+                Command += ",""address6"":""" + Address6 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Contact1) Then
+            If r.IsMatch(Contact1) Then
+                IsValid = False
+                tmp += "Contact1 cannot have any special characters <br/>"
+            Else
+                'Command += "<Contact1>" & Contact1 & "</Contact1>"
+                Command += ",""contact1"":""" + Contact1 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Contact2) Then
+            If r.IsMatch(Contact2) Then
+                IsValid = False
+                tmp += "Contact2 cannot have any special characters <br/>"
+            Else
+                'Command += "<Contact2>" & Contact2 & "</Contact2>"
+                Command += ",""contact2"":""" + Contact2 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Phone1) Then
+            If r.IsMatch(Phone1) Then
+                IsValid = False
+                tmp += "Phone1 cannot have any special characters <br/>"
+            Else
+                'Command += "<Phone1>" & Phone1 & "</Phone1>"
+                Command += ",""phone1"":""" + Phone1 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Phone2) Then
+            If r.IsMatch(Phone2) Then
+                IsValid = False
+                tmp += "Phone2 cannot have any special characters <br/>"
+            Else
+                'Command += "<Phone2>" & Phone2 & "</Phone2>"
+                Command += ",""phone2"":""" + Phone2 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Email1) Then
+            If r.IsMatch(Email1) Then
+                IsValid = False
+                tmp += "Email1 cannot have any special characters <br/>"
+            Else
+                'Command += "<Email1>" & Email1 & "</Email1>"
+                Command += ",""email1"":""" + Email1 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Email2) Then
+            If r.IsMatch(Email2) Then
+                IsValid = False
+                tmp += "Email2 cannot have any special characters <br/>"
+            Else
+                'Command += "<Email2>" & Email2 & "</Email2>"
+                Command += ",""email2"":""" + Email2 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(UDf1) Then
+            If r.IsMatch(UDf1) Then
+                IsValid = False
+                tmp += "UDF1 cannot have any special characters <br/>"
+            Else
+                'Command += "<SUsr1>" & UDf1 & "</SUsr1>"
+                Command += ",""susr1"":""" + UDf1 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(UDf2) Then
+            If r.IsMatch(UDf2) Then
+                IsValid = False
+                tmp += "UDF2 cannot have any special characters <br/>"
+            Else
+                'Command += "<SUsr2>" & UDf2 & "</SUsr2>"
+                Command += ",""susr2"":""" + UDf2 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(UDf3) Then
+            If r.IsMatch(UDf3) Then
+                IsValid = False
+                tmp += "UDF3 cannot have any special characters <br/>"
+            Else
+                'Command += "<SUsr3>" & UDf3 & "</SUsr3>"
+                Command += ",""susr3"":""" + UDf3 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(UDf4) Then
+            If r.IsMatch(UDf4) Then
+                IsValid = False
+                tmp += "UDF4 cannot have any special characters <br/>"
+            Else
+                'Command += "<SUsr4>" & UDf4 & "</SUsr4>"
+                Command += ",""susr4"":""" + UDf4 + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(UDf5) Then
+            If r.IsMatch(UDf5) Then
+                IsValid = False
+                tmp += "UDF5 cannot have any special characters <br/>"
+            Else
+                'Command += "<SUsr5>" & UDf5 & "</SUsr5>"
+                Command += ",""susr5"":""" + UDf5 + """"
+            End If
+        End If
+
+        If IsValid Then
+            Dim exist As Integer = 0
+            If Not EditOperation Then exist = CommonMethods.checkConfigurationExist(storer, type)
+            If exist = 0 Then
+                If type = 2 Then
+                    uri = "/" & CommonMethods.getEnterpriseDBName() & "/customers "
+                Else
+                    uri = "/" & CommonMethods.getEnterpriseDBName() & "/suppliers "
+                End If
+
+                'Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>storer</MessageType><Action>store</Action><Sender><User>" & CommonMethods.username & "</User><Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID><TenantId>INFOR</TenantId></Sender><Recipient><SystemID>" & CommonMethods.getEnterpriseDBName() & "</SystemID></Recipient></Head><Body><Storer><StorerHeader>" & Command & "</StorerHeader></Storer></Body></Message>"
+                tmp = CommonMethods.SaveRest(uri, Command)
+            Else
+                tmp = "Error: " & IIf(type = "2", "Ship To", "Supplier") & " already exists!"
+            End If
+        End If
+        Return tmp
+    End Function
     Private Function SaveItem(ByVal MyID As Integer) As String
         Dim tmp As String = "", Command As String = ""
         Dim IsValid As Boolean = True
@@ -355,6 +668,69 @@ Public Class SaveItemsNew
             If exist = 0 Then
                 Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>ItemMaster</MessageType><Action>store</Action><Sender><User>" & CommonMethods.username & "</User><Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID><TenantId>INFOR</TenantId></Sender><Recipient><SystemID>" & CommonMethods.getEnterpriseDBName() & "</SystemID></Recipient></Head><Body><ItemMaster><Item>" & Command & "</Item></ItemMaster></Body></Message>"
                 tmp = CommonMethods.SaveXml(Xml, "Item", storer & "-" & Sku)
+            Else
+                tmp = "Error: Item already exists!"
+            End If
+        End If
+        Return tmp
+    End Function
+
+    ' Ghina karame - 01/06/2020 - method to prepare the json data to sent to REST POST
+    Private Function SaveRestItem(ByVal MyID As Integer) As String
+        Dim tmp As String = ""
+        Dim IsValid As Boolean = True
+        Dim EditOperation As Boolean = MyID <> 0
+        ' ghina karame - defining the command as a new dictionary
+        Dim command As String
+
+        Dim storer As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
+        , Sku As String = UCase(HttpContext.Current.Request.Item("Field_Sku")) _
+        , PackKey As String = HttpContext.Current.Request.Item("Field_PackKey") _
+        , Descr As String = HttpContext.Current.Request.Item("Field_Descr") _
+        , TariffKey As String = HttpContext.Current.Request.Item("Field_TariffKey") _
+        , StdCube As String = HttpContext.Current.Request.Item("Field_StdCube") _
+        , StdNetWgt As String = HttpContext.Current.Request.Item("Field_StdNetWgt") _
+        , StdGrossWgt As String = HttpContext.Current.Request.Item("Field_StdGrossWgt") _
+        , SkuGroup As String = HttpContext.Current.Request.Item("Field_SkuGroup")
+
+        If Not String.IsNullOrEmpty(storer) And Trim(storer) <> "" Then
+            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+            If owners.Any(Function(x) x = storer) Or owners.Any(Function(x) x = "ALL") Then
+                'Command += "<StorerKey>" & storer & "</StorerKey>"
+                command += "{""storerkey"":""" + storer + """"
+
+            Else
+                IsValid = False
+                tmp += "This owner is not authorized <br/>"
+            End If
+        Else
+            IsValid = False
+            tmp += "Owner cannot be Empty <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(Sku) Then
+            'Command += "<Sku>" & Sku & "</Sku>"
+            command += ",""sku"":""" + Sku + """"
+        Else
+            IsValid = False
+            tmp += "Item cannot be Empty <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(Descr) Then command += ",""descr"":""" + Descr + """"
+        If Not String.IsNullOrEmpty(PackKey) Then command += ",""packkey"":""" + PackKey + """"
+        If Not String.IsNullOrEmpty(TariffKey) Then command += ",""tariffkey"":""" + TariffKey + """"
+        If Not String.IsNullOrEmpty(StdCube) Then command += ",""stdcube"":""" + StdCube + """"
+        If Not String.IsNullOrEmpty(StdNetWgt) Then command += ",""stdnetwgt"":""" + StdNetWgt + """"
+        If Not String.IsNullOrEmpty(StdGrossWgt) Then command += ",""stdgrosswgt"":""" + StdGrossWgt + """"
+        If Not String.IsNullOrEmpty(SkuGroup) Then command += ",""skugroup"":""" + SkuGroup + """"
+        command += "}"
+
+        If IsValid Then
+            Dim exist As Integer = 0
+            If Not EditOperation Then exist = CommonMethods.checkItemExist(storer, Sku)
+            If exist = 0 Then
+                Dim uri As String = "/" & CommonMethods.getEnterpriseDBName() & "/items "
+                tmp = CommonMethods.SaveRest(uri, command)
             Else
                 tmp = "Error: Item already exists!"
             End If
