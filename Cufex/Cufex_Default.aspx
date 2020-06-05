@@ -16,11 +16,14 @@
     </script>
 
     <script type="text/javascript">
+        var extension;
         //This will setup the toggle for viewer mode and edit mode.
         function onBeforeRender(sender) {
             var control = sender.GetDashboardControl();
             setInterval(function () { }, 3000);
-            control.registerExtension(new DevExpress.Dashboard.DashboardPanelExtension(control, { dashboardThumbnail: "~/App_Data/Dashboards/DashboardThumbnail/{0}.png" }));
+
+            extension = new DevExpress.Dashboard.DashboardPanelExtension(control, { dashboardThumbnail: "~/App_Data/Dashboards/DashboardThumbnail/{0}.png" })
+            control.registerExtension(extension);
 
             control.requestDashboardList()
                 .done(function (e) {
@@ -30,9 +33,24 @@
                 });
 
             var control = sender.GetDashboardControl();
+
             control.registerExtension(new SaveAsDashboardExtension(control));
             control.registerExtension(new DeleteDashboardExtension(sender));
         }
+
+        function onExpand() {
+            var control = webDesigner.GetDashboardControl();
+            extension.showPanelAsync({}).done(function (e) {
+                control.surfaceLeft(e.surfaceLeft);
+            });
+        }
+        function onCollapse() {
+            var control = webDesigner.GetDashboardControl();
+            extension.hidePanelAsync({}).done(function (e) {
+                control.surfaceLeft(e.surfaceLeft);
+            });
+        }
+
     </script>
 
     <script type="text/javascript">
@@ -78,7 +96,7 @@
 
         .TimerSettings {
             position: relative;
-            background-image: url(../../images/Cufex_Images/settings.png);
+            background-image: url(../images/Cufex_Images/settings.png);
             background-repeat: no-repeat;
             background-size: contain;
             width: 16px;
@@ -115,7 +133,7 @@
             }
 
         .ReloadButton {
-            background-image: url(../../images/Cufex_Images/return.png);
+            background-image: url(../images/Cufex_Images/return.png);
             background-repeat: no-repeat;
             background-size: contain;
             width: 16px;
@@ -124,6 +142,7 @@
             margin-right: 10px;
               cursor: pointer;
         }
+        
     </style>
 
 </asp:Content>
@@ -133,6 +152,8 @@
         <div class="MainDashboardSettings">
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
+                       <input type="button" onclick="onExpand();" class="ReloadButton" />
+                       <input type="button" onclick="onCollapse();"   class="ReloadButton" />
                     <div class="floatR">
                         <div class="TimerSettings">
                             <div class="TimerSettingsInner">
