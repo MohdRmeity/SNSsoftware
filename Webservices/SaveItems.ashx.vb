@@ -46,7 +46,7 @@ Public Class SaveItems
                 writer.WritePropertyName("url")
                 writer.WriteValue(MyDataTable.Rows(0)!url)
             ElseIf mySearchTable.Contains("enterprise.storer") Then
-                Dim type As String = mySearchTable(mySearchTable.Length - 1)
+                Dim type As String = IIf(mySearchTable = "enterprise.storer2", "2", "12")
                 writer.WriteValue(SaveConfiguration(MyID, type))
             ElseIf mySearchTable = "enterprise.sku" Then
                 writer.WriteValue(SaveItem(MyID))
@@ -483,6 +483,16 @@ Public Class SaveItems
             tmp += "User ID must be defined <br/>"
         End If
 
+        If Not String.IsNullOrEmpty(profilename) And Not String.IsNullOrEmpty(userkey) Then
+            Dim sql As String = " Select * from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "USERPROFILE "
+            sql += " where UserKey ='" & userkey & "' and ProfileName = '" & profilename & "'"
+            Dim ds As DataSet = (New SQLExec).Cursor(sql)
+            If ds.Tables(0).Rows.Count > 0 Then
+                IsValid = False
+                tmp += "Profile Name " & profilename & " is already assigned to User " & userkey & " <br/>"
+            End If
+        End If
+
         If IsValid Then
             Dim columns As String = "PROFILENAME, USERKEY, ADDWHO, EDITWHO, ADDDATE,EDITDATE"
             Dim Command As String = ""
@@ -509,11 +519,7 @@ Public Class SaveItems
                     conn.Close()
                 End If
             Catch e1 As Exception
-                If LCase(e1.Message).Contains("combination_index") Or LCase(e1.Message).Contains("unique constraint") Then
-                    tmp += "Error: Record already exists for this Profile/User ID" & "<br/>"
-                Else
-                    tmp += "Error: " & e1.Message & vbTab + e1.GetType.ToString & "<br/>"
-                End If
+                tmp += "Error: " & e1.Message & vbTab + e1.GetType.ToString & "<br/>"
                 Dim logger As Logger = LogManager.GetCurrentClassLogger()
                 logger.Error(e1, "", "")
             End Try
@@ -592,7 +598,7 @@ Public Class SaveItems
                         cmd.Parameters.Add(New OracleParameter("pname", profilename))
                         cmd.ExecuteNonQuery()
 
-                        Dim insertDetails As String = "set dateformat dmy insert into  SYSTEM.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
+                        Dim insertDetails As String = "set dateformat dmy insert into  SYSTEM.REPORTSPROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
                         Dim ButtonsTable As DataTable = CommonMethods.getButtons("getAll")
                         Dim count As Integer = ButtonsTable.Rows.Count, y As Integer = 0
                         For Each row As DataRow In ButtonsTable.Rows
@@ -608,7 +614,7 @@ Public Class SaveItems
                         cmd2.Parameters.Add(New OracleParameter("pname", profilename))
                         cmd2.ExecuteNonQuery()
 
-                        Dim insertdetailsReport As String = "set dateformat dmy insert into  SYSTEM.PROFILEDETAILREPORTS (PROFILENAME, REPORT,REPORT_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
+                        Dim insertdetailsReport As String = "set dateformat dmy insert into  SYSTEM.REPORTSPROFILEDETAIL (PROFILENAME, REPORT,REPORT_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
                         Dim ReportsTable As DataTable = CommonMethods.getReports("getAll")
                         count = ReportsTable.Rows.Count
                         y = 0

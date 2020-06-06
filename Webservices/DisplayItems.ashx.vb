@@ -37,9 +37,9 @@ Public Class DisplayItems
             End If
         ElseIf mySearchTable.Contains("enterprise.storer") Then
             primKey = "SerialKey"
-            Dim type As String = mySearchTable(mySearchTable.Length - 1)
+            Dim type As String = IIf(mySearchTable = "enterprise.storer2", "2", "12")
             AndFilter = " and Type=" & type
-            mySearchTable = mySearchTable.Remove(mySearchTable.Length - 1)
+            mySearchTable = "enterprise.storer"
         ElseIf mySearchTable = "enterprise.sku" Then
             primKey = "SerialKey"
         ElseIf mySearchTable = "SKUCATALOGUE" Then

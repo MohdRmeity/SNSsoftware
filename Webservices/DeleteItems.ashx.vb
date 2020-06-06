@@ -77,8 +77,8 @@ Public Class DeleteItems
             tmp = tb.Execute(sql)
         ElseIf SearchTable.Contains("enterprise.storer") Then
             primKey = "SerialKey"
-            Dim type As String = SearchTable(SearchTable.Length - 1)
-            SearchTable = SearchTable.Remove(SearchTable.Length - 1)
+            Dim type As String = IIf(SearchTable = "enterprise.storer2", "2", "12")
+            SearchTable = "enterprise.storer"
             Dim dsItem As DataSet = tb.Cursor("Select StorerKey from " & SearchTable & " where " & primKey & " In (" & MyItems & ")")
             tmp = DeleteConfiguration(dsItem.Tables(0), type)
         ElseIf SearchTable = "enterprise.sku" Then

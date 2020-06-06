@@ -119,7 +119,7 @@ Public Class AutoPostBackDropDowns
                         AndFilter = " and StorerKey IN (" + valuesstr + ") "
                     End If
                 End If
-                sql += "select StorerKey from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "5") & " " & AndFilter
+                sql += "select StorerKey from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "12") & " " & AndFilter
             Next
             Dim ds As DataSet = (New SQLExec).Cursor(sql)
 

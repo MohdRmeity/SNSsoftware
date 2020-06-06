@@ -18,6 +18,12 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a class="BackBtn BackDetail AnimateMe" href="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)) %>">
+                                   Back to List
+                                </a>
+                            </td>
+                            <td style="width: 13px; display:none;"></td>
+                            <td>
                                 <a id="btnDelete" runat="server" class="btnDelete AnimateMe DisplayNone">Delete
                                 </a>
                             </td>
@@ -28,7 +34,7 @@
         </div>
     </div>
 
-    <div style="height:25px;"></div>
+    <div style="height: 25px;"></div>
 
     <div class="MainTabs">
         <div class="NormalDiv1118Max">

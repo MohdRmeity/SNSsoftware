@@ -5,7 +5,7 @@ Partial Public Class Cufex_Configuration_ShipFrom
         If Not Page.IsPostBack Then
             Dim myMasterPage As Cufex_Site = CType(Page.Master, Cufex_Site)
             myMasterPage.FormParentName = "Configuration"
-            myMasterPage.FormName = "Suppliers"
+            myMasterPage.FormName = "Ship From"
             myMasterPage.section = Cufex_Site.SectionName.Configuration
             myMasterPage.Subsection = Cufex_Site.SubSectionName.Configuration_ShipFrom
 

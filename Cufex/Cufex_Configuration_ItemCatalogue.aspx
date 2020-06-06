@@ -226,34 +226,34 @@
                 <div class="floatL Width100">
                     <div class="floatL Width100 u-overflowHidden NewHeaderRecord">
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Owner*</div>
+                            <div class="FloatRecordTitleNew">Owner<span>*</span></div>
                             <div>
                                 <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey InputAutoPostBack">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Consignee*</div>
+                            <div class="FloatRecordTitleNew">Consignee<span>*</span></div>
                             <div>
                                 <select data-placeholder="Select Consignee" multiple class="chosen-select InputConsigneeKey">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Item*</div>
+                            <div class="FloatRecordTitleNew">Item<span>*</span></div>
                             <div>
                                 <select data-placeholder="Select Item" multiple class="chosen-select InputSku">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Price*</div>
+                            <div class="FloatRecordTitleNew">Price<span>*</span></div>
                             <div>
                                 <input type="text" class="textRecordStyle InputPrice" />
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Currency*</div>
+                            <div class="FloatRecordTitleNew">Currency<span>*</span></div>
                             <div>
                                 <select data-placeholder="Select Currency" multiple class="chosen-select InputCurrency">
                                 </select>

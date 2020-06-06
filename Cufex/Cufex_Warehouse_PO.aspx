@@ -423,11 +423,6 @@
                                     <a id="btnNew" runat="server" class="btnNew AnimateMe">New
                                     </a>
                                 </td>
-                                <td style="width: 13px; display: none;"></td>
-                                <td>
-                                    <a id="btnSaveDetail" runat="server" class="btnSaveDetail AnimateMe" style="display: none;">Add
-                                    </a>
-                                </td>
                                 <td style="width: 13px;"></td>
                                 <td>
                                     <a id="btnDeleteDetail" runat="server" class="btnDeleteDetail AnimateMe">Delete

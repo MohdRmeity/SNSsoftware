@@ -2342,15 +2342,6 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnSaveDetail">
-<summary>
-btnSaveDetail control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
 <member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnDeleteDetail">
 <summary>
 btnDeleteDetail control.
@@ -2459,15 +2450,6 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnSaveDetail">
-<summary>
-btnSaveDetail control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
 <member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnDeleteDetail">
 <summary>
 btnDeleteDetail control.
@@ -2558,15 +2540,6 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnSaveDetail">
-<summary>
-btnSaveDetail control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
 <member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnDeleteDetail">
 <summary>
 btnDeleteDetail control.
@@ -2651,15 +2624,6 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Warehouse_PO._btnNew">
 <summary>
 btnNew control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnSaveDetail">
-<summary>
-btnSaveDetail control.
 </summary>
 <remarks>
 Auto-generated field.

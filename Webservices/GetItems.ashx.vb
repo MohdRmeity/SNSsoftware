@@ -38,9 +38,9 @@ Public Class GetItems
                 SortBy = "SerialKey desc"
             End If
         ElseIf SearchTable.Contains("enterprise.storer") Then
-            Dim type As String = SearchTable(SearchTable.Length - 1)
+            Dim type As String = IIf(SearchTable = "enterprise.storer2", "2", "12")
             AndFilter = " and Type=" & type
-            SearchTable = SearchTable.Remove(SearchTable.Length - 1)
+            SearchTable = "enterprise.storer"
         ElseIf SearchTable = "enterprise.sku" Or SearchTable = "SKUCATALOGUE" Then
             Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
             If Not owners Is Nothing Then

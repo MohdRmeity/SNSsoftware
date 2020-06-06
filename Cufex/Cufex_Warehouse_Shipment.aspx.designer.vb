@@ -86,15 +86,6 @@ Partial Public Class Cufex_Warehouse_Shipment
     Protected WithEvents btnNew As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''btnSaveDetail control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSaveDetail As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
     '''btnDeleteDetail control.
     '''</summary>
     '''<remarks>

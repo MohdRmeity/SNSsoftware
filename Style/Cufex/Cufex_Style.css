@@ -12291,7 +12291,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-color: #3673ff;
     }
 
-.btnDelete, .btnSave, .btnDeleteDetail, .btnSaveDetail {
+.btnDelete, .btnSave, .btnDeleteDetail {
     cursor: pointer;
     height: 35px;
     border-radius: 4px;
@@ -12311,12 +12311,12 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
 }
 
-.btnSave, .btnSaveDetail {
+.btnSave {
     padding-left: 38px;
     padding-right: 20px;
 }
 
-    .btnDelete:after, .btnSave:after, .btnDeleteDetail:after, .btnSaveDetail:after {
+    .btnDelete:after, .btnSave:after, .btnDeleteDetail:after {
         content: '';
         position: absolute;
         background-image: url(../../images/Cufex_Images/Delete.svg);
@@ -12333,14 +12333,14 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 20px;
     }
 
-    .btnSave:after, .btnSaveDetail:after {
+    .btnSave:after{
         background-image: url(../../images/Cufex_Images/Save.svg);
         width: 18px;
         height: 18px;
         left: 13px;
     }
 
-    .btnDelete:hover, .btnSave:hover, .btnDeleteDetail:hover, .btnSaveDetail:hover {
+    .btnDelete:hover, .btnSave:hover, .btnDeleteDetail:hover {
         background-color: #555;
         color: #FFF;
     }
@@ -13745,7 +13745,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
                 padding-right: 10px;
             }
 
-    .btnQuickEntry, .btnAddNew, .btnDelete, .btnSave, .btnDeleteDetail, .btnSaveDetail {
+    .btnQuickEntry, .btnAddNew, .btnDelete, .btnSave, .btnDeleteDetail {
         padding-top: 8px;
     }
 

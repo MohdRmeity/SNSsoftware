@@ -136,7 +136,7 @@ function SNSFunctions() {
 
         $('.btnNew,.btnDeleteDetail').show();
         $('.BackDetail').hide();
-        $(".VerticalSep,.btnSaveDetail").hide();
+        $(".VerticalSep").hide();
         $(".MainPageDetailTitle").html($(".MainPageDetailTitle").data("text"));
         if ($(window).width() > 550) {
             $(".btnDelete").parent("td").css("padding-right", "0px");
@@ -199,9 +199,8 @@ function SNSFunctions() {
         $(this).hide();
         $(this).parent("td").prev("td").hide();
         $(this).parent("td").next("td").show();
-        $(".btnSaveDetail").parent("td").next("td").hide();
         $(".NewDetailRecord").fadeIn();
-        $(".BackDetail,.VerticalSep,.btnSaveDetail").show();
+        $(".BackDetail,.VerticalSep").show();
         $(".MainPageDetailTitle").html("New Record");
         $('.NewDetailRecord').find('input:text').each(function () {
             var $this = $(this);
@@ -237,7 +236,7 @@ function SNSFunctions() {
         $(".DetailsGridView").mCustomScrollbar("update");
         $('.btnNew,.btnDeleteDetail').show();
         $(this).hide();
-        $(".NewDetailRecord,.VerticalSep,.btnSaveDetail").hide();
+        $(".NewDetailRecord,.VerticalSep").hide();
         $(".MainPageDetailTitle").html($(".MainPageDetailTitle").data("text"));
 
         if ($(".DetailsGridView").find(".GridContainer").data("resizemode") == "fit") setOnCufex_Resize();
@@ -465,10 +464,6 @@ function SNSFunctions() {
         }
     });
 
-    $('.btnSaveDetail').click(function () {
-        SaveItemsDetails();
-    });
-
     $(".datepicker").datepicker();
 
     $(".checkRadio").checkboxradio({
@@ -494,12 +489,14 @@ function SNSFunctions() {
             if ($('.MainPageTitle').attr("data-id") == "PROFILEDETAIL") {
                 $('.GridContainer').addClass("DisplayNone");
                 $('.btnDelete').addClass("DisplayNone");
+                $('.btnDelete').parent("td").prev("td").hide();
                 var TabID = $(this).data("id");
                 if (TabID == "Actions") $('.GridActions').removeClass("DisplayNone");
                 else if (TabID == "Reports") $('.GridReports').removeClass("DisplayNone");
                 else if (TabID == "Dashboards") {
                     $('.GridDashboards').removeClass("DisplayNone");
                     $('.btnDelete').removeClass("DisplayNone");
+                    $('.btnDelete').parent("td").prev("td").show();
                     setOnCufex_Resize();
                 }
                 CurrentPage = 0;
@@ -850,18 +847,22 @@ function SetGridActions() {
     $(".GridContainer").on('click', '.GridSearch', function () {
         var SearchCount;
         if ($(".HeaderGridView:visible").length > 0) {
-            SearchCount = $(".HeaderGridView").find(".SearchClass").filter(function () {
-                return this.value !== "";
+            SearchQuery = "";
+            $(".HeaderGridView").find('.SearchClass').each(function () {
+                if ($(this).val() != "") {
+                    SearchQuery = SearchQuery + (SearchQuery != "" ? "," : "") + $(this).attr("data-id") + ":" + $(this).val();
+                }
             });
-            if (SearchCount.length == 0) SearchQuery = "";
             isFirstLoad = false;
             LoadItems();
         }
         else {
-            SearchCount = $(".DetailsGridView").find(".SearchClass").filter(function () {
-                return this.value !== "";
+            SearchQueryDetails = "";
+            $(".DetailsGridView").find('.SearchClass').each(function () {
+                if ($(this).val() != "") {
+                    SearchQueryDetails = SearchQueryDetails + (SearchQueryDetails != "" ? "," : "") + $(this).attr("data-id") + ":" + $(this).val();
+                }
             });
-            if (SearchCount.length == 0) SearchQueryDetails = "";
             LoadItemsDetails();
         }
     });
@@ -1413,11 +1414,22 @@ function SaveItemsNew() {
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
-            $('.BackHeader').trigger("click");
+            //$('.BackHeader').trigger("click");
             $(".HeaderGridView").mCustomScrollbar("scrollTo", "first");
             $(".HeaderGridView").mCustomScrollbar("update");
-            isFirstLoad = true;
-            LoadItems();
+            //isFirstLoad = true;
+            //LoadItems();
+            if ($(".MyRecordID").val() == 0) {
+                DisplayItemNew(obj.serialkey, obj.queryurl);
+            }
+            else {
+                if ($(".DetailsGridView:visible").length == 0 && $(".MyDetailRecordID").length > 0) {
+                    SaveItemsDetails(obj.serialkey, obj.queryurl);
+                }
+                else {
+                    DisplayItemNew(obj.serialkey, obj.queryurl);
+                }
+            }
         }
         console.log("Save Item New API End Time: " + GetTime());
     }
@@ -1430,7 +1442,7 @@ function SaveItemsNew() {
     }
 }
 
-function SaveItemsDetails() {
+function SaveItemsDetails(DisplayID, QueryURL) {
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
         console.log("Save Item Details API Start Time: " + GetTime());
@@ -1509,7 +1521,8 @@ function SaveItemsDetails() {
             $('.BackDetail').trigger("click");
             $(".DetailsGridView").mCustomScrollbar("scrollTo", "first");
             $(".DetailsGridView").mCustomScrollbar("update");
-            LoadItemsDetails();
+            DisplayItemNew(DisplayID, QueryURL);
+            //LoadItemsDetails();
             $(".NewHeaderRecord").find(".InputStatus").val(obj.Status);
         }
         console.log("Save Item Details API End Time: " + GetTime());
@@ -3066,45 +3079,49 @@ function SetScrolling() {
 //}
 
 function OpenMenu() {
-    if (NtorKermelElraceCondition == 0) {
-        NtorKermelElraceCondition = 1;
-        ClearConfigTimer();
-        MenuClosed = false;
-        $(".widthMenu,.MenuContainer,.widthContent").removeClass("Closed");
-        $(".AllMenuItems").hide();
-        $("table.u-marginAuto").fadeOut();
-        setTimeout(function () {
-            $(".MainLogoContainer,.MenuItemName,.MenuSubItem,.MenuSubSubItem,.MenuItemStyleSel,.u-pl-xs-20,.u-pb-xs-30").removeClass("Closed");
-            $(".OpenMenu").addClass("Closed");
-            $(".AllMenuItems").fadeIn();
-            setOnCufex_Resize();
-            $("table.u-marginAuto").fadeIn();
-            InitColResizable();
-            SetConfigTimer();
-            NtorKermelElraceCondition = 0;
-        }, 300);
+    if ($(".widthMenu:visible").length > 0) {
+        if (NtorKermelElraceCondition == 0) {
+            NtorKermelElraceCondition = 1;
+            ClearConfigTimer();
+            MenuClosed = false;
+            $(".widthMenu,.MenuContainer,.widthContent").removeClass("Closed");
+            $(".AllMenuItems").hide();
+            $("table.u-marginAuto").fadeOut();
+            setTimeout(function () {
+                $(".MainLogoContainer,.MenuItemName,.MenuSubItem,.MenuSubSubItem,.MenuItemStyleSel,.u-pl-xs-20,.u-pb-xs-30").removeClass("Closed");
+                $(".OpenMenu").addClass("Closed");
+                $(".AllMenuItems").fadeIn();
+                setOnCufex_Resize();
+                $("table.u-marginAuto").fadeIn();
+                InitColResizable();
+                SetConfigTimer();
+                NtorKermelElraceCondition = 0;
+            }, 300);
+        }
     }
 }
 
 function CloseMenu(resize) {
-    if (NtorKermelElraceCondition == 0) {
-        NtorKermelElraceCondition = 1;
-        ClearConfigTimer();
-        MenuClosed = true;
-        $(".MainLogoContainer,.MenuItemName,.MenuSubItem,.MenuSubSubItem,.MenuItemStyleSel,.u-pl-xs-20,.u-pb-xs-30,.widthMenu,.MenuContainer,.widthContent").addClass("Closed");
-        $(".OpenMenu").removeClass("Closed");
-        $(".MenuPin").removeClass("Pinned");
-        $("table.u-marginAuto").fadeOut();
-        setTimeout(function () {
-            setOnCufex_Resize();
-            $("table.u-marginAuto").fadeIn();
-            setTimeout(function () { InitColResizable(); }, 100);
-            if (resize) {
-                setTimeout(function () { setOnCufex_Resize(); }, 100);
-                SetConfigTimer();
-            }
-            NtorKermelElraceCondition = 0;
-        }, 300);
+    if ($(".widthMenu:visible").length > 0) {
+        if (NtorKermelElraceCondition == 0) {
+            NtorKermelElraceCondition = 1;
+            ClearConfigTimer();
+            MenuClosed = true;
+            $(".MainLogoContainer,.MenuItemName,.MenuSubItem,.MenuSubSubItem,.MenuItemStyleSel,.u-pl-xs-20,.u-pb-xs-30,.widthMenu,.MenuContainer,.widthContent").addClass("Closed");
+            $(".OpenMenu").removeClass("Closed");
+            $(".MenuPin").removeClass("Pinned");
+            $("table.u-marginAuto").fadeOut();
+            setTimeout(function () {
+                setOnCufex_Resize();
+                $("table.u-marginAuto").fadeIn();
+                setTimeout(function () { InitColResizable(); }, 100);
+                if (resize) {
+                    setTimeout(function () { setOnCufex_Resize(); }, 100);
+                    SetConfigTimer();
+                }
+                NtorKermelElraceCondition = 0;
+            }, 300);
+        }
     }
 }
 

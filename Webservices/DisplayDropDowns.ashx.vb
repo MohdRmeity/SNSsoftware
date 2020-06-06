@@ -36,7 +36,7 @@ Public Class DisplayDropDowns
                 Next
 
                 For i = 0 To 2
-                    sql += " select StorerKey from enterprise.storer where type = " & IIf(i = 0, "1", IIf(i = 1, "2", "5"))
+                    sql += " select StorerKey from enterprise.storer where type = " & IIf(i = 0, "1", IIf(i = 1, "2", "12"))
                 Next
                 ds = (New SQLExec).Cursor(sql)
 
