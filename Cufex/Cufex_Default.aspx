@@ -7,7 +7,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/DeleteExtension.js"></script>
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/SaveAsExtension.js"></script>
-
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Defines the "Save As" extension template. -->
     <script type="text/html" id="dx-save-as-form">
         <div>Dashboard Name:</div>
@@ -80,6 +82,10 @@
                 }
             }
         }
+
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
 
     <script type="text/javascript">
@@ -140,9 +146,30 @@
             height: 16px;
             border: none;
             margin-right: 10px;
-              cursor: pointer;
+            cursor: pointer;
         }
-        
+
+        .expandButton {
+            background-image: url(../images/Cufex_Images/expand.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 16px;
+            height: 16px;
+            border: none;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .collapseButton {
+            background-image: url(../images/Cufex_Images/collapse.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 16px;
+            height: 16px;
+            border: none;
+            margin-right: 10px;
+            cursor: pointer;
+        }
     </style>
 
 </asp:Content>
@@ -152,10 +179,13 @@
         <div class="MainDashboardSettings">
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
-                       <input type="button" onclick="onExpand();" class="ReloadButton" />
-                       <input type="button" onclick="onCollapse();"   class="ReloadButton" />
+
+                    <input type="button" onclick="onExpand();"  data-toggle="tooltip" title="Expand"  class="expandButton" />
+
+                    <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse"   class="collapseButton" />
+
                     <div class="floatR">
-                        <div class="TimerSettings">
+                        <div class="TimerSettings"  data-toggle="tooltip" title="Refresh Time Settings">
                             <div class="TimerSettingsInner">
                                 <div class="TimeDiv AnimateMe" data-time="30">30 Sec</div>
                                 <div class="TimeDiv AnimateMe" data-time="60">1 Min</div>
@@ -169,24 +199,25 @@
                         </div>
                     </div>
                     <div class="floatR">
-                        <asp:Button ID="btnReload" runat="server" Text="" CssClass="ReloadButton"   OnClientClick="javascript:reloaddate();return false;"  />
+                        <asp:Button ID="btnReload" data-toggle="tooltip" title="Manual Refresh"  runat="server" Text="" CssClass="ReloadButton" OnClientClick="javascript:reloaddate();return false;" />
                     </div>
                 </div>
             </div>
         </div>
-        <dx:ASPxTimer ID="ASPxTimer1" runat="server" ClientInstanceName="timer">
-            <ClientSideEvents Tick="function(s, e) {webDesigner.ReloadData();}" />
-        </dx:ASPxTimer>
-        <dx:ASPxDashboard ID="ASPxDashboard1" runat="server" ClientInstanceName="webDesigner" AllowExportDashboardItems="True" OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
-            OnCustomParameters="ASPxDashboard1_CustomParameters" Height="1000px"
-            OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
-            OnConnectionError="ASPxDashboard1_ConnectionError">
-            <ClientSideEvents BeforeRender="onBeforeRender" />
-            <BackendOptions Uri="" />
-            <DataRequestOptions ItemDataRequestMode="Auto" />
-        </dx:ASPxDashboard>
-        <asp:Button runat="server" ID="MyHiddenButton" ClientIDMode="Static" Text="" Style="display: none;" OnClick="MyHiddenButton_Click" />
-        <input class="HiddenTime" id="HiddenTime" runat="server" type="hidden" value="0" />
+    </div>
+    <dx:ASPxTimer ID="ASPxTimer1" runat="server" ClientInstanceName="timer">
+        <ClientSideEvents Tick="function(s, e) {webDesigner.ReloadData();}" />
+    </dx:ASPxTimer>
+    <dx:ASPxDashboard ID="ASPxDashboard1" runat="server" ClientInstanceName="webDesigner" AllowExportDashboardItems="True" OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
+        OnCustomParameters="ASPxDashboard1_CustomParameters" Height="1000px"
+        OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
+        OnConnectionError="ASPxDashboard1_ConnectionError">
+        <ClientSideEvents BeforeRender="onBeforeRender" />
+        <BackendOptions Uri="" />
+        <DataRequestOptions ItemDataRequestMode="Auto" />
+    </dx:ASPxDashboard>
+    <asp:Button runat="server" ID="MyHiddenButton" ClientIDMode="Static" Text="" Style="display: none;" OnClick="MyHiddenButton_Click" />
+    <input class="HiddenTime" id="HiddenTime" runat="server" type="hidden" value="0" />
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
