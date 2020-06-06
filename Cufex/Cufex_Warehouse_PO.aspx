@@ -569,8 +569,8 @@
 
                     <div class="R_PopupTitle">
                         PO and Details
-                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"><span class="ion-ios-checkmark-circle-outline"></span></div>
-                        <div class="ClosePopup AnimateMe"><span class="ion-ios-exit"></span></div>
+                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"></div>
+                        <div class="ClosePopup AnimateMe"></div>
                     </div>
                     <div style="position: relative; height: 500px; width: 100%;" class="MyContainerPopup GetFullHeightForPopup content_4">
                         <div class="iWantMyChildrenFloatHeight">

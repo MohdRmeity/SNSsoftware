@@ -13197,30 +13197,35 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .ClosePopup {
     position: absolute;
-    font-size: 30px;
-    right: 23px;
-    top: 20px;
-    color: #607497;
+    right: 20px;
+    top: 24px;
     cursor: pointer;
+    background-image: url(../../images/Cufex_Images/ClosePopup.svg);
+    background-repeat: no-repeat;
+    width: 23px;
+    height: 23px;
+    background-size: contain;
 }
 
     .ClosePopup:hover {
-        color: #3673ff;
+        background-image: url(../../images/Cufex_Images/ClosePopupH.svg);
     }
-
 
 
 .SaveRecordNow {
     position: absolute;
-    font-size: 30px;
-    right: 65px;
-    top: 20px;
-    color: #607497;
+    right: 55px;
+    top: 26px;
     cursor: pointer;
+    background-image: url(../../images/Cufex_Images/SavePopup.svg);
+    background-repeat: no-repeat;
+    width: 19px;
+    height: 19px;
+    background-size: contain;
 }
 
     .SaveRecordNow:hover {
-        color: #3673ff;
+        background-image: url(../../images/Cufex_Images/SavePopupH.svg);
     }
 
 .ActionHiddenButtons {
@@ -13366,17 +13371,17 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .btnDeleteDtl {
     position: absolute;
     top: 10px;
-    right: 15px;
-    width: 32px;
-    height: 32px;
-    background-image: url(../../images/Cufex_Images/btnDeleteDtl.png);
-    background-size: 28px;
+    right: 21px;
+    width: 16px;
+    height: 20px;
+    background-image: url(../../images/Cufex_Images/DeletePopup.svg);
     background-repeat: no-repeat;
     cursor: pointer;
+    background-size: contain;
 }
 
     .btnDeleteDtl:hover {
-        background-image: url(../../images/Cufex_Images/btnDeleteDtlBlue.png);
+        background-image: url(../../images/Cufex_Images/DeletePopupH.svg);
     }
 
 .PasswordInfo {
