@@ -1247,7 +1247,7 @@ Public Class CommonMethods
             Case "USERCONTROL"
                 sql += "Select " & IIf(dbtype = "sql", "ID", "SerialKey") & " From " & IIf(dbtype <> "sql", "SYSTEM.", "") & SearchTable & " where UserKey = '" & StrID.Split("=")(1) & "'"
             Case "enterprise.storer2", "enterprise.storer12"
-                sql += "Select SerialKey from " & SearchTable.Remove(SearchTable.Length - 1) & " where StorerKey = '" & StrID.Split("=")(1) & "' and Type = '" & IIf(SearchTable = "enterprise.storer2", "2", "12") & "'"
+                sql += "Select SerialKey from enterprise.storer where StorerKey = '" & StrID.Split("=")(1) & "' and Type = '" & IIf(SearchTable = "enterprise.storer2", "2", "12") & "'"
             Case "enterprise.sku"
                 sql += "Select SerialKey from " & SearchTable & " where StorerKey = '" & StrID.Split("=")(1).Split("&")(0) & "' and Sku = '" & StrID.Split("=")(2) & "'"
             Case "Warehouse_PO", "Warehouse_ASN", "Warehouse_SO", "Warehouse_OrderManagement"

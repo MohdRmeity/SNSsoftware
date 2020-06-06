@@ -12,6 +12,10 @@ Public Class DeleteItems
         Dim MyItems As String = HttpContext.Current.Request.Item("MyItems")
         Dim QueryUrlStr As String = HttpContext.Current.Request.Item("QueryUrlStr")
 
+        If MyItems.Contains("?") Then
+            MyItems = CommonMethods.GetMyID(SearchTable, MyItems)
+        End If
+
         Dim primKey As String = "ID"
         If SearchTable = "PORTALUSERS" Then
             If CommonMethods.dbtype <> "sql" Then
