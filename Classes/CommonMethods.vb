@@ -1416,6 +1416,8 @@ Public Class CommonMethods
 
             Using streamReader = New StreamReader(httpResponse.GetResponseStream())
                 Dim result = streamReader.ReadToEnd()
+                Dim statuscode = httpResponse.StatusCode
+
 
                 If httpResponse.StatusCode = 200 Then
                     strResponse = ""
@@ -1433,6 +1435,8 @@ Public Class CommonMethods
         Return strResponse
 
     End Function
+
+
 
 
 End Class

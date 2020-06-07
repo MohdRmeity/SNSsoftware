@@ -15,6 +15,10 @@ Public Class SaveItemsDetails
         Dim mySearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim MyID As Integer = Val(HttpContext.Current.Request.Item("MyID"))
         Dim tmp As String = "", Status As String = ""
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -begin
+        Dim useRest As String = ConfigurationManager.AppSettings("UseRestAPI")
+        Dim version As String = ConfigurationManager.AppSettings("version")
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -end
 
         Dim sb As New StringBuilder()
         Dim sw As New StringWriter(sb)
@@ -24,7 +28,14 @@ Public Class SaveItemsDetails
 
             writer.WritePropertyName("tmp")
             If mySearchTable = "Warehouse_PO" Then
-                tmp = SavePurchaseOrderDetail(MyID)
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+                If useRest = "1" & version >= "11" Then
+                    tmp = SaveRestPurchaseOrderDetail(MyID)
+                Else
+                    tmp = SavePurchaseOrderDetail(MyID)
+                End If
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
+
             ElseIf mySearchTable = "Warehouse_ASN" Then
                 tmp = SaveASNDetail(MyID)
             ElseIf mySearchTable = "Warehouse_SO" Then
@@ -171,6 +182,158 @@ Public Class SaveItemsDetails
                         End If
                     End If
                 End If
+            Catch ex As Exception
+                tmp = "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(ex, "", "")
+            End Try
+        Else
+            tmp = "Extern line# already exists! <br/>"
+        End If
+
+        Return tmp
+    End Function
+    'ghina karame - RestApis - 03-06-2020 - method to save the podetail lines using rest calls -
+    'mainly here the objective is to prepare the json data to send to the post request
+    Private Function SaveRestPurchaseOrderDetail(ByVal MyID As Integer) As String
+        Dim tmp As String = "", Command As String = "", Saved As String = "", line As String = ""
+        Dim EditOperation As Boolean = MyID <> 0
+        Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
+        , Owner As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
+        , pokey As String = HttpContext.Current.Request.Item("Field_POKey") _
+        , externpo As String = HttpContext.Current.Request.Item("Field_ExternPOKey") _
+        , exterline As String = HttpContext.Current.Request.Item("DetailsField_ExternLineNo") _
+        , Sku As String = UCase(HttpContext.Current.Request.Item("DetailsField_Sku")) _
+        , QtyOrdered As String = HttpContext.Current.Request.Item("DetailsField_QtyOrdered")
+
+        If Not EditOperation Then
+            'Command += "<PurchaseOrder>" & pokey & "</PurchaseOrder>"
+            Command += "{""externpokey"":""" + externpo + """"
+        Else
+            'Command += "<POKey>" & pokey & "</POKey>"
+            Command += "{""pokey"":""" + pokey + """"
+            Command += ",""externpokey"":""" + externpo + """"
+        End If
+        'Command += "<ExternPOKey>" & externpo & "</ExternPOKey>"
+        'Command += "<StorerKey>" & Owner & "</StorerKey>"
+        'Command += "<PurchaseOrderDetail> "
+
+        Command += ",""storerkey"":""" + Owner + """"
+        Command += ",""podetails"" : [ {"
+
+
+        If EditOperation Then
+            Dim warehouse As String = Facility
+            If LCase(warehouse.Substring(0, 6)) = "infor_" Then warehouse = warehouse.Substring(6, Facility.Length - 6)
+            If LCase(warehouse).Contains("_") Then warehouse = warehouse.Split("_")(1)
+            Dim sql As String = "select POLineNumber from " & warehouse & ".PODETAIL where POKey= '" & pokey & "' and ExternLineNo = '" & exterline & "'"
+            Dim ds As DataSet = (New SQLExec).Cursor(sql)
+            If ds.Tables(0).Rows.Count > 0 Then
+                line = ds.Tables(0).Rows(0)!POLineNumber
+                'Command += "<POLineNumber>" & line & "</POLineNumber>"
+                Command += """polinenumber"":""" + line + """"
+            Else
+                tmp = "Error: cannot get purchase line number <br/>"
+                Return tmp
+            End If
+        End If
+
+        If Not EditOperation Then
+            If Not String.IsNullOrEmpty(Sku) Then
+                'Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
+                Command += """storerkey"":""" + Owner + """"
+                Command += ",""sku"":""" + Sku + """"
+            Else
+                tmp = "Item cannot be empty <br/>"
+                Return tmp
+            End If
+        Else
+            'Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
+            Command += """storerkey"":""" + Owner + """"
+            Command += ",""sku"":""" + Sku + """"
+        End If
+
+        If Not String.IsNullOrEmpty(QtyOrdered) Then
+            'Command += "<QtyOrdered>" & QtyOrdered & "</QtyOrdered>"
+            Command += ",""qtyordered"":""" + QtyOrdered + """"
+
+        Else
+            tmp = "Qty Ordered cannot be empty <br/>"
+            Return tmp
+        End If
+
+        If Not EditOperation Then
+            If Not String.IsNullOrEmpty(exterline) Then
+                exterline = exterline.ToString.PadLeft(5, "0")
+                'Command += "<ExternLineNo>" & exterline & "</ExternLineNo>"
+                Command += ",""externlineno"":""" + exterline + """"
+
+            Else
+                exterline = CommonMethods.getExternline(Facility, pokey, "podetail", "POKey")
+                'Command += "<ExternLineNo>" & exterline & "</ExternLineNo>"
+                Command += ",""externlineno"":""" + exterline + """"
+            End If
+        Else
+            'Command += "<ExternLineNo>" & exterline & "</ExternLineNo>"
+            Command += ",""externlineno"":""" + exterline + """"
+        End If
+
+        'Command += "</PurchaseOrderDetail>"
+        Command += "}]}"
+
+        Dim exist As Integer = 0
+
+        If Not EditOperation Then exist = CommonMethods.checkPOLineExist(Facility, pokey, exterline)
+
+        If exist = 0 Then
+            Try
+                'Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>PurchaseOrder</MessageType><Action>store</Action><Sender><User>" & CommonMethods.username & "</User><Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & Facility & "</SystemID></Recipient></Head><Body><PurchaseOrder><PurchaseOrderHeader>" & Command & "</PurchaseOrderHeader></PurchaseOrder></Body></Message>"
+                'Dim soapResult As String = CommonMethods.sendwebRequest(Xml)
+                Dim uri As String = "/" & Facility & "/purchaseorders "
+                tmp = CommonMethods.SaveRest(uri, Command)
+                'If String.IsNullOrEmpty(soapResult) Then
+                '    tmp = "Error: Unable to connect to webservice, kindly check the logs"
+                'Else
+                '    Dim dsresult As DataSet = New DataSet
+                '    Dim doc As XmlDocument = New XmlDocument
+                '    doc.LoadXml(soapResult)
+                '    Dim xmlFile As XmlReader = XmlReader.Create(New StringReader(soapResult), New XmlReaderSettings)
+                '    If LCase(soapResult).Contains("error") Then
+                '        Dim nodeList As XmlNodeList
+                '        If soapResult.Contains("ERROR") Then
+                '            nodeList = doc.GetElementsByTagName("Error")
+                '        Else
+                '            nodeList = doc.GetElementsByTagName("string")
+                '        End If
+                '        Dim message As String = ""
+                '        For Each node As XmlNode In nodeList
+                '            message = node.InnerText
+                '        Next
+                '        message = Regex.Replace(message, "&.*?;", "")
+                '        tmp = "Error: " & message & "<br/>"
+                '        Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '        logger.Error(message, "", "")
+                '    Else
+                '        Dim logmessage As String = ""
+                '        If Not EditOperation Then
+                '            Dim results As XmlNodeList = doc.SelectNodes("//*[local-name()='PurchaseOrderDetail']")
+                '            Dim lineno As String = ""
+                '            For Each node As XmlNode In results
+                '                If node("ExternLineNo").InnerText.ToString = exterline Then
+                '                    lineno = node("POLineNumber").InnerText.ToString
+                '                    logmessage = CommonMethods.logger(Facility, "PoDetail", pokey + "-" + lineno, HttpContext.Current.Session("userkey").ToString)
+                '                End If
+                '            Next
+                '        Else
+                '            logmessage = CommonMethods.logger(Facility, "PoDetail", pokey + "-" + line, HttpContext.Current.Session("userkey").ToString)
+                '        End If
+                '        If Not String.IsNullOrEmpty(logmessage) Then
+                '            tmp = "Logging Error: " + logmessage + "<br />"
+                '            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '            logger.Error(logmessage, "", "")
+                '        End If
+                '    End If
+                'End If
             Catch ex As Exception
                 tmp = "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
                 Dim logger As Logger = LogManager.GetCurrentClassLogger()

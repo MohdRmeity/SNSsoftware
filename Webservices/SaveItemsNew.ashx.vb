@@ -49,11 +49,32 @@ Public Class SaveItemsNew
             ElseIf mySearchTable = "SKUCATALOGUE" Then
                 writer.WriteValue(SaveItemCatalogue(MyID))
             ElseIf mySearchTable = "Warehouse_PO" Then
-                writer.WriteValue(SavePurchaseOrder(MyID))
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+                If useRest = "1" & version >= "11" Then
+                    writer.WriteValue(SaveRestPurchaseOrder(MyID))
+                Else
+                    writer.WriteValue(SavePurchaseOrder(MyID))
+                End If
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
+
             ElseIf mySearchTable = "Warehouse_ASN" Then
-                writer.WriteValue(SaveASN(MyID))
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+                If useRest = "1" & version >= "11" Then
+                    writer.WriteValue(SaveRestASN(MyID))
+                Else
+                    writer.WriteValue(SaveASN(MyID))
+                End If
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
+
             ElseIf mySearchTable = "Warehouse_SO" Then
-                writer.WriteValue(SaveSO(MyID))
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
+                If useRest = "1" & version >= "11" Then
+                    writer.WriteValue(SaveRestSO(MyID))
+                Else
+                    writer.WriteValue(SaveSO(MyID))
+                End If
+                'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -end
+
             ElseIf mySearchTable = "Warehouse_OrderManagement" Then
                 writer.WriteValue(SaveOrderManagement(MyID))
             End If
@@ -1066,6 +1087,235 @@ Public Class SaveItemsNew
         End If
         Return tmp
     End Function
+
+    'ghina karame - RestAPI - 02/06/2020 - save rest purchaseorder
+    Private Function SaveRestPurchaseOrder(ByVal MyID As Integer) As String
+        Dim tmp As String = "", Command As String = ""
+        Dim IsValid As Boolean = True
+        Dim EditOperation As Boolean = MyID <> 0
+        Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
+        , Owner As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
+        , Buyer As String = HttpContext.Current.Request.Item("Field_BuyerName") _
+        , Buyerref As String = HttpContext.Current.Request.Item("Field_BuyersReference") _
+        , Sellerref As String = HttpContext.Current.Request.Item("Field_SellersReference") _
+        , supplier As String = UCase(HttpContext.Current.Request.Item("Field_SellerName")) _
+        , pokey As String = HttpContext.Current.Request.Item("Field_POKey") _
+        , externpo As String = HttpContext.Current.Request.Item("Field_ExternPOKey") _
+        , podate As String = HttpContext.Current.Request.Item("Field_PODate") _
+        , effectDate As String = HttpContext.Current.Request.Item("Field_EffectiveDate") _
+        , type As String = HttpContext.Current.Request.Item("Field_POType") _
+        , UDF1 As String = HttpContext.Current.Request.Item("Field_SUsr1") _
+        , UDF2 As String = HttpContext.Current.Request.Item("Field_SUsr2") _
+        , UDF3 As String = HttpContext.Current.Request.Item("Field_SUsr3") _
+        , UDF4 As String = HttpContext.Current.Request.Item("Field_SUsr4") _
+        , UDF5 As String = HttpContext.Current.Request.Item("Field_SUsr5") _
+        , exterline As String = HttpContext.Current.Request.Item("DetailsField_ExternLineNo") _
+        , Sku As String = UCase(HttpContext.Current.Request.Item("DetailsField_Sku")) _
+        , QtyOrdered As String = HttpContext.Current.Request.Item("DetailsField_QtyOrdered")
+
+        If String.IsNullOrEmpty(Facility) Then
+            IsValid = False
+            tmp += "Facility must be defined <br/>"
+        End If
+
+        If Not EditOperation Then
+            If String.IsNullOrEmpty(externpo) And Not String.IsNullOrEmpty(Facility) Then
+                externpo = CommonMethods.getExternKey(Facility, "EXTERNPO")
+            End If
+            'Command += "<ExternPOKey>" & externpo & "</ExternPOKey><Status>0</Status>"
+            Command += "{""externpokey"":""" + externpo + """"
+            Command += ",""status"":""0"""
+        Else
+            'Command += "<ExternPOKey>" & externpo & "</ExternPOKey><POKey>" & pokey & "</POKey>"
+            Command += "{""externpokey"":""" + externpo + """"
+            Command += ",""pokey"":""" + pokey + """"
+        End If
+
+        If Not String.IsNullOrEmpty(type) Then
+            Dim DTPOType = CommonMethods.getCodeDD(Facility, "codelkup", "POTYPE")
+            Dim DRPOType() As DataRow = DTPOType.Select("DESCRIPTION='" & type & "'")
+            If DRPOType.Length > 0 Then
+                'Command += "<POType>" & DRPOType(0)!CODE & "</POType>"
+                Command += ",""potype"":""" + DRPOType(0)!CODE + """"
+            Else
+                IsValid = False
+                tmp += "Type must be defined <br/>"
+            End If
+        Else
+            IsValid = False
+            tmp += "Type must be defined <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(Owner) And Trim(Owner) <> "" Then
+            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+            If owners.Any(Function(x) x = Owner) Or owners.Any(Function(x) x = "ALL") Then
+                'Command += "<StorerKey>" & Owner & "</StorerKey>"
+                Command += ",""storerkey"":""" + Owner + """"
+            Else
+                IsValid = False
+                tmp += "This owner is not authorized <br/>"
+            End If
+        Else
+            IsValid = False
+            tmp += "Owner must be defined <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(Buyer) Then Command += ",""buyername"":""" + Buyer + """"
+        If Not String.IsNullOrEmpty(Buyerref) Then Command += ",""buyersreference"":""" + Buyerref + """"
+
+        If Not String.IsNullOrEmpty(supplier) And Trim(supplier) <> "" Then
+            Dim suppliers As String() = CommonMethods.getSupplierPerUser(HttpContext.Current.Session("userkey").ToString)
+            If suppliers.Any(Function(x) x = supplier) Or suppliers.Any(Function(x) x = "ALL") Then
+                'Command += "<SellerName>" & supplier & "</SellerName>"
+                Command += ",""sellername"":""" + supplier + """"
+            Else
+                IsValid = False
+                tmp += "This supplier is not authorized <br/>"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(Sellerref) Then Command += ",""sellersreference"":""" + Sellerref + """"
+
+        If Not String.IsNullOrEmpty(effectDate) Then
+            Dim datetime As DateTime
+            If DateTime.TryParseExact(effectDate, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                Dim datetime2 As DateTime = DateTime.ParseExact(effectDate, "MM/dd/yyyy", Nothing)
+                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                '    'Command += "<EffectiveDate>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </EffectiveDate>"
+                '    Command += ",""effectivedate"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                'ElseIf Double.Parse(CommonMethods.version) >= 11 Then
+                '    'Command += "<EffectiveDate>" & datetime2.ToString("MM/dd/yyyy 14:00:00") & " </EffectiveDate>"
+                '    Command += ",""effectivedate"":""" + datetime2.UtcNow + """"
+                'Else
+                '    'Command += "<EffectiveDate>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </EffectiveDate>"
+                '    Command += ",""effectivedate"":""" + datetime2.UtcNow + """"
+                'End If
+                Command += ",""effectivedate"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+            Else
+                IsValid = False
+                tmp += "This Effective Date doesn't match the required date format <br/>"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(UDF1) Then Command += ",""susr1"":""" + UDF1 + """"
+        If Not String.IsNullOrEmpty(UDF2) Then Command += ",""susr2"":""" + UDF2 + """"
+        If Not String.IsNullOrEmpty(UDF3) Then Command += ",""susr3"":""" + UDF3 + """"
+        If Not String.IsNullOrEmpty(UDF4) Then Command += ",""susr4"":""" + UDF4 + """"
+        If Not String.IsNullOrEmpty(UDF5) Then Command += ",""susr5"":""" + UDF5 + """"
+
+        If IsValid Then
+            If Not EditOperation Then
+                Dim exist As Integer = CommonMethods.checkPOExist(Facility, externpo)
+                If exist = 0 Then
+                    If String.IsNullOrEmpty(exterline) And String.IsNullOrEmpty(Sku) And String.IsNullOrEmpty(QtyOrdered) Then
+                        tmp = "Detail line cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    'Command += "<PurchaseOrderDetail>"
+                    Command += ",""podetails"" : [ {"
+
+                    If String.IsNullOrEmpty(exterline) Then exterline = "1"
+                    exterline = exterline.ToString.PadLeft(5, "0")
+                    'Command += "<ExternLineNo>" & exterline & "</ExternLineNo>"
+                    Command += """externlineno"":""" + exterline + """"
+
+                    If Not String.IsNullOrEmpty(Sku) Then
+                        'Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
+                        Command += ",""storerkey"":""" + Owner + """"
+                        Command += ",""sku"":""" + Sku + """"
+                    Else
+                        tmp = "Item cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    If Not String.IsNullOrEmpty(QtyOrdered) Then
+                        'Command += "<QtyOrdered>" & QtyOrdered & "</QtyOrdered>"
+                        Command += ",""qtyordered"":""" + QtyOrdered + """"
+                    Else
+                        tmp = "Qty Ordered cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    'Command += "</PurchaseOrderDetail>"
+                    Command += "}]}"
+                Else
+                    tmp = "Error: Extern PO Key already exists!"
+                    Return tmp
+                End If
+            Else
+                If Not String.IsNullOrEmpty(exterline) Then
+                    ' if edit operation we still need to add the save of the ordered qty 
+                    Command += ",""podetails"" : [ {"
+                    Command += """externlineno"":""" + exterline + """"
+                    Command += ",""storerkey"":""" + Owner + """"
+                    Command += ",""sku"":""" + Sku + """"
+                    Command += ",""qtyordered"":""" + QtyOrdered + """ }]"
+                End If
+                Command += "}"
+
+                End If
+                Try
+                'Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>PurchaseOrder</MessageType><Action>store</Action><Sender><User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & Facility & "</SystemID></Recipient></Head><Body><PurchaseOrder><PurchaseOrderHeader>" & Command & "</PurchaseOrderHeader></PurchaseOrder></Body></Message>"
+                Dim uri As String = "/" & Facility & "/purchaseorders "
+                tmp = CommonMethods.SaveRest(uri, Command)
+                'Dim soapResult As String = CommonMethods.sendwebRequest(Xml)
+
+                'If String.IsNullOrEmpty(soapResult) Then
+                '    tmp = "Error: Unable to connect to webservice, kindly check the logs"
+                'Else
+                '    Dim dsresult As DataSet = New DataSet
+                '    Dim doc As XmlDocument = New XmlDocument
+                '    doc.LoadXml(soapResult)
+                '    Dim xmlFile As XmlReader = XmlReader.Create(New StringReader(soapResult), New XmlReaderSettings)
+                '    If LCase(soapResult).Contains("error") Then
+                '        Dim nodeList As XmlNodeList
+                '        If soapResult.Contains("ERROR") Then
+                '            nodeList = doc.GetElementsByTagName("Error")
+                '        Else
+                '            nodeList = doc.GetElementsByTagName("string")
+                '        End If
+                '        Dim message As String = ""
+                '        For Each node As XmlNode In nodeList
+                '            message = node.InnerText
+                '        Next
+                '        message = Regex.Replace(message, "&.*?;", "")
+                '        tmp = "Error: " & message & "<br/>"
+                '        Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '        logger.Error(message, "", "")
+                '    Else
+                '        tmp = CommonMethods.incremenetKey(Facility, "EXTERNPO")
+                '        If tmp = "" Then
+                '            Dim po As String = "", lineno As String = "", logmessage As String = ""
+
+                '            Dim nodeList As XmlNodeList = doc.GetElementsByTagName("POKey")
+                '            For Each node As XmlNode In nodeList
+                '                po = node.InnerText
+                '                logmessage = CommonMethods.logger(Facility, "Po", po, HttpContext.Current.Session("userkey").ToString)
+                '            Next
+
+                '            If Not EditOperation Then
+                '                lineno = "00001"
+                '                logmessage += CommonMethods.logger(Facility, "PoDetail", po & "-" & lineno, HttpContext.Current.Session("userkey").ToString)
+                '            End If
+
+                '            If Not String.IsNullOrEmpty(logmessage) Then
+                '                tmp = "Logging Error: " + logmessage + "<br />"
+                '                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '                logger.Error(logmessage, "", "")
+                '            End If
+                '        End If
+                '    End If
+                'End If
+            Catch ex As Exception
+                tmp = "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(ex, "", "")
+            End Try
+        End If
+        Return tmp
+    End Function
+
     Private Function SaveASN(ByVal MyID As Integer) As String
         Dim tmp As String = "", Command As String = ""
         Dim IsValid As Boolean = True
@@ -1352,6 +1602,400 @@ Public Class SaveItemsNew
 
         Return tmp
     End Function
+
+    'ghina karame - RestApis - 03/06/2020- method to prepare json data to send to REST Post
+    Private Function SaveRestASN(ByVal MyID As Integer) As String
+        Dim tmp As String = "", Command As String = ""
+        Dim IsValid As Boolean = True
+        Dim EditOperation As Boolean = MyID <> 0
+        Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
+        , externreceipt As String = HttpContext.Current.Request.Item("Field_ExternReceiptKey") _
+        , receiptkey As String = HttpContext.Current.Request.Item("Field_ReceiptKey") _
+        , Owner As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
+        , CarrierKey As String = HttpContext.Current.Request.Item("Field_CarrierKey") _
+        , WarehouseReference As String = HttpContext.Current.Request.Item("Field_WarehouseReference") _
+        , pokey As String = HttpContext.Current.Request.Item("Field_POKey") _
+        , type As String = HttpContext.Current.Request.Item("Field_ReceiptType") _
+        , receiptdate As String = HttpContext.Current.Request.Item("Field_ReceiptDate") _
+        , ContainerKey As String = HttpContext.Current.Request.Item("Field_ContainerKey") _
+        , ContainerType As String = HttpContext.Current.Request.Item("Field_ContainerType") _
+        , OriginCountry As String = HttpContext.Current.Request.Item("Field_OriginCountry") _
+        , TransportationMode As String = HttpContext.Current.Request.Item("Field_TransportationMode") _
+        , exterline As String = HttpContext.Current.Request.Item("DetailsField_ExternLineNo") _
+        , Sku As String = UCase(HttpContext.Current.Request.Item("DetailsField_Sku")) _
+        , QtyExpected As String = HttpContext.Current.Request.Item("DetailsField_QtyExpected") _
+        , QtyReceived As String = HttpContext.Current.Request.Item("DetailsField_QtyReceived") _
+        , PackKey As String = HttpContext.Current.Request.Item("DetailsField_PackKey") _
+        , UOM As String = HttpContext.Current.Request.Item("DetailsField_UOM") _
+        , POKeyDtl As String = HttpContext.Current.Request.Item("DetailsField_POKey") _
+        , ToId As String = HttpContext.Current.Request.Item("DetailsField_ToId") _
+        , ToLoc As String = HttpContext.Current.Request.Item("DetailsField_ToLoc") _
+        , ConditionCode As String = HttpContext.Current.Request.Item("DetailsField_ConditionCode") _
+        , TariffKey As String = HttpContext.Current.Request.Item("DetailsField_TariffKey") _
+        , Lottable01 As String = HttpContext.Current.Request.Item("DetailsField_Lottable01") _
+        , Lottable02 As String = HttpContext.Current.Request.Item("DetailsField_Lottable02") _
+        , Lottable03 As String = HttpContext.Current.Request.Item("DetailsField_Lottable03") _
+        , Lottable04 As String = HttpContext.Current.Request.Item("DetailsField_Lottable04") _
+        , Lottable05 As String = HttpContext.Current.Request.Item("DetailsField_Lottable05") _
+        , Lottable06 As String = HttpContext.Current.Request.Item("DetailsField_Lottable06") _
+        , Lottable07 As String = HttpContext.Current.Request.Item("DetailsField_Lottable07") _
+        , Lottable08 As String = HttpContext.Current.Request.Item("DetailsField_Lottable08") _
+        , Lottable09 As String = HttpContext.Current.Request.Item("DetailsField_Lottable09") _
+        , Lottable10 As String = HttpContext.Current.Request.Item("DetailsField_Lottable10") _
+        , Lottable11 As String = HttpContext.Current.Request.Item("DetailsField_Lottable11") _
+        , Lottable12 As String = HttpContext.Current.Request.Item("DetailsField_Lottable12")
+
+        If String.IsNullOrEmpty(Facility) Then
+            IsValid = False
+            tmp += "Facility must be defined <br/>"
+        End If
+
+        If Not EditOperation Then
+            If String.IsNullOrEmpty(externreceipt) And Not String.IsNullOrEmpty(Facility) Then
+                externreceipt = CommonMethods.getExternKey(Facility, "EXTERNASN")
+            End If
+            'Command += "<ExternReceiptKey>" & externreceipt & "</ExternReceiptKey><Status>0</Status>"
+            Command += "{""externreceiptkey"":""" + externreceipt + """"
+            Command += ",""status"":""0"""
+        Else
+            'Command += "<ExternReceiptKey>" & externreceipt & "</ExternReceiptKey><ReceiptKey>" & receiptkey & "</ReceiptKey>"
+            Command += "{""externreceiptkey"":""" + externreceipt + """"
+            Command += ",""receiptkey"":""" + receiptkey + """"
+        End If
+
+        If Not String.IsNullOrEmpty(type) Then
+            Dim DTReceiptType = CommonMethods.getCodeDD(Facility, "codelkup", "RECEIPTYPE")
+            Dim DRReceiptType() As DataRow = DTReceiptType.Select("DESCRIPTION='" & type & "'")
+            If DRReceiptType.Length > 0 Then
+                'Command += "<ReceiptType>" & DRReceiptType(0)!CODE & "</ReceiptType>"
+                Command += ",""type"":""" + DRReceiptType(0)!CODE + """"
+            Else
+                IsValid = False
+                tmp += "Type must be defined <br/>"
+            End If
+        Else
+            IsValid = False
+            tmp += "Type must be defined <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(Owner) And Trim(Owner) <> "" Then
+            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+            If owners.Any(Function(x) x = Owner) Or owners.Any(Function(x) x = "ALL") Then
+                'Command += "<StorerKey>" & Owner & "</StorerKey>"
+                Command += ",""storerkey"":""" + Owner + """"
+            Else
+                IsValid = False
+                tmp += "This owner is not authorized <br/>"
+            End If
+        Else
+            IsValid = False
+            tmp += "Owner must be defined <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(pokey) Then Command += ",""pokey"":""" + pokey + """"
+        If Not String.IsNullOrEmpty(CarrierKey) Then Command += ",""carrierkey"":""" + CarrierKey + """"
+        If Not String.IsNullOrEmpty(WarehouseReference) Then Command += ",""warehousereference"":""" + WarehouseReference + """"
+        If Not String.IsNullOrEmpty(ContainerKey) Then Command += ",""containerkey"":""" + ContainerKey + """"
+        If Not String.IsNullOrEmpty(ContainerType) Then Command += ",""containertype"":""" + ContainerType + """"
+        If Not String.IsNullOrEmpty(OriginCountry) Then Command += ",""origincountry"":""" + CommonMethods.getISOCountryCode(OriginCountry) + """"
+        If Not String.IsNullOrEmpty(TransportationMode) Then Command += ",""transportationmode"":""" + TransportationMode + """"
+
+        If IsValid Then
+            If Not EditOperation Then
+                Dim exist As Integer = CommonMethods.checkASNExist(Facility, externreceipt)
+                If exist = 0 Then
+                    If String.IsNullOrEmpty(exterline) And String.IsNullOrEmpty(Sku) And String.IsNullOrEmpty(QtyExpected) Then
+                        tmp = "Detail line cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    'Command += "<AdvancedShipNoticeDetail>"
+                    Command += ",""receiptdetails"" : [ {"
+
+                    If String.IsNullOrEmpty(exterline) Then exterline = "1"
+                    exterline = exterline.ToString.PadLeft(5, "0")
+                    'Command += "<ExternLineNo>" & exterline & "</ExternLineNo>"
+                    Command += """externlineno"":""" + exterline + """"
+
+                    If Not String.IsNullOrEmpty(Sku) Then
+                        'Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
+                        Command += ",""storerkey"":""" + Owner + """"
+                        Command += ",""sku"":""" + Sku + """"
+                    Else
+                        tmp = "Item cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    If Not String.IsNullOrEmpty(QtyExpected) Then
+                        'Command += "<QtyExpected>" & QtyExpected & "</QtyExpected>"
+                        Command += ",""qtyexpected"":""" + QtyExpected + """"
+                    Else
+                        tmp = "Qty Expected cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    If Not String.IsNullOrEmpty(QtyReceived) Then Command += ",""qtyreceived"":""" + QtyReceived + """"
+                    If Not String.IsNullOrEmpty(PackKey) Then Command += ",""packkey"":""" + PackKey + """"
+                    If Not String.IsNullOrEmpty(UOM) Then Command += ",""uom"":""" + UOM + """"
+                    If Not String.IsNullOrEmpty(POKeyDtl) Then Command += ",""pokey"":""" + pokey + """"
+                    If Not String.IsNullOrEmpty(ToId) Then Command += ",""toid"":""" + ToId + """"
+                    If Not String.IsNullOrEmpty(ToLoc) Then Command += ",""toloc"":""" + ToLoc + """"
+                    If Not String.IsNullOrEmpty(ConditionCode) Then Command += ",""conditioncode"":""" + ConditionCode + """"
+                    If Not String.IsNullOrEmpty(TariffKey) Then Command += ",""tariffkey"":""" + TariffKey + """"
+                    If Not String.IsNullOrEmpty(Lottable01) Then Command += ",""lottable01"":""" + Lottable01 + """"
+                    If Not String.IsNullOrEmpty(Lottable02) Then Command += ",""lottable02"":""" + Lottable02 + """"
+                    If Not String.IsNullOrEmpty(Lottable03) Then Command += ",""lottable03"":""" + Lottable03 + """"
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable04) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable04, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable04, "MM/dd/yyyy", Nothing)
+                                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                                '    Command += "<Lottable04>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </Lottable04>"
+                                'ElseIf Double.Parse(CommonMethods.version) >= 11 Then
+                                '    Command += "<Lottable04>" & datetime2.ToString("MM/dd/yyyy 14:00:00") & " </Lottable04>"
+                                'Else
+                                '    Command += "<Lottable04>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </Lottable04>"
+                                'End If
+                                Command += ",""lottable04"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable04 doesn't match the required date format <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable05) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable05, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable05, "MM/dd/yyyy", Nothing)
+                                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                                '    Command += "<Lottable05>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </Lottable05>"
+                                'ElseIf Double.Parse(CommonMethods.version) >= 11 Then
+                                '    Command += "<Lottable05>" & datetime2.ToString("MM/dd/yyyy 14:00:00") & " </Lottable05>"
+                                'Else
+                                '    Command += "<Lottable05>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </Lottable05>"
+                                'End If
+                                Command += ",""lottable05"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable05 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    If Not String.IsNullOrEmpty(Lottable06) Then Command += ",""lottable06"":""" + Lottable06 + """"
+                    If Not String.IsNullOrEmpty(Lottable07) Then Command += ",""lottable07"":""" + Lottable07 + """"
+                    If Not String.IsNullOrEmpty(Lottable08) Then Command += ",""lottable08"":""" + Lottable08 + """"
+                    If Not String.IsNullOrEmpty(Lottable09) Then Command += ",""lottable09"":""" + Lottable09 + """"
+                    If Not String.IsNullOrEmpty(Lottable10) Then Command += ",""lottable10"":""" + Lottable10 + """"
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable11) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable11, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable11, "MM/dd/yyyy", Nothing)
+                                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                                '    Command += "<Lottable11>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </Lottable11>"
+                                'ElseIf Double.Parse(CommonMethods.version) >= 11 Then
+                                '    Command += "<Lottable11>" & datetime2.ToString("MM/dd/yyyy 14:00:00") & " </Lottable11>"
+                                'Else
+                                '    Command += "<Lottable11>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </Lottable11>"
+                                'End If
+                                Command += ",""lottable11"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable11 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable12) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable12, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable12, "MM/dd/yyyy", Nothing)
+                                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                                '    Command += "<Lottable12>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </Lottable12>"
+                                'ElseIf Double.Parse(CommonMethods.version) >= 11 Then
+                                '    Command += "<Lottable12>" & datetime2.ToString("MM/dd/yyyy 14:00:00") & " </Lottable12>"
+                                'Else
+                                '    Command += "<Lottable12>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </Lottable12>"
+                                'End If
+                                Command += ",""lottable12"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable12 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    'Command += "</AdvancedShipNoticeDetail>"
+                    Command += "}]}"
+                Else
+                    tmp = "Error: Extern Receipt Key already exists!"
+                    Return tmp
+                End If
+            Else
+                If Not String.IsNullOrEmpty(exterline) Or Not String.IsNullOrEmpty(Sku) Then
+                    Command += ",""receiptdetails"" : [ {"
+                    Command += """externlineno"":""" + exterline + """"
+                    Command += ",""storerkey"":""" + Owner + """"
+                    Command += ",""sku"":""" + Sku + """"
+                    Command += ",""qtyexpected"":""" + QtyExpected + """"
+
+                    If Not String.IsNullOrEmpty(QtyReceived) Then Command += ",""qtyreceived"":""" + QtyReceived + """"
+                    If Not String.IsNullOrEmpty(PackKey) Then Command += ",""packkey"":""" + PackKey + """"
+                    If Not String.IsNullOrEmpty(UOM) Then Command += ",""uom"":""" + UOM + """"
+                    If Not String.IsNullOrEmpty(POKeyDtl) Then Command += ",""pokey"":""" + pokey + """"
+                    If Not String.IsNullOrEmpty(ToId) Then Command += ",""toid"":""" + ToId + """"
+                    If Not String.IsNullOrEmpty(ToLoc) Then Command += ",""toloc"":""" + ToLoc + """"
+                    If Not String.IsNullOrEmpty(ConditionCode) Then Command += ",""conditioncode"":""" + ConditionCode + """"
+                    If Not String.IsNullOrEmpty(TariffKey) Then Command += ",""tariffkey"":""" + TariffKey + """"
+                    If Not String.IsNullOrEmpty(Lottable01) Then Command += ",""lottable01"":""" + Lottable01 + """"
+                    If Not String.IsNullOrEmpty(Lottable02) Then Command += ",""lottable02"":""" + Lottable02 + """"
+                    If Not String.IsNullOrEmpty(Lottable03) Then Command += ",""lottable03"":""" + Lottable03 + """"
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable04) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable04, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable04, "MM/dd/yyyy", Nothing)
+                                Command += ",""lottable04"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable04 doesn't match the required date format <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable05) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable05, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable05, "MM/dd/yyyy", Nothing)
+                                Command += ",""lottable05"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable05 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    If Not String.IsNullOrEmpty(Lottable06) Then Command += ",""lottable06"":""" + Lottable06 + """"
+                    If Not String.IsNullOrEmpty(Lottable07) Then Command += ",""lottable07"":""" + Lottable07 + """"
+                    If Not String.IsNullOrEmpty(Lottable08) Then Command += ",""lottable08"":""" + Lottable08 + """"
+                    If Not String.IsNullOrEmpty(Lottable09) Then Command += ",""lottable09"":""" + Lottable09 + """"
+                    If Not String.IsNullOrEmpty(Lottable10) Then Command += ",""lottable10"":""" + Lottable10 + """"
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable11) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable11, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable11, "MM/dd/yyyy", Nothing)
+                                Command += ",""lottable11"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable11 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable12) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable12, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable12, "MM/dd/yyyy", Nothing)
+                                Command += ",""lottable12"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable12 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+
+                    Command += "}]}"
+                Else
+                    Command += "}"
+                End If
+            End If
+
+            Try
+                'Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>AdvancedShipNotice</MessageType><Action>store</Action><Sender><User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & Facility & "</SystemID></Recipient></Head><Body><AdvancedShipNotice><AdvancedShipNoticeHeader>" & Command & "</AdvancedShipNoticeHeader></AdvancedShipNotice></Body></Message>"
+                'Dim soapResult As String = CommonMethods.sendwebRequest(Xml)
+                Dim uri As String = "/" & Facility & "/receipts "
+                tmp = CommonMethods.SaveRest(uri, Command)
+
+                'If String.IsNullOrEmpty(soapResult) Then
+                '    tmp = "Error: Unable to connect to webservice, kindly check the logs"
+                'Else
+                '    Dim dsresult As DataSet = New DataSet
+                '    Dim doc As XmlDocument = New XmlDocument
+                '    doc.LoadXml(soapResult)
+                '    Dim xmlFile As XmlReader = XmlReader.Create(New StringReader(soapResult), New XmlReaderSettings)
+                '    If LCase(soapResult).Contains("error") Then
+                '        Dim nodeList As XmlNodeList
+                '        If soapResult.Contains("ERROR") Then
+                '            nodeList = doc.GetElementsByTagName("Error")
+                '        Else
+                '            nodeList = doc.GetElementsByTagName("string")
+                '        End If
+                '        Dim message As String = ""
+                '        For Each node As XmlNode In nodeList
+                '            message = node.InnerText
+                '        Next
+                '        message = Regex.Replace(message, "&.*?;", "")
+                '        tmp = "Error: " & message & "<br/>"
+                '        Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '        logger.Error(message, "", "")
+                '    Else
+                '        tmp = CommonMethods.incremenetKey(Facility, "EXTERNASN")
+                '        If tmp = "" Then
+                '            Dim receipt As String = "", logmessage As String = ""
+
+                '            Dim nodeList As XmlNodeList = doc.GetElementsByTagName("ReceiptKey")
+                '            For Each node As XmlNode In nodeList
+                '                receipt = node.InnerText
+                '                logmessage = CommonMethods.logger(Facility, "Receipt", receipt, HttpContext.Current.Session("userkey").ToString)
+                '            Next
+
+                '            If Not EditOperation Then
+                '                Dim nodeList2 As XmlNodeList = doc.GetElementsByTagName("ReceiptLineNumber")
+                '                Dim lineno As String = ""
+                '                For Each node As XmlNode In nodeList2
+                '                    lineno = node.InnerText
+                '                    logmessage += CommonMethods.logger(Facility, "ReceiptDetail", receipt & "-" & lineno, HttpContext.Current.Session("userkey").ToString)
+                '                Next
+                '            End If
+
+                '            If Not String.IsNullOrEmpty(logmessage) Then
+                '                tmp = "Logging Error: " + logmessage + "<br />"
+                '                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '                logger.Error(logmessage, "", "")
+                '            End If
+                '        End If
+                '    End If
+                'End If
+            Catch ex As Exception
+                tmp = "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(ex, "", "")
+            End Try
+        End If
+
+        Return tmp
+    End Function
     Private Function SaveSO(ByVal MyID As Integer) As String
         Dim tmp As String = "", Command As String = ""
         Dim IsValid As Boolean = True
@@ -1617,6 +2261,358 @@ Public Class SaveItemsNew
                         End If
                     End If
                 End If
+            Catch ex As Exception
+                tmp = "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(ex, "", "")
+            End Try
+        End If
+        Return tmp
+    End Function
+
+    'ghina karame - RestApis - 07/06/200-  function to prepare json date to send to post request
+    Private Function SaveRestSO(ByVal MyID As Integer) As String
+        Dim tmp As String = "", Command As String = ""
+        Dim IsValid As Boolean = True
+        Dim EditOperation As Boolean = MyID <> 0
+        Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
+        , externorder As String = HttpContext.Current.Request.Item("Field_ExternOrderKey") _
+        , orderkey As String = HttpContext.Current.Request.Item("Field_OrderKey") _
+        , Owner As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
+        , ConsigneeKey As String = UCase(HttpContext.Current.Request.Item("Field_ConsigneeKey")) _
+        , type As String = HttpContext.Current.Request.Item("Field_OrderType") _
+        , orderdate As String = HttpContext.Current.Request.Item("Field_OrderDate") _
+        , requestedshipdate As String = HttpContext.Current.Request.Item("Field_RequestedShipDate") _
+        , actualshipdate As String = HttpContext.Current.Request.Item("Field_ActualShipDate") _
+        , UDF1 As String = HttpContext.Current.Request.Item("Field_SUsr1") _
+        , UDF2 As String = HttpContext.Current.Request.Item("Field_SUsr2") _
+        , UDF3 As String = HttpContext.Current.Request.Item("Field_SUsr3") _
+        , UDF4 As String = HttpContext.Current.Request.Item("Field_SUsr4") _
+        , UDF5 As String = HttpContext.Current.Request.Item("Field_SUsr5") _
+        , exterline As String = HttpContext.Current.Request.Item("DetailsField_ExternLineNo") _
+        , Sku As String = UCase(HttpContext.Current.Request.Item("DetailsField_Sku")) _
+        , OpenQty As String = HttpContext.Current.Request.Item("DetailsField_OpenQty") _
+        , PackKey As String = HttpContext.Current.Request.Item("DetailsField_PackKey") _
+        , UOM As String = HttpContext.Current.Request.Item("DetailsField_UOM") _
+        , UDF1Dtl As String = HttpContext.Current.Request.Item("DetailsField_SUsr1") _
+        , UDF2Dtl As String = HttpContext.Current.Request.Item("DetailsField_SUsr2") _
+        , UDF3Dtl As String = HttpContext.Current.Request.Item("DetailsField_SUsr3") _
+        , UDF4Dtl As String = HttpContext.Current.Request.Item("DetailsField_SUsr4") _
+        , UDF5Dtl As String = HttpContext.Current.Request.Item("DetailsField_SUsr5") _
+        , Lottable01 As String = HttpContext.Current.Request.Item("DetailsField_Lottable01") _
+        , Lottable02 As String = HttpContext.Current.Request.Item("DetailsField_Lottable02") _
+        , Lottable03 As String = HttpContext.Current.Request.Item("DetailsField_Lottable03") _
+        , Lottable04 As String = HttpContext.Current.Request.Item("DetailsField_Lottable04") _
+        , Lottable05 As String = HttpContext.Current.Request.Item("DetailsField_Lottable05") _
+        , Lottable06 As String = HttpContext.Current.Request.Item("DetailsField_Lottable06") _
+        , Lottable07 As String = HttpContext.Current.Request.Item("DetailsField_Lottable07") _
+        , Lottable08 As String = HttpContext.Current.Request.Item("DetailsField_Lottable08") _
+        , Lottable09 As String = HttpContext.Current.Request.Item("DetailsField_Lottable09") _
+        , Lottable10 As String = HttpContext.Current.Request.Item("DetailsField_Lottable10")
+
+        If String.IsNullOrEmpty(Facility) Then
+            IsValid = False
+            tmp += "Facility must be defined <br/>"
+        End If
+
+        If Not EditOperation Then
+            If String.IsNullOrEmpty(externorder) And Not String.IsNullOrEmpty(Facility) Then
+                externorder = CommonMethods.getExternKey(Facility, "EXTERNSO")
+            End If
+            'Command += "<ExternOrderKey>" & externorder & "</ExternOrderKey>"
+            Command += "{""externorderkey"":""" + externorder + """"
+
+        Else
+            'Command += "<ExternOrderKey>" & externorder & "</ExternOrderKey><OrderKey>" & orderkey & "</OrderKey>"
+            Command += "{""externorderkey"":""" + externorder + """"
+            Command += ",""orderkey"":""" + orderkey + """"
+        End If
+
+        If Not String.IsNullOrEmpty(type) Then
+            Dim DTOrderType = CommonMethods.getCodeDD(Facility, "codelkup", "ORDERTYPE")
+            Dim DROrderType() As DataRow = DTOrderType.Select("DESCRIPTION='" & type & "'")
+            If DROrderType.Length > 0 Then
+                'Command += "<OrderType>" & DROrderType(0)!CODE & "</OrderType>"
+                Command += ",""type"":""" + DROrderType(0)!CODE + """"
+            Else
+                IsValid = False
+                tmp += "Type must be defined <br/>"
+            End If
+        Else
+            IsValid = False
+            tmp += "Type must be defined <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(Owner) And Trim(Owner) <> "" Then
+            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+            If owners.Any(Function(x) x = Owner) Or owners.Any(Function(x) x = "ALL") Then
+                'Command += "<StorerKey>" & Owner & "</StorerKey>"
+                Command += ",""storerkey"":""" + Owner + """"
+            Else
+                IsValid = False
+                tmp += "This owner is not authorized <br/>"
+            End If
+        Else
+            IsValid = False
+            tmp += "Owner must be defined <br/>"
+        End If
+
+        If Not String.IsNullOrEmpty(ConsigneeKey) And Trim(ConsigneeKey) <> "" Then
+            Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
+            If consignees.Any(Function(x) x = ConsigneeKey) Or consignees.Any(Function(x) x = "ALL") Then
+                'Command += "<ConsigneeKey>" & ConsigneeKey & "</ConsigneeKey>"
+                Command += ",""consigneekey"":""" + ConsigneeKey + """"
+            Else
+                IsValid = False
+                tmp += "This consignee is not authorized <br/>"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(requestedshipdate) Then
+            Dim datetime As DateTime
+            If DateTime.TryParseExact(requestedshipdate, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                Dim datetime2 As DateTime = DateTime.ParseExact(requestedshipdate, "MM/dd/yyyy", Nothing)
+                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                '    Command += "<RequestedShipDate>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </RequestedShipDate>"
+                'Else
+                '    Command += "<RequestedShipDate>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </RequestedShipDate>"
+                'End If
+                Command += ",""requestedshipdate"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+            Else
+                IsValid = False
+                tmp += "Requested ship date doesn't match the required date format <br/>"
+            End If
+        End If
+
+        If EditOperation Then
+            If Not String.IsNullOrEmpty(actualshipdate) Then
+                'Command += "<ActualShipDate>" & actualshipdate & " </ActualShipDate>"
+                Dim datetime2 As DateTime = DateTime.ParseExact(actualshipdate, "MM/dd/yyyy", Nothing)
+                Command += ",""actualshipdate"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(UDF1) Then Command += ",""susr1"":""" + UDF1 + """"
+        If Not String.IsNullOrEmpty(UDF2) Then Command += ",""susr2"":""" + UDF2 + """"
+        If Not String.IsNullOrEmpty(UDF3) Then Command += ",""susr3"":""" + UDF3 + """"
+        If Not String.IsNullOrEmpty(UDF4) Then Command += ",""susr4"":""" + UDF4 + """"
+        If Not String.IsNullOrEmpty(UDF5) Then Command += ",""susr5"":""" + UDF5 + """"
+
+        If IsValid Then
+            If Not EditOperation Then
+                Dim exist As Integer = CommonMethods.checkSOExist(Facility, externorder)
+                If exist = 0 Then
+                    If String.IsNullOrEmpty(exterline) And String.IsNullOrEmpty(Sku) And String.IsNullOrEmpty(OpenQty) Then
+                        tmp = "Detail line cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    'Command += "<ShipmentOrderDetail>"
+                    Command += ",""orderdetails"" : [{ "
+
+                    If String.IsNullOrEmpty(exterline) Then exterline = "1"
+                    exterline = exterline.ToString.PadLeft(5, "0")
+                    'Command += "<ExternLineNo>" & exterline & "</ExternLineNo>"
+                    Command += """externlineno"":""" + exterline + """"
+
+                    If Not String.IsNullOrEmpty(Sku) Then
+                        'Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
+                        Command += ",""storerkey"":""" + Owner + """"
+                        Command += ",""sku"":""" + Sku + """"
+                    Else
+                        tmp = "Item cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    If Not String.IsNullOrEmpty(OpenQty) Then
+                        'Command += "<OpenQty>" & OpenQty & "</OpenQty>"
+                        Command += ",""openqty"":""" + OpenQty + """"
+                    Else
+                        tmp = "Open Qty cannot be empty <br/>"
+                        Return tmp
+                    End If
+
+                    If Not String.IsNullOrEmpty(PackKey) Then Command += ",""packkey"":""" + PackKey + """"
+                    If Not String.IsNullOrEmpty(UOM) Then Command += ",""uom"":""" + UOM + """"
+                    If Not String.IsNullOrEmpty(UDF1Dtl) Then Command += ",""susr1"":""" + UDF1Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF2Dtl) Then Command += ",""susr2"":""" + UDF2Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF3Dtl) Then Command += ",""susr3"":""" + UDF3Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF4Dtl) Then Command += ",""susr4"":""" + UDF4Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF5Dtl) Then Command += ",""susr5"":""" + UDF5Dtl + """"
+                    If Not String.IsNullOrEmpty(Lottable01) Then Command += ",""lottable01"":""" + Lottable01 + """"
+                    If Not String.IsNullOrEmpty(Lottable02) Then Command += ",""lottable02"":""" + Lottable02 + """"
+                    If Not String.IsNullOrEmpty(Lottable03) Then Command += ",""lottable03"":""" + Lottable03 + """"
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable04) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable04, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable04, "MM/dd/yyyy", Nothing)
+                                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                                '    Command += "<Lottable04>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </Lottable04>"
+                                'ElseIf Double.Parse(CommonMethods.version) >= 11 Then
+                                '    Command += "<Lottable04>" & datetime2.ToString("MM/dd/yyyy 14:00:00") & " </Lottable04>"
+                                'Else
+                                '    Command += "<Lottable04>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </Lottable04>"
+                                'End If
+                                Command += ",""lottable04"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable04 doesn't match the required date format <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable05) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable05, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable05, "MM/dd/yyyy", Nothing)
+                                'If Not String.IsNullOrEmpty(CommonMethods.dformat) Then
+                                '    Command += "<Lottable05>" & datetime2.ToString(CommonMethods.dformat & " 14:00:00") & " </Lottable05>"
+                                'ElseIf Double.Parse(CommonMethods.version) >= 11 Then
+                                '    Command += "<Lottable05>" & datetime2.ToString("MM/dd/yyyy 14:00:00") & " </Lottable05>"
+                                'Else
+                                '    Command += "<Lottable05>" & datetime2.ToString("dd/MM/yyyy 14:00:00") & " </Lottable05>"
+                                'End If
+                                Command += ",""lottable05"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable05 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    If Not String.IsNullOrEmpty(Lottable06) Then Command += ",""lottable06"":""" + Lottable06 + """"
+                    If Not String.IsNullOrEmpty(Lottable07) Then Command += ",""lottable07"":""" + Lottable07 + """"
+                    If Not String.IsNullOrEmpty(Lottable08) Then Command += ",""lottable08"":""" + Lottable08 + """"
+                    If Not String.IsNullOrEmpty(Lottable09) Then Command += ",""lottable09"":""" + Lottable09 + """"
+                    If Not String.IsNullOrEmpty(Lottable10) Then Command += ",""lottable010"":""" + Lottable10 + """"
+
+                    'Command += "</ShipmentOrderDetail>"
+                    Command += "}]}"
+
+                Else
+                    tmp = "Error: Extern Order Key already exists!"
+                    Return tmp
+                End If
+            Else
+                If Not String.IsNullOrEmpty(exterline) Or Not String.IsNullOrEmpty(Sku) Then
+                    Command += ",""orderdetails"" : [ {"
+                    Command += """externlineno"":""" + exterline + """"
+                    Command += ",""storerkey"":""" + Owner + """"
+                    Command += ",""sku"":""" + Sku + """"
+                    Command += ",""openqty"":""" + OpenQty + """"
+
+                    If Not String.IsNullOrEmpty(PackKey) Then Command += ",""packkey"":""" + PackKey + """"
+                    If Not String.IsNullOrEmpty(UOM) Then Command += ",""uom"":""" + UOM + """"
+                    If Not String.IsNullOrEmpty(UDF1Dtl) Then Command += ",""susr1"":""" + UDF1Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF2Dtl) Then Command += ",""susr2"":""" + UDF2Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF3Dtl) Then Command += ",""susr3"":""" + UDF3Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF4Dtl) Then Command += ",""susr4"":""" + UDF4Dtl + """"
+                    If Not String.IsNullOrEmpty(UDF5Dtl) Then Command += ",""susr5"":""" + UDF5Dtl + """"
+                    If Not String.IsNullOrEmpty(Lottable01) Then Command += ",""lottable01"":""" + Lottable01 + """"
+                    If Not String.IsNullOrEmpty(Lottable02) Then Command += ",""lottable02"":""" + Lottable02 + """"
+                    If Not String.IsNullOrEmpty(Lottable03) Then Command += ",""lottable03"":""" + Lottable03 + """"
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable04) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable04, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable04, "MM/dd/yyyy", Nothing)
+                                Command += ",""lottable04"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable04 doesn't match the required date format <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    Try
+                        If Not String.IsNullOrEmpty(Lottable05) Then
+                            Dim datetime As DateTime
+                            If DateTime.TryParseExact(Lottable05, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, datetime) Then
+                                Dim datetime2 As DateTime = DateTime.ParseExact(Lottable05, "MM/dd/yyyy", Nothing)
+                                Command += ",""lottable05"":""" + datetime2.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ") + """"
+                            Else
+                                tmp = "Lottable05 doesn't match the required date format one line <br/>"
+                                Return tmp
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+
+                    If Not String.IsNullOrEmpty(Lottable06) Then Command += ",""lottable06"":""" + Lottable06 + """"
+                    If Not String.IsNullOrEmpty(Lottable07) Then Command += ",""lottable07"":""" + Lottable07 + """"
+                    If Not String.IsNullOrEmpty(Lottable08) Then Command += ",""lottable08"":""" + Lottable08 + """"
+                    If Not String.IsNullOrEmpty(Lottable09) Then Command += ",""lottable09"":""" + Lottable09 + """"
+                    If Not String.IsNullOrEmpty(Lottable10) Then Command += ",""lottable10"":""" + Lottable10 + """"
+
+                    Command += "}]}"
+                Else
+                    Command += "}"
+                End If
+            End If
+
+            Try
+                Dim uri As String = "/" & Facility & "/shipments "
+                tmp = CommonMethods.SaveRest(uri, Command)
+                '        Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>ShipmentOrder</MessageType><Action>store</Action><Sender><User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & Facility & "</SystemID></Recipient></Head><Body><ShipmentOrder><ShipmentOrderHeader>" & Command & "</ShipmentOrderHeader></ShipmentOrder></Body></Message>"
+                '        Dim soapResult As String = CommonMethods.sendwebRequest(Xml)
+
+                '        If String.IsNullOrEmpty(soapResult) Then
+                '            tmp = "Error: Unable to connect to webservice, kindly check the logs"
+                '        Else
+                '            Dim dsresult As DataSet = New DataSet
+                '            Dim doc As XmlDocument = New XmlDocument
+                '            doc.LoadXml(soapResult)
+                '            Dim xmlFile As XmlReader = XmlReader.Create(New StringReader(soapResult), New XmlReaderSettings)
+                '            If LCase(soapResult).Contains("error") Then
+                '                Dim nodeList As XmlNodeList
+                '                If soapResult.Contains("ERROR") Then
+                '                    nodeList = doc.GetElementsByTagName("Error")
+                '                Else
+                '                    nodeList = doc.GetElementsByTagName("string")
+                '                End If
+                '                Dim message As String = ""
+                '                For Each node As XmlNode In nodeList
+                '                    message = node.InnerText
+                '                Next
+                '                message = Regex.Replace(message, "&.*?;", "")
+                '                tmp = "Error: " & message & "<br/>"
+                '                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '                logger.Error(message, "", "")
+                '            Else
+                '                tmp = CommonMethods.incremenetKey(Facility, "EXTERNSO")
+                '                If tmp = "" Then
+                '                    Dim order As String = "", logmessage As String = ""
+
+                '                    Dim nodeList As XmlNodeList = doc.GetElementsByTagName("OrderKey")
+                '                    For Each node As XmlNode In nodeList
+                '                        order = node.InnerText
+                '                        logmessage = CommonMethods.logger(Facility, "Order", order, HttpContext.Current.Session("userkey").ToString)
+                '                    Next
+
+                '                    If Not EditOperation Then
+                '                        Dim nodeList2 As XmlNodeList = doc.GetElementsByTagName("OrderLineNumber")
+                '                        Dim lineno As String = ""
+                '                        For Each node As XmlNode In nodeList2
+                '                            lineno = node.InnerText
+                '                            logmessage += CommonMethods.logger(Facility, "OrderDetail", order & "-" & lineno, HttpContext.Current.Session("userkey").ToString)
+                '                        Next
+                '                    End If
+
+                '                    If Not String.IsNullOrEmpty(logmessage) Then
+                '                        tmp = "Logging Error: " + logmessage + "<br />"
+                '                        Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                '                        logger.Error(logmessage, "", "")
+                '                    End If
+                '                End If
+                '            End If
+                '        End If
             Catch ex As Exception
                 tmp = "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
                 Dim logger As Logger = LogManager.GetCurrentClassLogger()
