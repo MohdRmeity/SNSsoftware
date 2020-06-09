@@ -29,7 +29,7 @@ Public Class SaveItemsDetails
             writer.WritePropertyName("tmp")
             If mySearchTable = "Warehouse_PO" Then
                 'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
-                If useRest = "1" & version >= "11" Then
+                If useRest = "1" And version >= "11" Then
                     tmp = SaveRestPurchaseOrderDetail(MyID)
                 Else
                     tmp = SavePurchaseOrderDetail(MyID)

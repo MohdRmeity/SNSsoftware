@@ -30,7 +30,7 @@ Public Class SaveItemsNew
             If mySearchTable.Contains("enterprise.storer") Then
                 Dim type As String = mySearchTable(mySearchTable.Length - 1)
                 'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
-                If useRest = "1" & version >= "11" Then
+                If useRest = "1" And version >= "11" Then
                     writer.WriteValue(SaveRestTradingPartner(MyID, type))
                 Else
                     writer.WriteValue(SaveConfiguration(MyID, type))
@@ -39,7 +39,7 @@ Public Class SaveItemsNew
 
             ElseIf mySearchTable = "enterprise.sku" Then
                 'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
-                If useRest = "1" & version >= "11" Then
+                If useRest = "1" And version >= "11" Then
                     writer.WriteValue(SaveRestItem(MyID))
                 Else
                     writer.WriteValue(SaveItem(MyID))
@@ -50,7 +50,7 @@ Public Class SaveItemsNew
                 writer.WriteValue(SaveItemCatalogue(MyID))
             ElseIf mySearchTable = "Warehouse_PO" Then
                 'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
-                If useRest = "1" & version >= "11" Then
+                If useRest = "1" And version >= "11" Then
                     writer.WriteValue(SaveRestPurchaseOrder(MyID))
                 Else
                     writer.WriteValue(SavePurchaseOrder(MyID))
@@ -59,7 +59,7 @@ Public Class SaveItemsNew
 
             ElseIf mySearchTable = "Warehouse_ASN" Then
                 'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
-                If useRest = "1" & version >= "11" Then
+                If useRest = "1" And version >= "11" Then
                     writer.WriteValue(SaveRestASN(MyID))
                 Else
                     writer.WriteValue(SaveASN(MyID))
@@ -68,7 +68,7 @@ Public Class SaveItemsNew
 
             ElseIf mySearchTable = "Warehouse_SO" Then
                 'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
-                If useRest = "1" & version >= "11" Then
+                If useRest = "1" And version >= "11" Then
                     writer.WriteValue(SaveRestSO(MyID))
                 Else
                     writer.WriteValue(SaveSO(MyID))

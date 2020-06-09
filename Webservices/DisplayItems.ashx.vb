@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Xml
 Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class DisplayItems
     Implements IHttpHandler
@@ -12,6 +13,10 @@ Public Class DisplayItems
         Dim tb As SQLExec = New SQLExec
         Dim mySearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim MyID As String = HttpContext.Current.Request.Item("MyID")
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -begin
+        Dim useRest As String = ConfigurationManager.AppSettings("UseRestAPI")
+        Dim version As String = ConfigurationManager.AppSettings("version")
+        REM ghina karame - 11/05/2020- get the system flag useRest from webconfig to know if we should replace soapapi with restapi -end
         Dim MyError As String = ""
         Dim SavedFields As String = ""
         Dim ReadOnlyFields As String = ""
@@ -548,152 +553,332 @@ Public Class DisplayItems
                         End With
                     Case "Warehouse_PO"
                         With ds.Tables(0).Rows(0)
+                            'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
                             Dim Facility As String = ""
                             Dim POKey As String = ""
                             If Not .IsNull("Facility") Then Facility = !Facility
                             If Not .IsNull("POKey") Then POKey = !POKey
+                            If useRest = "1" And version >= "11" Then
+                                Dim Command As String
+                                Command = "/" & CommonMethods.getFacilityDBName(Facility) & "/purchaseorders/" & POKey & ""
+                                Dim jsonData = CommonMethods.GetRest(Command)
 
-                            Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>PurchaseOrder</MessageType><Action>list</Action><Sender><User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & CommonMethods.getFacilityDBName(Facility) & "</SystemID></Recipient></Head><Body><PurchaseOrder>			<PurchaseOrderHeader>  <POKey>" & POKey & "</POKey> </PurchaseOrderHeader>		</PurchaseOrder></Body></Message>"
-                            Dim ViewTable As DataTable = CommonMethods.ViewXml(Xml)
-                            MyError = ViewTable.Rows(0)!error
-                            Dim MyDoc As XmlDocument = ViewTable.Rows(0)!doc
-                            If MyError = "" Then
+                                Dim poJObject = JObject.Parse(jsonData)
+                                SavedFields += "Facility:::" & Facility
+                                ReadOnlyFields += "Facility"
+
+                                SavedFields += ";;;POKey:::" & POKey
+                                ReadOnlyFields += "~~~POKey"
+                                ' if no errors
                                 SavedFields += "Facility:::" & Facility
                                 ReadOnlyFields += "Facility"
 
                                 SavedFields += ";;;POKey:::" & POKey
                                 ReadOnlyFields += "~~~POKey"
 
-                                Dim nodeReader As XmlNodeReader = New XmlNodeReader(MyDoc)
-                                Dim results As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='PurchaseOrderHeader']")
-                                For Each node As XmlNode In results
-                                    If Not node("ExternPOKey").IsEmpty Then
-                                        SavedFields += ";;;ExternPOKey:::" & node("ExternPOKey").InnerText.ToString()
-                                        ReadOnlyFields += "~~~ExternPOKey"
-                                    End If
+                                Dim externpokey As String = poJObject.SelectToken("externpokey").ToString
 
-                                    If Not node("PODate").IsEmpty Then
-                                        Dim DateTime As DateTime
-                                        Dim DateStr = node("PODate").InnerText.ToString()
-                                        Dim dformat As String = CommonMethods.datef
-                                        If Not String.IsNullOrEmpty(dformat) Then
-                                            DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                Dim podate As String = poJObject.SelectToken("podate")
+                                Dim status As String = poJObject.SelectToken("status")
+                                Dim storerkey As String = poJObject.SelectToken("storerkey")
+                                Dim buyername As String = poJObject.SelectToken("buyername")
+                                Dim buyersreference As String = poJObject.SelectToken("buyersreference")
+                                Dim sellername As String = poJObject.SelectToken("sellername")
+                                Dim sellerssreference As String = poJObject.SelectToken("sellerssreference")
+                                Dim type As String = poJObject.SelectToken("type")
+                                Dim effectivedate As String = poJObject.SelectToken("effectivedate")
+                                Dim susr1 As String = poJObject.SelectToken("susr1")
+                                Dim susr2 As String = poJObject.SelectToken("susr2")
+                                Dim susr3 As String = poJObject.SelectToken("susr3")
+                                Dim susr4 As String = poJObject.SelectToken("susr4")
+                                Dim susr5 As String = poJObject.SelectToken("susr5")
+
+
+
+
+                                If Not String.IsNullOrEmpty(externpokey) Then
+                                    SavedFields += ";;;ExternPOKey:::" & poJObject.SelectToken("externpokey").ToString
+                                    ReadOnlyFields += "~~~ExternPOKey"
+                                End If
+
+                                If Not String.IsNullOrEmpty(podate) Then
+                                    Dim DateTime As DateTime
+                                    Dim dformat As String = CommonMethods.datef
+                                    If Not String.IsNullOrEmpty(dformat) Then
+                                        DateTime = DateTime.ParseExact(podate, dformat, Nothing)
+                                    Else
+                                        If Double.Parse(CommonMethods.version) >= 11 Then
+                                            DateTime = DateTime.ParseExact(podate, "MM/dd/yyyy HH:mm:ss", Nothing)
                                         Else
-                                            If Double.Parse(CommonMethods.version) >= 11 Then
-                                                DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
-                                            Else
-                                                DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
-                                            End If
+                                            DateTime = DateTime.ParseExact(podate, "dd/MM/yyyy HH:mm:ss", Nothing)
                                         End If
-                                        SavedFields += ";;;PODate:::" & DateTime.ToString("MM/dd/yyyy hh:mm:ss tt")
-                                        ReadOnlyFields += "~~~PODate"
                                     End If
+                                    SavedFields += ";;;PODate:::" & DateTime.ToString("MM/dd/yyyy hh:mm:ss tt")
+                                    ReadOnlyFields += "~~~PODate"
+                                End If
 
-                                    If Not node("Status").IsEmpty Then
-                                        Dim code As Integer = Integer.Parse(node("Status").InnerText.ToString())
-                                        SavedFields += ";;;Status:::" & CommonMethods.getStatusPo(code)
-                                        ReadOnlyFields += "~~~Status"
-                                    End If
 
-                                    If Not node("StorerKey").IsEmpty Then
-                                        SavedFields += ";;;StorerKey:::" & node("StorerKey").InnerText.ToString()
-                                        ReadOnlyFields += "~~~StorerKey"
-                                    End If
+                                If Not String.IsNullOrEmpty(status) Then
+                                    Dim code As Integer = Integer.Parse(status)
+                                    SavedFields += ";;;Status:::" & CommonMethods.getStatusPo(code)
+                                    ReadOnlyFields += "~~~Status"
+                                End If
 
-                                    If Not node("BuyerName").IsEmpty Then
-                                        SavedFields += ";;;BuyerName:::" & node("BuyerName").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(storerkey) Then
+                                    SavedFields += ";;;StorerKey:::" & storerkey
+                                    ReadOnlyFields += "~~~StorerKey"
+                                End If
 
-                                    If Not node("BuyersReference").IsEmpty Then
-                                        SavedFields += ";;;BuyersReference:::" & node("BuyersReference").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(buyername) Then
+                                    SavedFields += ";;;BuyerName:::" & buyername
+                                End If
 
-                                    If Not node("SellerName").IsEmpty Then
-                                        SavedFields += ";;;SellerName:::" & node("SellerName").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(buyersreference) Then
+                                    SavedFields += ";;;BuyersReference:::" & buyersreference
+                                End If
 
-                                    If Not node("SellersReference").IsEmpty Then
-                                        SavedFields += ";;;SellersReference:::" & node("SellersReference").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(sellername) Then
+                                    SavedFields += ";;;SellerName:::" & sellername
+                                End If
 
-                                    If Not node("POType").IsEmpty Then
-                                        Dim code As Integer = Integer.Parse(node("POType").InnerText.ToString())
-                                        SavedFields += ";;;POType:::" & CommonMethods.getTypePo(code)
-                                        ReadOnlyFields += "~~~POType"
-                                    End If
+                                If Not String.IsNullOrEmpty(sellerssreference) Then
+                                    SavedFields += ";;;SellersReference:::" & sellerssreference
 
-                                    If Not node("EffectiveDate").IsEmpty Then
-                                        Dim DateTime As DateTime
-                                        Dim DateStr = node("EffectiveDate").InnerText.ToString()
-                                        Dim dformat As String = CommonMethods.datef
-                                        If Not String.IsNullOrEmpty(dformat) Then
-                                            DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                End If
+
+                                If Not String.IsNullOrEmpty(type) Then
+                                    Dim code As Integer = Integer.Parse(type)
+                                    SavedFields += ";;;POType:::" & CommonMethods.getTypePo(code)
+                                    ReadOnlyFields += "~~~POType"
+                                End If
+
+                                If Not String.IsNullOrEmpty(effectivedate) Then
+                                    Dim DateTime As DateTime
+                                    Dim dformat As String = CommonMethods.datef
+                                    If Not String.IsNullOrEmpty(dformat) Then
+                                        DateTime = DateTime.ParseExact(effectivedate, dformat, Nothing)
+                                    Else
+                                        If Double.Parse(CommonMethods.version) >= 11 Then
+                                            DateTime = DateTime.ParseExact(effectivedate, "MM/dd/yyyy HH:mm:ss", Nothing)
                                         Else
-                                            If Double.Parse(CommonMethods.version) >= 11 Then
-                                                DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
-                                            Else
-                                                DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
-                                            End If
+                                            DateTime = DateTime.ParseExact(effectivedate, "dd/MM/yyyy HH:mm:ss", Nothing)
                                         End If
-                                        SavedFields += ";;;EffectiveDate:::" & DateTime.ToString("MM/dd/yyyy")
                                     End If
+                                    SavedFields += ";;;EffectiveDate:::" & DateTime.ToString("MM/dd/yyyy")
+                                End If
 
-                                    If Not node("SUsr1").IsEmpty Then
-                                        SavedFields += ";;;SUsr1:::" & node("SUsr1").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(susr1) Then
+                                    SavedFields += ";;;SUsr1:::" & susr1
+                                End If
 
-                                    If Not node("SUsr2").IsEmpty Then
-                                        SavedFields += ";;;SUsr2:::" & node("SUsr2").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(susr2) Then
+                                    SavedFields += ";;;SUsr2:::" & susr2
+                                End If
 
-                                    If Not node("SUsr3").IsEmpty Then
-                                        SavedFields += ";;;SUsr3:::" & node("SUsr3").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(susr3) Then
+                                    SavedFields += ";;;SUsr3:::" & susr3
+                                End If
 
-                                    If Not node("SUsr4").IsEmpty Then
-                                        SavedFields += ";;;SUsr4:::" & node("SUsr4").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(susr4) Then
+                                    SavedFields += ";;;SUsr4:::" & susr4
+                                End If
 
-                                    If Not node("SUsr5").IsEmpty Then
-                                        SavedFields += ";;;SUsr5:::" & node("SUsr5").InnerText.ToString()
-                                    End If
+                                If Not String.IsNullOrEmpty(susr5) Then
+                                    SavedFields += ";;;SUsr5:::" & susr5
+                                End If
 
-                                    Dim measureunit As Double = 1
-                                    Dim externln As String = ""
-                                    Dim Sku As String = ""
-                                    Dim QtyOrdered As String = ""
-                                    Dim QtyReceived As String = ""
-                                    Dim resultsDts As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='PurchaseOrderDetail']")
-                                    DetailsCount = resultsDts.Count
-                                    Dim i As Integer = -1
-                                    If DetailsCount > 0 Then
-                                        For Each nodeDT As XmlNode In resultsDts
-                                            i = i + 1
-                                            measureunit = CommonMethods.getUomMeasure(CommonMethods.getFacilityDBName(Facility), nodeDT("PackKey").InnerText.ToString(), nodeDT("UOM").InnerText.ToString())
-                                            If Not nodeDT("ExternLineNo").IsEmpty Then
-                                                externln += IIf(i <> 0, "~~~", "") & nodeDT("ExternLineNo").InnerText.ToString()
+                                Dim measureunit As Double = 1
+                                Dim externln As String = ""
+                                Dim Sku As String = ""
+                                Dim SkuJ As String = ""
+                                Dim QtyOrdered As String = ""
+                                Dim QtyReceived As String = ""
+                                Dim QtyOrderedJ As String = ""
+                                Dim QtyReceivedJ As String = ""
+                                Dim externlineno As String = ""
+                                Dim packkey As String = ""
+                                Dim uom As String = ""
+
+                                DetailsCount = poJObject.SelectToken("podetails").ToList().Count
+
+
+                                Dim i As Integer = -1
+                                If DetailsCount > 0 Then
+                                    For Each Row In poJObject.SelectToken("podetails").ToList()
+                                        i = i + 1
+                                        packkey = Row.SelectToken("packkey")
+                                        uom = Row.SelectToken("uom")
+                                        measureunit = CommonMethods.getUomMeasure(CommonMethods.getFacilityDBName(Facility), packkey, uom)
+                                        externlineno = Row.SelectToken("externlineno")
+                                        SkuJ = Row.SelectToken("sku")
+                                        QtyOrderedJ = Row.SelectToken("qtyordered")
+                                        QtyReceivedJ = Row.SelectToken("qtyreceived")
+
+                                        If Not String.IsNullOrEmpty(externlineno) Then
+                                            externln += IIf(i <> 0, "~~~", "") & externlineno
+                                        End If
+                                        If Not String.IsNullOrEmpty(SkuJ) Then
+                                            Sku += IIf(i <> 0, "~~~", "") & SkuJ
+                                        End If
+                                        If Not String.IsNullOrEmpty(QtyOrderedJ) Then
+                                            QtyOrdered += IIf(i <> 0, "~~~", "") & (Double.Parse(QtyOrderedJ) / measureunit).ToString
+                                        End If
+                                        If Not String.IsNullOrEmpty(QtyReceivedJ) Then
+                                            QtyReceived += IIf(i <> 0, "~~~", "") & (Double.Parse(QtyReceivedJ) / measureunit).ToString
+                                        End If
+                                    Next
+                                End If
+                                SavedDetailsFields += "ExternLineNo:::" & externln
+                                SavedDetailsFields += ";;;Sku:::" & Sku
+                                SavedDetailsFields += ";;;QtyOrdered:::" & QtyOrdered
+                                SavedDetailsFields += ";;;QtyReceived:::" & QtyReceived
+                                ReadOnlyDetailsFields = "ExternLineNo~~~Sku~~~QtyOrdered~~~QtyReceived"
+                                '''''''''''''''''''''''''''''''''''''''''''''''soap call '''''''''''''''''''''''''''''''''''''''''''end ghina
+                            Else ' go by base
+
+                                Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>PurchaseOrder</MessageType><Action>list</Action><Sender><User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & CommonMethods.getFacilityDBName(Facility) & "</SystemID></Recipient></Head><Body><PurchaseOrder>			<PurchaseOrderHeader>  <POKey>" & POKey & "</POKey> </PurchaseOrderHeader>		</PurchaseOrder></Body></Message>"
+                                Dim ViewTable As DataTable = CommonMethods.ViewXml(Xml)
+                                MyError = ViewTable.Rows(0)!error
+                                Dim MyDoc As XmlDocument = ViewTable.Rows(0)!doc
+                                If MyError = "" Then
+                                    SavedFields += "Facility:::" & Facility
+                                    ReadOnlyFields += "Facility"
+
+                                    SavedFields += ";;;POKey:::" & POKey
+                                    ReadOnlyFields += "~~~POKey"
+
+                                    Dim nodeReader As XmlNodeReader = New XmlNodeReader(MyDoc)
+                                    Dim results As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='PurchaseOrderHeader']")
+                                    For Each node As XmlNode In results
+                                        If Not node("ExternPOKey").IsEmpty Then
+                                            SavedFields += ";;;ExternPOKey:::" & node("ExternPOKey").InnerText.ToString()
+                                            ReadOnlyFields += "~~~ExternPOKey"
+                                        End If
+
+                                        If Not node("PODate").IsEmpty Then
+                                            Dim DateTime As DateTime
+                                            Dim DateStr = node("PODate").InnerText.ToString()
+                                            Dim dformat As String = CommonMethods.datef
+                                            If Not String.IsNullOrEmpty(dformat) Then
+                                                DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                            Else
+                                                If Double.Parse(CommonMethods.version) >= 11 Then
+                                                    DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                Else
+                                                    DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                End If
                                             End If
-                                            If Not nodeDT("Sku").IsEmpty Then
-                                                Sku += IIf(i <> 0, "~~~", "") & nodeDT("Sku").InnerText.ToString()
+                                            SavedFields += ";;;PODate:::" & DateTime.ToString("MM/dd/yyyy hh:mm:ss tt")
+                                            ReadOnlyFields += "~~~PODate"
+                                        End If
+
+                                        If Not node("Status").IsEmpty Then
+                                            Dim code As Integer = Integer.Parse(node("Status").InnerText.ToString())
+                                            SavedFields += ";;;Status:::" & CommonMethods.getStatusPo(code)
+                                            ReadOnlyFields += "~~~Status"
+                                        End If
+
+                                        If Not node("StorerKey").IsEmpty Then
+                                            SavedFields += ";;;StorerKey:::" & node("StorerKey").InnerText.ToString()
+                                            ReadOnlyFields += "~~~StorerKey"
+                                        End If
+
+                                        If Not node("BuyerName").IsEmpty Then
+                                            SavedFields += ";;;BuyerName:::" & node("BuyerName").InnerText.ToString()
+                                        End If
+
+                                        If Not node("BuyersReference").IsEmpty Then
+                                            SavedFields += ";;;BuyersReference:::" & node("BuyersReference").InnerText.ToString()
+                                        End If
+
+                                        If Not node("SellerName").IsEmpty Then
+                                            SavedFields += ";;;SellerName:::" & node("SellerName").InnerText.ToString()
+                                        End If
+
+                                        If Not node("SellersReference").IsEmpty Then
+                                            SavedFields += ";;;SellersReference:::" & node("SellersReference").InnerText.ToString()
+                                        End If
+
+                                        If Not node("POType").IsEmpty Then
+                                            Dim code As Integer = Integer.Parse(node("POType").InnerText.ToString())
+                                            SavedFields += ";;;POType:::" & CommonMethods.getTypePo(code)
+                                            ReadOnlyFields += "~~~POType"
+                                        End If
+
+                                        If Not node("EffectiveDate").IsEmpty Then
+                                            Dim DateTime As DateTime
+                                            Dim DateStr = node("EffectiveDate").InnerText.ToString()
+                                            Dim dformat As String = CommonMethods.datef
+                                            If Not String.IsNullOrEmpty(dformat) Then
+                                                DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                            Else
+                                                If Double.Parse(CommonMethods.version) >= 11 Then
+                                                    DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                Else
+                                                    DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                End If
                                             End If
-                                            If Not nodeDT("QtyOrdered").IsEmpty Then
-                                                QtyOrdered += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyOrdered").InnerText.ToString()) / measureunit).ToString
-                                            End If
-                                            If Not nodeDT("QtyReceived").IsEmpty Then
-                                                QtyReceived += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyReceived").InnerText.ToString()) / measureunit).ToString
-                                            End If
-                                        Next
-                                        SavedDetailsFields += "ExternLineNo:::" & externln
-                                        SavedDetailsFields += ";;;Sku:::" & Sku
-                                        SavedDetailsFields += ";;;QtyOrdered:::" & QtyOrdered
-                                        SavedDetailsFields += ";;;QtyReceived:::" & QtyReceived
-                                        ReadOnlyDetailsFields = "ExternLineNo~~~Sku~~~QtyOrdered~~~QtyReceived"
-                                    End If
-                                Next
-                            End If
+                                            SavedFields += ";;;EffectiveDate:::" & DateTime.ToString("MM/dd/yyyy")
+                                        End If
+
+                                        If Not node("SUsr1").IsEmpty Then
+                                            SavedFields += ";;;SUsr1:::" & node("SUsr1").InnerText.ToString()
+                                        End If
+
+                                        If Not node("SUsr2").IsEmpty Then
+                                            SavedFields += ";;;SUsr2:::" & node("SUsr2").InnerText.ToString()
+                                        End If
+
+                                        If Not node("SUsr3").IsEmpty Then
+                                            SavedFields += ";;;SUsr3:::" & node("SUsr3").InnerText.ToString()
+                                        End If
+
+                                        If Not node("SUsr4").IsEmpty Then
+                                            SavedFields += ";;;SUsr4:::" & node("SUsr4").InnerText.ToString()
+                                        End If
+
+                                        If Not node("SUsr5").IsEmpty Then
+                                            SavedFields += ";;;SUsr5:::" & node("SUsr5").InnerText.ToString()
+                                        End If
+
+                                        Dim measureunit As Double = 1
+                                        Dim externln As String = ""
+                                        Dim Sku As String = ""
+                                        Dim QtyOrdered As String = ""
+                                        Dim QtyReceived As String = ""
+                                        Dim resultsDts As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='PurchaseOrderDetail']")
+                                        DetailsCount = resultsDts.Count
+                                        Dim i As Integer = -1
+                                        If DetailsCount > 0 Then
+                                            For Each nodeDT As XmlNode In resultsDts
+                                                i = i + 1
+                                                measureunit = CommonMethods.getUomMeasure(CommonMethods.getFacilityDBName(Facility), nodeDT("PackKey").InnerText.ToString(), nodeDT("UOM").InnerText.ToString())
+                                                If Not nodeDT("ExternLineNo").IsEmpty Then
+                                                    externln += IIf(i <> 0, "~~~", "") & nodeDT("ExternLineNo").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Sku").IsEmpty Then
+                                                    Sku += IIf(i <> 0, "~~~", "") & nodeDT("Sku").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("QtyOrdered").IsEmpty Then
+                                                    QtyOrdered += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyOrdered").InnerText.ToString()) / measureunit).ToString
+                                                End If
+                                                If Not nodeDT("QtyReceived").IsEmpty Then
+                                                    QtyReceived += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyReceived").InnerText.ToString()) / measureunit).ToString
+                                                End If
+                                            Next
+                                            SavedDetailsFields += "ExternLineNo:::" & externln
+                                            SavedDetailsFields += ";;;Sku:::" & Sku
+                                            SavedDetailsFields += ";;;QtyOrdered:::" & QtyOrdered
+                                            SavedDetailsFields += ";;;QtyReceived:::" & QtyReceived
+                                            ReadOnlyDetailsFields = "ExternLineNo~~~Sku~~~QtyOrdered~~~QtyReceived"
+                                        End If
+                                    Next
+                                End If
+                            End If ' base
                         End With
                     Case "Warehouse_ASN"
                         With ds.Tables(0).Rows(0)
+                            'ghina karame - 01/06/2020- restapicalls- if flag is on and version > 11 then use rest calls instead of soap calls -begin
                             Dim Facility As String = ""
                             Dim ReceiptKey As String = ""
                             Dim warehouse As String = ""
@@ -703,257 +888,524 @@ Public Class DisplayItems
                             End If
                             If Not .IsNull("ReceiptKey") Then ReceiptKey = !ReceiptKey
 
-                            Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>AdvancedShipNotice</MessageType><Action>list</Action><Sender>	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & warehouse & "</SystemID></Recipient></Head><Body><AdvancedShipNotice><AdvancedShipNoticeHeader>  <ReceiptKey>" & ReceiptKey & "</ReceiptKey> </AdvancedShipNoticeHeader>		</AdvancedShipNotice></Body></Message>"
-                            Dim ViewTable As DataTable = CommonMethods.ViewXml(Xml)
-                            MyError = ViewTable.Rows(0)!error
-                            Dim MyDoc As XmlDocument = ViewTable.Rows(0)!doc
-                            If MyError = "" Then
+                            If useRest = "1" And version >= "11" Then
+                                Dim Command As String
+                                Command = "/" & CommonMethods.getFacilityDBName(Facility) & "/receipts/" & ReceiptKey & ""
+                                Dim jsonData = CommonMethods.GetRest(Command)
+
                                 SavedFields += "Facility:::" & Facility
                                 ReadOnlyFields += "Facility"
 
                                 SavedFields += ";;;ReceiptKey:::" & ReceiptKey
                                 ReadOnlyFields += "~~~ReceiptKey"
 
-                                Dim nodeReader As XmlNodeReader = New XmlNodeReader(MyDoc)
-                                Dim results As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='AdvancedShipNoticeHeader']")
-                                For Each node As XmlNode In results
-                                    If Not node("ExternReceiptKey").IsEmpty Then
-                                        SavedFields += ";;;ExternReceiptKey:::" & node("ExternReceiptKey").InnerText.ToString()
-                                        ReadOnlyFields += "~~~ExternReceiptKey"
-                                    End If
+                                Dim asnJObject = JObject.Parse(jsonData)
+                                Dim externreceiptkey As String = asnJObject.SelectToken("externreceiptkey")
+                                Dim receiptdate As String = asnJObject.SelectToken("receiptdate")
+                                Dim status As String = asnJObject.SelectToken("status")
+                                Dim type As String = asnJObject.SelectToken("type")
+                                Dim storerkey As String = asnJObject.SelectToken("storerkey")
+                                Dim pokey As String = asnJObject.SelectToken("pokey")
+                                Dim carrierkey As String = asnJObject.SelectToken("carrierkey")
+                                Dim warehousereference As String = asnJObject.SelectToken("warehousereference")
+                                Dim containerkey As String = asnJObject.SelectToken("containerkey")
+                                Dim containertype As String = asnJObject.SelectToken("containertype")
+                                Dim origincountry As String = asnJObject.SelectToken("origincountry")
+                                Dim transportationmode As String = asnJObject.SelectToken("transportationmode")
 
-                                    If Not node("ReceiptDate").IsEmpty Then
-                                        Dim DateTime As DateTime
-                                        Dim DateStr = node("ReceiptDate").InnerText.ToString()
-                                        Dim dformat As String = CommonMethods.datef
-                                        If Not String.IsNullOrEmpty(dformat) Then
-                                            DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                ' if no errors
+                                If Not String.IsNullOrEmpty(externreceiptkey) Then
+                                    SavedFields += ";;;ExternReceiptKey:::" & externreceiptkey
+                                    ReadOnlyFields += "~~~ExternReceiptKey"
+                                End If
+
+                                If Not String.IsNullOrEmpty(receiptdate) Then
+                                    Dim DateTime As DateTime
+                                    Dim dformat As String = CommonMethods.datef
+                                    If Not String.IsNullOrEmpty(dformat) Then
+                                        DateTime = DateTime.ParseExact(receiptdate, dformat, Nothing)
+                                    Else
+                                        If Double.Parse(CommonMethods.version) >= 11 Then
+                                            DateTime = DateTime.ParseExact(receiptdate, "MM/dd/yyyy HH:mm:ss", Nothing)
                                         Else
-                                            If Double.Parse(CommonMethods.version) >= 11 Then
-                                                DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                            DateTime = DateTime.ParseExact(receiptdate, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                        End If
+                                    End If
+                                    SavedFields += ";;;ReceiptDate:::" & DateTime.ToString("MM/dd/yyyy hh:mm:ss tt")
+                                    ReadOnlyFields += "~~~ReceiptDate"
+                                End If
+
+                                If Not String.IsNullOrEmpty(status) Then
+                                    Dim DTReceiptStatus = CommonMethods.getCodeDD(warehouse, "codelkup", "RECSTATUS")
+                                    Dim DRReceiptStatus() As DataRow = DTReceiptStatus.Select("CODE='" & status & "'")
+                                    If DRReceiptStatus.Length > 0 Then
+                                        SavedFields += ";;;Status:::" & DRReceiptStatus(0)!DESCRIPTION
+                                    End If
+                                    ReadOnlyFields += "~~~Status"
+                                End If
+
+                                If Not String.IsNullOrEmpty(type) Then
+                                    Dim DTReceiptType = CommonMethods.getCodeDD(warehouse, "codelkup", "RECEIPTYPE")
+                                    Dim DRReceiptType() As DataRow = DTReceiptType.Select("CODE='" & type & "'")
+                                    If DRReceiptType.Length > 0 Then
+                                        SavedFields += ";;;ReceiptType:::" & DRReceiptType(0)!DESCRIPTION
+                                    End If
+                                    ReadOnlyFields += "~~~ReceiptType"
+                                End If
+
+                                If Not String.IsNullOrEmpty(storerkey) Then
+                                    SavedFields += ";;;StorerKey:::" & storerkey
+                                    ReadOnlyFields += "~~~StorerKey"
+                                End If
+
+                                If Not String.IsNullOrEmpty(pokey) Then
+                                    SavedFields += ";;;POKey:::" & pokey
+                                End If
+
+                                If Not String.IsNullOrEmpty(carrierkey) Then
+                                    SavedFields += ";;;CarrierKey:::" & carrierkey
+                                End If
+
+                                If Not String.IsNullOrEmpty(warehousereference) Then
+                                    SavedFields += ";;;WarehouseReference:::" & warehousereference
+                                End If
+
+                                If Not String.IsNullOrEmpty(containerkey) Then
+                                    SavedFields += ";;;ContainerKey:::" & containerkey
+                                End If
+
+                                If Not String.IsNullOrEmpty(containertype) Then
+                                    SavedFields += ";;;ContainerType:::" & containertype
+                                End If
+
+                                If Not String.IsNullOrEmpty(origincountry) Then
+                                    SavedFields += ";;;OriginCountry:::" & CommonMethods.getISOCountryName(origincountry)
+                                End If
+
+                                If Not String.IsNullOrEmpty(transportationmode) Then
+                                    SavedFields += ";;;TransportationMode:::" & transportationmode
+                                End If
+
+                                ''''detail'''''
+                                Dim measureunit As Double = 1
+                                Dim externln As String = "", Sku As String = "", QtyExpected As String = "", QtyReceived As String = "",
+                                    PackKey As String = "", UOM As String = "", POKeyDtl As String = "", ToId As String = "",
+                                    ToLoc As String = "", ConditionCode As String = "", TariffKey As String = "", Lottable01 As String = "",
+                                    Lottable02 As String = "", Lottable03 As String = "", Lottable04 As String = "", Lottable05 As String = "",
+                                    Lottable06 As String = "", Lottable07 As String = "", Lottable08 As String = "", Lottable09 As String = "",
+                                    Lottable10 As String = "", Lottable11 As String = "", Lottable12 As String = ""
+
+                                DetailsCount = asnJObject.SelectToken("receiptdetails").ToList().Count
+                                Dim i As Integer = -1
+                                If DetailsCount > 0 Then
+                                    For Each Row In asnJObject.SelectToken("receiptdetails").ToList()
+                                        i = i + 1
+                                        measureunit = CommonMethods.getUomMeasure(warehouse, Row.SelectToken("packkey"), Row.SelectToken("uom"))
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("externlineno")) Then
+                                            externln += IIf(i <> 0, "~~~", "") & Row.SelectToken("externlineno")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("sku")) Then
+                                            Sku += IIf(i <> 0, "~~~", "") & Row.SelectToken("sku")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("qtyexpected")) Then
+                                            QtyExpected += IIf(i <> 0, "~~~", "") & (Double.Parse(Row.SelectToken("qtyexpected")) / measureunit).ToString
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("qtyreceived")) Then
+                                            QtyReceived += IIf(i <> 0, "~~~", "") & (Double.Parse(Row("qtyreceived")) / measureunit).ToString
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("packkey")) Then
+                                            PackKey += IIf(i <> 0, "~~~", "") & Row.SelectToken("packkey")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("uom")) Then
+                                            UOM += IIf(i <> 0, "~~~", "") & Row.SelectToken("uom")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("pokey")) Then
+                                            POKeyDtl += IIf(i <> 0, "~~~", "") & Row.SelectToken("pokey")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("toid")) Then
+                                            ToId += IIf(i <> 0, "~~~", "") & Row.SelectToken("toid")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("toloc")) Then
+                                            ToLoc += IIf(i <> 0, "~~~", "") & Row.SelectToken("toloc")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("conditioncode")) Then
+                                            ConditionCode += IIf(i <> 0, "~~~", "") & Row.SelectToken("conditioncode")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("tariffkey")) Then
+                                            TariffKey += IIf(i <> 0, "~~~", "") & Row.SelectToken("tariffkey")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable01")) Then
+                                            Lottable01 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable01")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable02")) Then
+                                            Lottable02 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable02")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable03")) Then
+                                            Lottable03 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable03")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable04")) Then
+                                            Dim DateTime As DateTime
+                                            Dim DateStr = Row.SelectToken("lottable04")
+                                            Dim dformat As String = CommonMethods.datef
+                                            If Not String.IsNullOrEmpty(dformat) Then
+                                                DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
                                             Else
-                                                DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                If Double.Parse(CommonMethods.version) >= 11 Then
+                                                    DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                Else
+                                                    DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                End If
                                             End If
+                                            Lottable04 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
                                         End If
-                                        SavedFields += ";;;ReceiptDate:::" & DateTime.ToString("MM/dd/yyyy hh:mm:ss tt")
-                                        ReadOnlyFields += "~~~ReceiptDate"
-                                    End If
-
-                                    If Not node("Status").IsEmpty Then
-                                        Dim DTReceiptStatus = CommonMethods.getCodeDD(warehouse, "codelkup", "RECSTATUS")
-                                        Dim DRReceiptStatus() As DataRow = DTReceiptStatus.Select("CODE='" & node("Status").InnerText.ToString() & "'")
-                                        If DRReceiptStatus.Length > 0 Then
-                                            SavedFields += ";;;Status:::" & DRReceiptStatus(0)!DESCRIPTION
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable05")) Then
+                                            Dim DateTime As DateTime
+                                            Dim DateStr = Row.SelectToken("lottable05")
+                                            Dim dformat As String = CommonMethods.datef
+                                            If Not String.IsNullOrEmpty(dformat) Then
+                                                DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                            Else
+                                                If Double.Parse(CommonMethods.version) >= 11 Then
+                                                    DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                Else
+                                                    DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                End If
+                                            End If
+                                            Lottable05 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
                                         End If
-                                        ReadOnlyFields += "~~~Status"
-                                    End If
-
-                                    If Not node("Type").IsEmpty Then
-                                        Dim DTReceiptType = CommonMethods.getCodeDD(warehouse, "codelkup", "RECEIPTYPE")
-                                        Dim DRReceiptType() As DataRow = DTReceiptType.Select("CODE='" & node("Type").InnerText.ToString() & "'")
-                                        If DRReceiptType.Length > 0 Then
-                                            SavedFields += ";;;ReceiptType:::" & DRReceiptType(0)!DESCRIPTION
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable06")) Then
+                                            Lottable06 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable06")
                                         End If
-                                        ReadOnlyFields += "~~~ReceiptType"
-                                    End If
-
-                                    If Not node("StorerKey").IsEmpty Then
-                                        SavedFields += ";;;StorerKey:::" & node("StorerKey").InnerText.ToString()
-                                        ReadOnlyFields += "~~~StorerKey"
-                                    End If
-
-                                    If Not node("POKey").IsEmpty Then
-                                        SavedFields += ";;;POKey:::" & node("POKey").InnerText.ToString()
-                                    End If
-
-                                    If Not node("CarrierKey").IsEmpty Then
-                                        SavedFields += ";;;CarrierKey:::" & node("CarrierKey").InnerText.ToString()
-                                    End If
-
-                                    If Not node("WarehouseReference").IsEmpty Then
-                                        SavedFields += ";;;WarehouseReference:::" & node("WarehouseReference").InnerText.ToString()
-                                    End If
-
-                                    If Not node("ContainerKey").IsEmpty Then
-                                        SavedFields += ";;;ContainerKey:::" & node("ContainerKey").InnerText.ToString()
-                                    End If
-
-                                    If Not node("ContainerType").IsEmpty Then
-                                        SavedFields += ";;;ContainerType:::" & node("ContainerType").InnerText.ToString()
-                                    End If
-
-                                    If Not node("OriginCountry").IsEmpty Then
-                                        SavedFields += ";;;OriginCountry:::" & CommonMethods.getISOCountryName(node("OriginCountry").InnerText.ToString())
-                                    End If
-
-                                    If Not node("TransportationMode").IsEmpty Then
-                                        SavedFields += ";;;TransportationMode:::" & node("TransportationMode").InnerText.ToString()
-                                    End If
-
-                                    Dim measureunit As Double = 1
-                                    Dim externln As String = "", Sku As String = "", QtyExpected As String = "", QtyReceived As String = "",
-                                        PackKey As String = "", UOM As String = "", POKeyDtl As String = "", ToId As String = "",
-                                        ToLoc As String = "", ConditionCode As String = "", TariffKey As String = "", Lottable01 As String = "",
-                                        Lottable02 As String = "", Lottable03 As String = "", Lottable04 As String = "", Lottable05 As String = "",
-                                        Lottable06 As String = "", Lottable07 As String = "", Lottable08 As String = "", Lottable09 As String = "",
-                                        Lottable10 As String = "", Lottable11 As String = "", Lottable12 As String = ""
-
-                                    Dim resultsDts As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='AdvancedShipNoticeDetail']")
-                                    DetailsCount = resultsDts.Count
-                                    Dim i As Integer = -1
-                                    If DetailsCount > 0 Then
-                                        For Each nodeDT As XmlNode In resultsDts
-                                            i = i + 1
-                                            measureunit = CommonMethods.getUomMeasure(warehouse, nodeDT("PackKey").InnerText.ToString(), nodeDT("UOM").InnerText.ToString())
-                                            If Not nodeDT("ExternLineNo").IsEmpty Then
-                                                externln += IIf(i <> 0, "~~~", "") & nodeDT("ExternLineNo").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Sku").IsEmpty Then
-                                                Sku += IIf(i <> 0, "~~~", "") & nodeDT("Sku").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("QtyExpected").IsEmpty Then
-                                                QtyExpected += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyExpected").InnerText.ToString()) / measureunit).ToString
-                                            End If
-                                            If Not nodeDT("QtyReceived").IsEmpty Then
-                                                QtyReceived += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyReceived").InnerText.ToString()) / measureunit).ToString
-                                            End If
-                                            If Not nodeDT("PackKey").IsEmpty Then
-                                                PackKey += IIf(i <> 0, "~~~", "") & nodeDT("PackKey").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("UOM").IsEmpty Then
-                                                UOM += IIf(i <> 0, "~~~", "") & nodeDT("UOM").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("POKey").IsEmpty Then
-                                                POKeyDtl += IIf(i <> 0, "~~~", "") & nodeDT("POKey").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("ToId").IsEmpty Then
-                                                ToId += IIf(i <> 0, "~~~", "") & nodeDT("ToId").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("ToLoc").IsEmpty Then
-                                                ToLoc += IIf(i <> 0, "~~~", "") & nodeDT("ToLoc").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("ConditionCode").IsEmpty Then
-                                                ConditionCode += IIf(i <> 0, "~~~", "") & nodeDT("ConditionCode").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("TariffKey").IsEmpty Then
-                                                TariffKey += IIf(i <> 0, "~~~", "") & nodeDT("TariffKey").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable01").IsEmpty Then
-                                                Lottable01 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable01").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable02").IsEmpty Then
-                                                Lottable02 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable02").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable03").IsEmpty Then
-                                                Lottable03 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable03").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable04").IsEmpty Then
-                                                Dim DateTime As DateTime
-                                                Dim DateStr = nodeDT("Lottable04").InnerText.ToString()
-                                                Dim dformat As String = CommonMethods.datef
-                                                If Not String.IsNullOrEmpty(dformat) Then
-                                                    DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable07")) Then
+                                            Lottable07 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable07")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable08")) Then
+                                            Lottable08 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable08")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable09")) Then
+                                            Lottable09 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable09")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable10")) Then
+                                            Lottable10 += IIf(i <> 0, "~~~", "") & Row.SelectToken("lottable10")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable11")) Then
+                                            Dim DateTime As DateTime
+                                            Dim DateStr = Row.SelectToken("lottable11")
+                                            Dim dformat As String = CommonMethods.datef
+                                            If Not String.IsNullOrEmpty(dformat) Then
+                                                DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                            Else
+                                                If Double.Parse(CommonMethods.version) >= 11 Then
+                                                    DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
                                                 Else
-                                                    If Double.Parse(CommonMethods.version) >= 11 Then
-                                                        DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
-                                                    Else
-                                                        DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
-                                                    End If
+                                                    DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
                                                 End If
-                                                Lottable04 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
                                             End If
-                                            If Not nodeDT("Lottable05").IsEmpty Then
-                                                Dim DateTime As DateTime
-                                                Dim DateStr = nodeDT("Lottable05").InnerText.ToString()
-                                                Dim dformat As String = CommonMethods.datef
-                                                If Not String.IsNullOrEmpty(dformat) Then
-                                                    DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                            Lottable11 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
+                                        End If
+                                        If Not String.IsNullOrEmpty(Row.SelectToken("lottable12")) Then
+                                            Dim DateTime As DateTime
+                                            Dim DateStr = Row.SelectToken("lottable12")
+                                            Dim dformat As String = CommonMethods.datef
+                                            If Not String.IsNullOrEmpty(dformat) Then
+                                                DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                            Else
+                                                If Double.Parse(CommonMethods.version) >= 11 Then
+                                                    DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
                                                 Else
-                                                    If Double.Parse(CommonMethods.version) >= 11 Then
-                                                        DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
-                                                    Else
-                                                        DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
-                                                    End If
+                                                    DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
                                                 End If
-                                                Lottable05 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
                                             End If
-                                            If Not nodeDT("Lottable06").IsEmpty Then
-                                                Lottable06 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable06").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable07").IsEmpty Then
-                                                Lottable07 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable07").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable08").IsEmpty Then
-                                                Lottable08 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable08").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable09").IsEmpty Then
-                                                Lottable09 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable09").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable10").IsEmpty Then
-                                                Lottable10 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable10").InnerText.ToString()
-                                            End If
-                                            If Not nodeDT("Lottable11").IsEmpty Then
-                                                Dim DateTime As DateTime
-                                                Dim DateStr = nodeDT("Lottable11").InnerText.ToString()
-                                                Dim dformat As String = CommonMethods.datef
-                                                If Not String.IsNullOrEmpty(dformat) Then
-                                                    DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
-                                                Else
-                                                    If Double.Parse(CommonMethods.version) >= 11 Then
-                                                        DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
-                                                    Else
-                                                        DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
-                                                    End If
-                                                End If
-                                                Lottable11 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
-                                            End If
-                                            If Not nodeDT("Lottable12").IsEmpty Then
-                                                Dim DateTime As DateTime
-                                                Dim DateStr = nodeDT("Lottable12").InnerText.ToString()
-                                                Dim dformat As String = CommonMethods.datef
-                                                If Not String.IsNullOrEmpty(dformat) Then
-                                                    DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
-                                                Else
-                                                    If Double.Parse(CommonMethods.version) >= 11 Then
-                                                        DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
-                                                    Else
-                                                        DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
-                                                    End If
-                                                End If
-                                                Lottable12 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
-                                            End If
-                                        Next
-                                        SavedDetailsFields += "ExternLineNo:::" & externln
-                                        SavedDetailsFields += ";;;Sku:::" & Sku
-                                        SavedDetailsFields += ";;;QtyExpected:::" & QtyExpected
-                                        SavedDetailsFields += ";;;QtyReceived:::" & QtyReceived
-                                        SavedDetailsFields += ";;;PackKey:::" & PackKey
-                                        SavedDetailsFields += ";;;UOM:::" & UOM
-                                        SavedDetailsFields += ";;;POKey:::" & POKeyDtl
-                                        SavedDetailsFields += ";;;ToId:::" & ToId
-                                        SavedDetailsFields += ";;;ToLoc:::" & ToLoc
-                                        SavedDetailsFields += ";;;ConditionCode:::" & ConditionCode
-                                        SavedDetailsFields += ";;;TariffKey:::" & TariffKey
-                                        SavedDetailsFields += ";;;Lottable01:::" & Lottable01
-                                        SavedDetailsFields += ";;;Lottable02:::" & Lottable02
-                                        SavedDetailsFields += ";;;Lottable03:::" & Lottable03
-                                        SavedDetailsFields += ";;;Lottable04:::" & Lottable04
-                                        SavedDetailsFields += ";;;Lottable05:::" & Lottable05
-                                        SavedDetailsFields += ";;;Lottable06:::" & Lottable06
-                                        SavedDetailsFields += ";;;Lottable07:::" & Lottable07
-                                        SavedDetailsFields += ";;;Lottable08:::" & Lottable08
-                                        SavedDetailsFields += ";;;Lottable09:::" & Lottable09
-                                        SavedDetailsFields += ";;;Lottable10:::" & Lottable10
-                                        SavedDetailsFields += ";;;Lottable11:::" & Lottable11
-                                        SavedDetailsFields += ";;;Lottable12:::" & Lottable12
+                                            Lottable12 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
+                                        End If
+                                    Next
+                                    SavedDetailsFields += "ExternLineNo:::" & externln
+                                    SavedDetailsFields += ";;;Sku:::" & Sku
+                                    SavedDetailsFields += ";;;QtyExpected:::" & QtyExpected
+                                    SavedDetailsFields += ";;;QtyReceived:::" & QtyReceived
+                                    SavedDetailsFields += ";;;PackKey:::" & PackKey
+                                    SavedDetailsFields += ";;;UOM:::" & UOM
+                                    SavedDetailsFields += ";;;POKey:::" & POKeyDtl
+                                    SavedDetailsFields += ";;;ToId:::" & ToId
+                                    SavedDetailsFields += ";;;ToLoc:::" & ToLoc
+                                    SavedDetailsFields += ";;;ConditionCode:::" & ConditionCode
+                                    SavedDetailsFields += ";;;TariffKey:::" & TariffKey
+                                    SavedDetailsFields += ";;;Lottable01:::" & Lottable01
+                                    SavedDetailsFields += ";;;Lottable02:::" & Lottable02
+                                    SavedDetailsFields += ";;;Lottable03:::" & Lottable03
+                                    SavedDetailsFields += ";;;Lottable04:::" & Lottable04
+                                    SavedDetailsFields += ";;;Lottable05:::" & Lottable05
+                                    SavedDetailsFields += ";;;Lottable06:::" & Lottable06
+                                    SavedDetailsFields += ";;;Lottable07:::" & Lottable07
+                                    SavedDetailsFields += ";;;Lottable08:::" & Lottable08
+                                    SavedDetailsFields += ";;;Lottable09:::" & Lottable09
+                                    SavedDetailsFields += ";;;Lottable10:::" & Lottable10
+                                    SavedDetailsFields += ";;;Lottable11:::" & Lottable11
+                                    SavedDetailsFields += ";;;Lottable12:::" & Lottable12
 
-                                        ReadOnlyDetailsFields += "ExternLineNo~~~Sku~~~QtyOrdered~~~QtyReceived~~~PackKey"
-                                        ReadOnlyDetailsFields += "~~~UOM~~~POKey~~~ToId~~~ToLoc~~~ConditionCode~~~TariffKey"
-                                        ReadOnlyDetailsFields += "~~~Lottable01~~~Lottable02~~~Lottable03~~~Lottable04"
-                                        ReadOnlyDetailsFields += "~~~Lottable05~~~Lottable06~~~Lottable07~~~Lottable08"
-                                        ReadOnlyDetailsFields += "~~~Lottable09~~~Lottable10~~~Lottable11~~~Lottable12"
-                                    End If
-                                Next
+                                    ReadOnlyDetailsFields += "ExternLineNo~~~Sku~~~QtyOrdered~~~QtyReceived~~~PackKey"
+                                    ReadOnlyDetailsFields += "~~~UOM~~~POKey~~~ToId~~~ToLoc~~~ConditionCode~~~TariffKey"
+                                    ReadOnlyDetailsFields += "~~~Lottable01~~~Lottable02~~~Lottable03~~~Lottable04"
+                                    ReadOnlyDetailsFields += "~~~Lottable05~~~Lottable06~~~Lottable07~~~Lottable08"
+                                    ReadOnlyDetailsFields += "~~~Lottable09~~~Lottable10~~~Lottable11~~~Lottable12"
+                                End If
+
+                                ''''''''''''''''''''''soap call ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''end ghina   
+                            Else
+
+
+                                Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>AdvancedShipNotice</MessageType><Action>list</Action><Sender>	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & warehouse & "</SystemID></Recipient></Head><Body><AdvancedShipNotice><AdvancedShipNoticeHeader>  <ReceiptKey>" & ReceiptKey & "</ReceiptKey> </AdvancedShipNoticeHeader>		</AdvancedShipNotice></Body></Message>"
+                            Dim ViewTable As DataTable = CommonMethods.ViewXml(Xml)
+                            MyError = ViewTable.Rows(0)!error
+                            Dim MyDoc As XmlDocument = ViewTable.Rows(0)!doc
+                                If MyError = "" Then
+                                    SavedFields += "Facility:::" & Facility
+                                    ReadOnlyFields += "Facility"
+
+                                    SavedFields += ";;;ReceiptKey:::" & ReceiptKey
+                                    ReadOnlyFields += "~~~ReceiptKey"
+
+                                    Dim nodeReader As XmlNodeReader = New XmlNodeReader(MyDoc)
+                                    Dim results As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='AdvancedShipNoticeHeader']")
+                                    For Each node As XmlNode In results
+                                        If Not node("ExternReceiptKey").IsEmpty Then
+                                            SavedFields += ";;;ExternReceiptKey:::" & node("ExternReceiptKey").InnerText.ToString()
+                                            ReadOnlyFields += "~~~ExternReceiptKey"
+                                        End If
+
+                                        If Not node("ReceiptDate").IsEmpty Then
+                                            Dim DateTime As DateTime
+                                            Dim DateStr = node("ReceiptDate").InnerText.ToString()
+                                            Dim dformat As String = CommonMethods.datef
+                                            If Not String.IsNullOrEmpty(dformat) Then
+                                                DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                            Else
+                                                If Double.Parse(CommonMethods.version) >= 11 Then
+                                                    DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                Else
+                                                    DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                End If
+                                            End If
+                                            SavedFields += ";;;ReceiptDate:::" & DateTime.ToString("MM/dd/yyyy hh:mm:ss tt")
+                                            ReadOnlyFields += "~~~ReceiptDate"
+                                        End If
+
+                                        If Not node("Status").IsEmpty Then
+                                            Dim DTReceiptStatus = CommonMethods.getCodeDD(warehouse, "codelkup", "RECSTATUS")
+                                            Dim DRReceiptStatus() As DataRow = DTReceiptStatus.Select("CODE='" & node("Status").InnerText.ToString() & "'")
+                                            If DRReceiptStatus.Length > 0 Then
+                                                SavedFields += ";;;Status:::" & DRReceiptStatus(0)!DESCRIPTION
+                                            End If
+                                            ReadOnlyFields += "~~~Status"
+                                        End If
+
+                                        If Not node("Type").IsEmpty Then
+                                            Dim DTReceiptType = CommonMethods.getCodeDD(warehouse, "codelkup", "RECEIPTYPE")
+                                            Dim DRReceiptType() As DataRow = DTReceiptType.Select("CODE='" & node("Type").InnerText.ToString() & "'")
+                                            If DRReceiptType.Length > 0 Then
+                                                SavedFields += ";;;ReceiptType:::" & DRReceiptType(0)!DESCRIPTION
+                                            End If
+                                            ReadOnlyFields += "~~~ReceiptType"
+                                        End If
+
+                                        If Not node("StorerKey").IsEmpty Then
+                                            SavedFields += ";;;StorerKey:::" & node("StorerKey").InnerText.ToString()
+                                            ReadOnlyFields += "~~~StorerKey"
+                                        End If
+
+                                        If Not node("POKey").IsEmpty Then
+                                            SavedFields += ";;;POKey:::" & node("POKey").InnerText.ToString()
+                                        End If
+
+                                        If Not node("CarrierKey").IsEmpty Then
+                                            SavedFields += ";;;CarrierKey:::" & node("CarrierKey").InnerText.ToString()
+                                        End If
+
+                                        If Not node("WarehouseReference").IsEmpty Then
+                                            SavedFields += ";;;WarehouseReference:::" & node("WarehouseReference").InnerText.ToString()
+                                        End If
+
+                                        If Not node("ContainerKey").IsEmpty Then
+                                            SavedFields += ";;;ContainerKey:::" & node("ContainerKey").InnerText.ToString()
+                                        End If
+
+                                        If Not node("ContainerType").IsEmpty Then
+                                            SavedFields += ";;;ContainerType:::" & node("ContainerType").InnerText.ToString()
+                                        End If
+
+                                        If Not node("OriginCountry").IsEmpty Then
+                                            SavedFields += ";;;OriginCountry:::" & CommonMethods.getISOCountryName(node("OriginCountry").InnerText.ToString())
+                                        End If
+
+                                        If Not node("TransportationMode").IsEmpty Then
+                                            SavedFields += ";;;TransportationMode:::" & node("TransportationMode").InnerText.ToString()
+                                        End If
+
+                                        Dim measureunit As Double = 1
+                                        Dim externln As String = "", Sku As String = "", QtyExpected As String = "", QtyReceived As String = "",
+                                            PackKey As String = "", UOM As String = "", POKeyDtl As String = "", ToId As String = "",
+                                            ToLoc As String = "", ConditionCode As String = "", TariffKey As String = "", Lottable01 As String = "",
+                                            Lottable02 As String = "", Lottable03 As String = "", Lottable04 As String = "", Lottable05 As String = "",
+                                            Lottable06 As String = "", Lottable07 As String = "", Lottable08 As String = "", Lottable09 As String = "",
+                                            Lottable10 As String = "", Lottable11 As String = "", Lottable12 As String = ""
+
+                                        Dim resultsDts As XmlNodeList = MyDoc.SelectNodes("//*[local-name()='AdvancedShipNoticeDetail']")
+                                        DetailsCount = resultsDts.Count
+                                        Dim i As Integer = -1
+                                        If DetailsCount > 0 Then
+                                            For Each nodeDT As XmlNode In resultsDts
+                                                i = i + 1
+                                                measureunit = CommonMethods.getUomMeasure(warehouse, nodeDT("PackKey").InnerText.ToString(), nodeDT("UOM").InnerText.ToString())
+                                                If Not nodeDT("ExternLineNo").IsEmpty Then
+                                                    externln += IIf(i <> 0, "~~~", "") & nodeDT("ExternLineNo").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Sku").IsEmpty Then
+                                                    Sku += IIf(i <> 0, "~~~", "") & nodeDT("Sku").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("QtyExpected").IsEmpty Then
+                                                    QtyExpected += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyExpected").InnerText.ToString()) / measureunit).ToString
+                                                End If
+                                                If Not nodeDT("QtyReceived").IsEmpty Then
+                                                    QtyReceived += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("QtyReceived").InnerText.ToString()) / measureunit).ToString
+                                                End If
+                                                If Not nodeDT("PackKey").IsEmpty Then
+                                                    PackKey += IIf(i <> 0, "~~~", "") & nodeDT("PackKey").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("UOM").IsEmpty Then
+                                                    UOM += IIf(i <> 0, "~~~", "") & nodeDT("UOM").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("POKey").IsEmpty Then
+                                                    POKeyDtl += IIf(i <> 0, "~~~", "") & nodeDT("POKey").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("ToId").IsEmpty Then
+                                                    ToId += IIf(i <> 0, "~~~", "") & nodeDT("ToId").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("ToLoc").IsEmpty Then
+                                                    ToLoc += IIf(i <> 0, "~~~", "") & nodeDT("ToLoc").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("ConditionCode").IsEmpty Then
+                                                    ConditionCode += IIf(i <> 0, "~~~", "") & nodeDT("ConditionCode").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("TariffKey").IsEmpty Then
+                                                    TariffKey += IIf(i <> 0, "~~~", "") & nodeDT("TariffKey").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable01").IsEmpty Then
+                                                    Lottable01 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable01").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable02").IsEmpty Then
+                                                    Lottable02 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable02").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable03").IsEmpty Then
+                                                    Lottable03 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable03").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable04").IsEmpty Then
+                                                    Dim DateTime As DateTime
+                                                    Dim DateStr = nodeDT("Lottable04").InnerText.ToString()
+                                                    Dim dformat As String = CommonMethods.datef
+                                                    If Not String.IsNullOrEmpty(dformat) Then
+                                                        DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                                    Else
+                                                        If Double.Parse(CommonMethods.version) >= 11 Then
+                                                            DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                        Else
+                                                            DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                        End If
+                                                    End If
+                                                    Lottable04 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
+                                                End If
+                                                If Not nodeDT("Lottable05").IsEmpty Then
+                                                    Dim DateTime As DateTime
+                                                    Dim DateStr = nodeDT("Lottable05").InnerText.ToString()
+                                                    Dim dformat As String = CommonMethods.datef
+                                                    If Not String.IsNullOrEmpty(dformat) Then
+                                                        DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                                    Else
+                                                        If Double.Parse(CommonMethods.version) >= 11 Then
+                                                            DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                        Else
+                                                            DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                        End If
+                                                    End If
+                                                    Lottable05 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
+                                                End If
+                                                If Not nodeDT("Lottable06").IsEmpty Then
+                                                    Lottable06 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable06").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable07").IsEmpty Then
+                                                    Lottable07 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable07").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable08").IsEmpty Then
+                                                    Lottable08 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable08").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable09").IsEmpty Then
+                                                    Lottable09 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable09").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable10").IsEmpty Then
+                                                    Lottable10 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable10").InnerText.ToString()
+                                                End If
+                                                If Not nodeDT("Lottable11").IsEmpty Then
+                                                    Dim DateTime As DateTime
+                                                    Dim DateStr = nodeDT("Lottable11").InnerText.ToString()
+                                                    Dim dformat As String = CommonMethods.datef
+                                                    If Not String.IsNullOrEmpty(dformat) Then
+                                                        DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                                    Else
+                                                        If Double.Parse(CommonMethods.version) >= 11 Then
+                                                            DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                        Else
+                                                            DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                        End If
+                                                    End If
+                                                    Lottable11 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
+                                                End If
+                                                If Not nodeDT("Lottable12").IsEmpty Then
+                                                    Dim DateTime As DateTime
+                                                    Dim DateStr = nodeDT("Lottable12").InnerText.ToString()
+                                                    Dim dformat As String = CommonMethods.datef
+                                                    If Not String.IsNullOrEmpty(dformat) Then
+                                                        DateTime = DateTime.ParseExact(DateStr, dformat, Nothing)
+                                                    Else
+                                                        If Double.Parse(CommonMethods.version) >= 11 Then
+                                                            DateTime = DateTime.ParseExact(DateStr, "MM/dd/yyyy HH:mm:ss", Nothing)
+                                                        Else
+                                                            DateTime = DateTime.ParseExact(DateStr, "dd/MM/yyyy HH:mm:ss", Nothing)
+                                                        End If
+                                                    End If
+                                                    Lottable12 += IIf(i <> 0, "~~~", "") & DateTime.ToString("MM/dd/yyyy")
+                                                End If
+                                            Next
+                                            SavedDetailsFields += "ExternLineNo:::" & externln
+                                            SavedDetailsFields += ";;;Sku:::" & Sku
+                                            SavedDetailsFields += ";;;QtyExpected:::" & QtyExpected
+                                            SavedDetailsFields += ";;;QtyReceived:::" & QtyReceived
+                                            SavedDetailsFields += ";;;PackKey:::" & PackKey
+                                            SavedDetailsFields += ";;;UOM:::" & UOM
+                                            SavedDetailsFields += ";;;POKey:::" & POKeyDtl
+                                            SavedDetailsFields += ";;;ToId:::" & ToId
+                                            SavedDetailsFields += ";;;ToLoc:::" & ToLoc
+                                            SavedDetailsFields += ";;;ConditionCode:::" & ConditionCode
+                                            SavedDetailsFields += ";;;TariffKey:::" & TariffKey
+                                            SavedDetailsFields += ";;;Lottable01:::" & Lottable01
+                                            SavedDetailsFields += ";;;Lottable02:::" & Lottable02
+                                            SavedDetailsFields += ";;;Lottable03:::" & Lottable03
+                                            SavedDetailsFields += ";;;Lottable04:::" & Lottable04
+                                            SavedDetailsFields += ";;;Lottable05:::" & Lottable05
+                                            SavedDetailsFields += ";;;Lottable06:::" & Lottable06
+                                            SavedDetailsFields += ";;;Lottable07:::" & Lottable07
+                                            SavedDetailsFields += ";;;Lottable08:::" & Lottable08
+                                            SavedDetailsFields += ";;;Lottable09:::" & Lottable09
+                                            SavedDetailsFields += ";;;Lottable10:::" & Lottable10
+                                            SavedDetailsFields += ";;;Lottable11:::" & Lottable11
+                                            SavedDetailsFields += ";;;Lottable12:::" & Lottable12
+
+                                            ReadOnlyDetailsFields += "ExternLineNo~~~Sku~~~QtyOrdered~~~QtyReceived~~~PackKey"
+                                            ReadOnlyDetailsFields += "~~~UOM~~~POKey~~~ToId~~~ToLoc~~~ConditionCode~~~TariffKey"
+                                            ReadOnlyDetailsFields += "~~~Lottable01~~~Lottable02~~~Lottable03~~~Lottable04"
+                                            ReadOnlyDetailsFields += "~~~Lottable05~~~Lottable06~~~Lottable07~~~Lottable08"
+                                            ReadOnlyDetailsFields += "~~~Lottable09~~~Lottable10~~~Lottable11~~~Lottable12"
+                                        End If
+                                    Next
+                                End If 'ghina
                             End If
                         End With
                     Case "Warehouse_SO"

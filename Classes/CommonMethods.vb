@@ -1357,6 +1357,38 @@ Public Class CommonMethods
         Return responseMessage
 
     End Function
+    'ghina karame - 07/06/2020 - get command
+    Public Shared Function GetRest(ByVal uri As String) As String
+        Dim request As HttpWebRequest
+        Dim response As HttpWebResponse = Nothing
+        Dim responseMessage As String
+        Dim wr As WebResponse
+        uri = restURL + uri
+
+        Try
+
+            request = WebRequest.Create(uri)
+            request.Method = "GET"
+            request.Headers("Tenant") = tenant
+            request.Headers("Username") = username
+            request.Headers("Password") = password
+
+            'wr = request.GetResponse()
+            Return GetResponseFromGetRequest(request)
+
+        Catch wex As WebException
+
+            responseMessage = New StreamReader(wex.Response.GetResponseStream()).ReadToEnd()
+            responseMessage = Regex.Replace(responseMessage, ":\\?\*", "")
+            If responseMessage.Contains("00096") Then
+                responseMessage = "Error: Unable to delete item, it is already used in WMS"
+            End If
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.Error(wex, "", "")
+        End Try
+        Return responseMessage
+
+    End Function
 
     ' ghina karame - 19/05/2020-  method that calls the REST POST action
     Public Shared Function SaveRest(ByVal uri As String, ByVal JsonData As String) As String
@@ -1433,6 +1465,35 @@ Public Class CommonMethods
         End Try
 
         Return strResponse
+
+    End Function
+
+
+    Public Shared Function GetResponseFromGetRequest(ByVal httpWebRequest As HttpWebRequest) As String
+        Dim strResponse As String = "Bad Request:400"
+        Dim result As String
+        Try
+            Dim httpResponse = DirectCast(httpWebRequest.GetResponse(), HttpWebResponse)
+
+            Using streamReader = New StreamReader(httpResponse.GetResponseStream())
+                result = streamReader.ReadToEnd()
+                Dim statuscode = httpResponse.StatusCode
+
+
+                If httpResponse.StatusCode = 200 Then
+                    strResponse = ""
+
+                Else
+                    strResponse = result.ToString()
+                End If
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("GetResponse Error[{0}]", ex.Message)
+
+            Return ex.Message
+        End Try
+
+        Return result
 
     End Function
 
