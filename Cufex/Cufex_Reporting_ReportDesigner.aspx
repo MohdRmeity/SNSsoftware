@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Cufex/Cufex_Site.Master" CodeBehind="Cufex_Reporting_ReportDesigner.aspx.vb" Inherits="SNSsoftware.Cufex_Reporting_ReportDesigner" %>
 
-<%@ Register Assembly="DevExpress.XtraReports.v19.2.Web.WebForms, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.XtraReports.Web" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.XtraReports.v20.1.Web.WebForms, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.XtraReports.Web" TagPrefix="dx" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
     <script type="text/javascript">
