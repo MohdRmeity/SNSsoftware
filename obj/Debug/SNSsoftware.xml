@@ -2702,6 +2702,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Default._btnReload">
+<summary>
+btnReload control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Default._ASPxTimer1">
 <summary>
 ASPxTimer1 control.
@@ -2714,6 +2723,24 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Default._ASPxDashboard1">
 <summary>
 ASPxDashboard1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._MyHiddenButton">
+<summary>
+MyHiddenButton control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._HiddenTime">
+<summary>
+HiddenTime control.
 </summary>
 <remarks>
 Auto-generated field.
