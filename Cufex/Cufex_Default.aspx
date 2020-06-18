@@ -7,9 +7,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/DeleteExtension.js"></script>
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/SaveAsExtension.js"></script>
-    
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="../JS/Dashboards/scripts.js?v=2013"></script>
+    <link href="../JS/Dashboards/styles.css?v=2013" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Defines the "Save As" extension template. -->
     <script type="text/html" id="dx-save-as-form">
         <div>Dashboard Name:</div>
@@ -17,42 +18,52 @@
         <div data-bind="dxButton: { text: 'Save', onClick: saveAs }"></div>
     </script>
 
+    <script>
+        function getDashboardControl() {
+            return ASPxDashboard.getDashboardControl();
+        }
+    </script>
+
     <script type="text/javascript">
         var extension;
         //This will setup the toggle for viewer mode and edit mode.
-        function onBeforeRender(sender) {
-            var control = sender.GetDashboardControl();
-            setInterval(function () { }, 3000);
+        //function onBeforeRender(sender) {
+        //    var control = sender.GetDashboardControl();
+        //    setInterval(function () { }, 3000);
 
-            extension = new DevExpress.Dashboard.DashboardPanelExtension(control, { dashboardThumbnail: "~/App_Data/Dashboards/DashboardThumbnail/{0}.png" })
-            control.registerExtension(extension);
+        //    extension = new DevExpress.Dashboard.DashboardPanelExtension(control, { dashboardThumbnail: "~/App_Data/Dashboards/DashboardThumbnail/{0}.png" })
+        //    control.registerExtension(extension);
 
-            control.requestDashboardList()
-                .done(function (e) {
-                    e.forEach(function (dashboardInfo) {
-                        console.log(dashboardInfo);
-                    });
-                });
+        //    control.requestDashboardList()
+        //        .done(function (e) {
+        //            e.forEach(function (dashboardInfo) {
+        //                console.log(dashboardInfo);
+        //            });
+        //        });
 
-            var control = sender.GetDashboardControl();
+        //    var control = sender.GetDashboardControl();
 
-            control.registerExtension(new SaveAsDashboardExtension(control));
-            control.registerExtension(new DeleteDashboardExtension(sender));
-        }
+        //    control.registerExtension(new SaveAsDashboardExtension(control));
+        //    control.registerExtension(new DeleteDashboardExtension(sender));
+        //}
 
-        function onExpand() {
-            var control = webDesigner.GetDashboardControl();
-            extension.showPanelAsync({}).done(function (e) {
-                control.surfaceLeft(e.surfaceLeft);
-            });
-        }
-        function onCollapse() {
-            var control = webDesigner.GetDashboardControl();
-            extension.hidePanelAsync({}).done(function (e) {
-                control.surfaceLeft(e.surfaceLeft);
-            });
-        }
+        //function onExpand() {
+        //    var dd = getDashboardControl();
 
+        //    var control = webDesigner.GetDashboardControl();
+        //    extension.showPanelAsync({}).done(function (e) {
+        //        control.surfaceLeft(e.surfaceLeft);
+        //    });
+        //}
+        //function onCollapse() {
+
+        //    var dd = getDashboardControl();
+
+        //    var control = webDesigner.GetDashboardControl();
+        //    extension.hidePanelAsync({}).done(function (e) {
+        //        control.surfaceLeft(e.surfaceLeft);
+        //    });
+        //}
     </script>
 
     <script type="text/javascript">
@@ -171,7 +182,6 @@
             cursor: pointer;
         }
     </style>
-
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
@@ -180,12 +190,12 @@
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
 
-                    <input type="button" onclick="onExpand();"  data-toggle="tooltip" title="Expand"  class="expandButton" />
+                    <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton" />
 
-                    <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse"   class="collapseButton" />
+                    <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton" />
 
                     <div class="floatR">
-                        <div class="TimerSettings"  data-toggle="tooltip" title="Refresh Time Settings">
+                        <div class="TimerSettings" data-toggle="tooltip" title="Refresh Time Settings">
                             <div class="TimerSettingsInner">
                                 <div class="TimeDiv AnimateMe" data-time="30">30 Sec</div>
                                 <div class="TimeDiv AnimateMe" data-time="60">1 Min</div>
@@ -199,7 +209,7 @@
                         </div>
                     </div>
                     <div class="floatR">
-                        <asp:Button ID="btnReload" data-toggle="tooltip" title="Manual Refresh"  runat="server" Text="" CssClass="ReloadButton" OnClientClick="javascript:reloaddate();return false;" />
+                        <asp:Button ID="btnReload" data-toggle="tooltip" title="Manual Refresh" runat="server" Text="" CssClass="ReloadButton" OnClientClick="javascript:reloaddate();return false;" />
                     </div>
                 </div>
             </div>
@@ -208,11 +218,16 @@
     <dx:ASPxTimer ID="ASPxTimer1" runat="server" ClientInstanceName="timer">
         <ClientSideEvents Tick="function(s, e) {webDesigner.ReloadData();}" />
     </dx:ASPxTimer>
-    <dx:ASPxDashboard ID="ASPxDashboard1" runat="server" ClientInstanceName="webDesigner" AllowExportDashboardItems="True" OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
-        OnCustomParameters="ASPxDashboard1_CustomParameters" Height="1000px"
+    <dx:ASPxDashboard ID="ASPxDashboard1" runat="server" ClientInstanceName="webDesigner"
+        AllowExportDashboardItems="True" OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
+        OnCustomParameters="ASPxDashboard1_CustomParameters"
+        Height="1000px"
+        IncludeDashboardIdToUrl="True"
         OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
         OnConnectionError="ASPxDashboard1_ConnectionError">
-        <ClientSideEvents BeforeRender="onBeforeRender" />
+        <ClientSideEvents
+            BeforeRender="onBeforeRender"
+            DashboardTitleToolbarUpdated="function(s,e) { onDashboardTitleToolbarUpdated({ component: s.getDashboardControl(), options: e.Options }); }" />
         <BackendOptions Uri="" />
         <DataRequestOptions ItemDataRequestMode="Auto" />
     </dx:ASPxDashboard>
@@ -234,4 +249,3 @@
         });
     </script>
 </asp:Content>
-

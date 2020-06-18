@@ -11,6 +11,7 @@ Partial Public Class Cufex_Default
         If Not Page.IsPostBack Then
             Dim myMasterPage As Cufex_Site = CType(Page.Master, Cufex_Site)
             myMasterPage.section = Cufex_Site.SectionName.Home_Def
+            ASPxDashboard1.ColorScheme = If(Request.QueryString("colorSchema"), ASPxDashboard.ColorSchemeLight)
 
         End If
         SetDashboard()
