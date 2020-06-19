@@ -13,6 +13,10 @@ Public Class CustomDashboardStorage
         userName = v
     End Sub
 
+    Public Sub New()
+    End Sub
+
+
 #End Region
 
 #Region "Implemented Functions"
