@@ -24,47 +24,7 @@
         }
     </script>
 
-    <script type="text/javascript">
-        var extension;
-        //This will setup the toggle for viewer mode and edit mode.
-        //function onBeforeRender(sender) {
-        //    var control = sender.GetDashboardControl();
-        //    setInterval(function () { }, 3000);
-
-        //    extension = new DevExpress.Dashboard.DashboardPanelExtension(control, { dashboardThumbnail: "~/App_Data/Dashboards/DashboardThumbnail/{0}.png" })
-        //    control.registerExtension(extension);
-
-        //    control.requestDashboardList()
-        //        .done(function (e) {
-        //            e.forEach(function (dashboardInfo) {
-        //                console.log(dashboardInfo);
-        //            });
-        //        });
-
-        //    var control = sender.GetDashboardControl();
-
-        //    control.registerExtension(new SaveAsDashboardExtension(control));
-        //    control.registerExtension(new DeleteDashboardExtension(sender));
-        //}
-
-        //function onExpand() {
-        //    var dd = getDashboardControl();
-
-        //    var control = webDesigner.GetDashboardControl();
-        //    extension.showPanelAsync({}).done(function (e) {
-        //        control.surfaceLeft(e.surfaceLeft);
-        //    });
-        //}
-        //function onCollapse() {
-
-        //    var dd = getDashboardControl();
-
-        //    var control = webDesigner.GetDashboardControl();
-        //    extension.hidePanelAsync({}).done(function (e) {
-        //        control.surfaceLeft(e.surfaceLeft);
-        //    });
-        //}
-    </script>
+    
 
     <script type="text/javascript">
         var ass = 0;
@@ -183,7 +143,6 @@
         }
     </style>
 </asp:Content>
-
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
     <div class="NormalDiv1118Max ZeroPadding">
         <div class="MainDashboardSettings">

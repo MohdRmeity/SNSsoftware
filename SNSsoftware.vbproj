@@ -166,6 +166,7 @@
     <Content Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipFrom.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipTo.aspx" />
+    <Content Include="Cufex\Dashboard.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ReportDesigner.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ReportViewer.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ViewReports.aspx" />
@@ -196,6 +197,8 @@
     </Content>
     <Content Include="JS\Dashboards\DeleteExtension.js" />
     <Content Include="JS\Dashboards\SaveAsExtension.js" />
+    <Content Include="JS\Dashboards\scripts.js" />
+    <Content Include="JS\Dashboards\styles.css" />
     <Content Include="JS\JqueryMain\jquery-3.4.1.min.js" />
     <Content Include="Style\ChosenSelect\chosen.css" />
     <Content Include="Style\ChosenSelect\chosen.min.css">
@@ -283,6 +286,13 @@
     <Compile Include="Cufex\Cufex_Configuration_ShipTo.aspx.vb">
       <DependentUpon>Cufex_Configuration_ShipTo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Dashboard.aspx.designer.vb">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Dashboard.aspx.vb">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Cufex\Cufex_Reporting_ReportDesigner.aspx.designer.vb">
       <DependentUpon>Cufex_Reporting_ReportDesigner.aspx</DependentUpon>
@@ -424,6 +434,13 @@
       <DependentUpon>Cufex_Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Cufex\Site1.Master.designer.vb">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Site1.Master.vb">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -528,12 +545,14 @@
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <Content Include="Cufex\Cufex_Site.Master" />
+    <Content Include="Cufex\Site1.Master" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\PublishProfiles\Bilal.pubxml" />
     <None Include="My Project\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="My Project\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
