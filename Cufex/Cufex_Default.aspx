@@ -24,7 +24,7 @@
         }
     </script>
 
-    
+
 
     <script type="text/javascript">
         var ass = 0;
@@ -70,6 +70,7 @@
         .MainDashboardSettings {
             padding: 10px 20px;
         }
+
 
         .TimerSettings {
             position: relative;
@@ -180,7 +181,7 @@
     <dx:ASPxDashboard ID="ASPxDashboard1" runat="server" ClientInstanceName="webDesigner"
         AllowExportDashboardItems="True" OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
         OnCustomParameters="ASPxDashboard1_CustomParameters"
-        Height="1000px"
+        Height="899px"
         IncludeDashboardIdToUrl="True"
         OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
         OnConnectionError="ASPxDashboard1_ConnectionError">
