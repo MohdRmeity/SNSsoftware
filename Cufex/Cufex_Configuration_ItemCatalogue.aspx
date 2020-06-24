@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Cufex/Cufex_Site.Master" CodeBehind="Cufex_Configuration_ItemCatalogue.aspx.vb" Inherits="SNSsoftware.Cufex_Configuration_ItemCatalogue" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <style>
         .ui-resizable-s {
@@ -24,7 +25,7 @@
                             Item Catalogue
                         </div>
                         <div class="MainPageDesc" data-text="Items Catalogues List">
-                           Items Catalogues List
+                            Items Catalogues List
                         </div>
                     </div>
                     <table class="floatR">
@@ -62,6 +63,13 @@
                     <td class="GridCell GridHead selectAllWidth">
                         <div class="AdjustColumns"></div>
                     </td>
+                    <td class="GridCell GridHead" data-id="Sku">
+                        <span class="MyTitleHead">Item</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
                     <td class="GridCell GridHead" data-id="StorerKey">
                         <span class="MyTitleHead">Owner</span>
                         <div class="AbsoSorting">
@@ -71,13 +79,6 @@
                     </td>
                     <td class="GridCell GridHead" data-id="ConsigneeKey">
                         <span class="MyTitleHead">Consignee</span>
-                        <div class="AbsoSorting">
-                            <div class="SortUp"></div>
-                            <div class="SortDown"></div>
-                        </div>
-                    </td>
-                    <td class="GridCell GridHead" data-id="Sku">
-                        <span class="MyTitleHead">Item</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -145,19 +146,20 @@
                         <div class="GridSearch"></div>
                     </td>
                     <td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="Sku" />
+                    </td>
+                    <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="ConsigneeKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Sku" />
-                    </td>
-                    <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Price" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Currency" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputCurrency" data-id="Currency" data-mode="single">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="SUsr1" />
@@ -228,21 +230,21 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Owner<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey InputAutoPostBack">
+                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey InputAutoPostBack" data-mode="single">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Consignee<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Consignee" multiple class="chosen-select InputConsigneeKey">
+                                <select data-placeholder="Select Consignee" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Item<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Item" multiple class="chosen-select InputSku">
+                                <select data-placeholder="Select Item" multiple class="chosen-select InputSku" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -255,7 +257,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Currency<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Currency" multiple class="chosen-select InputCurrency">
+                                <select data-placeholder="Select Currency" multiple class="chosen-select InputCurrency" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -311,14 +313,14 @@
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">Owner*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey InputAutoPostBack">
+                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey InputAutoPostBack" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Consignee*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Consignee" multiple class="chosen-select InputConsigneeKey">
+                                        <select data-placeholder="Select Consignee" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -326,7 +328,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Item*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Item" multiple class="chosen-select InputSku">
+                                        <select data-placeholder="Select Item" multiple class="chosen-select InputSku" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -340,7 +342,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Currency*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Currency" multiple class="chosen-select InputCurrency">
+                                        <select data-placeholder="Select Currency" multiple class="chosen-select InputCurrency" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -412,9 +414,9 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="1" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Consignee" data-priority="2" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="Sku" data-columnname="Item" data-priority="3" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="Sku" data-columnname="Item" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="2" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Consignee" data-priority="3" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Price" data-columnname="Price" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Currency" data-columnname="Currency" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SUsr1" data-columnname="UDF1" data-priority="6" data-hidden="false" />

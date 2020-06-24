@@ -11993,6 +11993,34 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
 }
 
+    .GridCell .chosen-container .chosen-choices {
+        border: none;
+        border-radius: 0;
+        padding: 7px 11px;
+    }
+
+        .GridCell .chosen-container .chosen-choices .chosen-search-input {
+            background-color: transparent;
+            border-width: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter-Regular' !important;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: italic;
+            letter-spacing: normal;
+            color: #C7CDD6 !important;
+        }
+
+    .GridCell .chosen-container.chosen-container-active .chosen-choices {
+        background-color: #f8f9fb;
+        border: 1px solid #CCC;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+
 .GridRow:nth-child(even) {
     background-color: rgba(245, 248, 250, 0.5);
 }
@@ -12002,8 +12030,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-right: 23px;
     cursor: pointer;
 }
-
-
 
 
 .editWidth {
@@ -12083,6 +12109,24 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-image: url(../../images/Cufex_Images/ViewB.svg);
     }
 
+.selectStyle {
+    height: 20px;
+    background-image: url(../../images/Cufex_Images/Select.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    margin-right: 9px;
+}
+
+    .selectStyle:hover {
+        background-image: url(../../images/Cufex_Images/SelectB.svg);
+    }
+
 .CloneStyle {
     width: 25px;
     height: 25px;
@@ -12160,6 +12204,23 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
     left: -4px;
 }
+
+.SearchDropDown {
+    position: absolute;
+    bottom: 5px;
+    right: 3px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../images/Cufex_Images/Search.svg);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: none;
+}
+
+    .SearchDropDown:hover {
+        background-image: url(../../images/Cufex_Images/SearchB.svg);
+    }
 
 /*#endregion */
 
@@ -12333,7 +12394,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 20px;
     }
 
-    .btnSave:after{
+    .btnSave:after {
         background-image: url(../../images/Cufex_Images/Save.svg);
         width: 18px;
         height: 18px;

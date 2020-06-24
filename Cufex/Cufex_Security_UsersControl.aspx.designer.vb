@@ -50,15 +50,6 @@ Partial Public Class Cufex_Security_UsersControl
     Protected WithEvents btnSave As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''cmbUser control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbUser As Global.System.Web.UI.HtmlControls.HtmlSelect
-    
-    '''<summary>
     '''cmbFacility control.
     '''</summary>
     '''<remarks>

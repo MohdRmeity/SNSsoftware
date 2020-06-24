@@ -251,7 +251,7 @@
 
         <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/legacy.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/Jcrop/jquery.Jcrop.js?v=<%=AppVersion%>"></script>
-        <script type="text/javascript" data-pace-options='{ "document": false }' src="<%= sAppPath %>js/Pace-Modified.min.js?v=<%=AppVersion%>"></script>
+        <%--<script type="text/javascript" data-pace-options='{ "document": false }' src="<%= sAppPath %>js/Pace-Modified.min.js?v=<%=AppVersion%>"></script>--%>
         <input type="hidden" class="Cufex_Forms" value="1" />
         <input type="hidden" id="HiddenMenuOpen" runat="server" class="HiddenMenuOpen" value="1" />
     </form>

@@ -15,14 +15,16 @@ Public Class DisplayDropDowns
         Dim DropDownFields As String = ""
         Dim DTable1 As DataTable = Nothing
         Dim DTable2 As DataTable = Nothing
+        Dim DTable3 As DataTable = Nothing
+        Dim DTable4 As DataTable = Nothing
 
-        If mySearchTable = "USERCONTROL" Or mySearchTable = "Warehouse_PO" Or mySearchTable = "Warehouse_SO" Or mySearchTable = "Warehouse_OrderManagement" Then
+        If mySearchTable = "USERCONTROL" Or mySearchTable = "Warehouse_PO" Or mySearchTable = "Warehouse_SO" Or mySearchTable = "Warehouse_OrderManagement" Or mySearchTable = "Inventory_Balance" Then
             DTable1 = CommonMethods.getFacilities()
 
             DropDownFields += "Facility:::"
             For i = 0 To DTable1.Rows.Count - 1
                 With DTable1.Rows(i)
-                    DropDownFields += IIf(i <> 0, ",", "") & !db_alias
+                    DropDownFields += IIf(i <> 0, ",", "") & !db_alias & "~~~" & !db_name
                 End With
             Next
 
@@ -31,12 +33,12 @@ Public Class DisplayDropDowns
                 DropDownFields += ";;;UserKey:::"
                 For i = 0 To DTable2.Rows.Count - 1
                     With DTable2.Rows(i)
-                        DropDownFields += IIf(i <> 0, ",", "") & !UserKey
+                        DropDownFields += IIf(i <> 0, ",", "") & !UserKey & "~~~" & !FirstName & "~~~" & !LastName
                     End With
                 Next
 
                 For i = 0 To 2
-                    sql += " select StorerKey from enterprise.storer where type = " & IIf(i = 0, "1", IIf(i = 1, "2", "12"))
+                    sql += " select StorerKey, Company from enterprise.storer where type = " & IIf(i = 0, "1", IIf(i = 1, "2", "12"))
                 Next
                 ds = (New SQLExec).Cursor(sql)
 
@@ -44,7 +46,7 @@ Public Class DisplayDropDowns
                     DropDownFields += ";;;StorerKey:::"
                     For i = 0 To ds.Tables(0).Rows.Count - 1
                         With ds.Tables(0).Rows(i)
-                            DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                            DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                         End With
                     Next
                 End If
@@ -53,7 +55,7 @@ Public Class DisplayDropDowns
                     DropDownFields += ";;;ConsigneeKey:::"
                     For i = 0 To ds.Tables(1).Rows.Count - 1
                         With ds.Tables(1).Rows(i)
-                            DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                            DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                         End With
                     Next
                 End If
@@ -62,11 +64,43 @@ Public Class DisplayDropDowns
                     DropDownFields += ";;;SupplierKey:::"
                     For i = 0 To ds.Tables(2).Rows.Count - 1
                         With ds.Tables(2).Rows(i)
-                            DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                            DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                         End With
                     Next
                 End If
+            ElseIf mySearchTable = "Warehouse_PO" Then
+                DTable2 = CommonMethods.getCodeDD("enterprise", "codelkup", "POTYPE")
+                DropDownFields += ";;;POTypeSearch:::"
+                For i = 0 To DTable2.Rows.Count - 1
+                    With DTable2.Rows(i)
+                        DropDownFields += IIf(i <> 0, ",", "") & !Description
+                    End With
+                Next
 
+                DTable3 = CommonMethods.getCodeDD("enterprise", "codelkup", "POSTATUS")
+                DropDownFields += ";;;POStatusSearch:::"
+                For i = 0 To DTable3.Rows.Count - 1
+                    With DTable3.Rows(i)
+                        DropDownFields += IIf(i <> 0, ",", "") & !Description
+                    End With
+                Next
+            ElseIf mySearchTable = "Warehouse_SO" Or mySearchTable = "Warehouse_OrderManagement" Then
+                DTable2 = CommonMethods.getCodeDD("enterprise", "codelkup", "ORDERTYPE")
+                DropDownFields += ";;;OrderTypeSearch:::"
+                For i = 0 To DTable2.Rows.Count - 1
+                    With DTable2.Rows(i)
+                        DropDownFields += IIf(i <> 0, ",", "") & !Description
+                    End With
+                Next
+                If mySearchTable = "Warehouse_SO" Then
+                    DTable3 = CommonMethods.getCodeDD("enterprise", "orderstatussetup", "ORDERSTATUS")
+                    DropDownFields += ";;;OrderStatusSearch:::"
+                    For i = 0 To DTable3.Rows.Count - 1
+                        With DTable3.Rows(i)
+                            DropDownFields += IIf(i <> 0, ",", "") & !Description
+                        End With
+                    Next
+                End If
             End If
         ElseIf mySearchTable = "USERPROFILE" Then
             DTable1 = CommonMethods.getProfiles()
@@ -82,7 +116,7 @@ Public Class DisplayDropDowns
             DropDownFields += ";;;UserKey:::"
             For i = 0 To DTable2.Rows.Count - 1
                 With DTable2.Rows(i)
-                    DropDownFields += IIf(i <> 0, ",", "") & !USERKEY
+                    DropDownFields += IIf(i <> 0, ",", "") & !USERKEY & "~~~" & !FirstName & "~~~" & !LastName
                 End With
             Next
         ElseIf mySearchTable.Contains("enterprise.storer") Then
@@ -105,8 +139,8 @@ Public Class DisplayDropDowns
                 End If
                 '0 
             End If
-            sql += "select StorerKey from enterprise.storer where type = 1 " & where
-            sql += "select top 1000 packkey from enterprise.Pack "
+            sql += "select StorerKey, Company from enterprise.storer where type = 1 " & where
+            sql += "select top 1000 packkey, packdescr from enterprise.Pack "
 
             ds = (New SQLExec).Cursor(sql)
 
@@ -116,20 +150,20 @@ Public Class DisplayDropDowns
             DropDownFields += "StorerKey:::"
             For i = 0 To DTable1.Rows.Count - 1
                 With DTable1.Rows(i)
-                    DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                    DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                 End With
             Next
 
             DropDownFields += ";;;PackKey:::"
             For i = 0 To DTable2.Rows.Count - 1
                 With DTable2.Rows(i)
-                    DropDownFields += IIf(i <> 0, ",", "") & !PackKey
+                    DropDownFields += IIf(i <> 0, ",", "") & !PackKey & "~~~" & !PackDescr
                 End With
             Next
         ElseIf mySearchTable = "SKUCATALOGUE" Then
             Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
             Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
-            sql += "select StorerKey, Type from enterprise.storer where Type in (1,2) order by StorerKey "
+            sql += "select StorerKey, Type, Company from enterprise.storer where Type in (1,2) order by StorerKey "
             sql += " select Currency from " & IIf(CommonMethods.dbtype <> "sql", "System.", "") & "CurrencyCodes"
             ds = (New SQLExec).Cursor(sql)
             DTable1 = ds.Tables(0)
@@ -140,15 +174,15 @@ Public Class DisplayDropDowns
             For Each row As DataRow In DTable1.Rows
                 If row("Type").ToString = "1" Then
                     If owners.Any(Function(x) x = "ALL") Then
-                        DropDownFields += row("StorerKey").ToString & ","
+                        DropDownFields += row("StorerKey").ToString & "~~~" & row("Company").ToString & ","
                     ElseIf owners.Any(Function(x) x = row("StorerKey").ToString) Then
-                        DropDownFields += row("StorerKey").ToString & ","
+                        DropDownFields += row("StorerKey").ToString & "~~~" & row("Company").ToString & ","
                     End If
                 Else
                     If consignees.Any(Function(x) x = "ALL") Then
-                        DropDownFields2 += row("StorerKey").ToString & ","
+                        DropDownFields2 += row("StorerKey").ToString & "~~~" & row("Company").ToString & ","
                     ElseIf consignees.Any(Function(x) x = row("StorerKey").ToString) Then
-                        DropDownFields2 += row("StorerKey").ToString & ","
+                        DropDownFields2 += row("StorerKey").ToString & "~~~" & row("Company").ToString & ","
                     End If
                 End If
             Next
@@ -164,11 +198,13 @@ Public Class DisplayDropDowns
         ElseIf mySearchTable = "Warehouse_ASN" Then
             DTable1 = CommonMethods.getFacilities()
             DTable2 = CommonMethods.getCountries()
+            DTable3 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECEIPTYPE")
+            DTable4 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECSTATUS")
 
             DropDownFields += "Facility:::"
             For i = 0 To DTable1.Rows.Count - 1
                 With DTable1.Rows(i)
-                    DropDownFields += IIf(i <> 0, ",", "") & !db_alias
+                    DropDownFields += IIf(i <> 0, ",", "") & !db_alias & "~~~" & !db_name
                 End With
             Next
 
@@ -176,6 +212,20 @@ Public Class DisplayDropDowns
             For i = 0 To DTable2.Rows.Count - 1
                 With DTable2.Rows(i)
                     DropDownFields += IIf(i <> 0, ",", "") & !DESCRIPTION
+                End With
+            Next
+
+            DropDownFields += ";;;ReceiptTypeSearch:::"
+            For i = 0 To DTable3.Rows.Count - 1
+                With DTable3.Rows(i)
+                    DropDownFields += IIf(i <> 0, ",", "") & !Description
+                End With
+            Next
+
+            DropDownFields += ";;;ReceiptStatusSearch:::"
+            For i = 0 To DTable4.Rows.Count - 1
+                With DTable4.Rows(i)
+                    DropDownFields += IIf(i <> 0, ",", "") & !Description
                 End With
             Next
         End If

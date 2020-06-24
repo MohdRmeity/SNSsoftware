@@ -542,11 +542,11 @@ Public Class GetItems
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) & "?storer=" & !StorerKey & "&sku=" & !Sku & "'>"
-                MyRecords += "                        " & !StorerKey
+                MyRecords += "                        " & !Sku
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !Sku
+                MyRecords += "                        " & !StorerKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
                 MyRecords += "                        " & !Descr
@@ -587,14 +587,14 @@ Public Class GetItems
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)) & "?item=" & !SerialKey & "'>"
-                MyRecords += "                        " & !StorerKey
+                MyRecords += "                        " & !Sku
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !ConsigneeKey
+                MyRecords += "                        " & !StorerKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
-                MyRecords += "                        " & !Sku
+                MyRecords += "                        " & !ConsigneeKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !Price

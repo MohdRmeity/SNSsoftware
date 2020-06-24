@@ -127,14 +127,14 @@
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">Profile Name*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Profile Name" multiple class="chosen-select InputProfileName">
+                                        <select data-placeholder="Select Profile Name" multiple class="chosen-select InputProfileName" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">User ID*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Users" multiple class="chosen-select InputUserKey">
+                                        <select data-placeholder="Select Users" multiple class="chosen-select InputUserKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>

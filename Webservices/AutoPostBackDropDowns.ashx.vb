@@ -68,8 +68,14 @@ Public Class AutoPostBackDropDowns
                     Dim results As XmlNodeList = doc.SelectNodes("//*[local-name()='Item']")
                     For Each node As XmlNode In results
                         If Not node("Sku").IsEmpty Then
-                            DropDownFields += node("Sku").InnerText.ToString & ","
+                            DropDownFields += node("Sku").InnerText.ToString
                         End If
+
+                        If Not node("Descr").IsEmpty Then
+                            DropDownFields += "~~~" & node("Descr").InnerText.ToString
+                        End If
+
+                        DropDownFields += ","
                     Next
                     If DropDownFields.EndsWith(",") Then DropDownFields = DropDownFields.Remove(DropDownFields.Length - 1)
                 End If
@@ -119,7 +125,7 @@ Public Class AutoPostBackDropDowns
                         AndFilter = " and StorerKey IN (" + valuesstr + ") "
                     End If
                 End If
-                sql += "select StorerKey from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "12") & " " & AndFilter
+                sql += "select StorerKey, Company from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "5") & " " & AndFilter
             Next
             Dim ds As DataSet = (New SQLExec).Cursor(sql)
 
@@ -127,14 +133,14 @@ Public Class AutoPostBackDropDowns
                 DropDownFields += ";;;StorerKey:::"
                 For i = 0 To ds.Tables(0).Rows.Count - 1
                     With ds.Tables(0).Rows(i)
-                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                     End With
                 Next
 
                 DropDownFields += ";;;SellerName:::"
                 For i = 0 To ds.Tables(1).Rows.Count - 1
                     With ds.Tables(1).Rows(i)
-                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                     End With
                 Next
             End If
@@ -178,7 +184,7 @@ Public Class AutoPostBackDropDowns
                         AndFilter = " and STORERKEY IN (" + valuesstr + ") "
                     End If
                 End If
-                sql += "select StorerKey from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "3") & " " & AndFilter
+                sql += "select StorerKey, Company from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "3") & " " & AndFilter
                 AndFilter = ""
             Next
             Dim ds As DataSet = (New SQLExec).Cursor(sql)
@@ -187,14 +193,14 @@ Public Class AutoPostBackDropDowns
                 DropDownFields += ";;;StorerKey:::"
                 For i = 0 To ds.Tables(0).Rows.Count - 1
                     With ds.Tables(0).Rows(i)
-                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                     End With
                 Next
 
                 DropDownFields += ";;;CarrierKey:::"
                 For i = 0 To ds.Tables(1).Rows.Count - 1
                     With ds.Tables(1).Rows(i)
-                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                     End With
                 Next
             End If
@@ -242,7 +248,7 @@ Public Class AutoPostBackDropDowns
                         AndFilter = " and " & IIf(i = 0, "StorerKey", "ConsigneeKey") & " IN (" + valuesstr + ") "
                     End If
                 End If
-                sql += "select StorerKey from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "2") & " " & AndFilter
+                sql += "select StorerKey,Company from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "2") & " " & AndFilter
             Next
             Dim ds As DataSet = (New SQLExec).Cursor(sql)
 
@@ -250,14 +256,14 @@ Public Class AutoPostBackDropDowns
                 DropDownFields += ";;;StorerKey:::"
                 For i = 0 To ds.Tables(0).Rows.Count - 1
                     With ds.Tables(0).Rows(i)
-                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                     End With
                 Next
 
                 DropDownFields += ";;;ConsigneeKey:::"
                 For i = 0 To ds.Tables(1).Rows.Count - 1
                     With ds.Tables(1).Rows(i)
-                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey
+                        DropDownFields += IIf(i <> 0, ",", "") & !StorerKey & "~~~" & !Company
                     End With
                 Next
             End If
@@ -283,7 +289,7 @@ Public Class AutoPostBackDropDowns
             End If
 
             For i = 0 To 1
-                sql += " select top 1000 " & IIf(i = 0, "PackKey", "Loc") & " from " & warehouselevel & IIf(i = 0, ".Pack", ".Loc")
+                sql += " select top 1000 " & IIf(i = 0, "PackKey, PackDescr", "Loc") & " from " & warehouselevel & IIf(i = 0, ".Pack", ".Loc")
             Next
             Dim ds As DataSet = (New SQLExec).Cursor(sql)
 
@@ -291,7 +297,7 @@ Public Class AutoPostBackDropDowns
                 DropDownDetailsFields += "PackKey:::"
                 For i = 0 To ds.Tables(0).Rows.Count - 1
                     With ds.Tables(0).Rows(i)
-                        DropDownDetailsFields += IIf(i <> 0, ",", "") & !PackKey
+                        DropDownDetailsFields += IIf(i <> 0, ",", "") & !PackKey & "~~~" & !PackDescr
                     End With
                 Next
 
@@ -323,14 +329,14 @@ Public Class AutoPostBackDropDowns
                 warehouselevel = warehouselevel.Split("_")(1)
             End If
 
-            sql += " select top 1000 PackKey from " & warehouselevel & ".Pack"
+            sql += " select top 1000 PackKey,PackDescr from " & warehouselevel & ".Pack"
             Dim ds As DataSet = (New SQLExec).Cursor(sql)
 
             If ds IsNot Nothing Then
                 DropDownDetailsFields += "PackKey:::"
                 For i = 0 To ds.Tables(0).Rows.Count - 1
                     With ds.Tables(0).Rows(i)
-                        DropDownDetailsFields += IIf(i <> 0, ",", "") & !PackKey
+                        DropDownDetailsFields += IIf(i <> 0, ",", "") & !PackKey & "~~~" & !PackDescr
                     End With
                 Next
             End If

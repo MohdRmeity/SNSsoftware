@@ -30,12 +30,14 @@ $(window).load(function () {
 function SetDefaults() {
     if ($(".HiddenMenuOpen").val() == 0) {
         CloseMenu(false);
+        $(".DivMain").css({ opacity: 1 });
         setTimeout(function () {
             $(".DivMain").css({ opacity: 1 });
-        }, 300);
+        }, 500);
     } else {
         $(".DivMain").css({ opacity: 1 });
     }
+
     SNSFunctions();
     //PictureUpload();
     SetMenuFunctionality();
@@ -165,6 +167,8 @@ function SNSFunctions() {
     });
 
     $('.BackHeader').click(function () {
+        setOnCufex_Resize();
+
         $('.MyRecordID').val(0);
         $('.MyDetailRecordID').val(0);
         NumberOfRecordsInPageDetails = $('#NumberOfRecordsInPage').val();
@@ -229,6 +233,8 @@ function SNSFunctions() {
     });
 
     $('.BackDetail').click(function () {
+        setOnCufex_Resize();
+
         $('.MyDetailRecordID').val(0);
 
         $(".DetailsGridView").fadeIn();
@@ -280,7 +286,8 @@ function SNSFunctions() {
     }
 
     $(".NewDetailRecord").find('.InputAutoPostBackDetails').on('change', function () {
-        AutoPostBackDetails($(".NewDetailRecord"), $(this).chosen().val());
+        var myValue = $(this).val().toString();
+        AutoPostBackDetails($(".NewDetailRecord"), myValue.substring(myValue.lastIndexOf(",") + 1));
     });
 
     $('.CloseACPopup').click(function () {
@@ -294,11 +301,11 @@ function SNSFunctions() {
         DisplayDropDowns();
     }
 
-    GetUserConfiguration();
-
+    if (!$(".GridContainer").hasClass("GridPopup")) GetUserConfiguration();
 
     $('.InputAutoPostBack').on('change', function () {
-        AutoPostBack($(this).chosen().val());
+        var myValue = $(this).val().toString();
+        AutoPostBack(myValue.substring(myValue.lastIndexOf(",") + 1));
     });
 
     if ($('.MainPageTitle').attr("data-id") == "Warehouse_PO") {
@@ -381,14 +388,16 @@ function SNSFunctions() {
     });
 
     $('.AddDetailsBtn').click(function () {
-        $('.RecordsContainer_Inside').eq(0).clone().prependTo('.RecordsContainer').slideDown();
+        var index = $(".RecordsContainer_Inside:visible").length;
+        $('.RecordsContainer_Inside').eq(0).clone().insertAfter($('.RecordsContainer_Inside').eq(index)).slideDown();
+
         setOnCufex_Resize();
-        $('.MyContainerPopup').mCustomScrollbar("scrollTo", $(".RecordsContainer:eq(0)"));
-        $('.RecordsContainer_Inside').eq(0).find('.chosen-container').remove();
-        $('.RecordsContainer_Inside').eq(0).find('.chosen-select').chosen();
-        $('.RecordsContainer_Inside').eq(0).find('.chosen-container').css("width", "100%");
-        $('.RecordsContainer_Inside').eq(0).find('.chosen-select').trigger("chosen:updated");
-        $('.RecordsContainer_Inside').eq(0).find('input:text').each(function () {
+        $('.MyContainerPopup').mCustomScrollbar("scrollTo", $(".RecordsContainer_Inside").eq(index + 1));
+        $('.RecordsContainer_Inside').eq(index + 1).find('.chosen-container').remove();
+        $('.RecordsContainer_Inside').eq(index + 1).find('.chosen-select').chosen();
+        $('.RecordsContainer_Inside').eq(index + 1).find('.chosen-container').css("width", "100%");
+        $('.RecordsContainer_Inside').eq(index + 1).find('.chosen-select').trigger("chosen:updated");
+        $('.RecordsContainer_Inside').eq(index + 1).find('input:text').each(function () {
             var $this = $(this);
             if ($this.attr("data-value") != null) {
                 $this.val($this.attr("data-value"));
@@ -404,8 +413,8 @@ function SNSFunctions() {
                 $this.prop("disabled", false);
             }
         });
-        $('.RecordsContainer_Inside').eq(0).find('select').prop('disabled', false).trigger("chosen:updated");
-        $('.RecordsContainer_Inside').eq(0).find('.InputDetailsUOM').empty().trigger("chosen:updated");
+        $('.RecordsContainer_Inside').eq(index + 1).find('select').prop('disabled', false).trigger("chosen:updated");
+        $('.RecordsContainer_Inside').eq(index + 1).find('.InputDetailsUOM').empty().trigger("chosen:updated");
 
         $('.btnDeleteDtl').click(function () {
             var $this = $(this);
@@ -413,11 +422,12 @@ function SNSFunctions() {
             setOnCufex_Resize();
         });
 
-        $('.RecordsContainer_Inside').eq(0).find(".datepicker").removeClass('hasDatepicker');
-        $('.RecordsContainer_Inside').eq(0).find(".datepicker").datepicker();
+        $('.RecordsContainer_Inside').eq(index + 1).find(".datepicker").removeClass('hasDatepicker');
+        $('.RecordsContainer_Inside').eq(index + 1).find(".datepicker").datepicker();
 
         $(".RecordsContainer_Inside").find('.InputAutoPostBackDetails').on('change', function () {
-            AutoPostBackDetails($(this).closest(".RecordsContainer_Inside:visible"), $(this).chosen().val());
+            var myValue = $(this).val().toString();
+            AutoPostBackDetails($(this).closest(".RecordsContainer_Inside:visible"), myValue.substring(myValue.lastIndexOf(",") + 1));
         });
 
         if ($('.MainPageTitle').attr("data-id") == "Warehouse_OrderManagement") {
@@ -427,6 +437,21 @@ function SNSFunctions() {
                 }
             });
         }
+        SetSearchDropDownClick();
+        SearchDropDown(".InputDetailsSku");
+
+        $(".RecordsContainer_Inside").find(".chosen-select").on("chosen:showing_dropdown", function (e) {
+            $(this).siblings(".chosen-container").find(".search-field").show();
+        });
+
+        $(".RecordsContainer_Inside").find(".chosen-select").on("chosen:hiding_dropdown", function (e) {
+            if ($(this).val() == "") return;
+            $(this).siblings(".chosen-container").find(".search-field").hide();
+        });
+
+        $(".RecordsContainer_Inside").find(".chosen-select").on('change', function (e) {
+            if ($(this).val() == "") $(this).siblings(".chosen-container").find(".search-field").show();
+        });
     });
 
     $('.btnActions').click(function (e) {
@@ -472,11 +497,25 @@ function SNSFunctions() {
 
     $(".chosen-select").chosen({
         disable_search_threshold: 10,
-        width: "100%"
+        width: "100%",
+        search_contains: false
     });
 
-    $(".NewHeaderRecord").find(".chosen-select").on("chosen:showing_dropdown", function (e) {
+    $(".NewHeaderRecord").find(".chosen-select").on("chosen:showing_dropdown", function () {
         $(".NewHeaderRecord").removeClass("u-overflowHidden");
+    });
+
+    $(".chosen-select").on("chosen:showing_dropdown", function () {
+        $(this).siblings(".chosen-container").find(".search-field").show();
+    });
+
+    $(".chosen-select").on("chosen:hiding_dropdown", function () {
+        if ($(this).val() == "") return;
+        $(this).siblings(".chosen-container").find(".search-field").hide();
+    });
+
+    $(".chosen-select").on('change', function () {
+        if ($(this).val() == "") $(this).siblings(".chosen-container").find(".search-field").show();
     });
 
     if ($(".MyTab").length > 0) {
@@ -510,21 +549,6 @@ function SNSFunctions() {
         });
     }
 
-    if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
-        AvoidWebServiceRaceCondition = 0;
-        if ($(".NewRecord").length > 0) {
-            $('.btnAddNew').trigger("click");
-        } else {
-            $('.btnQuickEntry').trigger("click");
-        }
-        setTimeout(function () {
-            var MyID = $(".HiddenID").val();
-            $(".HiddenID").val(0);
-            if ($(".NewRecord").length > 0) DisplayItemNew(MyID, '');
-            else DisplayItem(MyID, '');
-        }, 1500);
-    }
-
     $(".textRecordStylePassword").blur(function () {
         $(this).removeClass("Error");
         $(this).siblings(".ErrorIcon").remove();
@@ -533,6 +557,73 @@ function SNSFunctions() {
                 $(this).addClass("Error");
                 $(this).after("<div class='ErrorIcon' title='Password must be at least 10 characters, have one upper case letter, one lower case letter and one base 10 digits (0 to 9)'></div>");
             }
+        }
+    });
+
+    if ($(".HiddenID").val() != 0 && $(".HiddenID").length > 0) {
+        var MyID = $(".HiddenID").val();
+        $(".HiddenID").val(0);
+        if ($(".NewRecord").length > 0) DisplayItemNew(MyID, '');
+        else DisplayItem(MyID, '');
+    } else {
+        $(".preloader").fadeOut();
+    }
+
+    SetSearchDropDownClick();
+}
+
+function SetSearchDropDownClick() {
+    var prevValue = 0, val = 0;
+    $(".chosen-select[data-mode='single']").change(function () {
+        val = $(this).val();
+        (val && val.length > 1) && $(this).val([prevValue = val[1] !== prevValue ? val[1] : val[0]]).trigger("chosen:updated");
+    });
+
+    $(".SearchDropDown").click(function (e) {
+        var MyClass = $(".NewHeaderRecord:visible").length > 0 ? $(".NewHeaderRecord") : $(".RecordHeader");
+        var MyRequiredFields = $(this).data("requiredfields").split(",")
+        var MyRequiredFieldsName = $(this).data("requiredfieldsname").split(",")
+        var MyField1 = "", MyField2 = ""; MyField1Value = "", MyField2Value = "", MyField1Name = "", MyField2Name = "", ErrorMsg = "";
+
+        if (MyRequiredFields.length > 0) MyField1 = MyRequiredFields[0];
+        if (MyRequiredFields.length > 1) MyField2 = MyRequiredFields[1];
+
+        if (MyRequiredFieldsName.length > 0) MyField1Name = MyRequiredFieldsName[0];
+        if (MyRequiredFieldsName.length > 1) MyField2Name = MyRequiredFieldsName[1];
+
+        if (MyField1 != "") {
+            MyField1Value = MyClass.find(MyField1).val();
+            if (MyField1 == ".InputFacility") MyField1Value = MyClass.find(MyField1).find("option[value='" + MyField1Value + "']").attr("data-value1");
+        }
+        if (MyField2 != "") MyField2Value = MyClass.find(MyField2).val();
+
+        if ((MyField1Value == "" || MyField1Value == null) && MyRequiredFields.length > 0) {
+            ErrorMsg += MyField1Name + " must be defined <br/>"
+        }
+
+        if ((MyField2Value == "" || MyField2Value == null) && MyRequiredFields.length > 1) {
+            ErrorMsg += MyField2Name + " must be defined <br/>"
+        }
+
+        if (ErrorMsg != "") {
+            swal({
+                title: "Search",
+                text: ErrorMsg.replace(/<br\s*\/?>/gim, "\n"),
+                type: 'error',
+                confirmButtonColor: $('.AlertconfirmButtonColor').val(),
+                showCancelButton: false
+            });
+        }
+        else {
+            $(".SearchDropDown").removeClass("Active");
+            $(this).addClass("Active");
+            var top = $(window).height() - 600;
+            top = top > 0 ? top / 2 : 0;
+
+            var left = $(window).width() - 900;
+            left = left > 0 ? left / 2 : 0;
+
+            window.open($(this).data("url").replace(MyField1, MyField1Value).replace(MyField2, MyField2Value), "_blank", "width=900,height=600,top=" + top + ",left=" + left);
         }
     });
 }
@@ -587,6 +678,7 @@ function SetGridActions() {
         if ($(".MyTab").length > 0) GridName = "Grid" + $(".MyTab.Active").data("id");
         table = document.getElementsByClassName(GridName)[GridIndex];
         switching = true;
+
         while (switching) {
             switching = false;
             rows = table.rows;
@@ -594,15 +686,34 @@ function SetGridActions() {
                 shouldSwitch = false;
                 x = rows[i].getElementsByClassName("GridCell")[n];
                 y = rows[i + 1].getElementsByClassName("GridCell")[n];
+
+                var z = $.trim(x.innerHTML.split("<br>")[0]);
+                var t = $.trim(y.innerHTML.split("<br>")[0]);
                 if (dir == "asc") {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
+                    if (isDate(z) && isDate(t)) {
+                        if (toDate(z) > toDate(t)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    else {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
                     }
                 } else if (dir == "desc") {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
+                    if (isDate(z) && isDate(t)) {
+                        if (toDate(z) < toDate(t)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    else {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -612,6 +723,16 @@ function SetGridActions() {
                 switchcount++;
             }
         }
+    }
+
+    function isDate(val) {
+        var d = new Date(val);
+        return !isNaN(d.valueOf());
+    }
+
+    function toDate(val) {
+        var from = val.split("/");
+        return new Date(from[2], from[1] - 1, from[0]);
     }
 
     $(".GridContainer").on('click', '.GridHead[data-id]', function (e) {
@@ -845,7 +966,6 @@ function SetGridActions() {
     });
 
     $(".GridContainer").on('click', '.GridSearch', function () {
-        var SearchCount;
         if ($(".HeaderGridView:visible").length > 0) {
             SearchQuery = "";
             $(".HeaderGridView").find('.SearchClass').each(function () {
@@ -854,7 +974,12 @@ function SetGridActions() {
                 }
             });
             isFirstLoad = false;
-            LoadItems();
+            if ($(".HeaderGridView").find(".GridContainer").hasClass("GridPopup")) {
+                LoadItemsPopup();
+            }
+            else {
+                LoadItems();
+            }
         }
         else {
             SearchQueryDetails = "";
@@ -886,7 +1011,12 @@ function SetGridActions() {
                     }
                 });
                 isFirstLoad = false;
-                LoadItems();
+                if ($(".HeaderGridView").find(".GridContainer").hasClass("GridPopup")) {
+                    LoadItemsPopup();
+                }
+                else {
+                    LoadItems();
+                }
             }
             else {
                 $(".DetailsGridView").find('.SearchClass').each(function () {
@@ -1055,6 +1185,13 @@ function SetGridActions() {
             CurrentPageDetails = MaxPagesDetails - 1;
             PageTable("DetailsGridView");
         }
+    });
+
+    $(".GridCell").find('.chosen-select').on('change', function () {
+        setTimeout(function () {
+            $(document).trigger("click");
+        }, 300);
+        if ($(this).val() != "") $(".GridSearch").trigger("click");
     });
 }
 
@@ -1286,22 +1423,6 @@ function SaveItems() {
         if (Object.keys(obj).length > 0) {
             if ($.trim(obj.tmp) == '') {
                 $('.ClosePopup').trigger("click");
-                //if ($('.MainPageTitle').attr("data-id") == "ChangePassword") {
-                //    success = false;
-                //    setTimeout(function () {
-                //        swal({
-                //            title: "Save",
-                //            text: "Password Changed",
-                //            type: 'success',
-                //            confirmButtonColor: $('.AlertconfirmButtonColor').val(),
-                //            showCancelButton: false
-                //        });
-                //        $('.preloader').fadeOut(300, function () {
-                //            $('.NewHeaderRecord').find('input').val('');
-                //            AvoidWebServiceRaceCondition = 0;
-                //        });
-                //    }, 500);
-                //}
             }
             else {
                 success = false;
@@ -1537,6 +1658,7 @@ function SaveItemsDetails(DisplayID, QueryURL) {
 }
 
 function DisplayItem(DisplayID, QueryURL) {
+    AvoidWebServiceRaceCondition = 0;
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
 
@@ -1774,10 +1896,12 @@ function DisplayItem(DisplayID, QueryURL) {
 }
 
 function DisplayItemNew(DisplayID, QueryURL) {
+    AvoidWebServiceRaceCondition = 0;
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
         console.log("Display Item New API Start Time: " + GetTime());
         $(".preloader").fadeIn();
+
         $('html, body').animate({ scrollTop: 0 }, 'slow', "easeInOutCubic");
         var pageUrl = sAppPath + 'WebServices/DisplayItemsNew.ashx';
 
@@ -2245,11 +2369,99 @@ function LoadItemsDetails() {
     }
 }
 
+function LoadItemsPopup() {
+    if (AvoidWebServiceRaceCondition == 0) {
+        AvoidWebServiceRaceCondition = 1;
+        $(".HeaderGridView").find('.GridResults').remove();
+        $(".HeaderGridView").find('.NoResults').hide();
+        if (!isFirstLoad) $('.preloader').fadeIn();
+        isFirstLoad = false;
+
+        var pageUrl = sAppPath + 'WebServices/GetItemsPopup.ashx';
+
+        var QueryUrlStr = $(".QueryUrlStr").val();
+
+        var data = new FormData();
+        data.append("SearchQuery", SearchQuery);
+        data.append("SearchTable", $('.MainPageTitle').attr("data-id"));
+        data.append("SortBy", SortBy);
+        data.append("QueryUrlStr", QueryUrlStr);
+
+        $.ajax({
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            url: pageUrl + "/GetMore",
+            success: OnLoadSuccess,
+            error: OnLoadError
+        });
+    }
+
+    function OnLoadSuccess(response) {
+        var obj = jQuery.parseJSON(response);
+        if (Object.keys(obj).length > 0) {
+            $(".HeaderGridView").find('.PagingNumbers').html("0 of 0");
+            if ($.trim(obj.Records) !== '') {
+
+                $(".HeaderGridView").find('.SearchStyle').after(obj.Records);
+
+                PageTable("HeaderGridView");
+                MaxPages = Math.ceil($(".HeaderGridView").find('.GridResults').size() / NumberOfRecordsInPage);
+
+                $('.Arrow-Left-Back-First').trigger("click");
+
+                if (MaxPages == 1 || CurrentPage == MaxPages - 1) {
+                    $(".HeaderGridView").find(".Arrow-Right-Forward").addClass("Disabled");
+                    $(".HeaderGridView").find(".Arrow-Right-Forward-Last").addClass("Disabled");
+                } else {
+                    $(".HeaderGridView").find(".Arrow-Right-Forward").removeClass("Disabled");
+                    $(".HeaderGridView").find(".Arrow-Right-Forward-Last").removeClass("Disabled");
+                }
+
+                $(".HeaderGridView").find(".GridContainer").on('click', '.selectStyle', function () {
+                    if (window.opener != null && !window.opener.closed) {
+                        var value = $.trim($(this).parent("td").siblings("td[data-id=1]").html().replace("<span>", "").replace("<span", ""));
+                        var value1 = $.trim($(this).parent("td").siblings("td[data-id=2]").html().replace("<span>", "").replace("<span", ""));
+                        var SearchDropDown = window.opener.$(".SearchDropDown.Active");
+                        var ChosenSelect = SearchDropDown.siblings(window.opener.$(".chosen-select"));
+                        var MyDataValues = "";
+                        if (ChosenSelect.find("option[value='" + value + "']").length == 0) {
+                            if (ChosenSelect.find("option[data-value1]").length > 0) MyDataValues = "data-value1='" + value1 + "'";
+                            ChosenSelect.append("<option value='" + value + "'" + MyDataValues + ">" + value + "</option>");
+                            ChosenSelect.siblings(".chosen-container").find("option").remove();
+                        }
+                        ChosenSelect.val(value).trigger("chosen:updated");
+                    }
+                    window.close();
+                });
+
+            } else {
+                $(".HeaderGridView").find('.NoResults').show();
+            }
+        } else {
+            $(".HeaderGridView").find('.NoResults').show();
+        }
+
+        $('.preloader').fadeOut(300, function () {
+            AvoidWebServiceRaceCondition = 0;
+            SetMasterResize();
+        });
+    }
+
+    function OnLoadError(response) {
+        console.log(response.error);
+        $('.preloader').fadeOut(300, function () {
+            AvoidWebServiceRaceCondition = 0;
+        });
+    }
+}
+
 function DisplayDropDowns() {
     AvoidWebServiceRaceCondition = 0;
     if (AvoidWebServiceRaceCondition == 0) {
         AvoidWebServiceRaceCondition = 1;
-        //$('.preloader').fadeIn();
+        $('.preloader').fadeIn();
         var pageUrl = sAppPath + 'WebServices/DisplayDropDowns.ashx';
 
         var data = new FormData();
@@ -2285,10 +2497,18 @@ function DisplayDropDowns() {
                         if ($.trim(myvalue) !== '') {
                             var ItemArr = myvalue.split(',');
                             for (i = 0; i < ItemArr.length; i++) {
-                                $(myclass).append("<option value='" + ItemArr[i] + "' >" + ItemArr[i] + "</option>");
+                                var MyDataValues = "";
+                                var MySelectValue = "";
+                                var ItemArrNew = ItemArr[i].split("~~~");
+                                for (j = 0; j < ItemArrNew.length; j++) {
+                                    if (j == 0) MySelectValue = ItemArrNew[j];
+                                    else MyDataValues += " data-value" + j + "='" + ItemArrNew[j] + "'";
+                                }
+                                $(myclass).append("<option value='" + MySelectValue + "'" + MyDataValues + ">" + MySelectValue + "</option>");
                             }
                         }
                         $(myclass).trigger("chosen:updated");
+                        SearchDropDown('.Input' + $.trim(MyItemsValues[0]));
                     }
                 });
             }
@@ -2296,14 +2516,15 @@ function DisplayDropDowns() {
             console.log("Couldn't Display Drop Downs");
         }
 
-        $('.preloader').fadeOut(300, function () {
-            AvoidWebServiceRaceCondition = 0;
-        });
+        //$('.preloader').fadeOut(300, function () {
+        AvoidWebServiceRaceCondition = 0;
+        //});
     }
 
     function OnLoadError(response) {
         console.log(response.error);
         $('.preloader').fadeOut(300, function () {
+            alert();
             AvoidWebServiceRaceCondition = 0;
         });
     }
@@ -2374,10 +2595,18 @@ function AutoPostBack(value) {
                         if ($.trim(myvalue) !== '') {
                             var ItemArr = myvalue.split(',');
                             for (i = 0; i < ItemArr.length; i++) {
-                                myclass.append("<option value='" + ItemArr[i] + "' >" + ItemArr[i] + "</option>");
+                                var MyDataValues = "";
+                                var MySelectValue = "";
+                                var ItemArrNew = ItemArr[i].split("~~~");
+                                for (j = 0; j < ItemArrNew.length; j++) {
+                                    if (j == 0) MySelectValue = ItemArrNew[j];
+                                    else MyDataValues += " data-value" + j + "='" + ItemArrNew[j] + "'";
+                                }
+                                myclass.append("<option value='" + MySelectValue + "'" + MyDataValues + ">" + MySelectValue + "</option>");
                             }
                         }
                         myclass.trigger("chosen:updated");
+                        SearchDropDown('.Input' + $.trim(MyItemsValues[0]));
                     }
                 });
 
@@ -2399,10 +2628,18 @@ function AutoPostBack(value) {
                                 if ($.trim(myvalue) !== '') {
                                     var ItemArr = myvalue.split(',');
                                     for (i = 0; i < ItemArr.length; i++) {
-                                        myclass.eq(e).append("<option value='" + ItemArr[i] + "' >" + ItemArr[i] + "</option>");
+                                        var MyDataValues = "";
+                                        var MySelectValue = "";
+                                        var ItemArrNew = ItemArr[i].split("~~~");
+                                        for (j = 0; j < ItemArrNew.length; j++) {
+                                            if (j == 0) MySelectValue = ItemArrNew[j];
+                                            else MyDataValues += " data-value" + j + "='" + ItemArrNew[j] + "'";
+                                        }
+                                        myclass.eq(e).append("<option value='" + MySelectValue + "'" + MyDataValues + ">" + MySelectValue + "</option>");
                                     }
                                 }
                                 myclass.eq(e).trigger("chosen:updated");
+                                SearchDropDown('.InputDetails' + $.trim(MyItemsDetailsValues[0]));
                             }
                         });
                     }
@@ -2413,10 +2650,18 @@ function AutoPostBack(value) {
                             if ($.trim(myvalue) !== '') {
                                 var ItemArr = myvalue.split(',');
                                 for (i = 0; i < ItemArr.length; i++) {
-                                    myclass.append("<option value='" + ItemArr[i] + "' >" + ItemArr[i] + "</option>");
+                                    var MyDataValues = "";
+                                    var MySelectValue = "";
+                                    var ItemArrNew = ItemArr[i].split("~~~");
+                                    for (j = 0; j < ItemArrNew.length; j++) {
+                                        if (j == 0) MySelectValue = ItemArrNew[j];
+                                        else MyDataValues += " data-value" + j + "='" + ItemArrNew[j] + "'";
+                                    }
+                                    myclass.append("<option value='" + MySelectValue + "'" + MyDataValues + ">" + MySelectValue + "</option>");
                                 }
                             }
                             myclass.trigger("chosen:updated");
+                            SearchDropDown('.InputDetails' + $.trim(MyItemsDetailsValues[0]));
                         }
                     }
                 });
@@ -2488,12 +2733,19 @@ function AutoPostBackDetails(thiss, value) {
                 if ($(myclass).is("select")) {
                     $(myclass).empty();
                     if ($.trim(myvalue) !== '') {
-                        var ItemArr = myvalue.split(',');
                         for (i = 0; i < ItemArr.length; i++) {
-                            $(myclass).append("<option value='" + ItemArr[i] + "' >" + ItemArr[i] + "</option>");
+                            var MyDataValues = "";
+                            var MySelectValue = "";
+                            var ItemArrNew = ItemArr[i].split("~~~");
+                            for (j = 0; j < ItemArrNew.length; j++) {
+                                if (j == 0) MySelectValue = ItemArrNew[j];
+                                else MyDataValues += " data-value" + j + "='" + ItemArrNew[j] + "'";
+                            }
+                            $(myclass).append("<option value='" + MySelectValue + "'" + MyDataValues + ">" + MySelectValue + "</option>");
                         }
                     }
                     $(myclass).trigger("chosen:updated");
+                    SearchDropDown('.InputDetails' + $.trim(MyItemsValues[0]));
                 }
             });
         } else {
@@ -2552,18 +2804,25 @@ function GetSkuDropDown(MyDropDown, MyFacility, MyOwner, MySelectedValue) {
                             if ($.trim(myvalue) !== '') {
                                 var ItemArr = myvalue.split(',');
                                 for (i = 0; i < ItemArr.length; i++) {
-                                    $(myclass).append("<option value='" + ItemArr[i] + "' >" + ItemArr[i] + "</option>");
+                                    var MyDataValues = "";
+                                    var MySelectValue = "";
+                                    var ItemArrNew = ItemArr[i].split("~~~");
+                                    for (j = 0; j < ItemArrNew.length; j++) {
+                                        if (j == 0) MySelectValue = ItemArrNew[j];
+                                        else MyDataValues += " data-value" + j + "='" + ItemArrNew[j] + "'";
+                                    }
+                                    $(myclass).append("<option value='" + MySelectValue + "'" + MyDataValues + ">" + MySelectValue + "</option>");
                                 }
                             }
                             if (MySelectedValue != "") $(myclass).val(MySelectedValue);
                             $(myclass).trigger("chosen:updated");
+                            SearchDropDown(".InputDetailsSku");
                         }
                     });
                 }
             } else {
                 console.log("Couldn't Load Items");
             }
-
             if (showPreloader) {
                 $('.preloader').fadeOut(300, function () {
                     AvoidWebServiceRaceCondition = 0;
@@ -2578,6 +2837,42 @@ function GetSkuDropDown(MyDropDown, MyFacility, MyOwner, MySelectedValue) {
             });
         }
     }
+}
+
+function SearchDropDown(myclass) {
+    //$(myclass).each(function () {
+    //    var $this = $(this);
+    //    $this.siblings(".chosen-container").find('.chosen-choices input').autocomplete({
+    //        source: function (request, response) {
+    //            $('ul.chosen-results').empty();
+
+    //            var SearchFound = false;
+    //            $this.find("option").each(function (e) {
+    //                if ($(this).val().toLowerCase().startsWith(request.term.toLowerCase())) {
+    //                    SearchFound = true;
+    //                    $('ul.chosen-results').append("<li class='" + ($this.val().indexOf($(this).val()) >= 0 ? "result-selected" : "active-result") + "' data-option-array-index='" + e + "'><em>" + $(this).val().substring(0, request.term.length) + "</em>" + $(this).val().substring(request.term.length) + "</li>");
+    //                }
+    //                else {
+    //                    if ($(this).attr("data-value1") != null) {
+    //                        if ($(this).attr("data-value1").toLowerCase().startsWith(request.term.toLowerCase())) {
+    //                            SearchFound = true;
+    //                            $('ul.chosen-results').append("<li class='active-result' data-option-array-index='" + e + "'>" + $(this).val() + "</li>");
+    //                        }
+    //                    }
+
+    //                    if ($(this).attr("data-value2") != null) {
+    //                        if ($(this).attr("data-value2").toLowerCase().startsWith(request.term.toLowerCase()) && !SearchFound) {
+    //                            SearchFound = true;
+    //                            $('ul.chosen-results').append("<li class='active-result' data-option-array-index='" + e + "'>" + $(this).val() + "</li>");
+    //                        }
+    //                    }
+    //                }
+    //            });
+
+    //            if (!SearchFound) $('ul.chosen-results').append("<li class='no-results'>No results match " + request.term + "</li>");
+    //        }
+    //    });
+    //});
 }
 
 function SetPriceAndCurrency() {
@@ -2922,6 +3217,36 @@ function GetUserConfiguration() {
                     ShowHideColumns($(".DetailsGridView").find(".GridRow"));
                     ChangeColumnsOrder($(".DetailsGridView").find(".GridRow"));
 
+                    $(".GridCell").find(".chosen-container").remove();
+
+                    $(".chosen-select").chosen({
+                        disable_search_threshold: 10,
+                        width: "100%",
+                        search_contains: false
+                    });
+
+                    $(".chosen-select").on("chosen:showing_dropdown", function () {
+                        $(this).siblings(".chosen-container").find(".search-field").show();
+                    });
+
+                    $(".chosen-select").on("chosen:hiding_dropdown", function () {
+                        if ($(this).val() == "") return;
+                        $(this).siblings(".chosen-container").find(".search-field").hide();
+                    });
+
+                    $(".chosen-select").on('change', function () {
+                        if ($(this).val() == "") $(this).siblings(".chosen-container").find(".search-field").show();
+                    });
+
+                    SetSearchDropDownClick();
+
+                    $(".GridCell").find('.chosen-select').on('change', function () {
+                        setTimeout(function () {
+                            $(document).trigger("click");
+                        }, 300);
+                        if ($(this).val() != "") $(".GridSearch").trigger("click");
+                    });
+
                     $(".HeaderGridView").find(".GridRow").not(".NoResults").each(function () {
                         var $thisChild = $(this).children(".GridCell[data-priority]");
                         $thisChild.removeClass("borderRight0");
@@ -3058,25 +3383,6 @@ function SetScrolling() {
         scrollInertia: 100
     });
 }
-
-//function ShowAlert() {
-//    setTimeout(function () {
-//        swal({
-//            title: $('.AlertTitle').val(),
-//            text: $('.AlertText').val(),
-//            type: $('.AlertType').val(),
-//            confirmButtonColor: $('.AlertconfirmButtonColor').val(),
-//            cancelButtonText: $('.AlertcancelButtonText').val(),
-//            imageUrl: $('.AlertimageUrl').val(),
-//            imageSize: $('.AlertimageSize').val(),
-//            timer: $('.Alerttimer').val(),
-//            allowOutsideClick: $('.AlertallowOutsideClick').val(),
-//            showCancelButton: $('.AlertshowCancelButton').val(),
-//            confirmButtonText: $('.AlertconfirmButtonText').val(),
-//            closeOnConfirm: $('.AlertcloseOnConfirm').val()
-//        });
-//    }, 100);
-//}
 
 function OpenMenu() {
     if ($(".widthMenu:visible").length > 0) {
@@ -3270,238 +3576,6 @@ function SetMenuFunctionality() {
         }
     });
 }
-
-//function isValidDate(s) {
-//    var bits = s.split('-');
-//    var d = new Date(bits[2] + '-' + bits[1] + '-' + bits[0]);
-//    return !!(d && (d.getMonth() + 1) == bits[1] && d.getDate() == Number(bits[0]));
-//}
-//function ClickToPrintClass(ClassName) {
-//    var MyBody = $('.' + ClassName).val();
-
-//    var mywindow = window.open('', 'SNSsoftware', 'scrollbars=1,height=600,width=800');
-//    mywindow.document.write('<html>');
-//    mywindow.document.write('<body style="direction:ltr; text-align: left;">');
-//    mywindow.document.write(MyBody);
-//    mywindow.document.write('</body></html>');
-//    mywindow.focus();
-//    mywindow.print();
-//    mywindow.document.close();
-//    return true;
-//}
-//function PictureUpload() {
-
-//    $('.BtnUploadPicture').unbind("click").on("click", function () {
-//        var $this = $(this);
-//        var $Parent = $this.closest(".Cufex_Attachment");
-//        $(".Cufex_PopUpAttachment").hide();
-//        $Parent.find(".Cufex_PopUpAttachment").fadeIn("fast", function () {
-//            setOnCufex_Resize();
-//            setTimeout(function () {
-//                $('html, body').animate({ scrollTop: ($Parent.offset().top - $(window).height() * 0.4) }, 'slow', "easeInOutCubic");
-//            }, 100);
-//        });
-//    });
-
-//    $("html").on("dragover", function (e) {
-//        e.preventDefault();
-//        e.stopPropagation();
-//        $(".ImgDivMessage").text("Drag here");
-//    });
-
-//    $("html").on("drop", function (e) {
-//        e.preventDefault();
-//        e.stopPropagation();
-//        $(".ImgDivMessage").text("Drop");
-//    });
-
-//    $("html").on("dragleave", function (e) {
-//        e.preventDefault();
-//        e.stopPropagation();
-//        $(".ImgDivMessage").text("click browse or drop only one image here");
-//    });
-
-//    $('.ImgDiv').on('dragenter', function (e) {
-//        e.stopPropagation();
-//        e.preventDefault();
-//    });
-
-//    // Drag over
-//    $('.ImgDiv').on('dragover', function (e) {
-//        $parent = $(this).closest(".Cufex_Attachment");
-//        e.stopPropagation();
-//        e.preventDefault();
-
-//        $parent.find(".ImgDivMessage").text("Drop");
-//    });
-
-//    // Drop
-//    $('.ImgDiv').on('drop', function (e) {
-//        $parent = $(this).closest(".Cufex_Attachment");
-//        e.stopPropagation();
-//        e.preventDefault();
-//        $parent.find(".ImgDivMessage").text("Upload");
-//        $parent.find(".fileImages").prop('files', e.originalEvent.dataTransfer.files);
-//        $parent.find(".fileImages").trigger('change');
-//    });
-
-//    $(".fileImages").change(function () {
-//        readAndSaveImgURL(this, $(this).closest(".Cufex_Attachment"));
-//    });
-
-//    function readAndSaveImgURL(input, Parent) {
-//        if (input.files && input.files[0]) {
-//            if (jcrop_api) { jcrop_api.disable(); jcrop_api.release(); jcrop_api.destroy(); }
-//            var Img = Parent.find('.target');
-//            Img.removeAttr('style');
-//            Img.attr('src', '#');
-//            //Img.hide();
-//            Parent.find('.BtnAttach').fadeOut();
-//            Parent.find('.lblBrowseError').text();
-//            Parent.find('.DivBrowseError').hide();
-//            Parent.find('.HiddenRatio').val(1);
-
-//            var ImgType = input.files[0].type.toLowerCase();
-//            if (ImgType.indexOf("png") >= 0 || ImgType.indexOf("jpg") >= 0 || ImgType.indexOf("jpeg") >= 0 || ImgType.indexOf("gif") >= 0 || ImgType.indexOf("tiif") >= 0 || ImgType.indexOf("svg") >= 0) {
-//                var reader = new FileReader();
-//                reader.onload = function (e) {
-//                    var binimage = reader.result;
-//                    var VirtualImg = new Image();
-//                    VirtualImg.onload = function () {
-//                        if (this.width > Parent.find('.ImgDiv').width()) {
-//                            Parent.find('.HiddenRatio').val(Parent.find('.ImgDiv').width() / this.width);
-//                        } else Parent.find('.HiddenRatio').val(1);
-//                        Parent.find('.BtnAttach').fadeIn();
-//                        //if (jcrop_api) jcrop_api.destroy();
-
-//                        if (!Img.is(":visible")) Img.show();
-//                        Img.attr('src', binimage);
-//                        if (ImgType.indexOf("svg") <= 0) SetJcrop(Img);
-//                        setOnCufex_Resize();
-//                    };
-//                    VirtualImg.src = binimage;
-//                };
-//                reader.readAsDataURL(input.files[0]);
-//            } else {
-//                Parent.find('.DivBrowseError').show();
-//                Parent.find('.lblBrowseError').text("Invalid Format");
-//            }
-//        }
-//    }
-
-//    $('.Close_Cufex_PopUpAttachment').unbind("click").on("click", function () {
-//        $('.Cufex_PopUpAttachment').fadeOut();
-//    });
-
-//    function SetJcrop($this) {
-//        var $Parent = $this.closest(".Cufex_Attachment");
-
-//        var SelectWidth = $Parent.find('.HiddenWidth').val() * $Parent.find('.HiddenRatio').val();
-//        var SelectHeight = $Parent.find('.HiddenHeight').val() * $Parent.find('.HiddenRatio').val();
-
-//        var Ratio = "";
-
-//        if (SelectWidth != 0 && SelectHeight != 0) Ratio = SelectWidth / SelectHeight;
-
-//        if (SelectWidth == 0) SelectWidth = $this.width();
-//        if (SelectHeight == 0) SelectHeight = $this.height();
-
-//        $this.Jcrop({
-//            onChange: showCoords
-//            , onSelect: showCoords
-//            //, minSize: [$Parent.find('.HiddenMinWidth').val() * $Parent.find('.HiddenRatio').val(), $Parent.find('.HiddenMinHeight').val() * $Parent.find('.HiddenRatio').val()]
-//            //, maxSize: [$Parent.find('.HiddenMaxWidth').val() * $Parent.find('.HiddenRatio').val(), $Parent.find('.HiddenMaxHeight').val() * $Parent.find('.HiddenRatio').val()]
-//            , aspectRatio: Ratio
-
-//        }, function () {
-//            jcrop_api = this;
-//            SelectWidth = $Parent.find('.HiddenWidth').val() * $Parent.find('.HiddenRatio').val();
-//            SelectHeight = $Parent.find('.HiddenHeight').val() * $Parent.find('.HiddenRatio').val();
-
-//            if (SelectWidth == 0) SelectWidth = $this.width();
-//            if (SelectHeight == 0) SelectHeight = $this.height();
-
-//            //if (SelectWidth == 0) SelectWidth = $Parent.find('.HiddenMaxWidth').val() * $Parent.find('.HiddenRatio').val();
-//            //if (SelectHeight == 0) SelectHeight = $Parent.find('.HiddenMaxHeight').val() * $Parent.find('.HiddenRatio').val();
-//            // alert(SelectWidth + " " + SelectHeight)
-//            jcrop_api.setSelect([0, 0, SelectWidth, SelectHeight]);
-//            setOnCufex_Resize();
-//        });
-
-//        function showCoords(c) {
-//            $Parent.find('.HiddenCropX').val(c.x);
-//            $Parent.find('.HiddenCropY').val(c.y);
-//            $Parent.find('.HiddenCropWidth').val(c.w);
-//            $Parent.find('.HiddenCropHeight').val(c.h);
-
-//            $Parent.find('.HiddenOriginalWidth').val($Parent.find('.target').width());
-//            $Parent.find('.HiddenOriginalHeight').val($Parent.find('.target').height());
-//        }
-//    }
-
-//    var AvoidWebAttachmentRaceCondition = 0;
-//    $('.AttachPicture').unbind("click").on("click", function () {
-//        var $Parent = $(this).closest(".Cufex_Attachment");
-//        $Parent.find('.BtnAttach').hide();
-//        $Parent.find('.BtnAttachLoader').show();
-//        if (AvoidWebAttachmentRaceCondition == 0) {
-//            var pageUrl = sAppPath + 'WebServices/Attachment_Upload.ashx';
-
-//            var data = new FormData();
-//            data.append("UploadedFile", $Parent.find(".fileImages").get(0).files[0]);
-//            data.append("PhysicalAttachmentLocation", $Parent.find('.HiddenPhysicalAttachmentLocation').val().split("\\").join("/"));
-//            data.append("SectionName", $Parent.find('.HiddenSectionName').val());
-//            data.append("FolderPath", $Parent.find('.HiddenFolderPath').val().split("\\").join("/"));
-//            data.append("OriginalHeight", $Parent.find('.HiddenOriginalHeight').val());
-//            data.append("OriginalWidth", $Parent.find('.HiddenOriginalWidth').val());
-//            data.append("WidthValue", $Parent.find(".HiddenWidth").val());
-//            data.append("HeightValue", $Parent.find(".HiddenHeight").val());
-//            data.append("CropWidth", $Parent.find(".HiddenCropWidth").val());
-//            data.append("CropHeight", $Parent.find(".HiddenCropHeight").val());
-//            data.append("CropX", $Parent.find(".HiddenCropX").val());
-//            data.append("CropY", $Parent.find(".HiddenCropY").val());
-//            data.append("Quality", $Parent.find(".cmbQuality").val());
-//            data.append("sAppPath", $(".sAppPath").val().split("\\").join("/"));
-
-//            $.ajax({
-//                type: "POST",
-//                contentType: false,
-//                processData: false,
-//                data: data,
-//                url: pageUrl + "/ProcessRequest",
-//                //data: data,
-//                //contentType: "application/json; charset=utf-8",
-//                //dataType: "json",
-//                //async: true,
-//                success: OnLoadSuccess,
-//                error: OnLoadError
-//            });
-//        }
-
-//        function OnLoadSuccess(response) {
-
-//            var obj = jQuery.parseJSON(response);
-//            $Parent.find('.txtPicture').val(obj.NewImageName);
-//            $Parent.find('.hrViewPicture').attr('href', obj.ImagePath);
-//            $Parent.find('.hrViewPicture').attr('title', 'Found in ' + obj.FolderPath);
-
-//            $Parent.find('.img').attr('src', obj.ImagePath);
-//            $Parent.find('.img').attr('title', 'Found in ' + obj.FolderPath);
-
-//            $Parent.find('.Cufex_PopUpAttachment').fadeOut(function () {
-//                if (Pirobox) SetPiroBox();
-//                AvoidWebAttachmentRaceCondition = 0;
-//                $Parent.find('.BtnAttach').show();
-//                $Parent.find('.BtnAttachLoader').hide();
-//            });
-//        }
-
-//        function OnLoadError(response) {
-//            console.log('Load Error: ' + response);
-//            AvoidWebAttachmentRaceCondition = 0;
-//        }
-//    });
-//}
 
 function MoveTabLine(index) {
     $(".MyTabLine").animate({

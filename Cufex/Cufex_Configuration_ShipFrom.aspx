@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Cufex/Cufex_Site.Master" CodeBehind="Cufex_Configuration_ShipFrom.aspx.vb" Inherits="SNSsoftware.Cufex_Configuration_ShipFrom" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <style>
         .ui-resizable-s {
@@ -222,8 +223,9 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Description" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Country" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputCountry" data-id="Country" data-mode="single">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="City" />
@@ -354,7 +356,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Country</div>
                             <div>
-                                <select data-placeholder="Select Country" multiple class="chosen-select InputCountry">
+                                <select data-placeholder="Select Country" multiple class="chosen-select InputCountry" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -518,7 +520,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Country</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Country" multiple class="chosen-select InputCountry">
+                                        <select data-placeholder="Select Country" multiple class="chosen-select InputCountry" data-mode="single">
                                         </select>
                                     </div>
                                 </div>

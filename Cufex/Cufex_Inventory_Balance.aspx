@@ -77,8 +77,9 @@
                     <td class="GridCell GridHeadSearch selectAllWidth">
                         <div class="GridSearch"></div>
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
+                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility" data-mode="single">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
@@ -95,8 +96,11 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Available" />
                     </td>
-                    <td class="GridCell GridHeadSearch borderRight0">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Status" />
+                    <td class="GridCell GridHeadSearch borderRight0" style="overflow:visible;">
+                         <select data-placeholder="Search" multiple class="chosen-select SearchClass InputStatus" data-id="Status" data-mode="single">
+                             <option value="HOLD">HOLD</option>
+                             <option value="OK">OK</option>
+                        </select>
                     </td>
                 </tr>
                 <tr class="GridRow NoResults">
@@ -139,7 +143,7 @@
                     </tr>
                 </table>
             </div>
-        </div> 
+        </div>
         <div style="position: relative; height: 15px;"></div>
         <div class="New_Modify_Record_PopUp">
             <div style="position: relative;">

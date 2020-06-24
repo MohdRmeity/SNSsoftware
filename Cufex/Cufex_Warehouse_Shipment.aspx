@@ -190,8 +190,9 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="OrderKey" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
+                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility" data-mode="single">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
@@ -205,11 +206,13 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="ConsigneeName" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Status" />
+                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderStatusSearch" data-id="Status" data-mode="single">
+                        </select>
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="OrderType" />
+                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderTypeSearch" data-id="OrderType" data-mode="single">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="CAST(OrderDate AS date)" />
@@ -295,7 +298,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Facility<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack">
+                                <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -314,7 +317,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Owner<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -333,14 +336,14 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Type<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType">
+                                <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType" data-mode="single">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Consignee</div>
                             <div>
-                                <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey">
+                                <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -700,9 +703,10 @@
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew floatL">Item<span>*</span></div>
-                            <div>
-                                <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku">
+                            <div class="PositionRelative">
+                                <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku" data-mode="single">
                                 </select>
+                                <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility,Owner" data-requiredfields=".InputFacility,.InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?warehouse=.InputFacility&storer=.InputStorerKey" %>"></div>
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
@@ -713,15 +717,16 @@
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Pack</div>
-                            <div>
-                                <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails">
+                            <div class="PositionRelative">
+                                <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails" data-mode="single">
                                 </select>
+                                <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility" data-requiredfields=".InputFacility" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Packs", Nothing)) & "?warehouse=.InputFacility" %>"></div>
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">UOM</div>
                             <div>
-                                <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM">
+                                <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -837,7 +842,7 @@
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">Facility*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack">
+                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -857,7 +862,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Owner*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -878,14 +883,14 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Type*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType">
+                                        <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Consignee</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey">
+                                        <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -955,8 +960,9 @@
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Item*</div>
                                                 <div class="Details_FloatRecordField floatL" style="position: relative;">
-                                                    <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku">
+                                                    <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku" data-mode="single">
                                                     </select>
+                                                    <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility,Owner" data-requiredfields=".InputFacility,.InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?warehouse=.InputFacility&storer=.InputStorerKey" %>"></div>
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
@@ -967,15 +973,16 @@
                                             </div>
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Pack</div>
-                                                <div class="Details_FloatRecordField floatL">
-                                                    <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails">
+                                                <div class="Details_FloatRecordField floatL" style="position: relative;">
+                                                    <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails" data-mode="single">
                                                     </select>
+                                                    <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility" data-requiredfields=".InputFacility" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Packs", Nothing)) & "?warehouse=.InputFacility" %>"></div>
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">UOM</div>
                                                 <div class="Details_FloatRecordField floatL">
-                                                    <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM">
+                                                    <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM" data-mode="single">
                                                     </select>
                                                 </div>
                                             </div>

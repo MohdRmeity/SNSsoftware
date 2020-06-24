@@ -39,6 +39,9 @@ Public Class URLRewriter
             routes.MapPageRoute("SNSsoftware-Cufex-Reporting_ReportDesigner", "cufex/Reporting/ReportDesigner", "~/Cufex/Cufex_Reporting_ReportDesigner.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Reporting_ReportViewer", "cufex/Reporting/ReportViewer", "~/Cufex/Cufex_Reporting_ReportViewer.aspx")
 
+            routes.MapPageRoute("SNSsoftware-Cufex-Popup_Items", "cufex/Search/Items", "~/Cufex/Cufex_Popup_Items.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Popup_Packs", "cufex/Search/Packs", "~/Cufex/Cufex_Popup_Packs.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Popup_Locations", "cufex/Search/Locations", "~/Cufex/Cufex_Popup_Locations.aspx")
 #End Region
 
             routes.Canonicalize().Www().Lowercase().NoTrailingSlash()

@@ -156,7 +156,7 @@
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">User ID*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Users" multiple class="chosen-select InputUserKey" id="cmbUser" runat="server">
+                                        <select data-placeholder="Select Users" multiple class="chosen-select InputUserKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>

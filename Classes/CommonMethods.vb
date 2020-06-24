@@ -811,7 +811,7 @@ Public Class CommonMethods
             If table <> "orderstatussetup" Then sql += " where listname='" & listname & "'"
         Else
             Dim dtw As DataTable = getFacilities()
-            If table <> "orderstatussetup" Then sql += "select CODE,DESCRIPTION from enterprisse." & table & " where listname ='" & listname & "'"
+            If table <> "orderstatussetup" Then sql += "select CODE,DESCRIPTION from enterprise." & table & " where listname ='" & listname & "'"
             For Each row As DataRow In dtw.Rows
                 warehouse = row("DB_NAME").ToString()
                 If LCase(warehouse.Substring(0, 6)) = "infor_" Then warehouse = warehouse.Substring(6, warehouse.Length - 6)
@@ -830,7 +830,7 @@ Public Class CommonMethods
         Return ds.Tables(0)
     End Function
     Public Shared Function getUsers() As DataTable
-        Dim sql As String = "select USERKEY from " & IIf(dbtype <> "sql", "System.", "") & "PORTALUSERS WHERE ACTIVE=1"
+        Dim sql As String = "select USERKEY, FirstName, LastName from " & IIf(dbtype <> "sql", "System.", "") & "PORTALUSERS WHERE ACTIVE=1"
         Dim ds As DataSet = (New SQLExec).Cursor(sql)
         Return ds.Tables(0)
     End Function
@@ -859,7 +859,7 @@ Public Class CommonMethods
         Return ds.Tables(0)
     End Function
     Public Shared Function getFacilities() As DataTable
-        Dim sql As String = "select db_alias from wmsadmin.pl_db where isActive=1 and db_enterprise=0"
+        Dim sql As String = "select db_alias, db_name from wmsadmin.pl_db where isActive=1 and db_enterprise=0"
         Dim ds As DataSet = (New SQLExec).Cursor(sql)
         Return ds.Tables(0)
     End Function

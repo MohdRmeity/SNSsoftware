@@ -36,13 +36,13 @@ Public Class SearchDropDowns
                     ownersstr = "'" & ownersstr & "'"
                     If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
 
-                    sql = " select top 100 Sku from " & warehouselevel & ".SKU where StorerKey= '" & MyOwner & "' " & AndFilter
+                    sql = " select top 100 Sku, Descr from " & warehouselevel & ".SKU where StorerKey= '" & MyOwner & "' " & AndFilter
                     ds = tb.Cursor(sql)
 
                     DropDownFields += "Sku:::"
                     For i = 0 To ds.Tables(0).Rows.Count - 1
                         With ds.Tables(0).Rows(i)
-                            DropDownFields += IIf(i <> 0, ",", "") & !Sku
+                            DropDownFields += IIf(i <> 0, ",", "") & !Sku & "~~~" & !Descr
                         End With
                     Next
                 End If
