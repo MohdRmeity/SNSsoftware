@@ -19,31 +19,19 @@ Partial Public Class EmptyReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EmptyReport))
         Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
-        Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
-        Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
         Me.xrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.xrPictureBox1 = New DevExpress.XtraReports.UI.XRPictureBox()
+        Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.xrPageInfo2 = New DevExpress.XtraReports.UI.XRPageInfo()
         Me.xrPageInfo1 = New DevExpress.XtraReports.UI.XRPageInfo()
+        Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'TopMargin
         '
         Me.TopMargin.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrLabel1, Me.xrPictureBox1})
         Me.TopMargin.Name = "TopMargin"
-        '
-        'BottomMargin
-        '
-        Me.BottomMargin.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrPageInfo2, Me.xrPageInfo1})
-        Me.BottomMargin.HeightF = 45.0!
-        Me.BottomMargin.Name = "BottomMargin"
-        '
-        'Detail
-        '
-        Me.Detail.HeightF = 190.0!
-        Me.Detail.Name = "Detail"
         '
         'xrLabel1
         '
@@ -58,11 +46,17 @@ Partial Public Class EmptyReport
         '
         'xrPictureBox1
         '
-        Me.xrPictureBox1.ImageSource = New DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBox1.ImageSource"))
+        Me.xrPictureBox1.ImageUrl = "images\report_logo.png"
         Me.xrPictureBox1.LocationFloat = New DevExpress.Utils.PointFloat(25.0!, 4.333344!)
         Me.xrPictureBox1.Name = "xrPictureBox1"
         Me.xrPictureBox1.SizeF = New System.Drawing.SizeF(155.8333!, 75.66666!)
         Me.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.Squeeze
+        '
+        'BottomMargin
+        '
+        Me.BottomMargin.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.xrPageInfo2, Me.xrPageInfo1})
+        Me.BottomMargin.HeightF = 45.0!
+        Me.BottomMargin.Name = "BottomMargin"
         '
         'xrPageInfo2
         '
@@ -81,12 +75,17 @@ Partial Public Class EmptyReport
         Me.xrPageInfo1.SizeF = New System.Drawing.SizeF(100.0!, 23.0!)
         Me.xrPageInfo1.TextFormatString = "Page {0} of {1}"
         '
+        'Detail
+        '
+        Me.Detail.HeightF = 190.0!
+        Me.Detail.Name = "Detail"
+        '
         'EmptyReport
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.TopMargin, Me.BottomMargin, Me.Detail})
         Me.Font = New System.Drawing.Font("Arial", 9.75!)
         Me.Margins = New System.Drawing.Printing.Margins(100, 100, 100, 45)
-        Me.Version = "19.1"
+        Me.Version = "20.1"
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub

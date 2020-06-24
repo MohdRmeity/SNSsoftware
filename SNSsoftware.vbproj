@@ -17,7 +17,7 @@
     <AssemblyName>SNSsoftware</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MyType>Custom</MyType>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -166,6 +166,10 @@
     <Content Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipFrom.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipTo.aspx" />
+    <Content Include="Cufex\Cufex_Popup_Items.aspx" />
+    <Content Include="Cufex\Cufex_Popup_Locations.aspx" />
+    <Content Include="Cufex\Cufex_Popup_Packs.aspx" />
+    <Content Include="Cufex\Dashboard.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ReportDesigner.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ReportViewer.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ViewReports.aspx" />
@@ -196,6 +200,8 @@
     </Content>
     <Content Include="JS\Dashboards\DeleteExtension.js" />
     <Content Include="JS\Dashboards\SaveAsExtension.js" />
+    <Content Include="JS\Dashboards\scripts.js" />
+    <Content Include="JS\Dashboards\styles.css" />
     <Content Include="JS\JqueryMain\jquery-3.4.1.min.js" />
     <Content Include="Style\ChosenSelect\chosen.css" />
     <Content Include="Style\ChosenSelect\chosen.min.css">
@@ -283,6 +289,34 @@
     <Compile Include="Cufex\Cufex_Configuration_ShipTo.aspx.vb">
       <DependentUpon>Cufex_Configuration_ShipTo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Items.aspx.designer.vb">
+      <DependentUpon>Cufex_Popup_Items.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Items.aspx.vb">
+      <DependentUpon>Cufex_Popup_Items.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Locations.aspx.designer.vb">
+      <DependentUpon>Cufex_Popup_Locations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Locations.aspx.vb">
+      <DependentUpon>Cufex_Popup_Locations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Packs.aspx.designer.vb">
+      <DependentUpon>Cufex_Popup_Packs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Packs.aspx.vb">
+      <DependentUpon>Cufex_Popup_Packs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Dashboard.aspx.designer.vb">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Dashboard.aspx.vb">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Cufex\Cufex_Reporting_ReportDesigner.aspx.designer.vb">
       <DependentUpon>Cufex_Reporting_ReportDesigner.aspx</DependentUpon>
@@ -424,6 +458,13 @@
       <DependentUpon>Cufex_Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Cufex\Site1.Master.designer.vb">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Site1.Master.vb">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -468,11 +509,17 @@
     <Compile Include="Webservices\GetItemsDetails.ashx.vb">
       <DependentUpon>GetItemsDetails.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Webservices\GetItemsPopup.ashx.vb">
+      <DependentUpon>GetItemsPopup.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Webservices\SaveItemsDetails.ashx.vb">
       <DependentUpon>SaveItemsDetails.ashx</DependentUpon>
     </Compile>
     <Compile Include="Webservices\SaveItemsNew.ashx.vb">
       <DependentUpon>SaveItemsNew.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\UpdateUserActive.ashx.vb">
+      <DependentUpon>UpdateUserActive.ashx</DependentUpon>
     </Compile>
     <Compile Include="Webservices\UserConfiguration.ashx.vb">
       <DependentUpon>UserConfiguration.ashx</DependentUpon>
@@ -528,12 +575,14 @@
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <Content Include="Cufex\Cufex_Site.Master" />
+    <Content Include="Cufex\Site1.Master" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\PublishProfiles\Bilal.pubxml" />
     <None Include="My Project\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="My Project\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -565,6 +614,8 @@
     <Content Include="Webservices\DisplayItemsDetails.ashx" />
     <Content Include="Webservices\DeleteItemsDetails.ashx" />
     <Content Include="Webservices\SaveItemsDetails.ashx" />
+    <Content Include="Webservices\GetItemsPopup.ashx" />
+    <Content Include="Webservices\UpdateUserActive.ashx" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
@@ -594,7 +645,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51623</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/SNSsoftware</IISUrl>
+          <IISUrl>http://localhost:51623/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

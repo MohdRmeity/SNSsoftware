@@ -73,7 +73,7 @@
             s.AddParameterType(parameterInfo, parameterEditor);
 
             // Remove an existing parameter type.
-            s.RemoveParameterType("System.DateTime");
+          //  s.RemoveParameterType("System.DateTime");
         }
     </script>
     <dx:ASPxReportDesigner ID="ASPxReportDesigner" runat="server" ClientSideEvents-CustomizeMenuActions="CustomizeMenuActions">
