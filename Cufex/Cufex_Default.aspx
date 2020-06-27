@@ -80,6 +80,7 @@
             width: 16px;
             height: 16px;
             cursor: pointer;
+            margin-right: 30px
         }
 
         .TimerSettingsInner {
@@ -130,6 +131,7 @@
             border: none;
             margin-right: 10px;
             cursor: pointer;
+            display: none;
         }
 
         .collapseButton {
@@ -142,6 +144,14 @@
             margin-right: 10px;
             cursor: pointer;
         }
+
+        .ExpandCollapseStatus {
+            
+        }
+         .RefreshTimeLabel {
+            margin-right: 25px;
+            width: 170px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
@@ -150,12 +160,18 @@
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
 
-                    <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton" />
+                    <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton floatL" />
 
-                    <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton" />
+                    <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton floatL" />
+
+                    <asp:Label ID="lblExpandCollapseStatus" runat="server" CssClass="ExpandCollapseStatus floatL" Text="Expanded"></asp:Label>
 
                     <div class="floatR">
-                        <div class="TimerSettings" data-toggle="tooltip" title="Refresh Time Settings">
+                        <div class="floatR">
+                            <asp:Button ID="btnReload" data-toggle="tooltip" title="Manual Refresh" runat="server" Text="" CssClass="ReloadButton" OnClientClick="javascript:reloaddate();return false;" />
+                        </div>
+
+                        <div class="TimerSettings" >
                             <div class="TimerSettingsInner">
                                 <div class="TimeDiv AnimateMe" data-time="30">30 Sec</div>
                                 <div class="TimeDiv AnimateMe" data-time="60">1 Min</div>
@@ -166,15 +182,17 @@
                                 <div class="TimeDiv AnimateMe" data-time="2700">45 Min</div>
                                 <div class="TimeDiv AnimateMe" data-time="3600">1 H</div>
                             </div>
+                            <asp:Label ID="RefeshTimeLabel" runat="server" CssClass="RefreshTimeLabel floatR" Text=""></asp:Label>
                         </div>
-                    </div>
-                    <div class="floatR">
-                        <asp:Button ID="btnReload" data-toggle="tooltip" title="Manual Refresh" runat="server" Text="" CssClass="ReloadButton" OnClientClick="javascript:reloaddate();return false;" />
+
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
     <dx:ASPxTimer ID="ASPxTimer1" runat="server" ClientInstanceName="timer">
         <ClientSideEvents Tick="function(s, e) {webDesigner.ReloadData();}" />
     </dx:ASPxTimer>
@@ -193,7 +211,7 @@
     </dx:ASPxDashboard>
     <asp:Button runat="server" ID="MyHiddenButton" ClientIDMode="Static" Text="" Style="display: none;" OnClick="MyHiddenButton_Click" />
     <input class="HiddenTime" id="HiddenTime" runat="server" type="hidden" value="0" />
-    </div>
+    
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
     <script type="text/javascript">
@@ -204,7 +222,14 @@
 
             $(".TimeDiv").click(function (e) {
                 $(".HiddenTime").val($(this).data("time"));
+                //var textRefersh = "Refresh every "+  $(this).data("time")+  " Miuntes";
+                //alert(textRefersh);
+
+                //sessionStorage.setItem("textRefersh", textRefersh);
+                ////$(".RefreshTimeLabel").text(textRefersh);
+
                 document.getElementById("MyHiddenButton").click();
+              
             });
         });
     </script>

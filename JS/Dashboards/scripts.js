@@ -138,10 +138,16 @@ function onExpand() {
     panelExtension.showPanelAsync({}).done(function (e) {
         control.surfaceLeft(e.surfaceLeft);
     });
+    $(".collapseButton").show();
+    $(".expandButton").hide();
+    $(".ExpandCollapseStatus").text("Expanded");
 }
 function onCollapse() {
     var control = webDesigner.GetDashboardControl();
     panelExtension.hidePanelAsync({}).done(function (e) {
         control.surfaceLeft(e.surfaceLeft);
     });
+    $(".collapseButton").hide();
+    $(".expandButton").show();
+    $(".ExpandCollapseStatus").text("Collapsed");
 }
