@@ -164,7 +164,7 @@
 
                     <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton floatL" />
 
-                    <asp:Label ID="lblExpandCollapseStatus" runat="server" CssClass="ExpandCollapseStatus floatL" Text="Expanded"></asp:Label>
+                    <asp:Label ID="lblExpandCollapseStatus" runat="server" CssClass="ExpandCollapseStatus floatL" Text="Expand List"></asp:Label>
 
                     <div class="floatR">
                         <div class="floatR">

@@ -30,7 +30,7 @@ Partial Public Class Cufex_Default
                 ElseIf (Integer.Parse(refreshtime) / 60) < 60 And Integer.Parse(refreshtime) / 60 > 1 Then
                     Me.RefeshTimeLabel.Text = "Refresh every " + (Integer.Parse(refreshtime) / 60).ToString() + " Minutes"
                 Else
-                    Me.RefeshTimeLabel.Text = "Refresh every " + (Integer.Parse(refreshtime) / (60 * 60)).ToString() + " Hours"
+                    Me.RefeshTimeLabel.Text = "Refresh every " + Math.Round(Integer.Parse(refreshtime) / (60 * 60), 0).ToString() + " Hours"
                 End If
             End If
 
