@@ -55,33 +55,34 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\CKEditor.NET.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Charts.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Dashboard.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Dashboard.v19.2.Web, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Dashboard.v19.2.Web.WebForms, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Data.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.DataAccess.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Map.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Pdf.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.PivotGrid.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.RichEdit.v19.2.Export, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Sparkline.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Web.Resources.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Web.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpo.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraCharts.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGauges.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGauges.v19.2.Presets, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGauges.v19.2.Win, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraMap.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.CodeParser.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v19.2.Web, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v19.2.Web.WebForms, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v20.1.Web, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v20.1.Web.WebForms, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Map.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v20.1.Export, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Resources.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v20.1.Core, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v20.1.Presets, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v20.1.Win, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraMap.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v20.1.Web, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v20.1.Web.WebForms, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -162,9 +163,17 @@
     <Content Include="Controls\Cufex_Components\Cufex_MasterMenu.ascx" />
     <Content Include="Controls\Cufex_Components\Cufex_MasterHeader.ascx" />
     <Content Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx" />
+    <Content Include="Cufex\Cufex_Administration_ExportLogs.aspx" />
+    <Content Include="Cufex\Cufex_Administration_FileManagement.aspx" />
+    <Content Include="Cufex\Cufex_Administration_FileManagementLogs.aspx" />
+    <Content Include="Cufex\Cufex_Administration_ImportLogs.aspx" />
+    <Content Include="Cufex\Cufex_Administration_UITemplates.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipFrom.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipTo.aspx" />
+    <Content Include="Cufex\Cufex_Popup_Items.aspx" />
+    <Content Include="Cufex\Cufex_Popup_Locations.aspx" />
+    <Content Include="Cufex\Cufex_Popup_Packs.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ReportDesigner.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ReportViewer.aspx" />
     <Content Include="Cufex\Cufex_Reporting_ViewReports.aspx" />
@@ -214,7 +223,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\clsCSV.vb" />
     <Compile Include="Classes\clsGlobals.vb" />
+    <Compile Include="Classes\CSVHelperV2.vb" />
     <Compile Include="Classes\CustomDashboardStorage.vb" />
     <Compile Include="Classes\CustomReportDesignerExceptionHandler.vb" />
     <Compile Include="Classes\CustomReportStorageWebExtension.vb" />
@@ -262,6 +273,41 @@
       <DependentUpon>Cufex_Logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ExportLogs.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_ExportLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ExportLogs.aspx.vb">
+      <DependentUpon>Cufex_Administration_ExportLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagement.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_FileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagement.aspx.vb">
+      <DependentUpon>Cufex_Administration_FileManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagementLogs.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_FileManagementLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagementLogs.aspx.vb">
+      <DependentUpon>Cufex_Administration_FileManagementLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ImportLogs.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_ImportLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ImportLogs.aspx.vb">
+      <DependentUpon>Cufex_Administration_ImportLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_UITemplates.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_UITemplates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_UITemplates.aspx.vb">
+      <DependentUpon>Cufex_Administration_UITemplates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx.designer.vb">
       <DependentUpon>Cufex_Configuration_ItemCatalogue.aspx</DependentUpon>
     </Compile>
@@ -281,6 +327,27 @@
     </Compile>
     <Compile Include="Cufex\Cufex_Configuration_ShipTo.aspx.vb">
       <DependentUpon>Cufex_Configuration_ShipTo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Items.aspx.designer.vb">
+      <DependentUpon>Cufex_Popup_Items.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Items.aspx.vb">
+      <DependentUpon>Cufex_Popup_Items.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Locations.aspx.designer.vb">
+      <DependentUpon>Cufex_Popup_Locations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Locations.aspx.vb">
+      <DependentUpon>Cufex_Popup_Locations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Packs.aspx.designer.vb">
+      <DependentUpon>Cufex_Popup_Packs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Popup_Packs.aspx.vb">
+      <DependentUpon>Cufex_Popup_Packs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cufex\Cufex_Reporting_ReportDesigner.aspx.designer.vb">
@@ -464,14 +531,32 @@
     <Compile Include="Webservices\DisplayItemsNew.ashx.vb">
       <DependentUpon>DisplayItemsNew.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Webservices\ExportItems.ashx.vb">
+      <DependentUpon>ExportItems.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\ExportItemsDetails.ashx.vb">
+      <DependentUpon>ExportItemsDetails.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\FileUpload.ashx.vb">
+      <DependentUpon>FileUpload.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Webservices\GetItemsDetails.ashx.vb">
       <DependentUpon>GetItemsDetails.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\GetItemsPopup.ashx.vb">
+      <DependentUpon>GetItemsPopup.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\ImportItems.ashx.vb">
+      <DependentUpon>ImportItems.ashx</DependentUpon>
     </Compile>
     <Compile Include="Webservices\SaveItemsDetails.ashx.vb">
       <DependentUpon>SaveItemsDetails.ashx</DependentUpon>
     </Compile>
     <Compile Include="Webservices\SaveItemsNew.ashx.vb">
       <DependentUpon>SaveItemsNew.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\UpdateUserActive.ashx.vb">
+      <DependentUpon>UpdateUserActive.ashx</DependentUpon>
     </Compile>
     <Compile Include="Webservices\UserConfiguration.ashx.vb">
       <DependentUpon>UserConfiguration.ashx</DependentUpon>
@@ -564,6 +649,12 @@
     <Content Include="Webservices\DisplayItemsDetails.ashx" />
     <Content Include="Webservices\DeleteItemsDetails.ashx" />
     <Content Include="Webservices\SaveItemsDetails.ashx" />
+    <Content Include="Webservices\ExportItems.ashx" />
+    <Content Include="Webservices\ExportItemsDetails.ashx" />
+    <Content Include="Webservices\FileUpload.ashx" />
+    <Content Include="Webservices\GetItemsPopup.ashx" />
+    <Content Include="Webservices\ImportItems.ashx" />
+    <Content Include="Webservices\UpdateUserActive.ashx" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

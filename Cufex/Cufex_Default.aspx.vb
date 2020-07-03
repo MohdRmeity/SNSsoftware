@@ -7,32 +7,51 @@ Imports Oracle.ManagedDataAccess.Client
 Partial Public Class Cufex_Default
     Inherits MultiLingualPage
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+
         If Not Page.IsPostBack Then
             Dim myMasterPage As Cufex_Site = CType(Page.Master, Cufex_Site)
             myMasterPage.section = Cufex_Site.SectionName.Home_Def
+            ASPxDashboard1.ColorScheme = If(Request.QueryString("colorSchema"), ASPxDashboard.ColorSchemeLight)
+
         End If
         SetDashboard()
     End Sub
 
     Private Sub SetDashboard()
+
         Try
-            ASPxTimer1.Interval = Integer.Parse(CommonMethods.DashboardRefreshTime) * 1000
+            Dim refreshtime As String = CStr(Session("refershTime"))
+
+            If Not String.IsNullOrEmpty(refreshtime) Then
+                Me.ASPxTimer1.Interval = Integer.Parse(refreshtime) * 1000
+                If (Integer.Parse(refreshtime) / 60) < 1 Then
+                    Me.RefeshTimeLabel.Text = "Refresh every " + refreshtime + " Sec"
+
+                ElseIf (Integer.Parse(refreshtime) / 60) < 60 And Integer.Parse(refreshtime) / 60 > 1 Then
+                    Me.RefeshTimeLabel.Text = "Refresh every " + (Integer.Parse(refreshtime) / 60).ToString() + " Minutes"
+                Else
+                    Me.RefeshTimeLabel.Text = "Refresh every " + Math.Round(Integer.Parse(refreshtime) / (60 * 60), 0).ToString() + " Hours"
+                End If
+            End If
+
         Catch ex As Exception
-            Dim Logger As Logger = LogManager.GetCurrentClassLogger()
-            Logger.Error(ex, "", "")
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.[Error](ex, "", "")
         End Try
-        Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage(HttpContext.Current.Session("userkey").ToString)
-        ASPxDashboard1.SetConnectionStringsProvider(New DevExpress.DataAccess.Web.ConfigFileConnectionStringsProvider())
-        ASPxDashboard1.SetDashboardStorage(dashboardStorage)
-        If CommonMethods.getPermission("Dashboard->Edit (Action)", HttpContext.Current.Session("userkey").ToString) = "0" Then
-            ASPxDashboard1.WorkingMode = WorkingMode.ViewerOnly
-        Else
-            ASPxDashboard1.WorkingMode = WorkingMode.Viewer
+        If HttpContext.Current.Session("userkey") IsNot Nothing Then
+            Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage(HttpContext.Current.Session("userkey").ToString)
+            ASPxDashboard1.SetConnectionStringsProvider(New DevExpress.DataAccess.Web.ConfigFileConnectionStringsProvider())
+            ASPxDashboard1.SetDashboardStorage(dashboardStorage)
+            If CommonMethods.getPermission("Dashboard->Edit (Action)", HttpContext.Current.Session("userkey").ToString) = "0" Then
+                ASPxDashboard1.WorkingMode = WorkingMode.ViewerOnly
+            Else
+                ASPxDashboard1.WorkingMode = WorkingMode.Viewer
+            End If
         End If
     End Sub
     Protected Sub ASPxDashboard1_ConnectionError(sender As Object, e As ConnectionErrorWebEventArgs)
         Dim Exception As Exception = e.Exception
-        TextLog.AddToLog(e.Exception, System.Web.HttpContext.Current.Server.MapPath("~/App_Data/Error.log"))
+        TextLog.AddToLog(e.Exception, HttpContext.Current.Server.MapPath("~/App_Data/Error.log"))
     End Sub
     Protected Sub ASPxDashboard1_CustomParameters(sender As Object, e As CustomParametersWebEventArgs)
         Dim refCompanyIdParameter As DevExpress.Data.IParameter = e.Parameters.FirstOrDefault(Function(p) p.Name = "username")
@@ -97,8 +116,15 @@ Partial Public Class Cufex_Default
         End Try
     End Function
 
+    Protected Sub MyHiddenButton_Click(sender As Object, e As EventArgs)
+        Dim timeMs As Integer = HiddenTime.Value
+        Session("refershTime") = timeMs.ToString()
+        Page.Response.Redirect(Page.Request.Url.ToString(), True)
+    End Sub
+
+    Protected Sub btnReload_Click(sender As Object, e As EventArgs)
+        Dim i As DateTime = Now
 
 
-
-
+    End Sub
 End Class

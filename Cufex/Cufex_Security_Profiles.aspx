@@ -19,6 +19,26 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnImport" runat="server" class="btnImport AnimateMe" title="Import"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -105,8 +125,8 @@
                 <div class="MyAbso_Record_PopUpContainer">
                     <div class="R_PopupTitle">
                         Profile
-                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"><span class="ion-ios-checkmark-circle-outline"></span></div>
-                        <div class="ClosePopup AnimateMe"><span class="ion-ios-exit"></span></div>
+                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"></div>
+                        <div class="ClosePopup AnimateMe"></div>
                     </div>
                     <div style="position: relative; height: 500px; width: 100%;" class="MyContainerPopup GetFullHeightForPopup content_4">
                         <div class="iWantMyChildrenFloatHeight">
@@ -153,5 +173,7 @@
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />
 
         <input type="hidden" class="MyFields" value="ProfileName" data-columnname="Profile Name" data-priority="1" data-hidden="false" data-primarykey="true" />
+
+        <input type="file" class="ImportFileUpload" style="display: none" />
     </div>
 </asp:Content>

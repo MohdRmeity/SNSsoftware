@@ -1,26 +1,46 @@
-﻿
+﻿Imports System.Data.SqlClient
 Imports DevExpress.DashboardWeb
 
 Public Class CustomDashboardStorage
     Implements IEditableDashboardStorage
+
 #Region "Properies and Constructor"
+
     Private Property userName As String
     Private Property DashboardTable As DataTable
+
     Public Sub New(ByVal v As String)
         userName = v
     End Sub
+
+    Public Sub New()
+    End Sub
+
+
 #End Region
 
 #Region "Implemented Functions"
+
     Public Function AddDashboard(dashboard As XDocument, dashboardName As String) As String Implements IEditableDashboardStorage.AddDashboard
         If checkDashBoardExist(dashboardName) = 0 Then
+
             If CommonMethods.dbtype = "sql" Then
-                Dim insert As String = "INSERT INTO dbo.Dashboards (DashboardXml,DashboardName ) VALUES ('" & dashboard.ToString & "', '" & dashboardName & "')"
-                Dim tmp As String = (New SQLExec).Execute(insert)
-                If tmp <> "" Then Return "0"
+
+                CType(CType(dashboard.FirstNode, XContainer).FirstNode, XElement).LastAttribute.Value = dashboardName
+
+                Dim insert As String = " INSERT INTO dbo.Dashboards (DashboardXml,DashboardName ) VALUES (@xml, @name) "
+
+                Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
+                conn.Open()
+
+                Dim cmd2 As SqlCommand = New SqlCommand(insert, conn)
+                cmd2.Parameters.AddWithValue("@xml", dashboard.ToString())
+                cmd2.Parameters.AddWithValue("@name", dashboardName)
+                cmd2.ExecuteNonQuery()
+                conn.Close()
 
                 Dim id As Integer = 0
-                Dim sql As String = "SELECT TOP(1) [DashboardID] FROM[Dashboards] ORDER BY 1 DESC"
+                Dim sql As String = "SELECT TOP(1) [DashboardID] FROM [Dashboards] ORDER BY 1 DESC"
                 Dim ds As DataSet = (New SQLExec).Cursor(sql)
                 If ds.Tables(0).Rows.Count > 0 Then id = ds.Tables(0).Rows(0)!DashboardID
                 If id <> 0 Then
@@ -43,7 +63,7 @@ Public Class CustomDashboardStorage
                         insert += ",'" & Now.ToString & "'"
                         insert += ",'" & userName & "'"
                         insert += ")"
-                        tmp = (New SQLExec).Execute(insert)
+                        Dim tmp = (New SQLExec).Execute(insert)
                         If tmp <> "" Then Return "0"
                     Next
                     GetAvailableDashboardsInfo()
@@ -55,6 +75,7 @@ Public Class CustomDashboardStorage
         End If
         Return String.Empty
     End Function
+
     Public Function GetAvailableDashboardsInfo() As IEnumerable(Of DashboardInfo) Implements IDashboardStorage.GetAvailableDashboardsInfo
         Dim DashboardTable As DataTable = New DataTable()
         If CommonMethods.dbtype = "sql" Then
@@ -71,6 +92,7 @@ Public Class CustomDashboardStorage
         Next
         Return dashboardInfos
     End Function
+
     Public Function LoadDashboard(dashboardID As String) As XDocument Implements IDashboardStorage.LoadDashboard
         DashboardTable = New DataTable
         If CommonMethods.dbtype = "sql" Then
@@ -85,6 +107,7 @@ Public Class CustomDashboardStorage
         End If
         Return Nothing
     End Function
+
     Public Sub SaveDashboard(dashboardID As String, dashboard As XDocument) Implements IDashboardStorage.SaveDashboard
         If CommonMethods.dbtype = "sql" Then
             Dim filteredXmlData As String = dashboard.ToString.Replace("'", "''")
@@ -95,18 +118,21 @@ Public Class CustomDashboardStorage
             Dim tmp As String = (New SQLExec).Execute(update)
         End If
     End Sub
+
 #End Region
 
 #Region "Private Methods"
+
     Private Function checkDashBoardExist(ByVal name As String) As Integer
         Dim exist As Integer = 0
         If CommonMethods.dbtype = "sql" Then
             Dim sql As String = "Select * from dbo.Dashboards where DashboardName= '" & name & "'"
-            Dim ds As DataSet = (New SQLExec).Cursor(Sql)
+            Dim ds As DataSet = (New SQLExec).Cursor(sql)
             exist = ds.Tables(0).Rows.Count
         End If
         Return exist
     End Function
+
     Private Function getProfiles() As DataTable
         Dim datatable As DataTable = New DataTable
         If CommonMethods.dbtype = "sql" Then
@@ -116,6 +142,7 @@ Public Class CustomDashboardStorage
         End If
         Return datatable
     End Function
+
     Private Function getUserProfiles() As DataTable
         Dim datatable As DataTable = New DataTable
         If CommonMethods.dbtype = "sql" Then
@@ -125,5 +152,7 @@ Public Class CustomDashboardStorage
         End If
         Return datatable
     End Function
+
 #End Region
+
 End Class

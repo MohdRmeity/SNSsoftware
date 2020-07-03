@@ -24,18 +24,22 @@ Public Class DisplayItemsNew
 
         Dim primKey As String = "SerialKey"
         If mySearchTable.Contains("enterprise.storer") Then
-            AndFilter = " and Type = " & mySearchTable(mySearchTable.Length - 1)
-            mySearchTable = mySearchTable.Remove(mySearchTable.Length - 1)
+            Dim type As String = IIf(mySearchTable = "enterprise.storer2", "2", "12")
+            AndFilter = " and Type = '" & type & "'"
+            mySearchTable = "enterprise.storer"
         ElseIf mySearchTable = "enterprise.sku" Then
             primKey = "SerialKey"
         ElseIf mySearchTable = "SKUCATALOGUE" Then
             If CommonMethods.dbtype <> "sql" Then mySearchTable = "System." & mySearchTable
         ElseIf mySearchTable = "Warehouse_PO" Then
             GetPurchaseOrderQuery(Sql, MyID)
+            Sql += "select * from PO_FILES"
         ElseIf mySearchTable = "Warehouse_ASN" Then
             GetASNQuery(Sql, MyID)
+            Sql += "select * from RECEIPT_FILES"
         ElseIf mySearchTable = "Warehouse_SO" Then
             GetSOQuery(Sql, MyID)
+            Sql += "select * from ORDERS_FILES"
         ElseIf mySearchTable = "Warehouse_OrderManagement" Then
             primKey = "SerialKey"
             mySearchTable = "ORDERMANAG"
@@ -44,6 +48,10 @@ Public Class DisplayItemsNew
 
         If mySearchTable <> "Inventory_Balance" And mySearchTable <> "Warehouse_PO" And mySearchTable <> "Warehouse_ASN" And mySearchTable <> "Warehouse_SO" Then
             Sql += " Select * from " & mySearchTable & " where " & primKey & " = " & MyID & AndFilter
+        End If
+
+        If mySearchTable.Contains("ORDERMANAG") Then
+            Sql += "select * from ORDERMANAG_FILES"
         End If
 
         Dim ds As DataSet = tb.Cursor(Sql)
@@ -664,6 +672,46 @@ Public Class DisplayItemsNew
             End If
         End If
 
+        Dim SavedFiles As String = ""
+        If mySearchTable = "Warehouse_PO" Or mySearchTable = "Warehouse_ASN" Or mySearchTable = "Warehouse_SO" Or mySearchTable.Contains("ORDERMANAG") Then
+            Dim Warehouse As String = ""
+            Dim KeyName As String
+            Dim KeyValue As String = ""
+
+            If mySearchTable = "Warehouse_PO" Then
+                KeyName = "POKEY"
+            ElseIf mySearchTable = "Warehouse_ASN" Then
+                KeyName = "RECEIPTKEY"
+            ElseIf mySearchTable = "Warehouse_SO" Then
+                KeyName = "ORDERKEY"
+            Else
+                KeyName = "ORDERMANAGKEY"
+            End If
+
+            If ds.Tables(0).Rows.Count > 0 Then
+                With ds.Tables(0).Rows(0)
+                    If Not mySearchTable.Contains("ORDERMANAG") Then
+                        If Not .IsNull("Facility") Then
+                            Warehouse = CommonMethods.getFacilityDBName(!Facility)
+                        End If
+                    Else
+                        If Not .IsNull("WHSEID") Then
+                            Warehouse = !WHSEID
+                        End If
+                    End If
+                    If Warehouse <> "" Then
+                        If LCase(Warehouse.Substring(0, 6)) = "infor_" Then Warehouse = Warehouse.Substring(6, Warehouse.Length - 6)
+                        If LCase(Warehouse).Contains("_") Then Warehouse = Warehouse.Split("_")(1)
+                    End If
+                    If Not .IsNull(KeyName) Then KeyValue = ds.Tables(0).Rows(0)(KeyName)
+                End With
+                Dim dr As DataRow() = ds.Tables(1).Select("WHSEID = '" & Warehouse & "' and " & KeyName & " ='" & KeyValue & "'")
+                For i = 0 To dr.Count - 1
+                    SavedFiles += IIf(i <> 0, ";;;", "") & dr(i)!FileName & ":::" & dr(i)!FileSize & ":::" & IIf(dr(i)!AddWho = HttpContext.Current.Session("userkey"), "0", "1")
+                Next
+            End If
+        End If
+
         Dim sb As New StringBuilder()
         Dim sw As New StringWriter(sb)
         Using writer As JsonWriter = New JsonTextWriter(sw)
@@ -678,6 +726,9 @@ Public Class DisplayItemsNew
 
             writer.WritePropertyName("ReadOnlyFields")
             writer.WriteValue(ReadOnlyFields)
+
+            writer.WritePropertyName("SavedFiles")
+            writer.WriteValue(SavedFiles)
 
             writer.WriteEndObject()
         End Using

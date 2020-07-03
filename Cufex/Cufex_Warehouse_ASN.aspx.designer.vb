@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class Cufex_Warehouse_ASN
     
     '''<summary>
+    '''btnExport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnExport As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''btnRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRefresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''btnQuickEntry control.
     '''</summary>
     '''<remarks>
@@ -59,6 +77,24 @@ Partial Public Class Cufex_Warehouse_ASN
     Protected WithEvents SearchRow As Global.System.Web.UI.HtmlControls.HtmlTableRow
     
     '''<summary>
+    '''btnExportDetails control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnExportDetails As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''btnRefreshDetails control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRefreshDetails As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''btnNew control.
     '''</summary>
     '''<remarks>
@@ -66,15 +102,6 @@ Partial Public Class Cufex_Warehouse_ASN
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnNew As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
-    '''btnSaveDetail control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSaveDetail As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
     '''btnDeleteDetail control.
@@ -111,4 +138,49 @@ Partial Public Class Cufex_Warehouse_ASN
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents HiddenID As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenCanUploadFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenCanUploadFiles As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenCanViewOwnFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenCanViewOwnFiles As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenCanViewAllFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenCanViewAllFiles As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenCanRemoveOwnFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenCanRemoveOwnFiles As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenCanRemoveAllFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenCanRemoveAllFiles As Global.System.Web.UI.HtmlControls.HtmlInputHidden
 End Class

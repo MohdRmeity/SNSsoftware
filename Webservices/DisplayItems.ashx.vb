@@ -37,12 +37,12 @@ Public Class DisplayItems
             End If
         ElseIf mySearchTable.Contains("enterprise.storer") Then
             primKey = "SerialKey"
-            Dim type As String = mySearchTable(mySearchTable.Length - 1)
+            Dim type As String = IIf(mySearchTable = "enterprise.storer2", "2", "12")
             AndFilter = " and Type=" & type
-            mySearchTable = mySearchTable.Remove(mySearchTable.Length - 1)
+            mySearchTable = "enterprise.storer"
         ElseIf mySearchTable = "enterprise.sku" Then
             primKey = "SerialKey"
-        ElseIf mySearchTable = "SKUCATALOGUE" Then
+        ElseIf mySearchTable = "SKUCATALOGUE" Or mySearchTable = "UITEMPLATES" Then
             primKey = "SerialKey"
             If CommonMethods.dbtype <> "sql" Then mySearchTable = "System." & mySearchTable
         ElseIf mySearchTable = "Warehouse_PO" Then
@@ -79,6 +79,37 @@ Public Class DisplayItems
         If Val(MyID) > 0 Then
             If ds.Tables(0).Rows.Count > 0 Then
                 Select Case mySearchTable
+                    Case "UITEMPLATES", "SYSTEM.UITEMPLATES"
+                        With ds.Tables(0).Rows(0)
+                            If Not .IsNull("UITemplateID") Then
+                                SavedFields += "UITemplateID:::" & !UITemplateID
+                                ReadOnlyFields += "UITemplateID"
+                            End If
+
+                            If Not .IsNull("PortalLogo") Then
+                                SavedFields += ";;;PortalLogo:::" & !PortalLogo
+                            End If
+
+                            If Not .IsNull("MenuBackgroundColor") Then
+                                SavedFields += ";;;MenuBackgroundColor:::" & !MenuBackgroundColor
+                            End If
+
+                            If Not .IsNull("ScreenBackgroundColor") Then
+                                SavedFields += ";;;ScreenBackgroundColor:::" & !ScreenBackgroundColor
+                            End If
+
+                            If Not .IsNull("GridBackgroundColor") Then
+                                SavedFields += ";;;GridBackgroundColor:::" & !GridBackgroundColor
+                            End If
+
+                            If Not .IsNull("ButtonBackgroundColor") Then
+                                SavedFields += ";;;ButtonBackgroundColor:::" & !ButtonBackgroundColor
+                            End If
+
+                            If Not .IsNull("TextBackgroundColor") Then
+                                SavedFields += ";;;TextBackgroundColor:::" & !TextBackgroundColor
+                            End If
+                        End With
                     Case "PORTALUSERS", "SYSTEM.PORTALUSERS"
                         With ds.Tables(0).Rows(0)
                             If Not .IsNull("UserKey") Then
@@ -98,6 +129,10 @@ Public Class DisplayItems
 
                             If Not .IsNull("Email") Then
                                 SavedFields += ";;;Email:::" & !Email
+                            End If
+
+                            If Not .IsNull("TimeZone") Then
+                                SavedFields += ";;;TimeZone:::" & !TimeZone
                             End If
 
                             If Not .IsNull("Active") Then
@@ -138,6 +173,22 @@ Public Class DisplayItems
 
                             If Not .IsNull("SupplierKey") Then
                                 SavedFields += ";;;SupplierKey:::" & !SupplierKey
+                            End If
+
+                            If Not .IsNull("ExportRowsLimit") Then
+                                SavedFields += ";;;ExportRowsLimit:::" & !ExportRowsLimit
+                            End If
+
+                            If Not .IsNull("FileImportLimit") Then
+                                SavedFields += ";;;FileImportLimit:::" & !FileImportLimit
+                            End If
+
+                            If Not .IsNull("FileUploadLimit") Then
+                                SavedFields += ";;;FileUploadLimit:::" & !FileUploadLimit
+                            End If
+
+                            If Not .IsNull("UITemplateID") Then
+                                SavedFields += ";;;UITemplateID:::" & !UITemplateID
                             End If
                         End With
                     Case "enterprise.storer"

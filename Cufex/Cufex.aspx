@@ -10,10 +10,10 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="LogInContainer" runat="server">
     <div class="LogInMainDiv CufexBG GetFullHeightAtLeast CoverImage">
         <div class="NormalDiv">
-            <div class="HeaderFloat1">
+           <%-- <div class="HeaderFloat1">
                 <a href="<%= sAppPath %>" title="Cufex">
                     <img src="<%= sAppPath%>images/Cufex_Images/CufexLoginLogo.png" alt="Cufex Logo" /></a>
-            </div>
+            </div>--%>
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
                     <div class="floatL Width100 Login_Details">

@@ -34,13 +34,14 @@ Partial Public Class Cufex
             Else
                 txtUserName.Focus()
             End If
+
             If Not HttpContext.Current.Session Is Nothing Then
                 If Not Val(Session("LogMeOut")) = 1 Then
                     Session("LogMeOut") = 0
                     If Not Request.Cookies("Cufex_Password") Is Nothing Then
                         If Not Request.Cookies("Cufex_Password").Value = "" Then
                             txtPassword.Text = Request.Cookies("Cufex_Password").Value
-                            Submit()
+                            'Submit()
                         End If
                     Else
                         txtPassword.Focus()
@@ -50,7 +51,6 @@ Partial Public Class Cufex
             End If
 
             Session("userkey") = Nothing
-            Session("dtTest") = Nothing
         End If
 
         'Session.Clear()

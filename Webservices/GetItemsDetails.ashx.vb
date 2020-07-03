@@ -91,6 +91,8 @@ Public Class GetItemsDetails
 
                 If MySearchInsideTerms(0) = "Facility" And SearchTable = "USERCONTROL" Then
                     Sql += " And UserKey in (select UserKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & " USERCONTROLFACILITY where Facility in (select DB_Name from wmsadmin.pl_db where isActive='1' and db_enterprise='0' and DB_ALIAS "
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += "and ( " & MySearchInsideTerms(0)
                 Else
                     Sql += " and " & MySearchInsideTerms(0)
                 End If
@@ -123,12 +125,27 @@ Public Class GetItemsDetails
                         Sql += ",'" & MySearchAndTerms(k) & "'"
                     Next
                     Sql += " )"
+                ElseIf LCase(MySearchInsideTerms(1)).Contains(";") Then
+                    Dim MySearchAndTerms() As String = Split(LCase(MySearchInsideTerms(1)), ";")
+                    Sql += " in ("
+                    For k = 0 To MySearchAndTerms.Length - 1
+                        Sql += IIf(k <> 0, ",", "") & "'" & MySearchAndTerms(k).Replace(" ", "") & "'"
+                    Next
+                    Sql += " )"
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
+                    Dim MyDateTime As DateTime
+                    If DateTime.TryParse(MySearchInsideTerms(1), MyDateTime) Then
+                        Sql += " Or " & MySearchInsideTerms(0) & " = CAST ('" & MySearchInsideTerms(1) & "' as Date) "
+                    End If
                 Else
                     Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
                 End If
 
                 If MySearchInsideTerms(0) = "Facility" And SearchTable = "USERCONTROL" Then
                     Sql += " ))"
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += " )"
                 End If
             End If
         Next

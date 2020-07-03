@@ -11,10 +11,10 @@
     <div class="LogInMainDiv CufexBG GetFullHeightAtLeast CoverImage">
 
         <div class="NormalDiv">
-            <div class="HeaderFloat1">
+           <%-- <div class="HeaderFloat1">
                 <a href="<%= sAppPath %>" title="Cufex">
                     <img src="<%= sAppPath%>images/Cufex_Images/CufexLoginLogo.png" alt="Cufex Logo" /></a>
-            </div>
+            </div>--%>
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
                     <div class="floatL Width100 Login_Details">
@@ -37,11 +37,14 @@
                                     <asp:RequiredFieldValidator ID="rqConfirmPassword" runat="server" ControlToValidate="txtConfirmPassword" CssClass="LogInError" Display="Dynamic" ErrorMessage=""></asp:RequiredFieldValidator>
                                 </div>
                             </div>
+                             <div class="floatL Width100 PasswordInfo" style="padding-left: 0; padding-right: 0; padding-top: 0;">
+                                * Password must be at least 10 characters, have one upper case letter, one lower case letter, one special character and one base 10 digits (0 to 9)
+                            </div>
                             <div class="floatL Width100 MarginMe">
                                 <asp:Button ID="BtnSubmit" runat="server" CssClass="MyButtonLogin IWantAMouseOVerNowBut80" Text="RESET PASSWORD" OnClientClick="return Cufex_Valid();" />
                             </div>
                             <div class="floatL Width100 textalignC">
-                                <a href="<%= Page.GetRouteUrl("SNSsoftware-CMS", Nothing)%>" class="MyLink">Return Login</a>
+                                <a href="<%= Page.GetRouteUrl("SNSsoftware-Home", Nothing)%>" class="MyLink">Return Login</a>
                             </div>
                         </div>
                     </div>

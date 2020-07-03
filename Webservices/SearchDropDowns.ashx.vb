@@ -14,7 +14,7 @@ Public Class SearchDropDowns
         Dim tmp As String = ""
         Dim sql As String = ""
         Dim DropDownFields As String = ""
-        Dim AndFilter As String = ""
+        Dim DropDownFieldsDefaultValues As String = ""
         Dim IsValid As Boolean = Not String.IsNullOrEmpty(MyFacility) And Not String.IsNullOrEmpty(MyOwner)
 
         If SearchTable = "Warehouse_PO" Or SearchTable = "Warehouse_ASN" Or SearchTable = "Warehouse_SO" Or SearchTable = "Warehouse_OrderManagement" Then
@@ -29,23 +29,16 @@ Public Class SearchDropDowns
                     warehouselevel = warehouselevel.Split("_")(1)
                 End If
 
-                Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+                sql = " select top 100 Sku, Descr,PackKey, (select PackDescr from " & warehouselevel & ".Pack P where P.PackKey = S.PackKey) PackDescr from " & warehouselevel & ".SKU S where S.StorerKey= '" & MyOwner & "'"
+                ds = tb.Cursor(sql)
 
-                If owners IsNot Nothing Then
-                    Dim ownersstr As String = String.Join("','", owners)
-                    ownersstr = "'" & ownersstr & "'"
-                    If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
-
-                    sql = " select top 100 Sku from " & warehouselevel & ".SKU where StorerKey= '" & MyOwner & "' " & AndFilter
-                    ds = tb.Cursor(sql)
-
-                    DropDownFields += "Sku:::"
-                    For i = 0 To ds.Tables(0).Rows.Count - 1
-                        With ds.Tables(0).Rows(i)
-                            DropDownFields += IIf(i <> 0, ",", "") & !Sku
-                        End With
-                    Next
-                End If
+                DropDownFields += "Sku:::"
+                For i = 0 To ds.Tables(0).Rows.Count - 1
+                    With ds.Tables(0).Rows(i)
+                        DropDownFields += IIf(i <> 0, ",", "") & !Sku & "~~~" & !Descr
+                        DropDownFieldsDefaultValues += IIf(i <> 0, ",", "") & !PackKey & "~~~" & !PackDescr
+                    End With
+                Next
             End If
         End If
 
@@ -60,6 +53,9 @@ Public Class SearchDropDowns
 
             writer.WritePropertyName("DropDownFields")
             writer.WriteValue(DropDownFields)
+
+            writer.WritePropertyName("DropDownFieldsDefaultValues")
+            writer.WriteValue(DropDownFieldsDefaultValues)
 
             writer.WriteEndObject()
         End Using

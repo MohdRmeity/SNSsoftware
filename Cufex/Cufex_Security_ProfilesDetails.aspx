@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Cufex/Cufex_Site.Master" CodeBehind="Cufex_Security_ProfilesDetails.aspx.vb" Inherits="SNSsoftware.Cufex_Security_ProfilesDetails" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
-    <div style="height: 33px;"></div>
+    <div class="GiveMeHeight" style="height: 33px;"></div>
 
     <div class="NormalDiv1118Max">
         <div class="MainHeader MainHeaderProfileDetails">
@@ -18,6 +18,35 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a class="BackBtn BackDetail AnimateMe" href="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)) %>">Back to List
+                                </a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnImport" runat="server" class="btnImport AnimateMe" title="Import"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px; display: none;"></td>
+                            <td>
                                 <a id="btnDelete" runat="server" class="btnDelete AnimateMe DisplayNone">Delete
                                 </a>
                             </td>
@@ -28,7 +57,7 @@
         </div>
     </div>
 
-    <div style="height:25px;"></div>
+    <div class="GiveMeHeight" style="height: 25px;"></div>
 
     <div class="MainTabs">
         <div class="NormalDiv1118Max">

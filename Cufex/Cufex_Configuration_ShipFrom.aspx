@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Cufex/Cufex_Site.Master" CodeBehind="Cufex_Configuration_ShipFrom.aspx.vb" Inherits="SNSsoftware.Cufex_Configuration_ShipFrom" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <style>
         .ui-resizable-s {
@@ -20,7 +21,7 @@
             <div class="iWantMyChildrenFloatHeight" style="position: relative;">
                 <div class="floatL Width100">
                     <div class="floatL">
-                        <div class="MainPageTitle" data-id="enterprise.storer5">
+                        <div class="MainPageTitle" data-id="enterprise.storer12">
                             Ship From
                         </div>
                         <div class="MainPageDesc" data-text="Ship From List">
@@ -29,6 +30,18 @@
                     </div>
                     <table class="floatR">
                         <tr>
+                            <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
                             <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
@@ -222,8 +235,9 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Description" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Country" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputCountry" data-id="Country">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="City" />
@@ -354,7 +368,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Country</div>
                             <div>
-                                <select data-placeholder="Select Country" multiple class="chosen-select InputCountry">
+                                <select data-placeholder="Select Country" multiple class="chosen-select InputCountry" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -489,8 +503,8 @@
 
                     <div class="R_PopupTitle">
                         Supplier
-                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"><span class="ion-ios-checkmark-circle-outline"></span></div>
-                        <div class="ClosePopup AnimateMe"><span class="ion-ios-exit"></span></div>
+                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"></div>
+                        <div class="ClosePopup AnimateMe"></div>
                     </div>
                     <div style="position: relative; height: 500px; width: 100%;" class="MyContainerPopup GetFullHeightForPopup content_4">
                         <div class="iWantMyChildrenFloatHeight">
@@ -518,7 +532,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Country</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Country" multiple class="chosen-select InputCountry">
+                                        <select data-placeholder="Select Country" multiple class="chosen-select InputCountry" data-mode="single">
                                         </select>
                                     </div>
                                 </div>

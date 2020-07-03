@@ -14,6 +14,33 @@ Option Explicit On
 Partial Public Class Cufex_Security_UsersControl
     
     '''<summary>
+    '''btnExport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnExport As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''btnImport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnImport As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''btnRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRefresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''btnQuickEntry control.
     '''</summary>
     '''<remarks>
@@ -48,24 +75,6 @@ Partial Public Class Cufex_Security_UsersControl
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSave As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''cmbUser control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbUser As Global.System.Web.UI.HtmlControls.HtmlSelect
-    
-    '''<summary>
-    '''cmbFacility control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbFacility As Global.System.Web.UI.HtmlControls.HtmlSelect
     
     '''<summary>
     '''HiddenID control.

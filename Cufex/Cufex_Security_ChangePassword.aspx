@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <div class="floatL Width100 PasswordInfo" style="padding-left: 0; padding-right: 0;">
-                            * Password must be at least 10 characters, have one upper case letter, one lower case letter and one base 10 digits (0 to 9)
+                            * Password must be at least 10 characters, have one upper case letter, one lower case letter, one special character and one base 10 digits (0 to 9)
                         </div>
                     </div>
                 </div>
