@@ -7,6 +7,10 @@
             Dim myMasterPage As Cufex_Site = CType(Page.Master, Cufex_Site)
             If myMasterPage.BUserCode <> 0 Then welcomeNames(myMasterPage.BUserCode)
             BUserCode = myMasterPage.BUserCode
+
+            If myMasterPage.Subsection = Cufex_Site.SubSectionName.Popup_Items Or myMasterPage.Subsection = Cufex_Site.SubSectionName.Popup_Locations Or myMasterPage.Subsection = Cufex_Site.SubSectionName.Popup_Packs Then
+                MasterHeaderControls.Visible = False
+            End If
         End If
     End Sub
     Private Sub welcomeNames(ByVal code As Integer)

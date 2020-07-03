@@ -19,6 +19,26 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnImport" runat="server" class="btnImport AnimateMe" title="Import"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -75,6 +95,13 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
+                    <td class="GridCell GridHead" data-id="TimeZone">
+                        <span class="MyTitleHead">Time Zone</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
                     <td class="GridCell GridHead borderRight0" data-id="Active">
                         <span class="MyTitleHead">Active</span>
                         <div class="AbsoSorting">
@@ -106,6 +133,9 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Email" />
                     </td>
+                    <td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="TimeZone" />
+                    </td>
                     <td class="GridCell GridHeadSearch borderRight0">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Active" />
                     </td>
@@ -120,6 +150,7 @@
                     <td class="GridCell GridContentCell borderRight0" data-id="3"></td>
                     <td class="GridCell GridContentCell borderRight0" data-id="4"></td>
                     <td class="GridCell GridContentCell borderRight0" data-id="5"></td>
+                    <td class="GridCell GridContentCell borderRight0" data-id="6"></td>
                 </tr>
             </table>
             <div class="PagingContainer">
@@ -152,7 +183,8 @@
         </div>
 
         <div style="position: relative; height: 15px;"></div>
-        <div class="New_Modify_Record_PopUp">
+
+        <div class="New_Modify_Record_PopUp RemoveOverflow">
             <div style="position: relative;">
                 <div class="MyAbso_Record_PopUpContainer">
                     <div class="R_PopupTitle">
@@ -191,6 +223,13 @@
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">Time Zone</div>
+                                    <div class="FloatRecordField floatL">
+                                        <select data-placeholder="Select Time Zones" multiple class="chosen-select InputTimeZone" data-mode="single">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Password*</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="password" class="textRecordStyle textRecordStylePassword InputPassword" />
@@ -202,6 +241,7 @@
                                         <input type="text" class="textRecordStyle InputActive" data-value="1" />
                                     </div>
                                 </div>
+                                <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Confirm Password*</div>
                                     <div class="FloatRecordField floatL">
@@ -209,7 +249,7 @@
                                     </div>
                                 </div>
                                 <div class="floatL Width100 PasswordInfo">
-                                    * Password must be at least 10 characters, have one upper case letter, one lower case letter and one base 10 digits (0 to 9)
+                                    * Password must be at least 10 characters, have one upper case letter, one lower case letter, one special character and one base 10 digits (0 to 9)
                                 </div>
                             </div>
                         </div>
@@ -243,7 +283,6 @@
     </div>
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />
-        <%--<input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_Users-details", New With {.id = 0})) %>" />--%>
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Security_Users", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
@@ -251,8 +290,11 @@
         <input type="hidden" class="MyFields" value="FirstName" data-columnname="First Name" data-priority="2" data-hidden="false" />
         <input type="hidden" class="MyFields" value="LastName" data-columnname="Last Name" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Email" data-columnname="Email" data-priority="4" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="Active" data-columnname="Active" data-priority="5" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="TimeZone" data-columnname="Time Zone" data-priority="5" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="Active" data-columnname="Active" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Password" />
         <input type="hidden" class="MyFields" value="ConfirmPassword" />
+
+        <input type="file" class="ImportFileUpload" style="display: none" />
     </div>
 </asp:Content>

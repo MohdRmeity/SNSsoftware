@@ -11,7 +11,6 @@ Public Class SaveItems
     Implements IRequiresSessionState
 
     Sub SaveItem(ByVal context As HttpContext) Implements IHttpHandler.ProcessRequest
-
         Dim mySearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim MyID As String = HttpContext.Current.Request.Item("MyID")
         Dim DetailsCount As Integer = Val(HttpContext.Current.Request.Item("DetailsCount"))
@@ -29,7 +28,9 @@ Public Class SaveItems
 
             writer.WritePropertyName("tmp")
 
-            If mySearchTable = "PORTALUSERS" Then
+            If mySearchTable = "UITEMPLATES" Then
+                writer.WriteValue(SaveUITemplate(MyID))
+            ElseIf mySearchTable = "PORTALUSERS" Then
                 writer.WriteValue(SaveUser(MyID))
             ElseIf mySearchTable = "USERCONTROL" Then
                 writer.WriteValue(SaveUserControl(MyID))
@@ -68,6 +69,121 @@ Public Class SaveItems
         context.Response.End()
 
     End Sub
+    Private Function SaveUITemplate(ByVal MyID As Integer) As String
+        Dim tmp As String = ""
+        Dim IsValid As Boolean = True
+        Dim EditOperation As Boolean = MyID <> 0
+        Dim UITemplate As String = HttpContext.Current.Request.Item("Field_UITemplateID") _
+        , MenuBackgroundColor As String = HttpContext.Current.Request.Item("Field_MenuBackgroundColor") _
+        , ScreenBackgroundColor As String = HttpContext.Current.Request.Item("Field_ScreenBackgroundColor") _
+        , GridBackgroundColor As String = HttpContext.Current.Request.Item("Field_GridBackgroundColor") _
+        , ButtonBackgroundColor As String = HttpContext.Current.Request.Item("Field_ButtonBackgroundColor") _
+        , TextBackgroundColor As String = HttpContext.Current.Request.Item("Field_TextBackgroundColor")
+        Dim LogoFile As HttpPostedFile = System.Web.HttpContext.Current.Request.Files("LogoFile")
+
+        If IsValid Then
+            Dim dirFullPath As String = HttpContext.Current.Server.MapPath("~/DynamicImages/LogosImages/")
+            Dim fileName As String = "", fileExtension As String = "", pathToSave As String = "", str_file As String = ""
+            If LogoFile IsNot Nothing Then
+                fileName = LogoFile.FileName
+                If Not String.IsNullOrEmpty(fileName) Then
+                    fileExtension = Path.GetExtension(fileName)
+                    str_file = fileName.Substring(0, fileName.LastIndexOf(".")) & "-" & Now.Ticks & fileExtension
+                    pathToSave = dirFullPath & str_file
+                    LogoFile.SaveAs(pathToSave)
+                End If
+            End If
+
+            If EditOperation Then
+                Dim sql As String = " select PortalLogo from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & ".UITEMPLATES where SerialKey = " & MyID
+                Dim ds As DataSet = (New SQLExec).Cursor(sql)
+                If ds.Tables(0).Rows.Count > 0 Then str_file = ds.Tables(0).Rows(0)!PortalLogo
+                Try
+                    If CommonMethods.dbtype = "sql" Then
+                        Dim updatequery As String = "set dateformat dmy update dbo.UITEMPLATES set PORTALLOGO = @portallogo , MenuBackgroundColor = @menubackgroundcolor, ScreenBackgroundColor=@screenbackgroundcolor, GridBackgroundColor=@gridbackgroundcolor, ButtonBackgroundColor= @buttonbackgroundcolor, TextBackgroundColor=@textbackgroundcolor, EDITWHO= @ukey , EDITDATE='" & Now & "' where UITEMPLATEID = @ut"
+                        Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
+                        conn.Open()
+                        Dim cmd As SqlCommand = New SqlCommand(updatequery, conn)
+                        cmd.Parameters.AddWithValue("@portallogo", str_file)
+                        cmd.Parameters.AddWithValue("@menubackgroundcolor", MenuBackgroundColor)
+                        cmd.Parameters.AddWithValue("@screenbackgroundcolor", ScreenBackgroundColor)
+                        cmd.Parameters.AddWithValue("@gridbackgroundcolor", GridBackgroundColor)
+                        cmd.Parameters.AddWithValue("@buttonbackgroundcolor", ButtonBackgroundColor)
+                        cmd.Parameters.AddWithValue("@textbackgroundcolor", TextBackgroundColor)
+                        cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey").ToString)
+                        cmd.Parameters.AddWithValue("@ut", UITemplate)
+                        cmd.ExecuteNonQuery()
+                        conn.Close()
+                    Else
+                        Dim updatequery As String = "set dateformat dmy update dbo.UITEMPLATES set PORTALLOGO = :portallogo , MenuBackgroundColor = :menubackgroundcolor, ScreenBackgroundColor=:screenbackgroundcolor, GridBackgroundColor=:gridbackgroundcolor, ButtonBackgroundColor= :buttonbackgroundcolor, TextBackgroundColor=:textbackgroundcolor, EDITWHO= :ukey , EDITDATE=SYSDATE where UITEMPLATEID = :ut"
+                        Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
+                        conn.Open()
+                        Dim cmd As OracleCommand = New OracleCommand(updatequery, conn)
+                        cmd.Parameters.Add(New OracleParameter("portallogo", str_file))
+                        cmd.Parameters.Add(New OracleParameter("menubackgroundcolor", MenuBackgroundColor))
+                        cmd.Parameters.Add(New OracleParameter("screenbackgroundcolor", ScreenBackgroundColor))
+                        cmd.Parameters.Add(New OracleParameter("gridbackgroundcolor", GridBackgroundColor))
+                        cmd.Parameters.Add(New OracleParameter("buttonbackgroundcolor", ButtonBackgroundColor))
+                        cmd.Parameters.Add(New OracleParameter("textbackgroundcolor", TextBackgroundColor))
+                        cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey").ToString))
+                        cmd.Parameters.Add(New OracleParameter("ut", UITemplate))
+                        cmd.ExecuteNonQuery()
+                        conn.Close()
+                    End If
+                Catch e1 As Exception
+                    tmp += "Error: " & e1.Message & vbTab + e1.GetType.ToString & "<br/>"
+                    Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                    logger.Error(e1, "", "")
+                End Try
+            Else
+                Dim exist As Integer = CommonMethods.checkUITemplateExist(LCase(UITemplate))
+                If exist = 0 Then
+                    Try
+                        If CommonMethods.dbtype = "sql" Then
+                            Dim insert As String = "set dateformat dmy insert into dbo.UITEMPLATES (UITemplateID, PortalLogo, MenuBackgroundColor, ScreenBackgroundColor, GridBackgroundColor, ButtonBackgroundColor, TextBackgroundColor, ADDWHO, EDITWHO , ADDDATE,EDITDATE) values ( @ut, @portallogo, @menubackgroundcolor, @screenbackgroundcolor, @gridbackgroundcolor, @buttonbackgroundcolor, @textbackgroundcolor, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', '" & Now & "', '" & Now & "');"
+                            Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
+                            conn.Open()
+
+                            Dim cmd As SqlCommand = New SqlCommand(insert, conn)
+                            cmd.Parameters.AddWithValue("@ut", UITemplate)
+                            cmd.Parameters.AddWithValue("@portallogo", str_file)
+                            cmd.Parameters.AddWithValue("@menubackgroundcolor", MenuBackgroundColor)
+                            cmd.Parameters.AddWithValue("@screenbackgroundcolor", ScreenBackgroundColor)
+                            cmd.Parameters.AddWithValue("@gridbackgroundcolor", GridBackgroundColor)
+                            cmd.Parameters.AddWithValue("@buttonbackgroundcolor", ButtonBackgroundColor)
+                            cmd.Parameters.AddWithValue("@textbackgroundcolor", TextBackgroundColor)
+                            cmd.ExecuteNonQuery()
+
+                            conn.Close()
+                        Else
+                            Dim insert As String = "set dateformat dmy insert into SYSTEM.UITEMPLATES (UITemplateID, PortalLogo, MenuBackgroundColor, ScreenBackgroundColor, GridBackgroundColor, ButtonBackgroundColor, TextBackgroundColor, ADDWHO, EDITWHO , ADDDATE,EDITDATE) values ( :ut, :portallogo, :menubackgroundcolor, :screenbackgroundcolor, :gridbackgroundcolor, :buttonbackgroundcolor, :textbackgroundcolor, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', SYSDATE,SYSDATE);"
+                            Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
+                            conn.Open()
+
+                            Dim cmd As OracleCommand = New OracleCommand(insert, conn)
+                            cmd.Parameters.Add(New OracleParameter("ut", UITemplate))
+                            cmd.Parameters.Add(New OracleParameter("portallogo", str_file))
+                            cmd.Parameters.Add(New OracleParameter("menubackgroundcolor", MenuBackgroundColor))
+                            cmd.Parameters.Add(New OracleParameter("screenbackgroundcolor", ScreenBackgroundColor))
+                            cmd.Parameters.Add(New OracleParameter("gridbackgroundcolor", GridBackgroundColor))
+                            cmd.Parameters.Add(New OracleParameter("buttonbackgroundcolor", ButtonBackgroundColor))
+                            cmd.Parameters.Add(New OracleParameter("textbackgroundcolor", TextBackgroundColor))
+                            cmd.ExecuteNonQuery()
+
+                            conn.Close()
+                        End If
+                    Catch e2 As Exception
+                        tmp += "Error: " & e2.Message & vbTab + e2.GetType.ToString & "<br/>"
+                        Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                        logger.Error(e2, "", "")
+                    End Try
+                Else
+                    tmp += "Error: UI Template ID is already assigned to a different UI Template <br/>"
+                End If
+            End If
+        End If
+        Return tmp
+    End Function
     Private Function SaveNewPassword() As DataTable
         Dim MyTable As New DataTable
         MyTable.Columns.Add("tmp", GetType(String))
@@ -94,7 +210,7 @@ Public Class SaveItems
                 If NewPassword.Length < 10 Then
                     tmp += "New Password must have at least 10 characters <br/>"
                 Else
-                    tmp += "New Password must have one upper case letter, one lower case letter and one base 10 digits (0 to 9) <br/>"
+                    tmp += "New Password must have one upper case letter, one lower case letter, one special character and one base 10 digits (0 to 9) <br/>"
                 End If
             End If
         End If
@@ -164,6 +280,8 @@ Public Class SaveItems
         MyTable.Rows.Add(tmp, url)
         Return MyTable
     End Function
+
+
     Private Function SaveUser(ByVal MyID As Integer) As String
         Dim tmp As String = ""
         Dim IsValid As Boolean = True
@@ -175,6 +293,7 @@ Public Class SaveItems
         , password As String = HttpContext.Current.Request.Item("Field_Password") _
         , confirm As String = HttpContext.Current.Request.Item("Field_ConfirmPassword") _
         , active As String = HttpContext.Current.Request.Item("Field_Active") _
+        , timezone As String = HttpContext.Current.Request.Item("Field_TimeZone") _
         , originalpass As String = "", keypass As String = ""
 
         If String.IsNullOrEmpty(userkey) Then
@@ -208,7 +327,7 @@ Public Class SaveItems
                     If password.Length < 10 Then
                         tmp += "Password must have at least 10 characters <br/>"
                     Else
-                        tmp += "Password must have one upper case letter, one lower case letter and one base 10 digits (0 to 9) <br/>"
+                        tmp += "Password must have one upper case letter, one lower case letter, one special character and one base 10 digits (0 to 9) <br/>"
                     End If
                 End If
             End If
@@ -238,7 +357,7 @@ Public Class SaveItems
                     If password.Length < 10 Then
                         tmp += "Password must have at least 10 characters <br/>"
                     Else
-                        tmp += "Password must have one upper case letter, one lower case letter and one base 10 digits (0 to 9) <br/>"
+                        tmp += "Password must have one upper case letter, one lower case letter, one special character and one base 10 digits (0 to 9) <br/>"
                     End If
                 Else
                     keypass = CommonMethods.CreateSalt(password.Length)
@@ -251,7 +370,7 @@ Public Class SaveItems
             If EditOperation Then
                 Try
                     If CommonMethods.dbtype = "sql" Then
-                        Dim updatequery As String = "set dateformat dmy update dbo.PORTALUSERS set ACTIVE= @flag , Password= @passw , Email = @email , EDITWHO= @ukey , EDITDATE='" & Now & "', HASHKEY= @hkey where USERKEY = @userk"
+                        Dim updatequery As String = "set dateformat dmy update dbo.PORTALUSERS set ACTIVE= @flag , Password= @passw , Email = @email , TimeZone = @timezone, EDITWHO= @ukey , EDITDATE='" & Now & "', HASHKEY= @hkey where USERKEY = @userk"
                         Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As SqlCommand = New SqlCommand(updatequery, conn)
@@ -259,18 +378,20 @@ Public Class SaveItems
                         cmd.Parameters.AddWithValue("@passw", originalpass)
                         cmd.Parameters.AddWithValue("@email", email)
                         cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey").ToString)
+                        cmd.Parameters.AddWithValue("@timezone", timezone)
                         cmd.Parameters.AddWithValue("@hkey", keypass)
                         cmd.Parameters.AddWithValue("@userk", userkey)
                         cmd.ExecuteNonQuery()
                         conn.Close()
                     Else
-                        Dim updatequery As String = "update SYSTEM.PORTALUSERS set ACTIVE= :flag , Password= :passw , Email = :email, EDITWHO=:ukey , EDITDATE=SYSDATE, HASHKEY=:hkey where   USERKEY = :userk"
+                        Dim updatequery As String = "update SYSTEM.PORTALUSERS set ACTIVE= :flag , Password= :passw , Email = :email, TimeZone = :timezone, EDITWHO=:ukey , EDITDATE=SYSDATE, HASHKEY=:hkey where   USERKEY = :userk"
                         Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As OracleCommand = New OracleCommand(updatequery, conn)
                         cmd.Parameters.Add(New OracleParameter("flag", active))
                         cmd.Parameters.Add(New OracleParameter("passw", originalpass))
                         cmd.Parameters.Add(New OracleParameter("email", email))
+                        cmd.Parameters.Add(New OracleParameter("timezone", timezone))
                         cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey").ToString))
                         cmd.Parameters.Add(New OracleParameter("hkey", keypass))
                         cmd.Parameters.Add(New OracleParameter("userk", userkey))
@@ -288,7 +409,7 @@ Public Class SaveItems
                     Dim keyh As String = CommonMethods.CreateSalt(password.Length)
                     Try
                         If CommonMethods.dbtype = "sql" Then
-                            Dim insert As String = "set dateformat dmy insert into  dbo.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE , HASHKEY) values ( @act, @ukey, @fname, @lname, @email, @passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', '" & Now & "', '" & Now & "', @keyh);"
+                            Dim insert As String = "set dateformat dmy insert into  dbo.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, TIMEZONE, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE , HASHKEY) values ( @act, @ukey, @fname, @lname, @email, @timezone, @passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', '" & Now & "', '" & Now & "', @keyh);"
                             Dim widgets As String = "set dateformat dmy insert into dbo.USERWIDGETS (WIDGETID,USERKEY, ADDDATE) values (1,'" & LCase(userkey) & "','" & Now & "'),(4,'" & LCase(userkey) & "','" & Now & "'),(6,'" & LCase(userkey) & "','" & Now & "'),(7,'" & LCase(userkey) & "','" & Now & "'); "
                             Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                             conn.Open()
@@ -299,13 +420,14 @@ Public Class SaveItems
                             cmd.Parameters.AddWithValue("@fname", firstname)
                             cmd.Parameters.AddWithValue("@lname", lastname)
                             cmd.Parameters.AddWithValue("@email", email)
+                            cmd.Parameters.AddWithValue("@timezone", timezone)
                             cmd.Parameters.AddWithValue("@passw", CommonMethods.GenerateHash(password, keyh))
                             cmd.Parameters.AddWithValue("@keyh", keyh)
                             cmd.ExecuteNonQuery()
 
                             conn.Close()
                         Else
-                            Dim insert As String = "insert into  SYSTEM.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE  , HASHKEY) values( :act, :ukey, :fname, :lname, :email, :passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', SYSDATE,SYSDATE, :keyh )"
+                            Dim insert As String = "insert into  SYSTEM.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, TIMEZONE, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE  , HASHKEY) values( :act, :ukey, :fname, :lname, :email, :timezone, :passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', SYSDATE,SYSDATE, :keyh )"
                             Dim widgets As String = "insert into SYSTEM.USERWIDGETS (WIDGETID,USERKEY, ADDDATE) values (1,'" & LCase(userkey) & "','" & Now & "'),(4,'" & LCase(userkey) & "','" & Now & "'),(6,'" & LCase(userkey) & "','" & Now & "'),(7,'" & LCase(userkey) & "','" & Now & "'); "
                             Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                             conn.Open()
@@ -316,6 +438,7 @@ Public Class SaveItems
                             cmd.Parameters.Add(New OracleParameter("fname", firstname))
                             cmd.Parameters.Add(New OracleParameter("lname", lastname))
                             cmd.Parameters.Add(New OracleParameter("email", email))
+                            cmd.Parameters.Add(New OracleParameter("timezone", timezone))
                             cmd.Parameters.Add(New OracleParameter("passw", CommonMethods.GenerateHash(password, keyh)))
                             cmd.Parameters.Add(New OracleParameter("keyh", keyh))
                             cmd.ExecuteNonQuery()
@@ -342,11 +465,61 @@ Public Class SaveItems
         , storer As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
         , consignee As String = UCase(HttpContext.Current.Request.Item("Field_ConsigneeKey")) _
         , supplier As String = UCase(HttpContext.Current.Request.Item("Field_SupplierKey")) _
-        , facility As String = HttpContext.Current.Request.Item("Field_Facility")
+        , facility As String = HttpContext.Current.Request.Item("Field_Facility") _
+        , exportrowslimit As String = HttpContext.Current.Request.Item("Field_ExportRowsLimit") _
+        , fileimportlimit As String = HttpContext.Current.Request.Item("Field_FileImportLimit") _
+        , fileuploadlimit As String = HttpContext.Current.Request.Item("Field_FileUploadLimit") _
+        , uitemplateid As String = HttpContext.Current.Request.Item("Field_UITemplateID")
+        Dim Int As Integer
 
         If String.IsNullOrEmpty(userkey) Then
             IsValid = False
             tmp += "User ID must be defined <br/>"
+        End If
+
+        If String.IsNullOrEmpty(exportrowslimit) Then
+            IsValid = False
+            tmp += "Export Rows Limit must be defined <br/>"
+        Else
+            If Not Integer.TryParse(exportrowslimit, Int) Then
+                IsValid = False
+                tmp += "Export Rows Limit must be an integer <br/>"
+            Else
+                If Val(exportrowslimit) < 0 Then
+                    IsValid = False
+                    tmp += "Export Rows Limit must be positive <br/>"
+                End If
+            End If
+        End If
+
+        If String.IsNullOrEmpty(fileimportlimit) Then
+            IsValid = False
+            tmp += "File Import Limit must be defined <br/>"
+        Else
+            If Not Integer.TryParse(fileimportlimit, Int) Then
+                IsValid = False
+                tmp += "File Import Limit must be numeric an integer <br/>"
+            Else
+                If Val(fileimportlimit) < 0 Then
+                    IsValid = False
+                    tmp += "File Import Limit must be positive <br/>"
+                End If
+            End If
+        End If
+
+        If String.IsNullOrEmpty(fileuploadlimit) Then
+            IsValid = False
+            tmp += "File Upload Limit must be defined <br/>"
+        Else
+            If Not Integer.TryParse(fileuploadlimit, Int) Then
+                IsValid = False
+                tmp += "File Upload Limit must be numeric an integer <br/>"
+            Else
+                If Val(fileuploadlimit) < 0 Then
+                    IsValid = False
+                    tmp += "File Upload Limit must be positive <br/>"
+                End If
+            End If
         End If
 
         If storer = "" Then storer = "ALL"
@@ -396,24 +569,32 @@ Public Class SaveItems
             If EditOperation Then
                 Try
                     If CommonMethods.dbtype = "sql" Then
-                        Dim updatequery As String = "set dateformat dmy update dbo.USERCONTROL set STORERKEY=@storer , CONSIGNEEKEY=@consignee, SUPPLIERKEY =@supplier, EDITWHO= '" & HttpContext.Current.Session("userkey").ToString & "', EDITDATE = '" & Now & "' where ID=@id"
+                        Dim updatequery As String = "set dateformat dmy update dbo.USERCONTROL set STORERKEY=@storer , CONSIGNEEKEY=@consignee, SUPPLIERKEY =@supplier, EXPORTROWSLIMIT = @exportrowslimit, FILEIMPORTLIMIT=@fileimportlimit, FILEUPLOADLIMIT = @fileuploadlimit, UITEMPLATEID = @uitemplateid, EDITWHO= '" & HttpContext.Current.Session("userkey").ToString & "', EDITDATE = '" & Now & "' where ID=@id"
                         Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As SqlCommand = New SqlCommand(updatequery, conn)
                         cmd.Parameters.AddWithValue("@storer", storer)
                         cmd.Parameters.AddWithValue("@consignee", consignee)
                         cmd.Parameters.AddWithValue("@supplier", supplier)
+                        cmd.Parameters.AddWithValue("@exportrowslimit", exportrowslimit)
+                        cmd.Parameters.AddWithValue("@fileimportlimit", fileimportlimit)
+                        cmd.Parameters.AddWithValue("@fileuploadlimit", fileuploadlimit)
+                        cmd.Parameters.AddWithValue("@uitemplateid", uitemplateid)
                         cmd.Parameters.AddWithValue("@id", MyID)
                         cmd.ExecuteNonQuery()
                         conn.Close()
                     Else
-                        Dim updatequery As String = "set dateformat dmy update SYSTEM.USERCONTROL set STORERKEY=:storer , CONSIGNEEKEY=:consignee, SUPPLIERKEY =:supplier, EDITWHO= '" & HttpContext.Current.Session("userkey").ToString & "', EDITDATE = SYSDATE where SERIALKEY=:serialkey"
+                        Dim updatequery As String = "set dateformat dmy update SYSTEM.USERCONTROL set STORERKEY=:storer , CONSIGNEEKEY=:consignee, SUPPLIERKEY =:supplier, EXPORTROWSLIMIT = :exportrowslimit, FILEIMPORTLIMIT=:fileimportlimit, FILEUPLOADLIMIT = :fileuploadlimit, UITEMPLATEID = :uitemplateid, EDITWHO= '" & HttpContext.Current.Session("userkey").ToString & "', EDITDATE = SYSDATE where SERIALKEY=:serialkey"
                         Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As OracleCommand = New OracleCommand(updatequery, conn)
                         cmd.Parameters.Add(New OracleParameter("storer", storer))
                         cmd.Parameters.Add(New OracleParameter("consignee", consignee))
                         cmd.Parameters.Add(New OracleParameter("supplier", supplier))
+                        cmd.Parameters.Add(New OracleParameter("exportrowslimit", exportrowslimit))
+                        cmd.Parameters.Add(New OracleParameter("fileimportlimit", fileimportlimit))
+                        cmd.Parameters.Add(New OracleParameter("fileuploadlimit", fileuploadlimit))
+                        cmd.Parameters.Add(New OracleParameter("uitemplateid", uitemplateid))
                         cmd.Parameters.Add(New OracleParameter("serialkey", MyID))
                         cmd.ExecuteNonQuery()
                         conn.Close()
@@ -428,7 +609,7 @@ Public Class SaveItems
                 If exist = 0 Then
                     Try
                         If CommonMethods.dbtype = "sql" Then
-                            Dim insert As String = "set dateformat dmy insert into dbo.USERCONTROL (USERKEY,STORERKEY,CONSIGNEEKEY,SUPPLIERKEY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values (@ukey, @storer, @consignee, @supplier ,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "');"
+                            Dim insert As String = "set dateformat dmy insert into dbo.USERCONTROL (USERKEY,STORERKEY,CONSIGNEEKEY,SUPPLIERKEY, EXPORTROWSLIMIT, FILEIMPORTLIMIT, FILEUPLOADLIMIT, UITEMPLATEID, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values (@ukey, @storer, @consignee, @supplier ,@exportrowslimit,@fileimportlimit, @fileuploadlimit,@uitemplateid,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "');"
 
                             Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                             conn.Open()
@@ -438,11 +619,15 @@ Public Class SaveItems
                             cmd.Parameters.AddWithValue("@storer", storer)
                             cmd.Parameters.AddWithValue("@consignee", consignee)
                             cmd.Parameters.AddWithValue("@supplier", supplier)
+                            cmd.Parameters.AddWithValue("@exportrowslimit", exportrowslimit)
+                            cmd.Parameters.AddWithValue("@fileimportlimit", fileimportlimit)
+                            cmd.Parameters.AddWithValue("@fileuploadlimit", fileuploadlimit)
+                            cmd.Parameters.AddWithValue("@uitemplateid", uitemplateid)
                             cmd.ExecuteNonQuery()
 
                             conn.Close()
                         Else
-                            Dim insert As String = "set dateformat dmy insert into SYSTEM.USERCONTROL (USERKEY,STORERKEY,CONSIGNEEKEY,SUPPLIERKEY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values (:ukey, :storer, :consignee, :supplier ,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE,SYSDATE');"
+                            Dim insert As String = "set dateformat dmy insert into SYSTEM.USERCONTROL (USERKEY,STORERKEY,CONSIGNEEKEY,SUPPLIERKEY,EXPORTROWSLIMIT, FILEIMPORTLIMIT, FILEUPLOADLIMIT, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values (:ukey, :storer, :consignee, :supplier ,:exportrowslimit,:fileimportlimit, :fileuploadlimit,:uitemplateid,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE,SYSDATE');"
                             Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                             conn.Open()
 
@@ -451,6 +636,10 @@ Public Class SaveItems
                             cmd.Parameters.Add(New OracleParameter("storer", storer))
                             cmd.Parameters.Add(New OracleParameter("consignee", consignee))
                             cmd.Parameters.Add(New OracleParameter("supplier", supplier))
+                            cmd.Parameters.Add(New OracleParameter("exportrowslimit", exportrowslimit))
+                            cmd.Parameters.Add(New OracleParameter("fileimportlimit", fileimportlimit))
+                            cmd.Parameters.Add(New OracleParameter("fileuploadlimit", fileuploadlimit))
+                            cmd.Parameters.Add(New OracleParameter("uitemplateid", uitemplateid))
                             cmd.ExecuteNonQuery()
 
                             conn.Close()
@@ -466,6 +655,131 @@ Public Class SaveItems
             End If
         End If
         Return tmp
+    End Function
+    Private Function SaveProfile() As DataTable
+        Dim MyTable As New DataTable
+        MyTable.Columns.Add("tmp", GetType(String))
+        MyTable.Columns.Add("url", GetType(String))
+
+        Dim tmp As String = "", url As String = ""
+        Dim IsValid As Boolean = True
+        Dim profilename As String = UCase(HttpContext.Current.Request.Item("Field_ProfileName"))
+
+        If String.IsNullOrEmpty(profilename) Then
+            IsValid = False
+            tmp += "Profile Name must be defined <br/>"
+        End If
+
+        If IsValid Then
+            Dim Command As String = ""
+            Dim exist As Integer = CommonMethods.CheckNameExist(profilename)
+            If exist = 0 Then
+                Try
+                    If CommonMethods.dbtype = "sql" Then
+                        Command = "@pname,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'"
+                        Dim insert As String = "set dateformat dmy insert into  dbo.PROFILES (PROFILENAME, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values ( " & Command & ");"
+                        Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
+                        conn.Open()
+                        Dim cmd As SqlCommand = New SqlCommand(insert, conn)
+                        cmd.Parameters.AddWithValue("@pname", profilename)
+                        cmd.ExecuteNonQuery()
+
+                        Dim insertDetails As String = "set dateformat dmy insert into  dbo.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
+                        Dim ButtonsTable As DataTable = CommonMethods.getButtons("getAll")
+                        For Each row As DataRow In ButtonsTable.Rows
+                            If row("BUTTON").ToString().Contains("Security->") Then
+                                insertDetails += "( @pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                            Else
+                                insertDetails += "( @pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                            End If
+                        Next
+                        insertDetails = insertDetails.Remove(insertDetails.Length - 1)
+                        Dim cmd2 As SqlCommand = New SqlCommand(insertDetails, conn)
+                        cmd2.Parameters.AddWithValue("@pname", profilename)
+                        cmd2.ExecuteNonQuery()
+
+                        Dim insertdetailsReport As String = " set dateformat dmy insert into dbo.REPORTSPROFILEDETAIL (PROFILENAME, REPORT,REPORT_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
+                        Dim ReportsTable As DataTable = CommonMethods.getReports("getAll")
+                        For Each row As DataRow In ReportsTable.Rows
+                            insertdetailsReport += "( @pname,'" & row("RPT_ID").ToString() & "','" & row("RPT_TITLE").ToString() & "','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                        Next
+                        insertdetailsReport = insertdetailsReport.Remove(insertdetailsReport.Length - 1)
+                        Dim cmd3 As SqlCommand = New SqlCommand(insertdetailsReport, conn)
+                        cmd3.Parameters.AddWithValue("@pname", profilename)
+                        cmd3.ExecuteNonQuery()
+
+                        Dim insertDetailsDashBorad As String = " set dateformat dmy insert into dbo.PROFILEDETAILDASHBOARDS (PROFILENAME, DASHBOARD,DASHBOARD_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
+                        Dim DashboardsTable As DataTable = CommonMethods.getDashboards()
+                        For Each row As DataRow In DashboardsTable.Rows
+                            insertDetailsDashBorad += "( @pname,'" & row("DashboardID").ToString() & "','" & row("DashboardName").ToString() & "','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                        Next
+                        insertDetailsDashBorad = insertDetailsDashBorad.Remove(insertDetailsDashBorad.Length - 1)
+                        Dim cmd4 As SqlCommand = New SqlCommand(insertDetailsDashBorad, conn)
+                        cmd4.Parameters.AddWithValue("@pname", profilename)
+                        cmd4.ExecuteNonQuery()
+
+                        conn.Close()
+                    Else
+                        Command = ":pname, :ukey ,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE,SYSDATE"
+                        Dim insert As String = "set dateformat dmy insert into SYSTEM.PROFILES (PROFILENAME, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values ( " & Command & ")"
+                        Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
+                        conn.Open()
+                        Dim cmd As OracleCommand = New OracleCommand(insert, conn)
+                        cmd.Parameters.Add(New OracleParameter("pname", profilename))
+                        cmd.ExecuteNonQuery()
+
+                        Dim insertDetails As String = "set dateformat dmy insert into SYSTEM.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
+                        Dim ButtonsTable As DataTable = CommonMethods.getButtons("getAll")
+                        Dim count As Integer = ButtonsTable.Rows.Count, y As Integer = 0
+                        For Each row As DataRow In ButtonsTable.Rows
+                            If row("BUTTON").ToString().Contains("Security->") Then
+                                insertDetails += "( :pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
+                            Else
+                                insertDetails += "( :pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
+                            End If
+                            y = y + 1
+                            If y < count Then insertDetails += " union all "
+                        Next
+                        Dim cmd2 As OracleCommand = New OracleCommand(insertDetails, conn)
+                        cmd2.Parameters.Add(New OracleParameter("pname", profilename))
+                        cmd2.ExecuteNonQuery()
+
+                        Dim insertdetailsReport As String = "set dateformat dmy insert into SYSTEM.REPORTSPROFILEDETAIL (PROFILENAME, REPORT,REPORT_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
+                        Dim ReportsTable As DataTable = CommonMethods.getReports("getAll")
+                        count = ReportsTable.Rows.Count
+                        y = 0
+
+                        For Each row As DataRow In ReportsTable.Rows
+                            insertdetailsReport += "( :pname,'" & row("RPT_ID").ToString() & "','" & row("RPT_TITLE").ToString() & "','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
+                            y = y + 1
+                            If y < count Then insertDetails += " union all "
+                        Next
+                        Dim cmd3 As OracleCommand = New OracleCommand(insertdetailsReport, conn)
+                        cmd3.Parameters.Add(New OracleParameter("pname", profilename))
+                        cmd3.ExecuteNonQuery()
+
+                        conn.Close()
+                    End If
+                Catch e1 As Exception
+                    If LCase(e1.Message).Contains("duplicate") Then
+                        tmp += "Error: Cannot create duplicate profile name"
+                    Else
+                        tmp += "Error: " & e1.Message & vbTab + e1.GetType.ToString
+                    End If
+                    Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                    logger.Error(e1, "", "")
+                End Try
+            Else
+                tmp = "Error: Profile Name already exists!"
+            End If
+        End If
+
+        If tmp = "" Then
+            Dim page As Page = New Page
+            url = HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Security_ProfilesDetails", Nothing)) & "?profile=" & profilename
+        End If
+        MyTable.Rows.Add(tmp, url)
+        Return MyTable
     End Function
     Private Function SaveUserProfile() As String
         Dim tmp As String = ""
@@ -525,131 +839,6 @@ Public Class SaveItems
             End Try
         End If
         Return tmp
-    End Function
-    Private Function SaveProfile() As DataTable
-        Dim MyTable As New DataTable
-        MyTable.Columns.Add("tmp", GetType(String))
-        MyTable.Columns.Add("url", GetType(String))
-
-        Dim tmp As String = "", url As String = ""
-        Dim IsValid As Boolean = True
-        Dim profilename As String = UCase(HttpContext.Current.Request.Item("Field_ProfileName"))
-
-        If String.IsNullOrEmpty(profilename) Then
-            IsValid = False
-            tmp += "Profile Name must be defined <br/>"
-        End If
-
-        If IsValid Then
-            Dim Command As String = ""
-            Dim exist As Integer = CommonMethods.CheckNameExist(profilename)
-            If exist = 0 Then
-                Try
-                    If CommonMethods.dbtype = "sql" Then
-                        Command = "@pname,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'"
-                        Dim insert As String = "set dateformat dmy insert into  dbo.PROFILES (PROFILENAME, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values ( " & Command & ");"
-                        Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
-                        conn.Open()
-                        Dim cmd As SqlCommand = New SqlCommand(insert, conn)
-                        cmd.Parameters.AddWithValue("@pname", profilename)
-                        cmd.ExecuteNonQuery()
-
-                        Dim insertDetails As String = "set dateformat dmy insert into  dbo.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
-                        Dim ButtonsTable As DataTable = CommonMethods.getButtons("getAll")
-                        For Each row As DataRow In ButtonsTable.Rows
-                            If row("BUTTON").ToString().Contains("Security->") Then
-                                insertDetails += "( @pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
-                            Else
-                                insertDetails += "( @pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
-                            End If
-                        Next
-                        insertDetails = insertDetails.Remove(insertDetails.Length - 1)
-                        Dim cmd2 As SqlCommand = New SqlCommand(insertDetails, conn)
-                        cmd2.Parameters.AddWithValue("@pname", profilename)
-                        cmd2.ExecuteNonQuery()
-
-                        Dim insertdetailsReport As String = " set dateformat dmy insert into  dbo.PROFILEDETAILREPORTS (PROFILENAME, REPORT,REPORT_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
-                        Dim ReportsTable As DataTable = CommonMethods.getReports("getAll")
-                        For Each row As DataRow In ReportsTable.Rows
-                            insertdetailsReport += "( @pname,'" & row("RPT_ID").ToString() & "','" & row("RPT_TITLE").ToString() & "','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
-                        Next
-                        insertdetailsReport = insertdetailsReport.Remove(insertdetailsReport.Length - 1)
-                        Dim cmd3 As SqlCommand = New SqlCommand(insertdetailsReport, conn)
-                        cmd3.Parameters.AddWithValue("@pname", profilename)
-                        cmd3.ExecuteNonQuery()
-
-                        Dim insertDetailsDashBorad As String = " set dateformat dmy insert into  dbo.PROFILEDETAILDASHBOARDS (PROFILENAME, DASHBOARD,DASHBOARD_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
-                        Dim DashboardsTable As DataTable = CommonMethods.getDashboards()
-                        For Each row As DataRow In DashboardsTable.Rows
-                            insertDetailsDashBorad += "( @pname,'" & row("DashboardID").ToString() & "','" & row("DashboardName").ToString() & "','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
-                        Next
-                        insertDetailsDashBorad = insertDetailsDashBorad.Remove(insertDetailsDashBorad.Length - 1)
-                        Dim cmd4 As SqlCommand = New SqlCommand(insertDetailsDashBorad, conn)
-                        cmd4.Parameters.AddWithValue("@pname", profilename)
-                        cmd4.ExecuteNonQuery()
-
-                        conn.Close()
-                    Else
-                        Command = ":pname, :ukey ,'" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE,SYSDATE"
-                        Dim insert As String = "set dateformat dmy insert into SYSTEM.PROFILES (PROFILENAME, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values ( " & Command & ")"
-                        Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
-                        conn.Open()
-                        Dim cmd As OracleCommand = New OracleCommand(insert, conn)
-                        cmd.Parameters.Add(New OracleParameter("pname", profilename))
-                        cmd.ExecuteNonQuery()
-
-                        Dim insertDetails As String = "set dateformat dmy insert into  SYSTEM.REPORTSPROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
-                        Dim ButtonsTable As DataTable = CommonMethods.getButtons("getAll")
-                        Dim count As Integer = ButtonsTable.Rows.Count, y As Integer = 0
-                        For Each row As DataRow In ButtonsTable.Rows
-                            If row("BUTTON").ToString().Contains("Security->") Then
-                                insertDetails += "( :pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
-                            Else
-                                insertDetails += "( :pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
-                            End If
-                            y = y + 1
-                            If y < count Then insertDetails += " union all "
-                        Next
-                        Dim cmd2 As OracleCommand = New OracleCommand(insertDetails, conn)
-                        cmd2.Parameters.Add(New OracleParameter("pname", profilename))
-                        cmd2.ExecuteNonQuery()
-
-                        Dim insertdetailsReport As String = "set dateformat dmy insert into  SYSTEM.REPORTSPROFILEDETAIL (PROFILENAME, REPORT,REPORT_NAME, EDIT,  ADDWHO, EDITWHO, ADDDATE,EDITDATE ) values "
-                        Dim ReportsTable As DataTable = CommonMethods.getReports("getAll")
-                        count = ReportsTable.Rows.Count
-                        y = 0
-
-                        For Each row As DataRow In ReportsTable.Rows
-                            insertdetailsReport += "( :pname,'" & row("RPT_ID").ToString() & "','" & row("RPT_TITLE").ToString() & "','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
-                            y = y + 1
-                            If y < count Then insertDetails += " union all "
-                        Next
-                        Dim cmd3 As OracleCommand = New OracleCommand(insertdetailsReport, conn)
-                        cmd3.Parameters.Add(New OracleParameter("pname", profilename))
-                        cmd3.ExecuteNonQuery()
-
-                        conn.Close()
-                    End If
-                Catch e1 As Exception
-                    If LCase(e1.Message).Contains("duplicate") Then
-                        tmp += "Error: Cannot create duplicate profile name"
-                    Else
-                        tmp += "Error: " & e1.Message & vbTab + e1.GetType.ToString
-                    End If
-                    Dim logger As Logger = LogManager.GetCurrentClassLogger()
-                    logger.Error(e1, "", "")
-                End Try
-            Else
-                tmp = "Error: Profile Name already exists!"
-            End If
-        End If
-
-        If tmp = "" Then
-            Dim page As Page = New Page
-            url = HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Security_ProfilesDetails", Nothing)) & "?profile=" & profilename
-        End If
-        MyTable.Rows.Add(tmp, url)
-        Return MyTable
     End Function
     Private Function SaveConfiguration(ByVal MyID As Integer, ByVal type As String) As String
         Dim tmp As String = "", Command As String = ""
@@ -1220,16 +1409,16 @@ Public Class SaveItems
                     Next
                 End If
 
-                If SkuArr.Length = DetailsCount Then
-                    For i As Integer = 0 To SkuArr.Length - 1
-                        If Not SkuArr(i) Is Nothing Then
-                            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
-                                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
-                                Return tmp
-                            End If
-                        End If
-                    Next
-                End If
+                'If SkuArr.Length = DetailsCount Then
+                '    For i As Integer = 0 To SkuArr.Length - 1
+                '        If Not SkuArr(i) Is Nothing Then
+                '            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
+                '                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
+                '                Return tmp
+                '            End If
+                '        End If
+                '    Next
+                'End If
 
                 For i = 0 To DetailsCount - 1
                     Command += "<PurchaseOrderDetail>"
@@ -1492,16 +1681,16 @@ Public Class SaveItems
                     Next
                 End If
 
-                If SkuArr.Length = DetailsCount Then
-                    For i As Integer = 0 To SkuArr.Length - 1
-                        If Not SkuArr(i) Is Nothing Then
-                            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
-                                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
-                                Return tmp
-                            End If
-                        End If
-                    Next
-                End If
+                'If SkuArr.Length = DetailsCount Then
+                '    For i As Integer = 0 To SkuArr.Length - 1
+                '        If Not SkuArr(i) Is Nothing Then
+                '            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
+                '                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
+                '                Return tmp
+                '            End If
+                '        End If
+                '    Next
+                'End If
 
                 For i = 0 To DetailsCount - 1
                     Command += "<AdvancedShipNoticeDetail>"
@@ -1983,16 +2172,16 @@ Public Class SaveItems
                     Next
                 End If
 
-                If SkuArr.Length = DetailsCount Then
-                    For i As Integer = 0 To SkuArr.Length - 1
-                        If Not SkuArr(i) Is Nothing Then
-                            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
-                                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
-                                Return tmp
-                            End If
-                        End If
-                    Next
-                End If
+                'If SkuArr.Length = DetailsCount Then
+                '    For i As Integer = 0 To SkuArr.Length - 1
+                '        If Not SkuArr(i) Is Nothing Then
+                '            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
+                '                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
+                '                Return tmp
+                '            End If
+                '        End If
+                '    Next
+                'End If
 
                 For i = 0 To DetailsCount - 1
                     Command += "<ShipmentOrderDetail>"
@@ -2540,16 +2729,16 @@ Public Class SaveItems
                     Next
                 End If
 
-                If SkuArr.Length = DetailsCount Then
-                    For i As Integer = 0 To SkuArr.Length - 1
-                        If Not SkuArr(i) Is Nothing Then
-                            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
-                                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
-                                Return tmp
-                            End If
-                        End If
-                    Next
-                End If
+                'If SkuArr.Length = DetailsCount Then
+                '    For i As Integer = 0 To SkuArr.Length - 1
+                '        If Not SkuArr(i) Is Nothing Then
+                '            If Array.LastIndexOf(SkuArr, SkuArr(i)) <> i Then
+                '                tmp = "Duplicate Item " & SkuArr(i) & " on line " & (i + 1).ToString
+                '                Return tmp
+                '            End If
+                '        End If
+                '    Next
+                'End If
 
                 Dim linenumber As Integer = 0
                 Dim linenb As String = ""
@@ -2660,10 +2849,14 @@ Public Class SaveItems
                                 cmdOracleDetails.Parameters.Add(New OracleParameter("pack" & i, PackKeyArr(i)))
                             End If
                         Else
-                            CommandDetails += " ,''"
+                            IsValid = False
+                            tmp += "Pack cannot be empty on line " & (i + 1).ToString & "<br/>"
+                            Exit For
                         End If
                     Catch ex As Exception
-                        CommandDetails += " ,''"
+                        IsValid = False
+                        tmp += "Pack cannot be empty on line " & (i + 1).ToString & "<br/>"
+                        Exit For
                     End Try
 
                     Try

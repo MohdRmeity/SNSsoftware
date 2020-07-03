@@ -24,6 +24,18 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -190,8 +202,8 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="POKey" />
                     </td>
-                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
-                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility" data-mode="single">
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility">
                         </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -200,12 +212,12 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="CAST(PODate AS date)" />
                     </td>
-                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
-                         <select data-placeholder="Search" multiple class="chosen-select SearchClass InputPOStatusSearch" data-id="Status" data-mode="single">
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputPOStatusSearch" data-id="Status">
                         </select>
                     </td>
-                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
-                         <select data-placeholder="Search" multiple class="chosen-select SearchClass InputPOTypeSearch" data-id="POType" data-mode="single">
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputPOTypeSearch" data-id="POType">
                         </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -340,7 +352,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Owner<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -405,6 +417,9 @@
                                 <input type="text" class="textRecordStyle InputSUsr5" />
                             </div>
                         </div>
+                        <div class="floatL Width100 DisplayNone" style="padding-top: 10px">
+                            <div class="dropzone"></div>
+                        </div>
                     </div>
                     <div class="floatL Width100 RecordDetail">
                         <div class="floatL">
@@ -419,9 +434,19 @@
                                         Back to List
                                     </div>
                                 </td>
+                                <td style="width: 13px;"></td>
                                 <td>
-                                    <div class="VerticalSep" style="display: none;"></div>
+                                    <a id="btnExportDetails" runat="server" class="btnExportDetails AnimateMe" title="Export"></a>
                                 </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <div class="VerticalSep2"></div>
+                                </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <a id="btnRefreshDetails" runat="server" class="btnRefreshDetails AnimateMe" title="Refresh"></a>
+                                </td>
+                                <td style="width: 13px;"></td>
                                 <td>
                                     <a id="btnNew" runat="server" class="btnNew AnimateMe">New
                                     </a>
@@ -616,7 +641,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Type*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Types" multiple class="chosen-select InputPOType">
+                                        <select data-placeholder="Select Types" multiple class="chosen-select InputPOType" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -644,7 +669,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Supplier</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Suppliers" multiple class="chosen-select InputSellerName">
+                                        <select data-placeholder="Select Suppliers" multiple class="chosen-select InputSellerName" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -768,8 +793,15 @@
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />
         <input type="hidden" id="SortBy" value="SerialKey desc" />
+
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
+
+        <input type="hidden" id="HiddenCanUploadFiles" runat="server" class="HiddenCanUploadFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewOwnFiles" runat="server" class="HiddenCanViewOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewAllFiles" runat="server" class="HiddenCanViewAllFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveOwnFiles" runat="server" class="HiddenCanRemoveOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveAllFiles" runat="server" class="HiddenCanRemoveAllFiles" value="0" />
 
         <input type="hidden" class="MyFields" value="POKey" data-columnname="PO Key" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" data-primarykey="true" />

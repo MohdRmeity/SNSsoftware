@@ -35,7 +35,6 @@ Partial Public Class Cufex_ForgotPassword
             End If
 
             Session("userkey") = Nothing
-            Session("dtTest") = Nothing
         End If
     End Sub
     Public Sub Submit()

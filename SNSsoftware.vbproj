@@ -163,6 +163,11 @@
     <Content Include="Controls\Cufex_Components\Cufex_MasterMenu.ascx" />
     <Content Include="Controls\Cufex_Components\Cufex_MasterHeader.ascx" />
     <Content Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx" />
+    <Content Include="Cufex\Cufex_Administration_ExportLogs.aspx" />
+    <Content Include="Cufex\Cufex_Administration_FileManagement.aspx" />
+    <Content Include="Cufex\Cufex_Administration_FileManagementLogs.aspx" />
+    <Content Include="Cufex\Cufex_Administration_ImportLogs.aspx" />
+    <Content Include="Cufex\Cufex_Administration_UITemplates.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipFrom.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipTo.aspx" />
@@ -221,7 +226,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\clsCSV.vb" />
     <Compile Include="Classes\clsGlobals.vb" />
+    <Compile Include="Classes\CSVHelperV2.vb" />
     <Compile Include="Classes\CustomDashboardStorage.vb" />
     <Compile Include="Classes\CustomReportDesignerExceptionHandler.vb" />
     <Compile Include="Classes\CustomReportStorageWebExtension.vb" />
@@ -267,6 +274,41 @@
     </Compile>
     <Compile Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx.vb">
       <DependentUpon>Cufex_Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ExportLogs.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_ExportLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ExportLogs.aspx.vb">
+      <DependentUpon>Cufex_Administration_ExportLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagement.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_FileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagement.aspx.vb">
+      <DependentUpon>Cufex_Administration_FileManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagementLogs.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_FileManagementLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_FileManagementLogs.aspx.vb">
+      <DependentUpon>Cufex_Administration_FileManagementLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ImportLogs.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_ImportLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_ImportLogs.aspx.vb">
+      <DependentUpon>Cufex_Administration_ImportLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_UITemplates.aspx.designer.vb">
+      <DependentUpon>Cufex_Administration_UITemplates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Administration_UITemplates.aspx.vb">
+      <DependentUpon>Cufex_Administration_UITemplates.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx.designer.vb">
@@ -506,11 +548,23 @@
     <Compile Include="Webservices\DisplayItemsNew.ashx.vb">
       <DependentUpon>DisplayItemsNew.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Webservices\ExportItems.ashx.vb">
+      <DependentUpon>ExportItems.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\ExportItemsDetails.ashx.vb">
+      <DependentUpon>ExportItemsDetails.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\FileUpload.ashx.vb">
+      <DependentUpon>FileUpload.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Webservices\GetItemsDetails.ashx.vb">
       <DependentUpon>GetItemsDetails.ashx</DependentUpon>
     </Compile>
     <Compile Include="Webservices\GetItemsPopup.ashx.vb">
       <DependentUpon>GetItemsPopup.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\ImportItems.ashx.vb">
+      <DependentUpon>ImportItems.ashx</DependentUpon>
     </Compile>
     <Compile Include="Webservices\SaveItemsDetails.ashx.vb">
       <DependentUpon>SaveItemsDetails.ashx</DependentUpon>
@@ -616,6 +670,10 @@
     <Content Include="Webservices\SaveItemsDetails.ashx" />
     <Content Include="Webservices\GetItemsPopup.ashx" />
     <Content Include="Webservices\UpdateUserActive.ashx" />
+    <Content Include="Webservices\ExportItems.ashx" />
+    <Content Include="Webservices\ExportItemsDetails.ashx" />
+    <Content Include="Webservices\FileUpload.ashx" />
+    <Content Include="Webservices\ImportItems.ashx" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

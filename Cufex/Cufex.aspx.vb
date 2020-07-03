@@ -34,13 +34,14 @@ Partial Public Class Cufex
             Else
                 txtUserName.Focus()
             End If
+
             If Not HttpContext.Current.Session Is Nothing Then
                 If Not Val(Session("LogMeOut")) = 1 Then
                     Session("LogMeOut") = 0
                     If Not Request.Cookies("Cufex_Password") Is Nothing Then
                         If Not Request.Cookies("Cufex_Password").Value = "" Then
                             txtPassword.Text = Request.Cookies("Cufex_Password").Value
-                            Submit()
+                            'Submit()
                         End If
                     Else
                         txtPassword.Focus()
@@ -50,8 +51,6 @@ Partial Public Class Cufex
             End If
 
             Session("userkey") = Nothing
-            Session("dtTest") = Nothing
-            Session("refershTime") = Nothing
         End If
 
         'Session.Clear()
@@ -63,14 +62,13 @@ Partial Public Class Cufex
         Dim hashed As String = ""
         Dim key As String = ""
         Dim userID As Integer = 0
-        Dim refreshTime As String = ""
         Dim dt As DataTable = New DataTable
 
         If CommonMethods.dbtype = "sql" Then
             Try
                 Using connection As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                     connection.Open()
-                    Dim query As SqlCommand = New SqlCommand("select ID, ACTIVE, PASSWORD, HASHKEY, DASHBOARDREFRESHTIME  from dbo.PORTALUSERS where USERKEY=@user", connection)
+                    Dim query As SqlCommand = New SqlCommand("select ID, ACTIVE, PASSWORD, HASHKEY  from dbo.PORTALUSERS where USERKEY=@user", connection)
                     query.Parameters.AddWithValue("@user", LCase(txtUserName.Text))
                     Using people As SqlDataAdapter = New SqlDataAdapter
                         people.SelectCommand = query
@@ -79,7 +77,6 @@ Partial Public Class Cufex
                             exist = row("ACTIVE").ToString
                             hashed = row("PASSWORD").ToString
                             key = row("HASHKEY").ToString
-                            refreshTime = row("DASHBOARDREFRESHTIME").ToString
                             userID = Val(row("ID"))
                         Next
                     End Using
@@ -95,7 +92,7 @@ Partial Public Class Cufex
             Try
                 Using connection As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                     connection.Open()
-                    Dim query As OracleCommand = New OracleCommand("select ID, ACTIVE, PASSWORD, HASHKEY , DASHBOARDREFRESHTIME from SYSTEM.PORTALUSERS where USERKEY = :Userk", connection)
+                    Dim query As OracleCommand = New OracleCommand("select ID, ACTIVE, PASSWORD, HASHKEY  from SYSTEM.PORTALUSERS where USERKEY = :Userk", connection)
                     query.Parameters.Add(New OracleParameter("Userk", LCase(txtUserName.Text)))
                     Using orderdata As OracleDataAdapter = New OracleDataAdapter
                         orderdata.SelectCommand = query
@@ -105,7 +102,6 @@ Partial Public Class Cufex
                             hashed = row("PASSWORD").ToString
                             key = row("HASHKEY").ToString
                             userID = Val(row("ID").ToString)
-                            refreshTime = row("DASHBOARDREFRESHTIME").ToString
                         Next
                     End Using
                     connection.Close()
@@ -163,8 +159,6 @@ Partial Public Class Cufex
                         ScriptManager.RegisterStartupScript(Page, GetType(Page), "alertscript", "Close();", True)
                     Else
                         Session("userkey") = LCase(txtUserName.Text)
-                        Session("refershTime") = refreshTime
-
                         If Not Session("Cufex_AfterLoginURL") Is Nothing Then
                             If Session("Cufex_AfterLoginURL") <> "" Then
                                 Dim Cufex_AfterLoginURL As String = Session("Cufex_AfterLoginURL")

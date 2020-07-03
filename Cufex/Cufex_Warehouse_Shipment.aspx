@@ -24,6 +24,18 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -190,8 +202,8 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="OrderKey" />
                     </td>
-                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
-                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility" data-mode="single">
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility">
                         </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -206,12 +218,12 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="ConsigneeName" />
                     </td>
-                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
-                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderStatusSearch" data-id="Status" data-mode="single">
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderStatusSearch" data-id="Status">
                         </select>
                     </td>
-                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
-                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderTypeSearch" data-id="OrderType" data-mode="single">
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderTypeSearch" data-id="OrderType">
                         </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -389,6 +401,9 @@
                                 <input type="text" class="textRecordStyle InputSUsr5" />
                             </div>
                         </div>
+                        <div class="floatL Width100 DisplayNone" style="padding-top: 10px">
+                            <div class="dropzone"></div>
+                        </div>
                     </div>
                     <div class="floatL Width100 RecordDetail">
                         <div class="floatL">
@@ -403,9 +418,19 @@
                                         Back to List
                                     </div>
                                 </td>
+                                <td style="width: 13px;"></td>
                                 <td>
-                                    <div class="VerticalSep" style="display: none;"></div>
+                                    <a id="btnExportDetails" runat="server" class="btnExportDetails AnimateMe" title="Export"></a>
                                 </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <div class="VerticalSep2"></div>
+                                </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <a id="btnRefreshDetails" runat="server" class="btnRefreshDetails AnimateMe" title="Refresh"></a>
+                                </td>
+                                <td style="width: 13px;"></td>
                                 <td>
                                     <a id="btnNew" runat="server" class="btnNew AnimateMe">New
                                     </a>
@@ -618,10 +643,10 @@
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable03" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
-                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable04" />
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Cast(Lottable04 As Date)" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
-                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable05" />
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Cast(Lottable05 As Date)" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable06" />
@@ -1133,6 +1158,12 @@
         <input type="hidden" class="MyFields" value="SUsr3" data-columnname="UDF3" data-priority="14" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SUsr4" data-columnname="UDF4" data-priority="15" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SUsr5" data-columnname="UDF5" data-priority="16" data-hidden="false" />
+
+        <input type="hidden" id="HiddenCanUploadFiles" runat="server" class="HiddenCanUploadFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewOwnFiles" runat="server" class="HiddenCanViewOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewAllFiles" runat="server" class="HiddenCanViewAllFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveOwnFiles" runat="server" class="HiddenCanRemoveOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveAllFiles" runat="server" class="HiddenCanRemoveAllFiles" value="0" />
 
         <input type="hidden" class="MyDetailsFields" value="ExternLineNo" data-columnname="Extern Line#" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyDetailsFields" value="Sku" data-columnname="Item" data-priority="2" data-hidden="false" data-primarykey="true" />

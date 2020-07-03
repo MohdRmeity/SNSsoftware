@@ -24,19 +24,29 @@ Partial Public Class Cufex_Default
 
             If Not String.IsNullOrEmpty(refreshtime) Then
                 Me.ASPxTimer1.Interval = Integer.Parse(refreshtime) * 1000
+                If (Integer.Parse(refreshtime) / 60) < 1 Then
+                    Me.RefeshTimeLabel.Text = "Refresh every " + refreshtime + " Sec"
+
+                ElseIf (Integer.Parse(refreshtime) / 60) < 60 And Integer.Parse(refreshtime) / 60 > 1 Then
+                    Me.RefeshTimeLabel.Text = "Refresh every " + (Integer.Parse(refreshtime) / 60).ToString() + " Minutes"
+                Else
+                    Me.RefeshTimeLabel.Text = "Refresh every " + Math.Round(Integer.Parse(refreshtime) / (60 * 60), 0).ToString() + " Hours"
+                End If
             End If
 
         Catch ex As Exception
             Dim logger As Logger = LogManager.GetCurrentClassLogger()
             logger.[Error](ex, "", "")
         End Try
-        Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage(HttpContext.Current.Session("userkey").ToString)
-        ASPxDashboard1.SetConnectionStringsProvider(New DevExpress.DataAccess.Web.ConfigFileConnectionStringsProvider())
-        ASPxDashboard1.SetDashboardStorage(dashboardStorage)
-        If CommonMethods.getPermission("Dashboard->Edit (Action)", HttpContext.Current.Session("userkey").ToString) = "0" Then
-            ASPxDashboard1.WorkingMode = WorkingMode.ViewerOnly
-        Else
-            ASPxDashboard1.WorkingMode = WorkingMode.Viewer
+        If HttpContext.Current.Session("userkey") IsNot Nothing Then
+            Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage(HttpContext.Current.Session("userkey").ToString)
+            ASPxDashboard1.SetConnectionStringsProvider(New DevExpress.DataAccess.Web.ConfigFileConnectionStringsProvider())
+            ASPxDashboard1.SetDashboardStorage(dashboardStorage)
+            If CommonMethods.getPermission("Dashboard->Edit (Action)", HttpContext.Current.Session("userkey").ToString) = "0" Then
+                ASPxDashboard1.WorkingMode = WorkingMode.ViewerOnly
+            Else
+                ASPxDashboard1.WorkingMode = WorkingMode.Viewer
+            End If
         End If
     End Sub
     Protected Sub ASPxDashboard1_ConnectionError(sender As Object, e As ConnectionErrorWebEventArgs)

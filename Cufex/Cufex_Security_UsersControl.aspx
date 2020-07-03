@@ -19,6 +19,26 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnImport" runat="server" class="btnImport AnimateMe" title="Import"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -68,8 +88,36 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead borderRight0" data-id="Facility">
+                    <td class="GridCell GridHead" data-id="Facility">
                         <span class="MyTitleHead">Facility</span>
+                    </td>
+                    <td class="GridCell GridHead" data-id="ExportRowsLimit">
+                        <span class="MyTitleHead">Export Rows Limit</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
+                    <td class="GridCell GridHead" data-id="FileImportLimit">
+                        <span class="MyTitleHead">File Import Limit (MB)</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
+                    <td class="GridCell GridHead" data-id="FileUploadLimit">
+                        <span class="MyTitleHead">File Upload Limit (MB)</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
+                    <td class="GridCell GridHead borderRight0" data-id="UITemplateID">
+                        <span class="MyTitleHead">Template ID</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
                     </td>
                 </tr>
                 <tr class="GridRow SearchStyle" id="SearchRow" runat="server">
@@ -95,8 +143,20 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="SupplierKey" />
                     </td>
-                    <td class="GridCell GridHeadSearch borderRight0">
+                    <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
+                    </td>
+                    <td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="ExportRowsLimit" />
+                    </td>
+                    <td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="FileImportLimit" />
+                    </td>
+                    <td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="FileUploadLimit" />
+                    </td>
+                    <td class="GridCell GridHeadSearch borderRight0">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="UITemplateID" />
                     </td>
                 </tr>
                 <tr class="GridRow NoResults">
@@ -109,6 +169,10 @@
                     <td class="GridCell GridContentCell borderRight0" data-id="3"></td>
                     <td class="GridCell GridContentCell borderRight0" data-id="4"></td>
                     <td class="GridCell GridContentCell borderRight0" data-id="5"></td>
+                    <td class="GridCell GridContentCell borderRight0" data-id="6"></td>
+                    <td class="GridCell GridContentCell borderRight0" data-id="7"></td>
+                    <td class="GridCell GridContentCell borderRight0" data-id="8"></td>
+                    <td class="GridCell GridContentCell borderRight0" data-id="9"></td>
                 </tr>
             </table>
             <div class="PagingContainer">
@@ -189,7 +253,34 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Facility</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility" id="cmbFacility" runat="server">
+                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">Export Rows Limit*</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="text" class="textRecordStyle InputExportRowsLimit" data-value="1000" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecordSep floatL"></div>
+                                <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">File Import Limit (MB)*</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="text" class="textRecordStyle InputFileImportLimit" data-value="5" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">File Upload Limit (MB)*</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="text" class="textRecordStyle InputFileUploadLimit" data-value="5" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecordSep floatL"></div>
+                                <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">Template ID</div>
+                                    <div class="FloatRecordField floatL">
+                                        <select data-placeholder="Select Templates" multiple class="chosen-select InputUITemplateID" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -233,5 +324,11 @@
         <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Consignee" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SupplierKey" data-columnname="Supplier" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="5" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="ExportRowsLimit" data-columnname="Export Rows Limit" data-priority="6" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="FileImportLimit" data-columnname="File Import Limit (MB)" data-priority="7" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="FileUploadLimit" data-columnname="File Upload Limit (MB)" data-priority="8" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="UITemplateID" data-columnname="Template ID" data-priority="9" data-hidden="false" />
+
+        <input type="file" class="ImportFileUpload" style="display: none" />
     </div>
 </asp:Content>

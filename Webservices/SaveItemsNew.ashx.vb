@@ -46,6 +46,16 @@ Public Class SaveItemsNew
             writer.WritePropertyName("tmp")
             writer.WriteValue(MyDataTable.Rows(0)!tmp)
 
+            writer.WritePropertyName("key")
+            If mySearchTable.Contains("enterprise") Or mySearchTable = "SKUCATALOGUE" Then
+                writer.WriteValue("")
+            Else
+                writer.WriteValue(MyDataTable.Rows(0)!key)
+            End If
+
+            writer.WritePropertyName("Facility")
+            writer.WriteValue(CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")))
+
             writer.WritePropertyName("serialkey")
             writer.WriteValue(MyDataTable.Rows(0)!serialkey)
 
@@ -64,7 +74,7 @@ Public Class SaveItemsNew
         MyTable.Columns.Add("serialkey", GetType(String))
         MyTable.Columns.Add("queryurl", GetType(String))
 
-        Dim tmp As String = "", Command As String = "", key As String = "", queryurl As String = ""
+        Dim tmp As String = "", Command As String = "", serialkey As String = "", queryurl As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
         Dim r As Regex = New Regex("[~`!#$%^&*()+=|\{}':;,<>/?[\]""]")
@@ -327,13 +337,14 @@ Public Class SaveItemsNew
             If Not EditOperation Then
                 Dim sql = "Select top 1 SerialKey from enterprise.storer where Type='" & type & "' order by SerialKey DESC "
                 Dim ds As DataSet = (New SQLExec).Cursor(sql)
-                If ds.Tables(0).Rows.Count > 0 Then key = ds.Tables(0).Rows(0)!SerialKey
+                If ds.Tables(0).Rows.Count > 0 Then serialkey = ds.Tables(0).Rows(0)!SerialKey
             Else
-                key = MyID
+                serialkey = MyID
             End If
         End If
+
         queryurl = "?" & IIf(type = "2", "cust", "sup") & "=" & storer
-        MyTable.Rows.Add(tmp, key, queryurl)
+        MyTable.Rows.Add(tmp, serialkey, queryurl)
         Return MyTable
     End Function
     Private Function SaveItem(ByVal MyID As Integer) As DataTable
@@ -342,7 +353,7 @@ Public Class SaveItemsNew
         MyTable.Columns.Add("serialkey", GetType(String))
         MyTable.Columns.Add("queryurl", GetType(String))
 
-        Dim tmp As String = "", Command As String = "", key As String = "", queryurl As String = ""
+        Dim tmp As String = "", Command As String = "", serialkey As String = "", queryurl As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
         Dim storer As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
@@ -398,13 +409,13 @@ Public Class SaveItemsNew
             If Not EditOperation Then
                 Dim sql = "Select top 1 SerialKey from enterprise.sku order by SerialKey DESC "
                 Dim ds As DataSet = (New SQLExec).Cursor(sql)
-                If ds.Tables(0).Rows.Count > 0 Then key = ds.Tables(0).Rows(0)!SerialKey
+                If ds.Tables(0).Rows.Count > 0 Then serialkey = ds.Tables(0).Rows(0)!SerialKey
             Else
-                key = MyID
+                serialkey = MyID
             End If
         End If
         queryurl = "?storer=" & storer & "&sku=" & Sku
-        MyTable.Rows.Add(tmp, key, queryurl)
+        MyTable.Rows.Add(tmp, serialkey, queryurl)
         Return MyTable
     End Function
     Private Function SaveItemCatalogue(ByVal MyID As Integer) As DataTable
@@ -413,7 +424,7 @@ Public Class SaveItemsNew
         MyTable.Columns.Add("serialkey", GetType(String))
         MyTable.Columns.Add("queryurl", GetType(String))
 
-        Dim tmp As String = "", key As String = "", queryurl As String = ""
+        Dim tmp As String = "", serialkey As String = "", queryurl As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
         Dim storer As String = UCase(HttpContext.Current.Request.Item("Field_StorerKey")) _
@@ -542,27 +553,27 @@ Public Class SaveItemsNew
                 End If
             End If
         End If
-
         If tmp = "" Then
             If Not EditOperation Then
                 Dim sql = "Select top 1 SerialKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "SKUCATALOGUE order by SerialKey DESC "
                 Dim ds As DataSet = (New SQLExec).Cursor(sql)
-                If ds.Tables(0).Rows.Count > 0 Then key = ds.Tables(0).Rows(0)!SerialKey
+                If ds.Tables(0).Rows.Count > 0 Then serialkey = ds.Tables(0).Rows(0)!SerialKey
             Else
-                key = MyID
+                serialkey = MyID
             End If
         End If
-        queryurl = "?item=" & key
-        MyTable.Rows.Add(tmp, key, queryurl)
+        queryurl = "?item=" & serialkey
+        MyTable.Rows.Add(tmp, serialkey, queryurl)
         Return MyTable
     End Function
     Private Function SavePurchaseOrder(ByVal MyID As Integer) As DataTable
         Dim MyTable As New DataTable
         MyTable.Columns.Add("tmp", GetType(String))
+        MyTable.Columns.Add("key", GetType(String))
         MyTable.Columns.Add("serialkey", GetType(String))
         MyTable.Columns.Add("queryurl", GetType(String))
 
-        Dim tmp As String = "", Command As String = "", po As String = "", key As String = "", queryurl As String = ""
+        Dim tmp As String = "", Command As String = "", key As String = "", serialkey As String = "", queryurl As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
         Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
@@ -670,7 +681,8 @@ Public Class SaveItemsNew
                 If exist = 0 Then
                     If String.IsNullOrEmpty(exterline) And String.IsNullOrEmpty(Sku) And String.IsNullOrEmpty(QtyOrdered) Then
                         tmp = "Detail line cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
+                        Return MyTable
                     End If
 
                     Command += "<PurchaseOrderDetail>"
@@ -683,20 +695,23 @@ Public Class SaveItemsNew
                         Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
                     Else
                         tmp = "Item cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
+                        Return MyTable
                     End If
 
                     If Not String.IsNullOrEmpty(QtyOrdered) Then
                         Command += "<QtyOrdered>" & QtyOrdered & "</QtyOrdered>"
                     Else
                         tmp = "Qty Ordered cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
+                        Return MyTable
                     End If
 
                     Command += "</PurchaseOrderDetail>"
                 Else
                     tmp = "Error: Extern PO Key already exists!"
-                    MyTable.Rows.Add(tmp, key, queryurl)
+                    MyTable.Rows.Add(tmp, key, serialkey, queryurl)
+                    Return MyTable
                 End If
             End If
             Try
@@ -729,18 +744,20 @@ Public Class SaveItemsNew
                     Else
                         tmp = CommonMethods.incremenetKey(Facility, "EXTERNPO")
                         If tmp = "" Then
-                            Dim lineno As String = "", logmessage As String = ""
+                            Dim po As String = "", lineno As String = "", logmessage As String = ""
 
                             Dim nodeList As XmlNodeList = doc.GetElementsByTagName("POKey")
                             For Each node As XmlNode In nodeList
                                 po = node.InnerText
+                                key = po
                                 queryurl = "?warehouse=" & Facility & "&po=" & po
                                 logmessage = CommonMethods.logger(Facility, "Po", po, HttpContext.Current.Session("userkey").ToString)
                             Next
 
+
                             nodeList = doc.GetElementsByTagName("SerialKey")
                             For Each node As XmlNode In nodeList
-                                key = node.InnerText
+                                serialkey = node.InnerText
                                 Exit For
                             Next
 
@@ -764,16 +781,18 @@ Public Class SaveItemsNew
             End Try
         End If
 
-        MyTable.Rows.Add(tmp, key, queryurl)
+        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
+
         Return MyTable
     End Function
     Private Function SaveASN(ByVal MyID As Integer) As DataTable
         Dim MyTable As New DataTable
         MyTable.Columns.Add("tmp", GetType(String))
+        MyTable.Columns.Add("key", GetType(String))
         MyTable.Columns.Add("serialkey", GetType(String))
         MyTable.Columns.Add("queryurl", GetType(String))
 
-        Dim tmp As String = "", Command As String = "", receipt As String = "", key As String = "", queryurl As String = ""
+        Dim tmp As String = "", Command As String = "", key As String = "", serialkey As String = "", queryurl As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
         Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
@@ -868,7 +887,7 @@ Public Class SaveItemsNew
                 If exist = 0 Then
                     If String.IsNullOrEmpty(exterline) And String.IsNullOrEmpty(Sku) And String.IsNullOrEmpty(QtyExpected) Then
                         tmp = "Detail line cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                         Return MyTable
                     End If
 
@@ -882,7 +901,7 @@ Public Class SaveItemsNew
                         Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
                     Else
                         tmp = "Item cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                         Return MyTable
                     End If
 
@@ -890,7 +909,7 @@ Public Class SaveItemsNew
                         Command += "<QtyExpected>" & QtyExpected & "</QtyExpected>"
                     Else
                         tmp = "Qty Expected cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                         Return MyTable
                     End If
 
@@ -920,7 +939,7 @@ Public Class SaveItemsNew
                                 End If
                             Else
                                 tmp = "Lottable04 doesn't match the required date format <br/>"
-                                MyTable.Rows.Add(tmp, key, queryurl)
+                                MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                                 Return MyTable
                             End If
                         End If
@@ -941,7 +960,7 @@ Public Class SaveItemsNew
                                 End If
                             Else
                                 tmp = "Lottable05 doesn't match the required date format one line <br/>"
-                                MyTable.Rows.Add(tmp, key, queryurl)
+                                MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                                 Return MyTable
                             End If
                         End If
@@ -968,7 +987,7 @@ Public Class SaveItemsNew
                                 End If
                             Else
                                 tmp = "Lottable11 doesn't match the required date format one line <br/>"
-                                MyTable.Rows.Add(tmp, key, queryurl)
+                                MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                                 Return MyTable
                             End If
                         End If
@@ -989,7 +1008,7 @@ Public Class SaveItemsNew
                                 End If
                             Else
                                 tmp = "Lottable12 doesn't match the required date format one line <br/>"
-                                MyTable.Rows.Add(tmp, key, queryurl)
+                                MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                                 Return MyTable
                             End If
                         End If
@@ -999,7 +1018,7 @@ Public Class SaveItemsNew
                     Command += "</AdvancedShipNoticeDetail>"
                 Else
                     tmp = "Error: Extern Receipt Key already exists!"
-                    MyTable.Rows.Add(tmp, key, queryurl)
+                    MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                     Return MyTable
                 End If
             End If
@@ -1032,18 +1051,19 @@ Public Class SaveItemsNew
                     Else
                         tmp = CommonMethods.incremenetKey(Facility, "EXTERNASN")
                         If tmp = "" Then
-                            Dim logmessage As String = ""
+                            Dim receipt As String = "", logmessage As String = ""
 
                             Dim nodeList As XmlNodeList = doc.GetElementsByTagName("ReceiptKey")
                             For Each node As XmlNode In nodeList
                                 receipt = node.InnerText
+                                key = receipt
                                 queryurl = "?warehouse=" & Facility & "&receipt=" & receipt
                                 logmessage = CommonMethods.logger(Facility, "Receipt", receipt, HttpContext.Current.Session("userkey").ToString)
                             Next
 
                             nodeList = doc.GetElementsByTagName("SerialKey")
                             For Each node As XmlNode In nodeList
-                                key = node.InnerText
+                                serialkey = node.InnerText
                                 Exit For
                             Next
 
@@ -1071,16 +1091,18 @@ Public Class SaveItemsNew
             End Try
         End If
 
-        MyTable.Rows.Add(tmp, key, queryurl)
+        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
+
         Return MyTable
     End Function
     Private Function SaveSO(ByVal MyID As Integer) As DataTable
         Dim MyTable As New DataTable
         MyTable.Columns.Add("tmp", GetType(String))
+        MyTable.Columns.Add("key", GetType(String))
         MyTable.Columns.Add("serialkey", GetType(String))
         MyTable.Columns.Add("queryurl", GetType(String))
 
-        Dim tmp As String = "", Command As String = "", order As String = "", key As String = "", queryurl As String = ""
+        Dim tmp As String = "", Command As String = "", key As String = "", serialkey As String = "", queryurl As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
         Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
@@ -1202,7 +1224,7 @@ Public Class SaveItemsNew
                 If exist = 0 Then
                     If String.IsNullOrEmpty(exterline) And String.IsNullOrEmpty(Sku) And String.IsNullOrEmpty(OpenQty) Then
                         tmp = "Detail line cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                         Return MyTable
                     End If
 
@@ -1216,7 +1238,7 @@ Public Class SaveItemsNew
                         Command += "<StorerKey>" & Owner & "</StorerKey><Sku>" & Sku & "</Sku>"
                     Else
                         tmp = "Item cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                         Return MyTable
                     End If
 
@@ -1224,7 +1246,7 @@ Public Class SaveItemsNew
                         Command += "<OpenQty>" & OpenQty & "</OpenQty>"
                     Else
                         tmp = "Open Qty cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                         Return MyTable
                     End If
 
@@ -1253,7 +1275,7 @@ Public Class SaveItemsNew
                                 End If
                             Else
                                 tmp = "Lottable04 doesn't match the required date format <br/>"
-                                MyTable.Rows.Add(tmp, key, queryurl)
+                                MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                                 Return MyTable
                             End If
                         End If
@@ -1274,7 +1296,7 @@ Public Class SaveItemsNew
                                 End If
                             Else
                                 tmp = "Lottable05 doesn't match the required date format one line <br/>"
-                                MyTable.Rows.Add(tmp, key, queryurl)
+                                MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                                 Return MyTable
                             End If
                         End If
@@ -1291,7 +1313,7 @@ Public Class SaveItemsNew
 
                 Else
                     tmp = "Error: Extern Order Key already exists!"
-                    MyTable.Rows.Add(tmp, key, queryurl)
+                    MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                     Return MyTable
                 End If
             End If
@@ -1325,18 +1347,19 @@ Public Class SaveItemsNew
                     Else
                         tmp = CommonMethods.incremenetKey(Facility, "EXTERNSO")
                         If tmp = "" Then
-                            Dim logmessage As String = ""
+                            Dim order As String = "", logmessage As String = ""
 
                             Dim nodeList As XmlNodeList = doc.GetElementsByTagName("OrderKey")
                             For Each node As XmlNode In nodeList
                                 order = node.InnerText
+                                key = order
                                 queryurl = "?warehouse=" & Facility & "&order=" & order
                                 logmessage = CommonMethods.logger(Facility, "Order", order, HttpContext.Current.Session("userkey").ToString)
                             Next
 
                             nodeList = doc.GetElementsByTagName("SerialKey")
                             For Each node As XmlNode In nodeList
-                                key = node.InnerText
+                                serialkey = node.InnerText
                                 Exit For
                             Next
 
@@ -1364,16 +1387,18 @@ Public Class SaveItemsNew
             End Try
         End If
 
-        MyTable.Rows.Add(tmp, key, queryurl)
+        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
+
         Return MyTable
     End Function
     Private Function SaveOrderManagement(ByVal MyID As Integer) As DataTable
         Dim MyTable As New DataTable
         MyTable.Columns.Add("tmp", GetType(String))
+        MyTable.Columns.Add("key", GetType(String))
         MyTable.Columns.Add("serialkey", GetType(String))
         MyTable.Columns.Add("queryurl", GetType(String))
 
-        Dim tmp As String = "", Command As String = "", CommandDetails As String = "", columns As String = "", key As String = "", queryurl As String = ""
+        Dim tmp As String = "", Command As String = "", CommandDetails As String = "", columns As String = "", key As String = "", serialkey As String = "", queryurl As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
         Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")) _
@@ -1610,7 +1635,7 @@ Public Class SaveItemsNew
                 If exist = 0 Then
                     If String.IsNullOrEmpty(exterline) And String.IsNullOrEmpty(Sku) And String.IsNullOrEmpty(OpenQty) Then
                         tmp = "Detail line cannot be empty <br/>"
-                        MyTable.Rows.Add(tmp, key, queryurl)
+                        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                         Return MyTable
                     End If
 
@@ -1716,10 +1741,12 @@ Public Class SaveItemsNew
                                 cmdOracleDetails.Parameters.Add(New OracleParameter("pack", PackKey))
                             End If
                         Else
-                            CommandDetails += " ,''"
+                            IsValid = False
+                            tmp += "Pack cannot be empty <br/>"
                         End If
                     Catch ex As Exception
-                        CommandDetails += " ,''"
+                        IsValid = False
+                        tmp += "Pack cannot be empty <br/>"
                     End Try
 
                     Try
@@ -2032,7 +2059,7 @@ Public Class SaveItemsNew
 
                 Else
                     tmp = "Error: Extern Order Key already exists!"
-                    MyTable.Rows.Add(tmp, key, queryurl)
+                    MyTable.Rows.Add(tmp, key, serialkey, queryurl)
                     Return MyTable
                 End If
             End If
@@ -2118,16 +2145,19 @@ Public Class SaveItemsNew
             sql += " select top 1 SerialKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG order by SerialKey DESC "
             Dim ds As DataSet = (New SQLExec).Cursor(sql)
             If ds.Tables(0).Rows.Count > 0 Then
-                queryurl = "?ordermanagkey=" & ds.Tables(0).Rows(0)!ORDERMANAGKEY
+                key = ds.Tables(0).Rows(0)!ORDERMANAGKEY
+                queryurl = "?ordermanagkey=" & key
             End If
             If ds.Tables(1).Rows.Count > 0 Then
-                key = ds.Tables(1).Rows(0)!SerialKey
+                serialkey = ds.Tables(1).Rows(0)!SerialKey
             End If
         Else
+            key = orderkey
             queryurl = "?ordermanagkey=" & orderkey
-            key = MyID
+            serialkey = MyID
         End If
-        MyTable.Rows.Add(tmp, key, queryurl)
+
+        MyTable.Rows.Add(tmp, key, serialkey, queryurl)
         Return MyTable
     End Function
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable

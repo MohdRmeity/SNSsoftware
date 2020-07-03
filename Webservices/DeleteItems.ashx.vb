@@ -58,7 +58,7 @@ Public Class DeleteItems
             For i = 1 To 4
                 If i = 1 Then sql += "delete from " & IIf(CommonMethods.dbtype <> "sql", "System.", "") & "USERPROFILE"
                 If i = 2 Then sql += "delete from " & IIf(CommonMethods.dbtype <> "sql", "System.", "") & "PROFILEDETAIL"
-                If i = 3 Then sql += "delete from " & IIf(CommonMethods.dbtype <> "sql", "System.", "") & "PROFILEDETAILREPORTS"
+                If i = 3 Then sql += "delete from " & IIf(CommonMethods.dbtype <> "sql", "System.", "") & "REPORTSPROFILEDETAIL"
                 If i = 4 Then
                     If CommonMethods.dbtype = "sql" Then
                         sql += "delete from " & IIf(CommonMethods.dbtype <> "sql", "System.", "") & "PROFILEDETAILDASHBOARDS"
@@ -89,7 +89,7 @@ Public Class DeleteItems
             primKey = "SerialKey"
             Dim dsItem As DataSet = tb.Cursor("Select StorerKey, Sku from " & SearchTable & " where " & primKey & " In (" & MyItems & ")")
             tmp = DeleteItem(dsItem.Tables(0))
-        ElseIf SearchTable = "SKUCATALOGUE" Then
+        ElseIf SearchTable = "SKUCATALOGUE" Or SearchTable = "UITEMPLATES" Then
             primKey = "SerialKey"
             If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable
             sql += " delete from " & SearchTable & " where " & primKey & " In (" & MyItems & ") "
@@ -105,6 +105,8 @@ Public Class DeleteItems
             sql += " delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAGDETAIL where "
             sql += " WHSEID In (Select WHSEID from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where " & primKey & " In (" & MyItems & "))"
             sql += " And ExternOrderKey In (Select ExternOrderKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where " & primKey & " In (" & MyItems & "))"
+            sql += " delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG_FILES"
+            sql += " Where OrderManagKey In (Select OrderManagKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where " & primKey & " In (" & MyItems & "))"
             sql += " delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where " & primKey & " In (" & MyItems & ") "
             tmp = tb.Execute(sql)
         End If
@@ -197,7 +199,16 @@ Public Class DeleteItems
                 Command = "<PurchaseOrderHeader><ExternPOKey>" & !ExternPOKey.ToString & "</ExternPOKey><POKey>" & !POKey.ToString & "</POKey></PurchaseOrderHeader>"
                 Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>PurchaseOrder</MessageType> <Action>delete</Action> <Sender> <User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>		<TenantId>INFOR</TenantId>		</Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(!Facility) & "</SystemID>		</Recipient>	</Head>	<Body><PurchaseOrder> " & Command & "</PurchaseOrder></Body></Message>"
                 tmp = CommonMethods.DeleteXml(xml, !Facility.ToString, "Po", !POKey.ToString)
+
+                If tmp = "" Then
+                    Dim Facility As String = CommonMethods.getFacilityDBName(!Facility)
+                    If LCase(Facility.Substring(0, 6)) = "infor_" Then Facility = Facility.Substring(6, Facility.Length - 6)
+                    If LCase(Facility).Contains("_") Then Facility = Facility.Split("_")(1)
+                    Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PO_FILES where WHSEID = '" & Facility & "' and POKEY='" & !POKey.ToString & "'"
+                    tmp = (New SQLExec).Execute(Sql)
+                End If
             End With
+            tmp = ""
         Next
         Return tmp
     End Function
@@ -250,7 +261,16 @@ Public Class DeleteItems
                 Command = "<AdvancedShipNoticeHeader><ExternReceiptKey>" & !ExternReceiptKey.ToString & "</ExternReceiptKey><ReceiptKey>" & !ReceiptKey.ToString & "</ReceiptKey></AdvancedShipNoticeHeader>"
                 Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>AdvancedShipNotice</MessageType> <Action>delete</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId></Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(!Facility) & "</SystemID>		</Recipient>	</Head>	<Body><AdvancedShipNotice> " & Command & "</AdvancedShipNotice></Body></Message>"
                 tmp = CommonMethods.DeleteXml(xml, !Facility.ToString, "Receipt", !ReceiptKey.ToString)
+
+                If tmp = "" Then
+                    Dim Facility As String = CommonMethods.getFacilityDBName(!Facility)
+                    If LCase(Facility.Substring(0, 6)) = "infor_" Then Facility = Facility.Substring(6, Facility.Length - 6)
+                    If LCase(Facility).Contains("_") Then Facility = Facility.Split("_")(1)
+                    Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "RECEIPT_FILES where WHSEID = '" & Facility & "' and ReceiptKey='" & !ReceiptKey.ToString & "'"
+                    tmp = (New SQLExec).Execute(Sql)
+                End If
             End With
+            tmp = ""
         Next
         Return tmp
     End Function
@@ -308,7 +328,16 @@ Public Class DeleteItems
                 Command = "<ShipmentOrderHeader><ExternOrderKey>" & !ExternOrderKey.ToString & "</ExternOrderKey><OrderKey>" & !OrderKey.ToString & "</OrderKey></ShipmentOrderHeader>"
                 Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>ShipmentOrder</MessageType> <Action>delete</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId></Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(!Facility) & "</SystemID>		</Recipient>	</Head>	<Body><ShipmentOrder> " & Command & "</ShipmentOrder></Body></Message>"
                 tmp = CommonMethods.DeleteXml(xml, !Facility.ToString, "Order", !OrderKey.ToString)
+
+                If tmp = "" Then
+                    Dim Facility As String = CommonMethods.getFacilityDBName(!Facility)
+                    If LCase(Facility.Substring(0, 6)) = "infor_" Then Facility = Facility.Substring(6, Facility.Length - 6)
+                    If LCase(Facility).Contains("_") Then Facility = Facility.Split("_")(1)
+                    Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERS_FILES where WHSEID = '" & Facility & "' and OrderKey='" & !OrderKey.ToString & "'"
+                    tmp = (New SQLExec).Execute(Sql)
+                End If
             End With
+            tmp = ""
         Next
         Return tmp
     End Function

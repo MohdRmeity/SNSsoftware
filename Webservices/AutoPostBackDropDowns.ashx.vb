@@ -52,38 +52,15 @@ Public Class AutoPostBackDropDowns
     Private Function PopulateSkuCat(ByVal MyValue As String) As String
         Dim DropDownFields As String = "Sku:::"
         If Trim(MyValue) <> "" Then
-
-            Try
-                Dim Xml As String = "<Message>	<Head>		<MessageID>0000000003</MessageID>		<MessageType>ItemMaster</MessageType>		<Action>list</Action>		<Sender>			<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>		<TenantId>INFOR</TenantId>		</Sender>		<Recipient>			<SystemID>" & CommonMethods.getEnterpriseDBName() & "</SystemID>		</Recipient>	</Head>	<Body>		<ItemMaster> 		<Item>	<StorerKey>" & MyValue & "	</StorerKey></Item></ItemMaster>	</Body></Message>"
-                Dim soapResult As String = CommonMethods.sendwebRequest(Xml)
-                If String.IsNullOrEmpty(soapResult) Then
-                    DropDownFields = "Error: Unable to connect to webservice, kindly check the logs"
-                Else
-                    Dim dsresult As DataSet = New DataSet
-                    Dim doc As XmlDocument = New XmlDocument
-                    doc.LoadXml(soapResult)
-
-                    Dim xmlFile As XmlReader = XmlReader.Create(New StringReader(soapResult), New XmlReaderSettings)
-
-                    Dim results As XmlNodeList = doc.SelectNodes("//*[local-name()='Item']")
-                    For Each node As XmlNode In results
-                        If Not node("Sku").IsEmpty Then
-                            DropDownFields += node("Sku").InnerText.ToString
-                        End If
-
-                        If Not node("Descr").IsEmpty Then
-                            DropDownFields += "~~~" & node("Descr").InnerText.ToString
-                        End If
-
-                        DropDownFields += ","
-                    Next
-                    If DropDownFields.EndsWith(",") Then DropDownFields = DropDownFields.Remove(DropDownFields.Length - 1)
-                End If
-            Catch exp As Exception
-                DropDownFields = "Error: " & exp.Message & vbTab + exp.GetType.ToString
-                Dim logger As Logger = LogManager.GetCurrentClassLogger()
-                logger.Error(exp, "", "")
-            End Try
+            Dim sql As String = "Select top 100 Sku, Descr from enterprise.sku where StorerKey ='" & MyValue & "'"
+            Dim ds As DataSet = (New SQLExec).Cursor(sql)
+            If ds IsNot Nothing Then
+                For i = 0 To ds.Tables(0).Rows.Count - 1
+                    With ds.Tables(0).Rows(i)
+                        DropDownFields += IIf(i <> 0, ",", "") & !Sku & "~~~" & !Descr
+                    End With
+                Next
+            End If
         End If
         Return DropDownFields
     End Function
@@ -245,7 +222,7 @@ Public Class AutoPostBackDropDowns
                     Dim valuesstr As String = String.Join("','", values)
                     valuesstr = "'" & valuesstr & "'"
                     If Not UCase(valuesstr).Contains("'ALL'") Then
-                        AndFilter = " and " & IIf(i = 0, "StorerKey", "ConsigneeKey") & " IN (" + valuesstr + ") "
+                        AndFilter = " and STORERKEY IN (" + valuesstr + ") "
                     End If
                 End If
                 sql += "select StorerKey,Company from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "2") & " " & AndFilter

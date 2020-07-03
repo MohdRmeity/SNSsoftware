@@ -34,8 +34,15 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead borderRight0" data-id="PackKey">
+                    <td class="GridCell GridHead" data-id="PackKey">
                         <span class="MyTitleHead">Pack</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
+                    <td class="GridCell GridHead borderRight0" data-id="PackDescr">
+                        <span class="MyTitleHead">Pack Description</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -56,8 +63,11 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Descr" />
                     </td>
-                    <td class="GridCell GridHeadSearch borderRight0">
+                    <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="PackKey" />
+                    </td>
+                    <td class="GridCell GridHeadSearch borderRight0">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="PackDescr" />
                     </td>
                 </tr>
                 <tr class="GridRow NoResults">
@@ -68,6 +78,7 @@
                     </td>
                     <td class="GridCell GridContentCell borderRight0" data-id="2"></td>
                     <td class="GridCell GridContentCell borderRight0" data-id="3"></td>
+                    <td class="GridCell GridContentCell borderRight0" data-id="4"></td>
                 </tr>
             </table>
             <div class="PagingContainer">
@@ -110,5 +121,6 @@
         <input type="hidden" class="MyFields" value="Sku" />
         <input type="hidden" class="MyFields" value="Descr" />
         <input type="hidden" class="MyFields" value="PackKey" />
+        <input type="hidden" class="MyFields" value="PackDescr" />
     </div>
 </asp:Content>

@@ -6,11 +6,32 @@
     <div class="NormalDiv1118Max GetFullHeightAtLeast">
         <div style="height: 33px;"></div>
         <div class="MainHeader">
-            <div class="MainPageTitle" data-id="Inventory_Balance">
-                Inventory Balance
-            </div>
-            <div class="MainPageDesc">
-                Check your inventory balance
+            <div class="iWantMyChildrenFloatHeight" style="position: relative;">
+                <div class="floatL Width100">
+                    <div class="floatL">
+                        <div class="MainPageTitle" data-id="Inventory_Balance">
+                            Inventory Balance
+                        </div>
+                        <div class="MainPageDesc">
+                            Check your inventory balance
+                        </div>
+                    </div>
+                    <table class="floatR">
+                        <tr>
+                            <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div style="position: relative; padding-top: 25px; width: 100%;" class="HeaderGridView content_3">
@@ -77,8 +98,8 @@
                     <td class="GridCell GridHeadSearch selectAllWidth">
                         <div class="GridSearch"></div>
                     </td>
-                    <td class="GridCell GridHeadSearch" style="overflow:visible;">
-                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility" data-mode="single">
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility">
                         </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -96,10 +117,10 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Available" />
                     </td>
-                    <td class="GridCell GridHeadSearch borderRight0" style="overflow:visible;">
-                         <select data-placeholder="Search" multiple class="chosen-select SearchClass InputStatus" data-id="Status" data-mode="single">
-                             <option value="HOLD">HOLD</option>
-                             <option value="OK">OK</option>
+                    <td class="GridCell GridHeadSearch borderRight0" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputStatus" data-id="Status">
+                            <option value="HOLD">HOLD</option>
+                            <option value="OK">OK</option>
                         </select>
                     </td>
                 </tr>

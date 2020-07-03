@@ -9,7 +9,6 @@ Public Class DisplayDropDowns
 
         Dim tb As SQLExec = New SQLExec
         Dim mySearchTable As String = HttpContext.Current.Request.Item("SearchTable")
-
         Dim sql As String = ""
         Dim ds As DataSet = Nothing
         Dim DropDownFields As String = ""
@@ -18,13 +17,21 @@ Public Class DisplayDropDowns
         Dim DTable3 As DataTable = Nothing
         Dim DTable4 As DataTable = Nothing
 
-        If mySearchTable = "USERCONTROL" Or mySearchTable = "Warehouse_PO" Or mySearchTable = "Warehouse_SO" Or mySearchTable = "Warehouse_OrderManagement" Or mySearchTable = "Inventory_Balance" Then
-            DTable1 = CommonMethods.getFacilities()
+        If mySearchTable = "PORTALUSERS" Then
+            DTable1 = CommonMethods.getTimeZones()
+            DropDownFields += "TimeZone:::"
+            For i = 0 To DTable1.Rows.Count - 1
+                With DTable1.Rows(i)
+                    DropDownFields += IIf(i <> 0, ",", "") & !TimeZone
+                End With
+            Next
+        ElseIf mySearchTable = "USERCONTROL" Or mySearchTable = "Warehouse_PO" Or mySearchTable = "Warehouse_SO" Or mySearchTable = "Warehouse_OrderManagement" Or mySearchTable = "Inventory_Balance" Then
+            DTable1 = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
 
             DropDownFields += "Facility:::"
             For i = 0 To DTable1.Rows.Count - 1
                 With DTable1.Rows(i)
-                    DropDownFields += IIf(i <> 0, ",", "") & !db_alias & "~~~" & !db_name
+                    DropDownFields += IIf(i <> 0, ",", "") & !DB_LOGID & "~~~" & !db_name
                 End With
             Next
 
@@ -196,7 +203,7 @@ Public Class DisplayDropDowns
                 End With
             Next
         ElseIf mySearchTable = "Warehouse_ASN" Then
-            DTable1 = CommonMethods.getFacilities()
+            DTable1 = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
             DTable2 = CommonMethods.getCountries()
             DTable3 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECEIPTYPE")
             DTable4 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECSTATUS")
@@ -204,7 +211,7 @@ Public Class DisplayDropDowns
             DropDownFields += "Facility:::"
             For i = 0 To DTable1.Rows.Count - 1
                 With DTable1.Rows(i)
-                    DropDownFields += IIf(i <> 0, ",", "") & !db_alias & "~~~" & !db_name
+                    DropDownFields += IIf(i <> 0, ",", "") & !DB_LOGID & "~~~" & !db_name
                 End With
             Next
 

@@ -11,6 +11,10 @@ Public Class ActionButtons
         Dim MyItems As String = HttpContext.Current.Request.Item("MyItems")
         Dim ActionID As Integer = Val(HttpContext.Current.Request.Item("ActionID"))
 
+        If MyItems.Contains("?") Then
+            MyItems = CommonMethods.GetMyID(SearchTable, MyItems)
+        End If
+
         If SearchTable = "PORTALUSERS" Then
             tmp = ResetUserConfiguration(MyItems)
         ElseIf SearchTable = "Warehouse_SO" Then
@@ -185,7 +189,7 @@ Public Class ActionButtons
                 externokey = !EXTERNORDERKEY.ToString()
                 Owner = !STORERKEY.ToString()
                 If Not String.IsNullOrEmpty(!RequestedShipDate.ToString()) Then
-                    Dim DateTime As DateTime = DateTime.ParseExact(!RequestedShipDate.ToString(), "M/d/yyyy h:mm:ss tt", Nothing)
+                    Dim DateTime As DateTime = DateTime.ParseExact(!RequestedShipDate.ToString(), "MM/dd/yyyy HH:mm:ss", Nothing)
                     reqdate = DateTime.ToString("dd/MM/yyyy HH:mm:ss")
                 End If
                 OrderXml += "<ShipmentOrder><ShipmentOrderHeader><ExternOrderKey>" & externokey & "</ExternOrderKey>" &
@@ -209,7 +213,7 @@ Public Class ActionButtons
             Dim Xml As String = "<Message><Head><MessageID>0000000003</MessageID><MessageType>ShipmentOrder</MessageType><Action>store</Action><Sender><User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId>	</Sender><Recipient><SystemID>" & warehouse & "</SystemID></Recipient></Head><Body>" & OrderXml & "</Body></Message>"
             tmp = CommonMethods.ActionXml(Xml)
             If tmp = "" Then
-                Dim okey As String = CommonMethods.getwmsOkeyFromWMS(externokey, warehouse)
+                Dim okey As String = CommonMethods.getwmsOkeyFromWMS(warehouse, externokey)
                 If allocate Then
                     Dim order As String = "<ShipmentOrderHeader><ExternOrderKey>" + externokey + "</ExternOrderKey><StorerKey>" & Owner & "</StorerKey></ShipmentOrderHeader>"
                     Xml = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>ShipmentOrder</MessageType> <Action>allocate</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>			<TenantId>INFOR</TenantId>	</Sender>		<Recipient>			<SystemID>" & warehouse & "</SystemID>		</Recipient>	</Head>	<Body><ShipmentOrder> " & order & "</ShipmentOrder></Body></Message>"
@@ -231,11 +235,11 @@ Public Class ActionButtons
     End Function
     Private Function OrderStatusUpdate(ByVal ordermanagkey As String, ByVal warehouse As String, ByVal status As String, ByVal okey As String) As String
         Dim sql As String = " Update " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ordermanag "
-        sql += " set ORDERMANAGSTATUS= '" & status & " , notes2= '" & okey & "'"
-        sql += " where  ORDERMANAGKEY= '" & ordermanagkey & " and WHSEID= '" & warehouse & "'"
+        sql += " set ORDERMANAGSTATUS= '" & status & "' , notes2= '" & okey & "'"
+        sql += " where  ORDERMANAGKEY= '" & ordermanagkey & "' and WHSEID= '" & warehouse & "'"
         sql += " Update " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ordermanagdetail "
         sql += " set Status = '04' "
-        sql += " where  ORDERMANAGKEY= '" & ordermanagkey & " and WHSEID= '" & warehouse & "'"
+        sql += " where  ORDERMANAGKEY= '" & ordermanagkey & "' and WHSEID= '" & warehouse & "'"
         Return (New SQLExec).Execute(sql)
     End Function
     Private Function AddLines(ByVal ordermanagkey As String, ByVal externokey As String, ByVal wmsokey As String, ByVal Owner As String, ByVal warehouse As String, ByVal DetailsTable As DataTable) As String

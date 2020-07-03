@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class Cufex_Configuration_ShipTo
     
     '''<summary>
+    '''btnExport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnExport As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''btnRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRefresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''btnQuickEntry control.
     '''</summary>
     '''<remarks>

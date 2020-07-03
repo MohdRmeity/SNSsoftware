@@ -91,7 +91,7 @@ Partial Public Class Cufex_ResetPasswordByCode
                                         CommonMethods.SendEmail(New MailAddress(email, userkey), "SNS Password Reset", String.Format(msg, userkey, txtConfirmPassword.Text))
                                         Session("userID") = Nothing
                                         Session("userkey") = Nothing
-                                        Response.Redirect(Page.GetRouteUrl("SNSsoftware-CMS", Nothing))
+                                        Response.Redirect(Page.GetRouteUrl("SNSsoftware-Home", Nothing))
                                     Catch e1 As Exception
                                         CVError1.IsValid = False
                                         CVError1.ErrorMessage += "Error: " & e1.Message & vbTab + e1.GetType.ToString & "<br/>"
