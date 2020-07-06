@@ -1,24 +1,20 @@
 ﻿Imports DevExpress.DashboardWeb
 
-Public Class Dashboard
+Public Class Cufex_Dashboard
     Inherits System.Web.UI.Page
 
     Private userkey As String = "admin"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs)
-        Try
-            Dim refreshtime As String = ConfigurationManager.AppSettings("ExtranlDashboardRefreshTimeInSeconds")
-            Me.ASPxTimer1.Interval = Integer.Parse(refreshtime) * 1000
-
-            Dim dashboardID As Integer = Integer.Parse(Request.QueryString("Id"))
+        Dim refreshtime As String = CommonMethods.ExternalDashboardRefreshTimeInSeconds
+        Me.ASPxTimer1.Interval = Val(refreshtime) * 1000
+        Dim dashboardID As Integer = Val(Request.QueryString("Id"))
+        If dashboardID <> 0 Then
             Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage()
             Me.ASPxDashboard1.WorkingMode = WorkingMode.ViewerOnly
             Dim dashboardXML = dashboardStorage.LoadDashboard(dashboardID.ToString())
             ASPxDashboard1.OpenDashboard(dashboardXML)
-        Catch ex As Exception
-            Me.Page.ClientScript.RegisterStartupScript(Me.GetType(), "ex", "alert('" & "Invalid Dashboard Id" & "');", True)
-
-        End Try
+        End If
     End Sub
 
     Protected Sub ASPxDashboard_ConnectionError(ByVal sender As Object, ByVal e As ConnectionErrorWebEventArgs) Handles ASPxDashboard1.ConnectionError

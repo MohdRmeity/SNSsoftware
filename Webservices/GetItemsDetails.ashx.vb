@@ -15,7 +15,7 @@ Public Class GetItemsDetails
         Dim Key As String = HttpContext.Current.Request.Item("Key")
         Dim SortBy As String = HttpContext.Current.Request.Item("SortBy")
         Dim AndFilter As String = ""
-        Dim SQL As String = " set dateformat dmy select * from "
+        Dim SQL As String = " set dateformat mdy select * from "
 
         If SearchTable <> "Warehouse_OrderManagement" Then
             If Facility = "" Then
@@ -135,7 +135,7 @@ Public Class GetItemsDetails
                 ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
                     Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
                     Dim MyDateTime As DateTime
-                    If DateTime.TryParse(MySearchInsideTerms(1), MyDateTime) Then
+                    If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
                         Sql += " Or " & MySearchInsideTerms(0) & " = CAST ('" & MySearchInsideTerms(1) & "' as Date) "
                     End If
                 Else

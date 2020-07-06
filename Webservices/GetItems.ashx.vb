@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports Newtonsoft.Json
 
 Public Class GetItems
@@ -14,7 +15,7 @@ Public Class GetItems
         Dim AndFilter As String = ""
         Dim QueryUrlStr As String = HttpContext.Current.Request.Item("QueryUrlStr")
         Dim TabName As String = HttpContext.Current.Request.Item("TabName")
-        Dim SQL As String = " set dateformat dmy "
+        Dim SQL As String = " set dateformat mdy "
 
         If TabName = "Actions" Then
             SearchTable = "PROFILEDETAIL"
@@ -171,7 +172,6 @@ Public Class GetItems
         End Using
         context.Response.Write(sw)
         context.Response.End()
-
     End Sub
 
     'SeachItem
@@ -229,7 +229,7 @@ Public Class GetItems
                 ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
                     Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
                     Dim MyDateTime As DateTime
-                    If DateTime.TryParse(MySearchInsideTerms(1), MyDateTime) Then
+                    If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
                         Sql += " Or " & MySearchInsideTerms(0) & " = CAST ('" & MySearchInsideTerms(1) & "' as Date) "
                     End If
                 Else

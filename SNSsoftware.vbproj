@@ -171,6 +171,7 @@
     <Content Include="Cufex\Cufex_Configuration_ItemCatalogue.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipFrom.aspx" />
     <Content Include="Cufex\Cufex_Configuration_ShipTo.aspx" />
+    <Content Include="Cufex\Cufex_Dashboard.aspx" />
     <Content Include="Cufex\Cufex_Popup_Items.aspx" />
     <Content Include="Cufex\Cufex_Popup_Locations.aspx" />
     <Content Include="Cufex\Cufex_Popup_Packs.aspx" />
@@ -327,6 +328,20 @@
     </Compile>
     <Compile Include="Cufex\Cufex_Configuration_ShipTo.aspx.vb">
       <DependentUpon>Cufex_Configuration_ShipTo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Dashboard.aspx.designer.vb">
+      <DependentUpon>Cufex_Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Dashboard.aspx.vb">
+      <DependentUpon>Cufex_Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_DashboardSite.Master.designer.vb">
+      <DependentUpon>Cufex_DashboardSite.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_DashboardSite.Master.vb">
+      <DependentUpon>Cufex_DashboardSite.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cufex\Cufex_Popup_Items.aspx.designer.vb">
@@ -612,6 +627,7 @@
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <Content Include="Cufex\Cufex_Site.Master" />
+    <Content Include="Cufex\Cufex_DashboardSite.Master" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

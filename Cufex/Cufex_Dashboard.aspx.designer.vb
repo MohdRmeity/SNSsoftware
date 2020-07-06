@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Dashboard
+Partial Public Class Cufex_Dashboard
     
     '''<summary>
     '''ASPxTimer1 control.
