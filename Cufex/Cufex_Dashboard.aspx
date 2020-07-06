@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb"  AutoEventWireup="true" CodeBehind="Dashboard.aspx.vb" MasterPageFile="~/Cufex/Site1.Master"  Inherits="SNSsoftware.Dashboard" %>
+﻿<%@ Page Language="vb"  AutoEventWireup="true" CodeBehind="Cufex_Dashboard.aspx.vb" MasterPageFile="~/Cufex/Cufex_DashboardSite.Master"  Inherits="SNSsoftware.Cufex_Dashboard" %>
 
 <%@ Register Assembly="DevExpress.Dashboard.v20.1.Web.WebForms, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.DashboardWeb" TagPrefix="dx" %>
 

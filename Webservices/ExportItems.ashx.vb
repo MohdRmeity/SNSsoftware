@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Globalization
 Imports System.IO
 Imports Newtonsoft.Json
 Imports NLog
@@ -26,7 +27,7 @@ Public Class ExportItems
             ExportRowsLimit = UserControlInfo.Rows(0)!ExportRowsLimit
         End If
         Dim RecordsCount As Integer = 0
-        Dim SQL As String = " set dateformat dmy "
+        Dim SQL As String = " set dateformat mdy "
 
         If ExportRowsLimit > 0 Then
             If TabName = "Actions" Then
@@ -235,7 +236,7 @@ Public Class ExportItems
                 ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
                     Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
                     Dim MyDateTime As DateTime
-                    If DateTime.TryParse(MySearchInsideTerms(1), MyDateTime) Then
+                    If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
                         Sql += " Or " & MySearchInsideTerms(0) & " = CAST ('" & MySearchInsideTerms(1) & "' as Date) "
                     End If
                 Else

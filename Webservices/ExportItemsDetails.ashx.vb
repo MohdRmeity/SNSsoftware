@@ -158,7 +158,7 @@ Public Class ExportItemsDetails
                 ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
                     Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
                     Dim MyDateTime As DateTime
-                    If DateTime.TryParse(MySearchInsideTerms(1), MyDateTime) Then
+                    If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
                         Sql += " Or " & MySearchInsideTerms(0) & " = CAST ('" & MySearchInsideTerms(1) & "' as Date) "
                     End If
                 Else

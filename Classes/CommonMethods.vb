@@ -25,6 +25,7 @@ Public Class CommonMethods
     Public Shared DashboardRefreshTime As String = ConfigurationManager.AppSettings("DashboardRefreshTimeInSeconds")
     Public Shared TopCount As String = ConfigurationManager.AppSettings("TopCount")
     Public Shared LoginBackgroundColor As String = ConfigurationManager.AppSettings("LoginBackgroundColor")
+    Public Shared ExternalDashboardRefreshTimeInSeconds As String = ConfigurationManager.AppSettings("ExternalDashboardRefreshTimeInSeconds")
     Public Shared Function AreEqual(ByVal plainTextInput As String, ByVal hashedInput As String, ByVal salt As String) As Boolean
         Dim newHashedPin As String = GenerateHash(plainTextInput, salt)
         Return newHashedPin.Equals(hashedInput)

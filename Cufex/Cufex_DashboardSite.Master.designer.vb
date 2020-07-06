@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Site1
+Partial Public Class Cufex_DashboardSite
     
     '''<summary>
     '''head control.

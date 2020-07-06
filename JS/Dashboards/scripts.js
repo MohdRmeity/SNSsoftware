@@ -140,7 +140,7 @@ function onExpand() {
     });
     $(".collapseButton").show();
     $(".expandButton").hide();
-    $(".ExpandCollapseStatus").text("Expand List");
+    $(".ExpandCollapseStatus").text("Collapse List");
 }
 function onCollapse() {
     var control = webDesigner.GetDashboardControl();
@@ -149,5 +149,5 @@ function onCollapse() {
     });
     $(".collapseButton").hide();
     $(".expandButton").show();
-    $(".ExpandCollapseStatus").text("Collapse List");
+    $(".ExpandCollapseStatus").text("Expand List");
 }
