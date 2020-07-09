@@ -23,15 +23,17 @@ Partial Public Class Cufex_Default
             Dim refreshtime As String = CStr(Session("refershTime"))
 
             If Not String.IsNullOrEmpty(refreshtime) Then
-                Me.ASPxTimer1.Interval = Integer.Parse(refreshtime) * 1000
+                ASPxTimer1.Interval = Integer.Parse(refreshtime) * 1000
                 If (Integer.Parse(refreshtime) / 60) < 1 Then
-                    Me.RefeshTimeLabel.Text = "Refresh every " + refreshtime + " Sec"
+                    RefeshTimeLabel.Text = "Refresh every " + refreshtime + " Sec"
 
                 ElseIf (Integer.Parse(refreshtime) / 60) < 60 And Integer.Parse(refreshtime) / 60 > 1 Then
-                    Me.RefeshTimeLabel.Text = "Refresh every " + (Integer.Parse(refreshtime) / 60).ToString() + " Minutes"
+                    RefeshTimeLabel.Text = "Refresh every " + (Integer.Parse(refreshtime) / 60).ToString() + " Minutes"
                 Else
-                    Me.RefeshTimeLabel.Text = "Refresh every " + Math.Round(Integer.Parse(refreshtime) / (60 * 60), 0).ToString() + " Hours"
+                    RefeshTimeLabel.Text = "Refresh every " + Math.Round(Integer.Parse(refreshtime) / (60 * 60), 0).ToString() + " Hours"
                 End If
+            Else
+
             End If
 
         Catch ex As Exception
