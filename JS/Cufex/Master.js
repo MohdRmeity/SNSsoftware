@@ -1172,7 +1172,12 @@ function SetGridActions() {
         }
 
         $('.Adjust_Columns_PopUp').fadeOut();
-        SetUserConfigution();
+
+        $(".HeaderGridView").find(".mCSB_container").css('width', 'auto');
+        InitColResizable();
+        setTimeout(function () {
+            SetUserConfigution();
+        }, 500);
     }
 
     $(".GridContainer").on('click', '.AdjustColumns', function () {
@@ -3737,7 +3742,7 @@ function GetUserConfiguration() {
                     var $MyGrid;
 
                     for (var i = 0; i < ColumnsNamesArr.length; i++) {
-                        var width = ColumnsWidthesArr[i];
+                        var width = ColumnsHiddenArr[i] == "0" ? ColumnsWidthesArr[i] : 0;
                         if (GridTypesArr[i] == "Header") {
                             $MyGrid = $(".HeaderGridView");
                             MyWidth += parseFloat(width);
