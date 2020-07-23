@@ -774,7 +774,9 @@ function SNSFunctions() {
         if ($(".NewRecord").length > 0) DisplayItemNew(MyID, '');
         else DisplayItem(MyID, '');
     } else {
-        $(".preloader").fadeOut();
+        setTimeout(function () {
+            $(".preloader").fadeOut();
+        }, 800);
     }
 
     $(".textRecordStylePassword").blur(function () {
@@ -1173,7 +1175,7 @@ function SetGridActions() {
 
         $('.Adjust_Columns_PopUp').fadeOut();
 
-        $(".HeaderGridView").find(".mCSB_container").css('width', 'auto');
+        setOnCufex_Resize();
         InitColResizable();
         setTimeout(function () {
             SetUserConfigution();
