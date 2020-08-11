@@ -134,6 +134,10 @@ Public Class ExportItems
                         row("Facility") = Facility
                     End If
                 Next
+            ElseIf SearchTable = "Warehouse_ASN" Then
+                For i = 0 To DS.Tables(0).Rows.Count - 1
+                    DS.Tables(0).Rows(i)!TransportationMode = CommonMethods.GetTransMode(DS.Tables(0).Rows(i)!TransportationMode.ToString)
+                Next
             End If
 
             If DS.Tables(0).Rows.Count > ExportRowsLimit Then
@@ -200,14 +204,14 @@ Public Class ExportItems
 
                 If MySearchInsideTerms(1).Contains("%") Then
                     Sql += " Like N'" & MySearchInsideTerms(1) & "'"
-                ElseIf MySearchInsideTerms(1).Contains("<") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains(">") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                ElseIf MySearchInsideTerms(1).Contains("<") And Not MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<") + 1, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains(">") And Not MySearchInsideTerms(1).Contains(">=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">") + 1, "'") & "'"
                 ElseIf MySearchInsideTerms(1).Contains(">=") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains("=<") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">=") + 2, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<=") + 2, "'") & "'"
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("between ") Then
                     Sql += " " & MySearchInsideTerms(1)
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("today") Then

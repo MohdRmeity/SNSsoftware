@@ -12,6 +12,7 @@ Public Class Cufex_Dashboard
         If dashboardID <> 0 Then
             Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage()
             Me.ASPxDashboard1.WorkingMode = WorkingMode.ViewerOnly
+
             Dim dashboardXML = dashboardStorage.LoadDashboard(dashboardID.ToString())
             ASPxDashboard1.OpenDashboard(dashboardXML)
         End If

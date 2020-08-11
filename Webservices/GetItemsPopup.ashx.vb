@@ -20,13 +20,18 @@ Public Class GetItemsPopup
 
         If SearchTable = "warehouselevel.sku" Then
             If QueryUrlStr <> "" Then
-                If QueryUrlStrArr.Length > 0 Then
-                    Warehouse = QueryUrlStrArr(0).Split("=")(1)
-                    If LCase(Warehouse.Substring(0, 6)) = "infor_" Then Warehouse = Warehouse.Substring(6, Warehouse.Length - 6)
-                    If LCase(Warehouse).Contains("_") Then Warehouse = Warehouse.Split("_")(1)
-                    SearchTable = Warehouse & ".sku"
+                If QueryUrlStrArr.Length = 1 Then
+                    SearchTable = "enterprise.sku"
+                    AndFilter = " and StorerKey ='" & QueryUrlStrArr(0).Split("=")(1) & "'"
+                Else
+                    If QueryUrlStrArr.Length > 0 Then
+                        Warehouse = QueryUrlStrArr(0).Split("=")(1)
+                        If LCase(Warehouse.Substring(0, 6)) = "infor_" Then Warehouse = Warehouse.Substring(6, Warehouse.Length - 6)
+                        If LCase(Warehouse).Contains("_") Then Warehouse = Warehouse.Split("_")(1)
+                        SearchTable = Warehouse & ".sku"
+                    End If
+                    If QueryUrlStrArr.Length > 1 Then AndFilter = " and StorerKey ='" & QueryUrlStrArr(1).Split("=")(1) & "'"
                 End If
-                If QueryUrlStrArr.Length > 1 Then AndFilter = " and StorerKey ='" & QueryUrlStrArr(1).Split("=")(1) & "'"
             Else
                 SearchTable = "enterprise.sku"
                 Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
@@ -122,14 +127,14 @@ Public Class GetItemsPopup
 
                 If MySearchInsideTerms(1).Contains("%") Then
                     Sql += " Like N'" & MySearchInsideTerms(1) & "'"
-                ElseIf MySearchInsideTerms(1).Contains("<") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains(">") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                ElseIf MySearchInsideTerms(1).Contains("<") And Not MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<") + 1, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains(">") And Not MySearchInsideTerms(1).Contains(">=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">") + 1, "'") & "'"
                 ElseIf MySearchInsideTerms(1).Contains(">=") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains("=<") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">=") + 2, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<=") + 2, "'") & "'"
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("between ") Then
                     Sql += " " & MySearchInsideTerms(1)
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("today") Then

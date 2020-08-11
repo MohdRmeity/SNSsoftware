@@ -255,9 +255,10 @@
                         </div>
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Item<span>*</span></div>
-                            <div>
+                            <div class="PositionRelative">
                                 <select data-placeholder="Select Item" multiple class="chosen-select InputSku" data-mode="single">
                                 </select>
+                                <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Owner" data-requiredfields=".InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?storer=.InputStorerKey" %>"></div>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
@@ -339,9 +340,10 @@
                                 <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Item*</div>
-                                    <div class="FloatRecordField floatL">
+                                    <div class="FloatRecordField floatL" style="position: relative;">
                                         <select data-placeholder="Select Item" multiple class="chosen-select InputSku" data-mode="single">
                                         </select>
+                                        <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Owner" data-requiredfields=".InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?storer=.InputStorerKey" %>"></div>
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">

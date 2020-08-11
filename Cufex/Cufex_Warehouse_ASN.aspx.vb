@@ -9,11 +9,13 @@ Partial Public Class Cufex_Warehouse_ASN
             myMasterPage.section = Cufex_Site.SectionName.Warehouse
             myMasterPage.Subsection = Cufex_Site.SubSectionName.Warehouse_ASN
 
-            HiddenCanUploadFiles.Value = CommonMethods.getPermission("ASN Receipt->File Upload (Action)", Session("userkey").ToString)
-            HiddenCanViewOwnFiles.Value = CommonMethods.getPermission("ASN Receipt->File View Own (Action)", Session("userkey").ToString)
-            HiddenCanViewAllFiles.Value = CommonMethods.getPermission("ASN Receipt->File View All (Action)", Session("userkey").ToString)
-            HiddenCanRemoveOwnFiles.Value = CommonMethods.getPermission("ASN Receipt->File Remove Own (Action)", Session("userkey").ToString)
-            HiddenCanRemoveAllFiles.Value = CommonMethods.getPermission("ASN Receipt->File Remove All (Action)", Session("userkey").ToString)
+            If HttpContext.Current.Session("userkey") IsNot Nothing Then
+                HiddenCanUploadFiles.Value = CommonMethods.getPermission("ASN Receipt->File Upload (Action)", Session("userkey").ToString)
+                HiddenCanViewOwnFiles.Value = CommonMethods.getPermission("ASN Receipt->File View Own (Action)", Session("userkey").ToString)
+                HiddenCanViewAllFiles.Value = CommonMethods.getPermission("ASN Receipt->File View All (Action)", Session("userkey").ToString)
+                HiddenCanRemoveOwnFiles.Value = CommonMethods.getPermission("ASN Receipt->File Remove Own (Action)", Session("userkey").ToString)
+                HiddenCanRemoveAllFiles.Value = CommonMethods.getPermission("ASN Receipt->File Remove All (Action)", Session("userkey").ToString)
+            End If
 
             Dim MyWarehouse As String = Request.QueryString("warehouse")
             Dim MyReceipt As String = Request.QueryString("receipt")

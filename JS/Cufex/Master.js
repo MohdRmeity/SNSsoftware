@@ -723,13 +723,23 @@ function SNSFunctions() {
         $(".NewHeaderRecord").removeClass("u-overflowHidden");
     });
 
-    $(".GridCell").find(".chosen-select").on("chosen:showing_dropdown", function () {
+    var isHidden = true;
+
+    $(".GridCell").find(".chosen-select").on("chosen:showing_dropdown", function (e) {
+        isHidden = false;
+        $(this).parents("div").css("overflow", "visible");
+        $(this).parents(".mCSB_container").siblings(".mCSB_scrollTools").find(".mCSB_draggerContainer").hide();
         $(this).siblings(".chosen-container").find(".search-field").show();
+        setTimeout(function () { isHidden = true; }, 300);
     });
 
-    $(".GridCell").find(".chosen-select").on("chosen:hiding_dropdown", function () {
-        if ($(this).val() == "") return;
-        $(this).siblings(".chosen-container").find(".search-field").hide();
+    $(".GridCell").find(".chosen-select").on("chosen:hiding_dropdown", function (e) {
+        if (isHidden) {
+            $(this).parents("div").css("overflow", "");
+            $(this).parents(".mCSB_container").siblings(".mCSB_scrollTools").find(".mCSB_draggerContainer").show();
+            if ($(this).val() == "") return;
+            $(this).siblings(".chosen-container").find(".search-field").hide();
+        }
     });
 
     $(".GridCell").find(".chosen-select").on('change', function () {
@@ -819,7 +829,7 @@ function SNSFunctions() {
         }
     }
 
-    $(".NewRecord").find(".SearchDropDown").click(function (e) {
+    $(".NewRecord, .RecordHeader").find(".SearchDropDown").click(function (e) {
         var MyClass = $(".NewHeaderRecord:visible").length > 0 ? $(".NewHeaderRecord") : $(".RecordHeader");
         var MyRequiredFields = $(this).data("requiredfields").split(",")
         var MyRequiredFieldsName = $(this).data("requiredfieldsname").split(",")
@@ -3797,13 +3807,23 @@ function GetUserConfiguration() {
                         search_contains: false
                     });
 
-                    $(".GridCell").find(".chosen-select").on("chosen:showing_dropdown", function () {
+                    var isHidden = true;
+
+                    $(".GridCell").find(".chosen-select").on("chosen:showing_dropdown", function (e) {
+                        isHidden = false;
+                        $(this).parents("div").css("overflow", "visible");
+                        $(this).parents(".mCSB_container").siblings(".mCSB_scrollTools").find(".mCSB_draggerContainer").hide();
                         $(this).siblings(".chosen-container").find(".search-field").show();
+                        setTimeout(function () { isHidden = true; }, 300);
                     });
 
-                    $(".GridCell").find(".chosen-select").on("chosen:hiding_dropdown", function () {
-                        if ($(this).val() == "") return;
-                        $(this).siblings(".chosen-container").find(".search-field").hide();
+                    $(".GridCell").find(".chosen-select").on("chosen:hiding_dropdown", function (e) {
+                        if (isHidden) {
+                            $(this).parents("div").css("overflow", "");
+                            $(this).parents(".mCSB_container").siblings(".mCSB_scrollTools").find(".mCSB_draggerContainer").show();
+                            if ($(this).val() == "") return;
+                            $(this).siblings(".chosen-container").find(".search-field").hide();
+                        }
                     });
 
                     $(".GridCell").find(".chosen-select").on('change', function () {
@@ -4271,6 +4291,12 @@ function InitColResizable() {
             resizeMode: resizeMode,
             onDrag: DragColumns,
             onResize: ResizeColumns
+            //onResize: function (e) {
+            //    //var table = $(e.currentTarget); //reference to the resized table
+            //    //alert($(e.target).parent().index());
+            //    //alert(table.prev(".JCLRgrips").find(".JCLRgrip").length);
+            //    ResizeColumns();
+            //}
         });
 
         //var ColNoResize = $(".GridAdjust").children(".GridCell:not([data-id])").length;

@@ -193,14 +193,14 @@ Public Class GetItems
 
                 If MySearchInsideTerms(1).Contains("%") Then
                     Sql += " Like N'" & MySearchInsideTerms(1) & "'"
-                ElseIf MySearchInsideTerms(1).Contains("<") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains(">") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                ElseIf MySearchInsideTerms(1).Contains("<") And Not MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<") + 1, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains(">") And Not MySearchInsideTerms(1).Contains(">=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">") + 1, "'") & "'"
                 ElseIf MySearchInsideTerms(1).Contains(">=") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains("=<") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">=") + 2, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<=") + 2, "'") & "'"
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("between ") Then
                     Sql += " " & MySearchInsideTerms(1)
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("today") Then
@@ -989,7 +989,7 @@ Public Class GetItems
                 MyRecords += "                        " & !OriginCountry
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='14'>"
-                MyRecords += "                        " & !TransportationMode
+                MyRecords += "                        " & CommonMethods.GetTransMode(!TransportationMode.ToString)
                 MyRecords += "                    </td>"
                 MyRecords += "                </tr>"
             End With
