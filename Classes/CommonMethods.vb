@@ -1562,4 +1562,17 @@ Public Class CommonMethods
         End Try
         Return currentOffset.Hours.ToString
     End Function
+    Public Shared Function GetTransMode(ByVal TransMode As String) As String
+        Dim MyTransMode As String = ""
+        If Not String.IsNullOrEmpty(TransMode) Then
+            If TransMode = "LTL" Then
+                MyTransMode = "Less than Truckload"
+            ElseIf TransMode = "MOTOR" Then
+                MyTransMode = "Truckload"
+            Else
+                MyTransMode = UCase(TransMode.Substring(0, 1)) & LCase(TransMode.Substring(1))
+            End If
+        End If
+        Return MyTransMode
+    End Function
 End Class
