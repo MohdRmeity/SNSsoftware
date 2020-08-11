@@ -1874,6 +1874,51 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Dashboard._ASPxTimer1">
+<summary>
+ASPxTimer1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Dashboard._ASPxDashboard1">
+<summary>
+ASPxDashboard1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._head">
+<summary>
+head control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._ContentPlaceHolder1">
+<summary>
+ContentPlaceHolder1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Popup_Items._QueryUrlStr">
 <summary>
 QueryUrlStr control.
@@ -4127,51 +4172,6 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Site._HiddenTextBackgroundColor">
 <summary>
 HiddenTextBackgroundColor control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Cufex_Dashboard._ASPxTimer1">
-<summary>
-ASPxTimer1 control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Cufex_Dashboard._ASPxDashboard1">
-<summary>
-ASPxDashboard1 control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Cufex_DashboardSite._head">
-<summary>
-head control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Cufex_DashboardSite._form1">
-<summary>
-form1 control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Cufex_DashboardSite._ContentPlaceHolder1">
-<summary>
-ContentPlaceHolder1 control.
 </summary>
 <remarks>
 Auto-generated field.

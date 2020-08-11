@@ -1433,6 +1433,15 @@ SNS..
   Looks up a localized string similar to Read Only.
 </summary>
 </member>
+<member name="F:SNSsoftware.Cufex_MasterHeader._MasterHeaderControls">
+<summary>
+MasterHeaderControls control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_MasterHeader._lblWelcome">
 <summary>
 lblWelcome control.
@@ -1445,6 +1454,195 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_MasterHeader._imgProfile">
 <summary>
 imgProfile control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ExportLogs._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ExportLogs._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ExportLogs._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagement._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagement._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagement._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagementLogs._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagementLogs._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagementLogs._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_ImportLogs._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_ImportLogs._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_ImportLogs._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -1514,6 +1712,24 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnQuickEntry">
 <summary>
 btnQuickEntry control.
@@ -1571,6 +1787,24 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._HiddenID">
 <summary>
 HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -1640,6 +1874,51 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Dashboard._ASPxTimer1">
+<summary>
+ASPxTimer1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Dashboard._ASPxDashboard1">
+<summary>
+ASPxDashboard1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._head">
+<summary>
+head control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._ContentPlaceHolder1">
+<summary>
+ContentPlaceHolder1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Popup_Items._QueryUrlStr">
 <summary>
 QueryUrlStr control.
@@ -1661,24 +1940,6 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Popup_Packs._QueryUrlStr">
 <summary>
 QueryUrlStr control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Dashboard._ASPxTimer1">
-<summary>
-ASPxTimer1 control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:SNSsoftware.Dashboard._ASPxDashboard1">
-<summary>
-ASPxDashboard1 control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -1991,6 +2252,24 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Configuration_Items._btnQuickEntry">
 <summary>
 btnQuickEntry control.
@@ -2108,6 +2387,33 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Security_Profiles._btnQuickEntry">
 <summary>
 btnQuickEntry control.
@@ -2138,6 +2444,33 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Security_Profiles._btnSave">
 <summary>
 btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2180,18 +2513,36 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Cufex_Security_UsersControl._cmbFacility">
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._HiddenID">
 <summary>
-cmbFacility control.
+HiddenID control.
 </summary>
 <remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Cufex_Security_UsersControl._HiddenID">
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnExport">
 <summary>
-HiddenID control.
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2228,6 +2579,33 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Security_UserProfile._btnSave">
 <summary>
 btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2297,9 +2675,45 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Inventory_Balance._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Inventory_Balance._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Inventory_Balance._SearchRow">
 <summary>
 SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2369,6 +2783,24 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnNew">
 <summary>
 btnNew control.
@@ -2408,6 +2840,69 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenID">
 <summary>
 HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2477,6 +2972,24 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnNew">
 <summary>
 btnNew control.
@@ -2516,6 +3029,69 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenID">
 <summary>
 HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2567,6 +3143,24 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnNew">
 <summary>
 btnNew control.
@@ -2606,6 +3200,69 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenID">
 <summary>
 HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnRefresh">
+<summary>
+btnRefresh control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2657,6 +3314,24 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Warehouse_PO._btnNew">
 <summary>
 btnNew control.
@@ -2702,9 +3377,72 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._lblExpandCollapseStatus">
+<summary>
+lblExpandCollapseStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Default._btnReload">
 <summary>
 btnReload control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._RefeshTimeLabel">
+<summary>
+RefeshTimeLabel control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2819,6 +3557,33 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Site._widthMenu">
+<summary>
+widthMenu control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._SideMenu">
+<summary>
+SideMenu control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._MainLogo">
+<summary>
+MainLogo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Site._DivMain_Home_Def">
 <summary>
 DivMain_Home_Def control.
@@ -2831,6 +3596,69 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Site._DivMain_Home_Def_MenuArrow">
 <summary>
 DivMain_Home_Def_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Administration">
+<summary>
+DivMain_Administration control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Administration_MenuArrow">
+<summary>
+DivMain_Administration_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_ExportLogs">
+<summary>
+DivSubMain_Administration_ExportLogs control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_ImportLogs">
+<summary>
+DivSubMain_Administration_ImportLogs control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_FileManagementLogs">
+<summary>
+DivSubMain_Administration_FileManagementLogs control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_FileManagement">
+<summary>
+DivSubMain_Administration_FileManagement control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_UITemplates">
+<summary>
+DivSubMain_Administration_UITemplates control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -3062,9 +3890,27 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Site._widthContent">
+<summary>
+widthContent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Site._DivMain">
 <summary>
 DivMain control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HeaderMenu">
+<summary>
+HeaderMenu control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -3260,27 +4106,72 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Site1._head">
+<member name="F:SNSsoftware.Cufex_Site._HiddenFileImportLimit">
 <summary>
-head control.
+HiddenFileImportLimit control.
 </summary>
 <remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Site1._form1">
+<member name="F:SNSsoftware.Cufex_Site._HiddenFileUploadLimit">
 <summary>
-form1 control.
+HiddenFileUploadLimit control.
 </summary>
 <remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Site1._ContentPlaceHolder1">
+<member name="F:SNSsoftware.Cufex_Site._HiddenLoginBackgroundColor">
 <summary>
-ContentPlaceHolder1 control.
+HiddenLoginBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenMenuBackgroundColor">
+<summary>
+HiddenMenuBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenScreenBackgroundColor">
+<summary>
+HiddenScreenBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenGridBackgroundColor">
+<summary>
+HiddenGridBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenButtonBackgroundColor">
+<summary>
+HiddenButtonBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenTextBackgroundColor">
+<summary>
+HiddenTextBackgroundColor control.
 </summary>
 <remarks>
 Auto-generated field.

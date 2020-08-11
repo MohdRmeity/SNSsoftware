@@ -242,7 +242,6 @@ C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\bin\de\DevExpress.XtraTreeList
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\bin\es\DevExpress.XtraTreeList.v20.1.resources.dll
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\bin\ja\DevExpress.XtraTreeList.v20.1.resources.dll
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\bin\ru\DevExpress.XtraTreeList.v20.1.resources.dll
-C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Debug\SNSsoftware.vbprojAssemblyReference.cache
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Debug\SNSsoftware.EmptyReport.resources
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Debug\SNSsoftware.Resources.resources
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Debug\SNSsoftware.vbproj.GenerateResource.cache
