@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.IO
 Imports System.Web.Script.Serialization
 Imports DevExpress.DashboardWeb
 Imports NLog
@@ -49,6 +50,11 @@ Partial Public Class Cufex_Default
             Else
                 ASPxDashboard1.WorkingMode = WorkingMode.Viewer
             End If
+            If CommonMethods.getPermission("Dashboard->Refresh (Action)", HttpContext.Current.Session("userkey").ToString) = "0" Then
+                RefreshSettings.Visible = False
+            Else
+                RefreshSettings.Visible = True
+            End If
         End If
     End Sub
     Protected Sub ASPxDashboard1_ConnectionError(sender As Object, e As ConnectionErrorWebEventArgs)
@@ -66,6 +72,85 @@ Partial Public Class Cufex_Default
     End Sub
 
     Protected Sub ASPxDashboard1_CustomDataCallback(ByVal sender As Object, ByVal e As DevExpress.Web.CustomDataCallbackEventArgs)
+        If e.Parameter.Contains("ExportDashboard") Then
+            Using stream As New MemoryStream()
+                Dim selectedDashboardID As String = e.Parameter.Split("|"c)(1)
+                Dim ToAddress As String = e.Parameter.Split("|"c)(2)
+                Dim subject As String = e.Parameter.Split("|"c)(3)
+                Dim body As String = e.Parameter.Split("|"c)(4)
+
+                If subject = "undefined" Then
+                    subject = "Portal Dashboard Export"
+                End If
+
+                If body = "undefined" Then
+                    body = ""
+                End If
+
+                Dim dateTimeNow As String = Date.Now.ToString("yyyyMMddHHmmss")
+                Dim filePath As String = "~/ExportImages/" + selectedDashboardID & "_" & dateTimeNow & ".jpg"
+                Try
+                    Dim exporter As New ASPxDashboardExporter(ASPxDashboard1)
+
+                    exporter.ExportToImage(selectedDashboardID, stream)
+
+                    SaveFile(stream, filePath)
+
+                    Dim filePath2 = Server.MapPath("~/ExportImages") + "/" & selectedDashboardID & "_" & dateTimeNow & ".jpg"
+
+                    CommonMethods.SendEmail(ToAddress, subject, body, Server.MapPath("~/ExportImages/" & selectedDashboardID & "_" & dateTimeNow & ".jpg"))
+
+                    e.Result = "success"
+
+                Catch ex As Exception
+                    Dim s = ex.Message
+                    e.Result = ex.Message
+                End Try
+
+            End Using
+
+        End If
+
+        If e.Parameter.Contains("ExportItem") Then
+
+            Using stream As New MemoryStream()
+                Dim selectedDashboardID As String = e.Parameter.Split("|"c)(1)
+                Dim dashboardItem As String = e.Parameter.Split("|"c)(2)
+                Dim ToAddress As String = e.Parameter.Split("|"c)(3)
+                Dim subject As String = e.Parameter.Split("|"c)(4)
+                Dim body As String = e.Parameter.Split("|"c)(5)
+
+                If subject = "undefined" Then
+                    subject = "Portal Dashboard Export"
+                End If
+
+                If body = "undefined" Then
+                    body = ""
+                End If
+
+                Dim dateTimeNow As String = Date.Now.ToString("yyyyMMddHHmmss")
+                Dim filePath As String = "~/ExportImages/" + selectedDashboardID & "_" & dateTimeNow & ".jpg"
+                Try
+                    Dim exporter As New ASPxDashboardExporter(ASPxDashboard1)
+
+                    exporter.ExportDashboardItemToImage(selectedDashboardID, dashboardItem, stream)
+
+                    SaveFile(stream, filePath)
+
+                    Dim filePath2 = Server.MapPath("~/ExportImages") + "/" & selectedDashboardID & "_" & dateTimeNow & ".jpg"
+
+                    CommonMethods.SendEmail(ToAddress, subject, body, Server.MapPath("~/ExportImages/" & selectedDashboardID & "_" & dateTimeNow & ".jpg"))
+
+                    e.Result = "success"
+
+                Catch ex As Exception
+                    Dim s = ex.Message
+                    e.Result = ex.Message
+                End Try
+
+            End Using
+
+        End If
         Dim parameters As Dictionary(Of String, String) = New JavaScriptSerializer().Deserialize(Of Dictionary(Of String, String))(e.Parameter)
         If Not parameters.ContainsKey("ExtensionName") Then Return
 
@@ -83,6 +168,11 @@ Partial Public Class Cufex_Default
 
             Dim records As Boolean = deleteRecord(dashboardProfiledts, dashboard, Integer.Parse(parameters("DashboardID")))
         End If
+    End Sub
+    Private Sub SaveFile(ByVal stream As MemoryStream, ByVal path As String)
+        Dim fileStream = File.Create(Server.MapPath(path))
+        stream.WriteTo(fileStream)
+        fileStream.Close()
     End Sub
 
     Private Function deleteRecord(ByVal repotProfiledts As String, ByVal reportPortal As String, ByVal key As Integer) As Boolean

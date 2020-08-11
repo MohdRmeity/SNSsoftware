@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class Cufex_Default
-
+    
     '''<summary>
     '''lblExpandCollapseStatus control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class Cufex_Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblExpandCollapseStatus As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''btnReload control.
     '''</summary>
@@ -30,7 +30,16 @@ Partial Public Class Cufex_Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnReload As Global.System.Web.UI.WebControls.Button
-
+    
+    '''<summary>
+    '''RefreshSettings control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RefreshSettings As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
     '''<summary>
     '''RefeshTimeLabel control.
     '''</summary>
@@ -39,7 +48,7 @@ Partial Public Class Cufex_Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents RefeshTimeLabel As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''ASPxTimer1 control.
     '''</summary>
@@ -48,7 +57,7 @@ Partial Public Class Cufex_Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ASPxTimer1 As Global.DevExpress.Web.ASPxTimer
-
+    
     '''<summary>
     '''ASPxDashboard1 control.
     '''</summary>
@@ -57,7 +66,7 @@ Partial Public Class Cufex_Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ASPxDashboard1 As Global.DevExpress.DashboardWeb.ASPxDashboard
-
+    
     '''<summary>
     '''MyHiddenButton control.
     '''</summary>
@@ -66,7 +75,7 @@ Partial Public Class Cufex_Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents MyHiddenButton As Global.System.Web.UI.WebControls.Button
-
+    
     '''<summary>
     '''HiddenTime control.
     '''</summary>
