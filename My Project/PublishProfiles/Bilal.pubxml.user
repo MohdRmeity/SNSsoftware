@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 22:55:46</publishTime>
     </File>
     <File Include="App_GlobalResources/Resources.resx">
-      <publishTime>09/26/2019 01:02:55</publishTime>
+      <publishTime>05/19/2020 16:38:38</publishTime>
     </File>
     <File Include="bin/Canonicalize.dll">
-      <publishTime>05/08/2013 11:05:44</publishTime>
+      <publishTime>05/19/2020 16:38:49</publishTime>
     </File>
     <File Include="bin/CKEditor.NET.dll">
       <publishTime>07/15/2014 13:47:02</publishTime>
@@ -27,53 +27,107 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/de/DevExpress.Dashboard.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.Dashboard.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Dashboard.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.Data.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:20</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Data.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:49</publishTime>
     </File>
     <File Include="bin/de/DevExpress.DataAccess.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.DataAccess.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:48</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.Map.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:40</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Map.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:15</publishTime>
     </File>
     <File Include="bin/de/DevExpress.Office.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.Office.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.Pdf.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Pdf.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/de/DevExpress.PivotGrid.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.PivotGrid.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:25</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.Printing.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Printing.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/de/DevExpress.RichEdit.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.RichEdit.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:40</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.Sparkline.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Sparkline.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:27</publishTime>
     </File>
     <File Include="bin/de/DevExpress.Utils.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.Utils.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:30</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.Web.Resources.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:57</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Web.Resources.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:35</publishTime>
     </File>
     <File Include="bin/de/DevExpress.Web.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:07</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.Web.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:20</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.Xpo.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:07</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.Xpo.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
     </File>
     <File Include="bin/de/DevExpress.XtraBars.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.XtraBars.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.XtraCharts.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.XtraCharts.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:56</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.XtraEditors.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraEditors.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:03</publishTime>
     </File>
     <File Include="bin/de/DevExpress.XtraGauges.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -81,11 +135,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/de/DevExpress.XtraGauges.v19.2.Presets.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.XtraGauges.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraGauges.v20.1.Presets.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.XtraLayout.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.XtraLayout.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:18</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.XtraPrinting.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraPrinting.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:27</publishTime>
     </File>
     <File Include="bin/de/DevExpress.XtraReports.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -93,8 +159,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/de/DevExpress.XtraReports.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/de/DevExpress.XtraReports.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraReports.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
     <File Include="bin/de/DevExpress.XtraTreeList.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
+    </File>
+    <File Include="bin/de/DevExpress.XtraTreeList.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:36:04</publishTime>
     </File>
     <File Include="bin/de/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:26:06</publishTime>
@@ -102,8 +177,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/DevExpress.Charts.v19.2.Core.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/DevExpress.Charts.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:34:56</publishTime>
+    </File>
     <File Include="bin/DevExpress.CodeParser.v19.2.dll">
       <publishTime>03/22/2020 22:52:12</publishTime>
+    </File>
+    <File Include="bin/DevExpress.CodeParser.v20.1.dll">
+      <publishTime>06/15/2020 22:33:41</publishTime>
     </File>
     <File Include="bin/DevExpress.Dashboard.v19.2.Core.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
@@ -114,11 +195,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/DevExpress.Dashboard.v19.2.Web.WebForms.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/DevExpress.Dashboard.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:33:43</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v20.1.Web.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Dashboard.v20.1.Web.WebForms.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Data.Desktop.v20.1.dll">
+      <publishTime>06/15/2020 22:33:48</publishTime>
+    </File>
     <File Include="bin/DevExpress.Data.v19.2.dll">
       <publishTime>03/22/2020 22:52:20</publishTime>
     </File>
+    <File Include="bin/DevExpress.Data.v20.1.dll">
+      <publishTime>06/15/2020 22:33:49</publishTime>
+    </File>
     <File Include="bin/DevExpress.DataAccess.v19.2.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
+    </File>
+    <File Include="bin/DevExpress.DataAccess.v20.1.dll">
+      <publishTime>06/15/2020 22:33:48</publishTime>
     </File>
     <File Include="bin/DevExpress.Images.v19.2.dll">
       <publishTime>03/22/2020 22:52:29</publishTime>
@@ -126,17 +225,35 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/DevExpress.Map.v19.2.Core.dll">
       <publishTime>03/22/2020 22:52:40</publishTime>
     </File>
+    <File Include="bin/DevExpress.Map.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:34:15</publishTime>
+    </File>
     <File Include="bin/DevExpress.Office.v19.2.Core.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Office.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/DevExpress.Pdf.v19.2.Core.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
     </File>
+    <File Include="bin/DevExpress.Pdf.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Pdf.v20.1.Drawing.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
+    </File>
     <File Include="bin/DevExpress.PivotGrid.v19.2.Core.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/DevExpress.PivotGrid.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:35:25</publishTime>
+    </File>
     <File Include="bin/DevExpress.Printing.v19.2.Core.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Printing.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/DevExpress.RichEdit.v19.2.Core.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
@@ -144,32 +261,65 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/DevExpress.RichEdit.v19.2.Export.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
     </File>
+    <File Include="bin/DevExpress.RichEdit.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:35:40</publishTime>
+    </File>
+    <File Include="bin/DevExpress.RichEdit.v20.1.Export.dll">
+      <publishTime>06/15/2020 22:35:40</publishTime>
+    </File>
     <File Include="bin/DevExpress.Sparkline.v19.2.Core.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Sparkline.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:34:27</publishTime>
     </File>
     <File Include="bin/DevExpress.TreeMap.v19.2.Core.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
     </File>
+    <File Include="bin/DevExpress.TreeMap.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:34:27</publishTime>
+    </File>
     <File Include="bin/DevExpress.Utils.v19.2.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Utils.v20.1.dll">
+      <publishTime>06/15/2020 22:34:30</publishTime>
     </File>
     <File Include="bin/DevExpress.Web.Resources.v19.2.dll">
       <publishTime>03/22/2020 22:52:56</publishTime>
     </File>
+    <File Include="bin/DevExpress.Web.Resources.v20.1.dll">
+      <publishTime>06/15/2020 22:34:35</publishTime>
+    </File>
     <File Include="bin/DevExpress.Web.v19.2.dll">
       <publishTime>03/22/2020 22:52:07</publishTime>
+    </File>
+    <File Include="bin/DevExpress.Web.v20.1.dll">
+      <publishTime>06/15/2020 22:33:20</publishTime>
     </File>
     <File Include="bin/DevExpress.Xpo.v19.2.dll">
       <publishTime>03/22/2020 22:53:07</publishTime>
     </File>
+    <File Include="bin/DevExpress.Xpo.v20.1.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
+    </File>
     <File Include="bin/DevExpress.XtraBars.v19.2.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraBars.v20.1.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
     </File>
     <File Include="bin/DevExpress.XtraCharts.v19.2.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/DevExpress.XtraCharts.v20.1.dll">
+      <publishTime>06/15/2020 22:34:56</publishTime>
+    </File>
     <File Include="bin/DevExpress.XtraEditors.v19.2.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraEditors.v20.1.dll">
+      <publishTime>06/15/2020 22:35:03</publishTime>
     </File>
     <File Include="bin/DevExpress.XtraGauges.v19.2.Core.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -180,14 +330,32 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/DevExpress.XtraGauges.v19.2.Win.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/DevExpress.XtraGauges.v20.1.Core.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraGauges.v20.1.Presets.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraGauges.v20.1.Win.dll">
+      <publishTime>06/15/2020 22:35:16</publishTime>
+    </File>
     <File Include="bin/DevExpress.XtraLayout.v19.2.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraLayout.v20.1.dll">
+      <publishTime>06/15/2020 22:35:18</publishTime>
     </File>
     <File Include="bin/DevExpress.XtraMap.v19.2.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/DevExpress.XtraMap.v20.1.dll">
+      <publishTime>06/15/2020 22:35:22</publishTime>
+    </File>
     <File Include="bin/DevExpress.XtraPrinting.v19.2.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraPrinting.v20.1.dll">
+      <publishTime>06/15/2020 22:35:27</publishTime>
     </File>
     <File Include="bin/DevExpress.XtraReports.v19.2.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -198,8 +366,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/DevExpress.XtraReports.v19.2.Web.WebForms.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/DevExpress.XtraReports.v20.1.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraReports.v20.1.Web.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraReports.v20.1.Web.WebForms.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
     <File Include="bin/DevExpress.XtraTreeList.v19.2.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
+    </File>
+    <File Include="bin/DevExpress.XtraTreeList.v20.1.dll">
+      <publishTime>06/15/2020 22:36:04</publishTime>
     </File>
     <File Include="bin/DevExpress.XtraTreeMap.v19.2.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
@@ -210,53 +390,107 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/es/DevExpress.Dashboard.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.Dashboard.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Dashboard.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.Data.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:20</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Data.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:49</publishTime>
     </File>
     <File Include="bin/es/DevExpress.DataAccess.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.DataAccess.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:48</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.Map.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:40</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Map.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:15</publishTime>
     </File>
     <File Include="bin/es/DevExpress.Office.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.Office.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.Pdf.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Pdf.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/es/DevExpress.PivotGrid.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.PivotGrid.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:25</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.Printing.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Printing.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/es/DevExpress.RichEdit.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.RichEdit.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:40</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.Sparkline.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Sparkline.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:27</publishTime>
     </File>
     <File Include="bin/es/DevExpress.Utils.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.Utils.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:30</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.Web.Resources.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:57</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Web.Resources.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:35</publishTime>
     </File>
     <File Include="bin/es/DevExpress.Web.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:07</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.Web.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:20</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.Xpo.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:07</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.Xpo.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
     </File>
     <File Include="bin/es/DevExpress.XtraBars.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.XtraBars.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.XtraCharts.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.XtraCharts.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:56</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.XtraEditors.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraEditors.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:03</publishTime>
     </File>
     <File Include="bin/es/DevExpress.XtraGauges.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -264,11 +498,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/es/DevExpress.XtraGauges.v19.2.Presets.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.XtraGauges.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraGauges.v20.1.Presets.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.XtraLayout.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.XtraLayout.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:18</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.XtraPrinting.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraPrinting.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:27</publishTime>
     </File>
     <File Include="bin/es/DevExpress.XtraReports.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -276,8 +522,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/es/DevExpress.XtraReports.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/es/DevExpress.XtraReports.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraReports.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
     <File Include="bin/es/DevExpress.XtraTreeList.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
+    </File>
+    <File Include="bin/es/DevExpress.XtraTreeList.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:36:04</publishTime>
     </File>
     <File Include="bin/es/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:25:54</publishTime>
@@ -286,10 +541,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:27:18</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
-      <publishTime>03/22/2020 13:46:52</publishTime>
+      <publishTime>05/19/2020 16:38:49</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.pdb">
-      <publishTime>03/22/2020 13:46:50</publishTime>
+      <publishTime>05/19/2020 16:38:49</publishTime>
     </File>
     <File Include="bin/it/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:26:02</publishTime>
@@ -300,53 +555,107 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ja/DevExpress.Dashboard.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.Dashboard.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Dashboard.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.Data.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:20</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Data.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:49</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.DataAccess.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.DataAccess.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:48</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.Map.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:40</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Map.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:15</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.Office.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.Office.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.Pdf.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Pdf.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.PivotGrid.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.PivotGrid.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:25</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.Printing.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Printing.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.RichEdit.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.RichEdit.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:40</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.Sparkline.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Sparkline.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:27</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.Utils.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.Utils.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:30</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.Web.Resources.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:57</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Web.Resources.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:35</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.Web.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:08</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.Web.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:20</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.Xpo.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:07</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.Xpo.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.XtraBars.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.XtraBars.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.XtraCharts.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.XtraCharts.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:56</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.XtraEditors.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraEditors.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:03</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.XtraGauges.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -354,11 +663,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ja/DevExpress.XtraGauges.v19.2.Presets.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.XtraGauges.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraGauges.v20.1.Presets.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.XtraLayout.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.XtraLayout.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:18</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.XtraPrinting.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraPrinting.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:27</publishTime>
     </File>
     <File Include="bin/ja/DevExpress.XtraReports.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -366,8 +687,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ja/DevExpress.XtraReports.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ja/DevExpress.XtraReports.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraReports.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
     <File Include="bin/ja/DevExpress.XtraTreeList.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
+    </File>
+    <File Include="bin/ja/DevExpress.XtraTreeList.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:36:04</publishTime>
     </File>
     <File Include="bin/ja/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:25:22</publishTime>
@@ -379,136 +709,136 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/22/2011 15:31:50</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
-      <publishTime>09/05/2018 16:10:50</publishTime>
+      <publishTime>05/19/2020 16:38:49</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.Common.dll">
-      <publishTime>01/11/2017 09:52:38</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.WebForms.dll">
-      <publishTime>01/11/2017 08:06:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/Microsoft.SqlServer.Types.dll">
       <publishTime>02/21/2014 04:28:46</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>11/09/2019 00:56:44</publishTime>
+      <publishTime>05/19/2020 16:38:52</publishTime>
     </File>
     <File Include="bin/NLog.dll">
-      <publishTime>03/20/2020 16:52:32</publishTime>
+      <publishTime>05/19/2020 16:38:51</publishTime>
     </File>
     <File Include="bin/Oracle.ManagedDataAccess.dll">
-      <publishTime>12/02/2019 19:26:18</publishTime>
+      <publishTime>05/19/2020 16:38:52</publishTime>
     </File>
     <File Include="bin/pt/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:25:24</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe.config">
-      <publishTime>08/08/2018 12:18:12</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/csc.rsp">
-      <publishTime>08/08/2018 12:09:42</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/csi.exe">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/csi.exe.config">
-      <publishTime>08/08/2018 12:18:34</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/csi.rsp">
-      <publishTime>08/08/2018 12:09:56</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
-      <publishTime>08/08/2018 12:09:42</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
-      <publishTime>12/05/2017 09:36:44</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
-      <publishTime>12/05/2017 09:36:44</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Managed.Core.targets">
-      <publishTime>08/08/2018 12:09:42</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
-      <publishTime>08/08/2018 12:09:42</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Win32.Primitives.dll">
-      <publishTime>11/05/2016 18:55:32</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.AppContext.dll">
-      <publishTime>11/05/2016 18:55:34</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Collections.Immutable.dll">
-      <publishTime>05/16/2018 03:29:34</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Console.dll">
-      <publishTime>11/05/2016 18:55:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.DiagnosticSource.dll">
-      <publishTime>11/05/2016 18:55:52</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.FileVersionInfo.dll">
-      <publishTime>11/05/2016 18:55:56</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.Process.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
-      <publishTime>11/05/2016 18:55:52</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Globalization.Calendars.dll">
-      <publishTime>11/05/2016 18:56:02</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Compression.dll">
-      <publishTime>11/05/2016 18:56:08</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Compression.ZipFile.dll">
-      <publishTime>11/05/2016 18:56:04</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.dll">
-      <publishTime>11/05/2016 18:56:08</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.DriveInfo.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
-      <publishTime>11/05/2016 18:56:08</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Pipes.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Net.Http.dll">
-      <publishTime>11/05/2016 18:56:30</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Net.Sockets.dll">
-      <publishTime>11/05/2016 18:56:34</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Reflection.Metadata.dll">
-      <publishTime>05/16/2018 03:29:44</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Runtime.InteropServices.RuntimeInformation.dll">
-      <publishTime>11/05/2016 18:57:00</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.AccessControl.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
@@ -517,58 +847,58 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Algorithms.dll">
-      <publishTime>11/05/2016 18:57:14</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Encoding.dll">
-      <publishTime>11/05/2016 18:57:08</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
-      <publishTime>11/05/2016 18:57:18</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
-      <publishTime>11/05/2016 18:57:18</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Principal.Windows.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
-      <publishTime>11/05/2016 18:57:20</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Threading.Tasks.Extensions.dll">
-      <publishTime>11/05/2016 18:57:24</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Threading.Thread.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.ValueTuple.dll">
-      <publishTime>11/05/2016 18:57:30</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.ReaderWriter.dll">
-      <publishTime>11/05/2016 18:57:36</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XmlDocument.dll">
-      <publishTime>11/05/2016 18:57:34</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XPath.dll">
-      <publishTime>11/05/2016 18:57:40</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XPath.XDocument.dll">
-      <publishTime>11/05/2016 18:57:34</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.exe">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.exe.config">
-      <publishTime>08/08/2018 12:18:18</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.rsp">
-      <publishTime>08/08/2018 12:09:46</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe">
-      <publishTime>08/08/2018 05:38:48</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
-      <publishTime>08/08/2018 12:18:16</publishTime>
+      <publishTime>05/19/2020 16:38:50</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.Dashboard.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
@@ -576,53 +906,107 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ru/DevExpress.Dashboard.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.Dashboard.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Dashboard.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:33:46</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.Data.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:20</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Data.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:49</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.DataAccess.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.DataAccess.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:48</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.Map.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:40</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Map.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:15</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.Office.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.Office.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.Pdf.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Pdf.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.PivotGrid.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.PivotGrid.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:25</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.Printing.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:49</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Printing.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:26</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.RichEdit.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.RichEdit.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:40</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.Sparkline.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Sparkline.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:34:27</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.Utils.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:50</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.Utils.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:30</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.Web.Resources.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:57</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Web.Resources.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:35</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.Web.v19.2.resources.dll">
       <publishTime>03/22/2020 22:52:08</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.Web.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:33:20</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.Xpo.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:07</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.Xpo.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.XtraBars.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.XtraBars.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:52</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.XtraCharts.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.XtraCharts.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:34:56</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.XtraEditors.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraEditors.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:03</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.XtraGauges.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -630,11 +1014,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ru/DevExpress.XtraGauges.v19.2.Presets.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.XtraGauges.v20.1.Core.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraGauges.v20.1.Presets.resources.dll">
+      <publishTime>06/15/2020 22:35:12</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.XtraLayout.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.XtraLayout.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:18</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.XtraPrinting.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraPrinting.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:27</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.XtraReports.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
@@ -642,20 +1038,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ru/DevExpress.XtraReports.v19.2.Web.resources.dll">
       <publishTime>03/22/2020 22:53:11</publishTime>
     </File>
+    <File Include="bin/ru/DevExpress.XtraReports.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraReports.v20.1.Web.resources.dll">
+      <publishTime>06/15/2020 22:35:39</publishTime>
+    </File>
     <File Include="bin/ru/DevExpress.XtraTreeList.v19.2.resources.dll">
       <publishTime>03/22/2020 22:53:16</publishTime>
+    </File>
+    <File Include="bin/ru/DevExpress.XtraTreeList.v20.1.resources.dll">
+      <publishTime>06/15/2020 22:36:04</publishTime>
     </File>
     <File Include="bin/ru/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:25:46</publishTime>
     </File>
     <File Include="bin/SNSsoftware.dll">
-      <publishTime>04/30/2020 01:24:55</publishTime>
+      <publishTime>08/18/2020 21:19:39</publishTime>
     </File>
     <File Include="bin/SNSsoftware.pdb">
-      <publishTime>04/30/2020 01:24:55</publishTime>
+      <publishTime>08/18/2020 21:19:39</publishTime>
     </File>
     <File Include="bin/SNSsoftware.xml">
-      <publishTime>04/30/2020 01:24:55</publishTime>
+      <publishTime>08/18/2020 21:19:38</publishTime>
     </File>
     <File Include="bin/Tinify.dll">
       <publishTime>05/24/2018 10:15:50</publishTime>
@@ -667,7 +1072,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:28:10</publishTime>
     </File>
     <File Include="Controls/Cufex_Components/Cufex_MasterHeader.ascx">
-      <publishTime>03/20/2020 01:19:32</publishTime>
+      <publishTime>07/01/2020 19:43:08</publishTime>
     </File>
     <File Include="Controls/Cufex_Components/Cufex_MasterMenu.ascx">
       <publishTime>11/26/2019 12:22:28</publishTime>
@@ -676,28 +1081,70 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/26/2019 11:41:34</publishTime>
     </File>
     <File Include="Cufex/Cufex.aspx">
-      <publishTime>03/01/2020 03:57:07</publishTime>
+      <publishTime>07/02/2020 11:26:30</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Administration_ExportLogs.aspx">
+      <publishTime>06/04/2020 01:28:50</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Administration_FileManagement.aspx">
+      <publishTime>06/04/2020 01:29:28</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Administration_FileManagementLogs.aspx">
+      <publishTime>06/04/2020 01:29:46</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Administration_ImportLogs.aspx">
+      <publishTime>06/04/2020 01:29:01</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Administration_UITemplates.aspx">
+      <publishTime>06/07/2020 21:06:14</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ItemCatalogue.aspx">
-      <publishTime>04/29/2020 20:51:26</publishTime>
+      <publishTime>08/07/2020 17:47:18</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_Items.aspx">
-      <publishTime>04/29/2020 20:51:02</publishTime>
+      <publishTime>06/26/2020 23:15:54</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Configuration_ShipFrom.aspx">
+      <publishTime>07/02/2020 01:15:44</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ShipTo.aspx">
-      <publishTime>04/29/2020 17:50:07</publishTime>
+      <publishTime>07/02/2020 00:53:10</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_Suppliers.aspx">
       <publishTime>04/29/2020 17:50:15</publishTime>
     </File>
+    <File Include="Cufex/Cufex_Dashboard.aspx">
+      <publishTime>07/23/2020 21:18:31</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_DashboardSite.Master">
+      <publishTime>07/06/2020 20:27:19</publishTime>
+    </File>
     <File Include="Cufex/Cufex_Default.aspx">
-      <publishTime>04/10/2020 17:25:36</publishTime>
+      <publishTime>07/06/2020 11:49:48</publishTime>
     </File>
     <File Include="Cufex/Cufex_ForgotPassword.aspx">
-      <publishTime>03/01/2020 03:57:21</publishTime>
+      <publishTime>07/01/2020 18:26:22</publishTime>
     </File>
     <File Include="Cufex/Cufex_Inventory_Balance.aspx">
-      <publishTime>04/27/2020 22:05:08</publishTime>
+      <publishTime>07/02/2020 01:16:09</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Popup_Items.aspx">
+      <publishTime>07/02/2020 22:45:01</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Popup_Locations.aspx">
+      <publishTime>06/12/2020 21:07:20</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Popup_Packs.aspx">
+      <publishTime>06/12/2020 21:07:08</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Reporting_ReportDesigner.aspx">
+      <publishTime>06/24/2020 23:10:57</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Reporting_ReportViewer.aspx">
+      <publishTime>06/16/2020 00:07:25</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Reporting_ViewReports.aspx">
+      <publishTime>05/09/2020 02:59:11</publishTime>
     </File>
     <File Include="Cufex/Cufex_ReportsandKPIs_ReportDesigner.aspx">
       <publishTime>04/10/2020 17:25:33</publishTime>
@@ -709,7 +1156,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2020 23:14:09</publishTime>
     </File>
     <File Include="Cufex/Cufex_ResetPasswordByCode.aspx">
-      <publishTime>03/01/2020 03:57:36</publishTime>
+      <publishTime>07/01/2020 18:27:08</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_ChangePassword.aspx">
+      <publishTime>06/29/2020 20:59:40</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Profiles.aspx">
+      <publishTime>06/06/2020 20:21:37</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_ProfilesDetails.aspx">
+      <publishTime>07/01/2020 19:20:16</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_Profile_ChangePassword.aspx">
       <publishTime>04/29/2020 17:32:44</publishTime>
@@ -729,41 +1185,56 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Cufex/Cufex_Security_Profile_UsersControl.aspx">
       <publishTime>04/29/2020 17:27:24</publishTime>
     </File>
+    <File Include="Cufex/Cufex_Security_UserProfile.aspx">
+      <publishTime>06/09/2020 18:24:59</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_Users.aspx">
+      <publishTime>06/29/2020 20:59:18</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Security_UsersControl.aspx">
+      <publishTime>06/29/2020 22:06:44</publishTime>
+    </File>
     <File Include="Cufex/Cufex_Site.Master">
-      <publishTime>04/20/2020 14:59:38</publishTime>
+      <publishTime>07/01/2020 19:58:03</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_ASN.aspx">
-      <publishTime>04/29/2020 17:49:50</publishTime>
+      <publishTime>07/02/2020 21:16:49</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_OrderManagement.aspx">
-      <publishTime>04/29/2020 17:49:36</publishTime>
+      <publishTime>07/02/2020 21:17:22</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_PO.aspx">
-      <publishTime>04/29/2020 17:49:31</publishTime>
+      <publishTime>07/02/2020 01:17:05</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_Shipment.aspx">
-      <publishTime>04/29/2020 03:37:59</publishTime>
+      <publishTime>07/02/2020 21:18:02</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>11/26/2019 11:41:34</publishTime>
+      <publishTime>05/19/2020 16:38:38</publishTime>
     </File>
     <File Include="JS/Cufex/MainQuery.js">
-      <publishTime>04/18/2020 17:39:17</publishTime>
+      <publishTime>05/08/2020 13:05:47</publishTime>
     </File>
     <File Include="JS/Cufex/MainQuery.min.js">
-      <publishTime>12/16/2019 19:46:48</publishTime>
+      <publishTime>05/08/2020 13:05:47</publishTime>
     </File>
     <File Include="JS/Cufex/Master.js">
-      <publishTime>04/30/2020 01:14:01</publishTime>
+      <publishTime>08/07/2020 17:49:25</publishTime>
     </File>
     <File Include="JS/Cufex/Master.min.js">
-      <publishTime>04/30/2020 01:13:58</publishTime>
+      <publishTime>08/07/2020 17:49:07</publishTime>
     </File>
     <File Include="JS/Dashboards/DeleteExtension.js">
       <publishTime>03/24/2020 13:57:47</publishTime>
     </File>
     <File Include="JS/Dashboards/SaveAsExtension.js">
       <publishTime>03/24/2020 13:57:47</publishTime>
+    </File>
+    <File Include="JS/Dashboards/scripts.js">
+      <publishTime>07/06/2020 11:51:05</publishTime>
+    </File>
+    <File Include="JS/Dashboards/styles.css">
+      <publishTime>06/24/2020 23:10:57</publishTime>
     </File>
     <File Include="JS/JqueryMain/jquery-3.4.1.min.js">
       <publishTime>12/22/2019 13:51:04</publishTime>
@@ -1051,22 +1522,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 22:55:47</publishTime>
     </File>
     <File Include="Site.Master">
-      <publishTime>12/09/2019 09:59:56</publishTime>
+      <publishTime>05/19/2020 16:38:39</publishTime>
     </File>
     <File Include="Style/ChosenSelect/chosen.css">
-      <publishTime>03/24/2020 13:57:47</publishTime>
+      <publishTime>06/08/2020 00:30:47</publishTime>
     </File>
     <File Include="Style/ChosenSelect/chosen.min.css">
-      <publishTime>02/08/2020 02:23:42</publishTime>
+      <publishTime>06/08/2020 00:30:47</publishTime>
     </File>
     <File Include="Style/Cufex/Cufex_Style.css">
-      <publishTime>04/30/2020 00:58:11</publishTime>
+      <publishTime>07/01/2020 20:01:06</publishTime>
     </File>
     <File Include="Style/Cufex/Cufex_Style.min.css">
-      <publishTime>04/30/2020 00:55:38</publishTime>
+      <publishTime>07/01/2020 20:01:03</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/28/2020 17:24:43</publishTime>
+      <publishTime>08/11/2020 10:56:26</publishTime>
     </File>
     <File Include="Webservices/ActionButtons.ashx">
       <publishTime>03/03/2020 11:46:56</publishTime>
@@ -1095,14 +1566,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Webservices/DisplayItemsNew.ashx">
       <publishTime>04/20/2020 00:06:10</publishTime>
     </File>
+    <File Include="Webservices/ExportItems.ashx">
+      <publishTime>05/18/2020 02:02:09</publishTime>
+    </File>
+    <File Include="Webservices/ExportItemsDetails.ashx">
+      <publishTime>06/01/2020 02:01:16</publishTime>
+    </File>
     <File Include="Webservices/FetchPriceCurrency.ashx">
       <publishTime>02/24/2020 00:16:35</publishTime>
+    </File>
+    <File Include="Webservices/FileUpload.ashx">
+      <publishTime>05/28/2020 01:59:58</publishTime>
     </File>
     <File Include="Webservices/GetItems.ashx">
       <publishTime>12/16/2019 18:07:12</publishTime>
     </File>
     <File Include="Webservices/GetItemsDetails.ashx">
       <publishTime>04/20/2020 01:33:56</publishTime>
+    </File>
+    <File Include="Webservices/GetItemsPopup.ashx">
+      <publishTime>06/11/2020 00:53:58</publishTime>
+    </File>
+    <File Include="Webservices/ImportItems.ashx">
+      <publishTime>05/22/2020 01:17:11</publishTime>
     </File>
     <File Include="Webservices/SaveItems.ashx">
       <publishTime>01/11/2020 16:25:48</publishTime>
@@ -1118,6 +1604,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Webservices/UpdateProfileDetail.ashx">
       <publishTime>03/01/2020 01:47:38</publishTime>
+    </File>
+    <File Include="Webservices/UpdateUserActive.ashx">
+      <publishTime>05/07/2020 00:01:03</publishTime>
     </File>
     <File Include="Webservices/UserConfiguration.ashx">
       <publishTime>04/12/2020 23:22:22</publishTime>
