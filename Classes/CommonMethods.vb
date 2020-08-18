@@ -5,6 +5,7 @@ Imports System.Globalization
 Imports System.IO
 Imports System.Net
 Imports System.Net.Mail
+Imports System.Net.Mime
 Imports System.Reflection
 Imports System.Security.Cryptography
 Imports System.Web.Services.Description
@@ -280,6 +281,67 @@ Public Class CommonMethods
                 .Body = body,
                 .IsBodyHtml = True
             }
+            smtp.Send(message)
+        Catch e1 As Exception
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.Error(e1, "", "")
+        End Try
+    End Sub
+
+
+    Public Shared Sub SendEmail(ByVal addresses As String, ByVal subject As String, ByVal body As String, ByVal attachmentFilename As String)
+        Try
+            Dim fromAddress = New MailAddress(ConfigurationManager.AppSettings("smtp_email"), "SNS Support")
+
+            Dim fromPassword As String = ConfigurationManager.AppSettings("smtp_password")
+            Dim smtp = New SmtpClient With {
+                .Host = ConfigurationManager.AppSettings("smtp_host"),
+                .Port = Integer.Parse(ConfigurationManager.AppSettings("smtp_port")),
+                .EnableSsl = True,
+                .DeliveryMethod = SmtpDeliveryMethod.Network,
+                .UseDefaultCredentials = False,
+                .Credentials = New NetworkCredential(fromAddress.Address, fromPassword)
+            }
+
+            Dim message = New MailMessage()
+            message.Subject = subject
+            message.Body = body
+            message.IsBodyHtml = True
+            message.From = fromAddress
+
+            For Each address In addresses.Split({";"}, StringSplitOptions.RemoveEmptyEntries)
+                Try
+                    Dim mailAdd = New MailAddress(address)
+                    message.To.Add(mailAdd)
+                Catch ex As Exception
+
+                End Try
+            Next
+
+
+            Dim htmlMessage As String = "<html>
+                         <body>
+                         <p>" + body + "<br>
+                         <img src='cid:EmbeddedContent_1' />
+                         </body>
+                         </html>"
+
+            Dim htmlView As AlternateView = AlternateView.CreateAlternateViewFromString(htmlMessage, Encoding.UTF8, MediaTypeNames.Text.Html)
+            Dim plainView As AlternateView = AlternateView.CreateAlternateViewFromString(Regex.Replace(htmlMessage, "<[^>]+?>", String.Empty), Encoding.UTF8, MediaTypeNames.Text.Plain)
+            Dim mediaType As String = MediaTypeNames.Image.Jpeg
+            Dim img As LinkedResource = New LinkedResource(attachmentFilename, mediaType)
+            img.ContentId = "EmbeddedContent_1"
+            img.ContentType.MediaType = mediaType
+            img.TransferEncoding = TransferEncoding.Base64
+            img.ContentType.Name = img.ContentId
+            img.ContentLink = New Uri("cid:" & img.ContentId)
+            htmlView.LinkedResources.Add(img)
+            message.AlternateViews.Add(plainView)
+            message.AlternateViews.Add(htmlView)
+
+            message.IsBodyHtml = True
+
+
             smtp.Send(message)
         Catch e1 As Exception
             Dim logger As Logger = LogManager.GetCurrentClassLogger()
