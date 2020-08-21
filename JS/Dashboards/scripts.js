@@ -48,7 +48,8 @@ dxDemo.Navigation = {
     }
 };
 
-function onDashboardTitleToolbarUpdated(args) {
+function onDashboardTitleToolbarUpdated(s, e) {
+    
     var colorSchemaList = {
         "light": "Light",
         "dark": "Dark",
@@ -60,21 +61,16 @@ function onDashboardTitleToolbarUpdated(args) {
 
         "light.compact": "Light Compact",
         "dark.compact": "Dark Compact",
-        //"carmine.compact": "Carmine Compact",
-        //"darkmoon.compact": "Dark Moon Compact",
-        //"greenmist.compact": "Green Mist Compact",
-        //"darkviolet.compact": "Dark Violet Compact",
-        //"softblue.compact": "Soft Blue Compact"
-
+        
         "light-blue": "Light Blue",
         "dark-blue": "Dark Blue "
     };
 
     if (dxDemo.Sidebar && DevExpress.devices.real().phone) {
-        args.options.actionItems.unshift(dxDemo.Sidebar.getToolbarItem(args.component));
+        e.Options.actionItems.unshift(dxDemo.Sidebar.getToolbarItem(s.component));
     }
 
-    args.options.actionItems.unshift({
+    e.Options.actionItems.unshift({
         type: "menu",
         icon: "colorSchemeIcon",
         hint: "Theme",
@@ -269,6 +265,7 @@ function ItemCaptionToolbarUpdated(s, e) {
 };
 
 function DashboardTitleToolbarUpdated(s, e) {
+    onDashboardTitleToolbarUpdated(s,e);
     var formInstance = null;
     e.Options.actionItems.push({
         type: "button",
