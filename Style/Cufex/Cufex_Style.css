@@ -11810,18 +11810,38 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
     height: 100vh;
 }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthMenu {
+        display: none;
+    }
+}
 
     .widthMenu.Closed {
         width: 60px;
     }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthMenu.Closed {
+        display: none;
+    }
+}
 
 .widthContent {
     width: calc(100% - 250px);
+}
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthContent {
+        width: 100%;
+    }
 }
 
     .widthContent.Closed {
         width: calc(100% - 60px);
     }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthContent.Closed {
+        width: 100%;
+    }
+}
 
     .widthContent.FullContent {
         width: 100%;
