@@ -58,7 +58,6 @@ function onDashboardTitleToolbarUpdated(s, e) {
         "greenmist": "Green Mist",
         "darkviolet": "Dark Violet",
         "softblue": "Soft Blue",
-
         "light.compact": "Light Compact",
         "dark.compact": "Dark Compact",
         
@@ -136,6 +135,7 @@ function onBeforeRender(sender) {
 
     dashboardControl.registerExtension(new SaveAsDashboardExtension(dashboardControl));
     dashboardControl.registerExtension(new DeleteDashboardExtension(sender));
+   // dashboardControl.registerExtension(new ExportDashboardExtension(sender));
 }
 function onExpand() {
     var control = webDesigner.GetDashboardControl();

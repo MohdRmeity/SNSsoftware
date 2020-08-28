@@ -7,6 +7,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/DeleteExtension.js"></script>
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/SaveAsExtension.js"></script>
+    <script src="../JS/Dashboards/ExportExtension.js"></script>
+
     <script src="../JS/Dashboards/scripts.js?v=2013"></script>
     <link href="../JS/Dashboards/styles.css?v=2013" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -23,8 +25,6 @@
             return ASPxDashboard.getDashboardControl();
         }
     </script>
-
-
 
     <script type="text/javascript">
         var ass = 0;
@@ -71,23 +71,17 @@
             padding: 10px 20px;
         }
 
-        @media all and (max-width: 786px) ,
-   only screen  and (max-device-width: 852px){
+        @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
             .MainDashboardSettings {
                 display: none;
             }
         }
 
-        @media all and (max-width: 786px),
-   only screen  and (max-device-width: 852px){
+        @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
             .exportItemIcon {
                 display: none;
             }
         }
-
-   
-
-
 
         .TimerSettings {
             position: relative;
@@ -176,7 +170,7 @@
         <div class="MainDashboardSettings" id="MainDashboardSettingsID">
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
-
+                    <asp:Button ID="Button1" runat="server" Text="Button" Visible="False"  OnClick="Button1_Click" />
                     <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton floatL" />
 
                     <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton floatL" />
@@ -201,11 +195,8 @@
                             </div>
                             <asp:Label ID="RefeshTimeLabel" runat="server" CssClass="RefreshTimeLabel floatR" Text=""></asp:Label>
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -232,7 +223,6 @@
 
     <asp:Button runat="server" ID="MyHiddenButton" ClientIDMode="Static" Text="" Style="display: none;" OnClick="MyHiddenButton_Click" />
     <input class="HiddenTime" id="HiddenTime" runat="server" type="hidden" value="0" />
-
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
     <script type="text/javascript">
