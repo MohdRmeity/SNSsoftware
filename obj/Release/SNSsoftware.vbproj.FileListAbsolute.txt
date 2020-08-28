@@ -251,3 +251,4 @@ C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Release\SNSsoftware.vbproj
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Release\SNSsoftware.dll
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Release\SNSsoftware.xml
 C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Release\SNSsoftware.pdb
+C:\inetpub\wwwroot\SNSSoftware_3.0Git\SNSsoftware\obj\Release\SNSsoftware.vbprojAssemblyReference.cache

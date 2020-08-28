@@ -154,11 +154,13 @@ Partial Public Class Cufex
                     Dim Cufex_Cookie As New HttpCookie("Cufex_Username")
                     Cufex_Cookie.Value = LCase(txtUserName.Text)
                     Cufex_Cookie.Expires = GetLebanonTime().AddDays(365)
+                    Cufex_Cookie.Secure = True
                     HttpContext.Current.Response.Cookies.Add(Cufex_Cookie)
 
                     Dim Cufex_CookieP As New HttpCookie("Cufex_Password")
                     Cufex_CookieP.Value = txtPassword.Text
                     Cufex_CookieP.Expires = GetLebanonTime().AddDays(365)
+                    Cufex_CookieP.Secure = True
                     HttpContext.Current.Response.Cookies.Add(Cufex_CookieP)
 
                     If Request("InWindow") = "yes" Then

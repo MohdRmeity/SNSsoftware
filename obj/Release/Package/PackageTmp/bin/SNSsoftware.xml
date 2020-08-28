@@ -3440,6 +3440,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:SNSsoftware.Cufex_Default._RefreshSettings">
+<summary>
+RefreshSettings control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:SNSsoftware.Cufex_Default._RefeshTimeLabel">
 <summary>
 RefeshTimeLabel control.

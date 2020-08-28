@@ -35,7 +35,7 @@ Public Class GetItems
                 SortBy = "SerialKey desc"
             End If
         ElseIf SearchTable = "PROFILEDETAIL" Or SearchTable = "REPORTSPROFILEDETAIL" Or SearchTable = "PROFILEDETAILDASHBOARDS" Then
-            AndFilter = " and ProfileName='" & QueryUrlStr & "'"
+            AndFilter = " and ProfileName='" & QueryUrlStr & "' and Blocked = 0 "
             If CommonMethods.dbtype <> "sql" Then
                 SearchTable = "System." & SearchTable
                 SortBy = "SerialKey desc"
@@ -82,6 +82,8 @@ Public Class GetItems
             GetSOQuery(SQL)
         ElseIf SearchTable = "Warehouse_OrderManagement" Then
             GetOrderManagementQuery(SQL)
+        ElseIf SearchTable = "Warehouse_OrderTracking" Then
+            GetOrderTrackingQuery(SQL, SearchQuery)
         ElseIf SearchTable = "Inventory_Balance" Then
             GetInventoryBalanceQuery(SQL)
         ElseIf SearchTable = "REPORTSPORTAL" Then
@@ -90,7 +92,7 @@ Public Class GetItems
             AndFilter = " and report in (" & CommonMethods.getReportsPerUser(HttpContext.Current.Session("userkey").ToString) & ")"
         End If
 
-        If SearchTable <> "Warehouse_PO" And SearchTable <> "Warehouse_ASN" And SearchTable <> "Warehouse_SO" And SearchTable <> "Warehouse_OrderManagement" And SearchTable <> "Inventory_Balance" And SearchTable <> "REPORTSPROFILEDETAIL" And SearchTable <> "FILEMANAGEMENT" Then
+        If SearchTable <> "Warehouse_PO" And SearchTable <> "Warehouse_ASN" And SearchTable <> "Warehouse_SO" And SearchTable <> "Warehouse_OrderManagement" And SearchTable <> "Inventory_Balance" And SearchTable <> "REPORTSPROFILEDETAIL" And SearchTable <> "FILEMANAGEMENT" And SearchTable <> "Warehouse_OrderTracking" Then
             SQL += " Select top " & CommonMethods.TopCount & " * from " & SearchTable & " where 1=1 " & AndFilter
         End If
 
@@ -98,7 +100,7 @@ Public Class GetItems
             SQL += " select distinct top " & CommonMethods.TopCount & " (REPORT) , REPORT_NAME " & IIf(TabName <> "", ",ID, EDIT", "") & " from " & SearchTable & " where 1=1 " & AndFilter
         End If
 
-        SearchItem(SearchQuery, SearchTable, SQL)
+        If SearchTable <> "Warehouse_OrderTracking" Then SearchItem(SearchQuery, SearchTable, SQL)
         SQL += " order by " & SortBy
 
         '1
@@ -108,7 +110,9 @@ Public Class GetItems
         End If
 
         Dim DS As DataSet = tb.Cursor(SQL)
-        Dim OBJTable As DataTable = DS.Tables(0)
+        Dim OBJTable As DataTable = Nothing
+
+        If DS IsNot Nothing Then OBJTable = DS.Tables(0)
 
         Dim MyRecords As String = ""
         If Not OBJTable Is Nothing Then
@@ -152,6 +156,8 @@ Public Class GetItems
                 GetSORecords(OBJTable, MyRecords)
             ElseIf SearchTable = "Warehouse_OrderManagement" Then
                 GetOrderManagementRecords(OBJTable, MyRecords)
+            ElseIf SearchTable = "Warehouse_OrderTracking" Then
+                GetOrderTrackingRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "Inventory_Balance" Then
                 GetInventoryBalanceRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "REPORTSPROFILEDETAIL" Then
@@ -1156,6 +1162,107 @@ Public Class GetItems
             End With
         Next
     End Sub
+    Private Sub GetOrderTrackingRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        Dim CustomOrderDate As String, CustReqDate As String, CustActShipDate, VASStartDate, VASEndDate As String
+        Dim page As Page = New Page
+        For i = 0 To OBJTable.Rows.Count - 1
+            CustomOrderDate = ""
+            CustReqDate = ""
+            CustActShipDate = ""
+            VASStartDate = ""
+            VASEndDate = ""
+            With OBJTable.Rows(i)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !ExternOrderKey & "~~~" & !StorerKey & "' data-queryurl='?externorderkey=" & !ExternOrderKey & "&storerkey=" & !StorerKey & "'></div>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                        <div class='editStyle' data-id='" & !ExternOrderKey & "~~~" & !StorerKey & "' data-queryurl='?externorderkey=" & !ExternOrderKey & "&storerkey=" & !StorerKey & "'></div>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
+                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderTracking", Nothing)) & "?externorderkey=" & !ExternOrderKey & "&storerkey=" & !StorerKey & "'>"
+                MyRecords += "                        " & !ExternOrderKey
+                MyRecords += "                        </a>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+                MyRecords += "                        " & !StorerKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
+                MyRecords += "                        " & !Facility
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                If Not .IsNull("CustomOrderDate") Then
+                    CustomOrderDate = Format(!CustomOrderDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & CustomOrderDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                If Not .IsNull("CustReqDate") Then
+                    CustReqDate = Format(!CustReqDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & CustReqDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                If Not .IsNull("CustActShipDate") Then
+                    CustActShipDate = Format(!CustActShipDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & CustActShipDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & !OrderType
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
+                MyRecords += "                        " & !PortalDescription
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='9'>"
+                MyRecords += "                        " & !Order_Transport_Status
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='10'>"
+                MyRecords += "                        " & !VASStatus
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='11'>"
+                MyRecords += "                        " & !CarrierName
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='12'>"
+                MyRecords += "                        " & !C_Company
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='13'>"
+                MyRecords += "                        " & !C_Address1
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='14'>"
+                MyRecords += "                        " & !BuyerPO
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='15'>"
+                MyRecords += "                        " & !SUsr1
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='16'>"
+                MyRecords += "                        " & !SUsr2
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='17'>"
+                MyRecords += "                        " & !SUsr3
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='18'>"
+                MyRecords += "                        " & !SUsr4
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='19'>"
+                MyRecords += "                        " & !SUsr5
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='20'>"
+                If Not .IsNull("VASStartDate") Then
+                    VASStartDate = Format(!VASStartDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & VASStartDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='21'>"
+                If Not .IsNull("VASEndDate") Then
+                    VASEndDate = Format(!VASEndDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & VASEndDate
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
     Private Sub GetInventoryBalanceRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
         For i = 0 To OBJTable.Rows.Count - 1
             With OBJTable.Rows(i)
@@ -1403,17 +1510,6 @@ Public Class GetItems
                     SQL += " UNION"
                 Next
 
-                'SQL += " select top 1 SerialKey, '" & wname & "' as Facility, StorerKey, OrderKey, "
-                'SQL += " ConsigneeKey, ExternOrderKey, SUsr1, SUsr2, SUsr3, SUsr4, SUsr5, "
-                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , OrderDate )", "(OrderDate + interval '" & TimeZone & "' hour)") & " as OrderDate, "
-                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , ActualShipDate )", "(ActualShipDate + interval '" & TimeZone & "' hour)") & " as ActualShipDate, "
-                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , RequestedShipDate )", "(RequestedShipDate + interval '" & TimeZone & "' hour)") & " as RequestedShipDate, "
-                'SQL += " (select DESCRIPTION from wmwhse1.codelkup where code=Orders.Type And listname = 'ORDERTYPE' ) as OrderType, "
-                'SQL += " (select DESCRIPTION from wmwhse1.orderstatussetup where code=orders.Status ) as Status, "
-                'SQL += " (select Company from wmwhse1.storer where type=2 and storerkey=orders.ConsigneeKey) as ConsigneeName "
-                'SQL += " from  wmwhse1.Orders where 1=1  and Orderkey = '0000273661'"
-                'SQL += " UNION"
-
                 If SQL.EndsWith("UNION") Then SQL = SQL.Remove(SQL.Length - 5)
                 SQL += ") as ds where 1=1 "
             End If
@@ -1453,6 +1549,118 @@ Public Class GetItems
                 SQL += " from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG where 1=1  " & AndFilter
                 SQL += ") as ds where 1=1 "
             End If
+        End If
+    End Sub
+    Private Sub GetOrderTrackingQuery(ByRef SQL As String, ByVal SearchQuery As String)
+        Dim AndFilter As String = "", HavingFilter As String = "", FinalFilter As String = ""
+        Dim TimeZone As Integer = 0
+
+        If Integer.TryParse(HttpContext.Current.Session("timezone").ToString, TimeZone) Then
+            TimeZone = Integer.Parse(HttpContext.Current.Session("timezone").ToString)
+        End If
+
+        Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+        Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
+        Dim types As String() = CommonMethods.getOrderTypePerUser(HttpContext.Current.Session("userkey").ToString)
+        Dim datefilter As String = CommonMethods.getDateFilterPerUser(HttpContext.Current.Session("userkey").ToString)
+
+        If owners IsNot Nothing And consignees IsNot Nothing And types IsNot Nothing Then
+            Dim ownersstr As String = String.Join("','", owners)
+            ownersstr = "'" & ownersstr & "'"
+            If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and OT.STORERKEY IN (" & ownersstr & ")"
+
+            Dim consigneesstr As String = String.Join("','", consignees)
+            consigneesstr = "'" & consigneesstr & "'"
+            If Not UCase(consigneesstr).Contains("'ALL'") Then AndFilter += " and OT.ConsigneeKey IN (" & consigneesstr & ")"
+
+            Dim typesstr As String = String.Join("','", types)
+            typesstr = "'" & typesstr & "'"
+            If Not UCase(typesstr).Contains("'ALL'") Then AndFilter += " and OT.TYPE IN (" & typesstr & ")"
+
+            If datefilter <> "0" Then HavingFilter += " and MIN(OT.ADDDATE) >= GETUTCDATE() - " & datefilter
+
+            Dim MySearchTerms() As String = Split(SearchQuery, ",")
+
+            For i = 0 To MySearchTerms.Length - 1
+                Dim MySearchInsideTerms() As String = Split(MySearchTerms(i), ":")
+
+                If MySearchInsideTerms.Length = 2 Then
+                    If MySearchInsideTerms(0) <> "CarrierName" And MySearchInsideTerms(0) <> "OrderType" And MySearchInsideTerms(0) <> "PortalDescription" And MySearchInsideTerms(0) <> "Order_Transport_Status" And MySearchInsideTerms(0) <> "VASStatus" And MySearchInsideTerms(0) <> "Facility" And MySearchInsideTerms(0) <> "VASStartDate" And MySearchInsideTerms(0) <> "VASEndDate" And MySearchInsideTerms(0) <> "CustomOrderDate" And MySearchInsideTerms(0) <> "CustReqDate" And MySearchInsideTerms(0) <> "CustActShipDate" Then
+                        AndFilter += " And OT." & MySearchInsideTerms(0) & " Like N'"
+                        If MySearchInsideTerms(1).Contains("%") Then
+                            AndFilter += MySearchInsideTerms(1) & "'"
+                        Else
+                            AndFilter += "%" & MySearchInsideTerms(1) & "%'"
+                        End If
+                    Else
+                        If MySearchInsideTerms(0) = "CarrierName" Then
+                            AndFilter += " And OT2.MAXCN Like N'"
+                            If MySearchInsideTerms(1).Contains("%") Then
+                                AndFilter += MySearchInsideTerms(1) & "'"
+                            Else
+                                AndFilter += "%" & MySearchInsideTerms(1) & "%'"
+                            End If
+                        ElseIf MySearchInsideTerms(0) = "OrderType" Or MySearchInsideTerms(0) = "PortalDescription" Then
+                            FinalFilter += " And " & MySearchInsideTerms(0) & "='" & MySearchInsideTerms(1) & "'"
+                        ElseIf MySearchInsideTerms(0) = "Order_Transport_Status" Or MySearchInsideTerms(0) = "VASStatus" Then
+                            FinalFilter += " And " & MySearchInsideTerms(0) & " Like N'"
+                            If MySearchInsideTerms(1).Contains("%") Then
+                                FinalFilter += MySearchInsideTerms(1) & "'"
+                            Else
+                                FinalFilter += "%" & MySearchInsideTerms(1) & "%'"
+                            End If
+                        ElseIf MySearchInsideTerms(0) = "Facility" Then
+                            If MySearchInsideTerms(1) <> "MULTI" Then
+                                FinalFilter += " And " & MySearchInsideTerms(0) & "='" & MySearchInsideTerms(1) & "'"
+                            Else
+                                HavingFilter += " AND COUNT(OT.WHSEID) > 1 "
+                            End If
+                        Else
+                            Dim StrJoin As String = "", MyField As String = ""
+
+                            If MySearchInsideTerms(0) = "VASStartDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , VS.VASStartDate),101)"
+                            ElseIf MySearchInsideTerms(0) = "VASEndDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , VS.VASEndDate),101)"
+                            ElseIf MySearchInsideTerms(0) = "CustomOrderDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , MIN(OT.OrderDate)),101)"
+                            ElseIf MySearchInsideTerms(0) = "CustReqDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , MIN(OT.REQUESTEDSHIPDATE)),101)"
+                            ElseIf MySearchInsideTerms(0) = "CustActShipDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , MIN(OT.ACTUALSHIPDATE)),101)"
+                            End If
+
+                            If MySearchInsideTerms(1).Contains("<") And Not MySearchInsideTerms(1).Contains("<=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<") + 1, "'") & "'"
+                            ElseIf MySearchInsideTerms(1).Contains(">") And Not MySearchInsideTerms(1).Contains(">=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">") + 1, "'") & "'"
+                            ElseIf MySearchInsideTerms(1).Contains(">=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">=") + 2, "'") & "'"
+                            ElseIf MySearchInsideTerms(1).Contains("<=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<=") + 2, "'") & "'"
+                            ElseIf LCase(MySearchInsideTerms(1)).Contains("today") Then
+                                StrJoin += " = convert(date,getdate()) "
+                            Else
+                                StrJoin += " Like N'%" & MySearchInsideTerms(1) & "%'"
+                                Dim MyDateTime As DateTime
+                                If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
+                                    StrJoin += " Or " & MyField & " = convert(char,DATEADD(hh , " & TimeZone & " , '" & MySearchInsideTerms(1) & "'),101) "
+                                End If
+                            End If
+                            StrJoin += " )"
+                            If MySearchInsideTerms(0).Contains("VAS") Then
+                                AndFilter += " AND (" & MyField & StrJoin
+                            Else
+                                HavingFilter += " AND (" & MyField & StrJoin
+                            End If
+                        End If
+                    End If
+                End If
+            Next
+
+            SQL += " select top " & CommonMethods.TopCount & " * from ("
+            SQL += " SELECT OT.EXTERNORDERKEY, (CASE WHEN COUNT(OT.WHSEID) > 1 then 'MULTI' else (select db_alias from wmsadmin.pl_db where db_logid = MAX(OT.WHSEID)) END) AS FACILITY,  (select DESCRIPTION from enterprise.codelkup where code=OT.Type AND listname = 'ORDERTYPE' ) AS ORDERTYPE,   MIN(OT.STATUS) AS STATUS,   (SELECT PORTALDESCRIPTION from dbo.PORTALORDERSTATUSSETUP WITH (NOLOCK) WHERE CODE =CAST(MIN(OT.STATUS) as INT)) AS PORTALDESCRIPTION, DATEADD(hh , " & TimeZone & ", MIN(OT.ORDERDATE)) AS CustomOrderDate,   DATEADD(hh , " & TimeZone & " , MIN(OT.REQUESTEDSHIPDATE)) AS CustReqDate,   DATEADD (hh , " & TimeZone & " , MIN(OT.ACTUALSHIPDATE)) AS CustActShipDate,   OT.STORERKEY, (CASE WHEN OT2.CCC > 1 then 'MULTI' WHEN OT2.MAXCC IS NULL THEN 'No Carrier Assigned' else OT2.MAXCC END) AS CarrierCode,  (CASE WHEN OT2.CCN > 1 then 'MULTI' WHEN OT2.MAXCN IS NULL THEN 'No Carrier Assigned' else OT2.MAXCN END) AS CarrierName,   OT.BUYERPO,   MAX(OT.CONSIGNEEKEY) CONSIGNEEKEY,   OT.C_COMPANY,   OT.C_CITY,   OT.C_STATE,  OT.C_ZIP,   OT.C_COUNTRY,  OT.C_ADDRESS1,   OT.C_ADDRESS2,   OT.C_ADDRESS3,   OT.C_ADDRESS4,   OT.C_ADDRESS5,   MIN(OT.SUSR1) SUSR1,  MIN(OT.SUSR2) SUSR2,   MIN(OT.SUSR3) SUSR3,   MIN(OT.SUSR4) SUSR4,   MIN(OT.SUSR5) SUSR5,   VS.VASSTARTDATE,  VS.VASENDDATE,  (COUNT(DISTINCT(OT.WHSEID))) AS NBROFSPLIT,  CASE WHEN CET.ORDER_TRANSPORT_STATUS IS NULL THEN 'Not Started' ELSE CET.ORDER_TRANSPORT_STATUS END ORDER_TRANSPORT_STATUS,  (CASE WHEN (VS.VASENDDATE IS NOT NULL AND VS.VASSTARTDATE IS NOT NULL) THEN 'VAS Out' WHEN  VS.VASSTARTDATE IS NOT NULL THEN 'VAS In' ELSE 'Not Started' END) AS VASSTATUS,  MIN(OT.ADDDATE) as ADDDATE  FROM ENTERPRISE.ALL_ORDERS OT  LEFT JOIN dbo.VAS VS WITH (NOLOCK)  ON VS.EXTERNALORDERKEY = OT.EXTERNORDERKEY   AND VS.STORERKEY = OT.STORERKEY  LEFT JOIN (SELECT R3.STORERKEY, R3.EXTERNALORDERKEY, R3.CARRIERNAME, R3.CONSOLIDATIONSEQ, CASE WHEN MIN(CARRIEREVENTSTATUSCODES.EVENTDESCRIPTION) IS NULL THEN 'Not Started' ELSE MIN(CARRIEREVENTSTATUSCODES.EVENTDESCRIPTION) END ORDER_TRANSPORT_STATUS FROM   CARRIEREVENTSTATUSCODES,  ( SELECT R2.STORERKEY, R2.EXTERNALORDERKEY, R2.CARRIERNAME, MIN(R2.CONSOLIDATIONSEQ) CONSOLIDATIONSEQ FROM ( SELECT R1.STORERKEY, R1.EXTERNALORDERKEY, R1.CARRIERNAME, R1.CONSIGNMENTID, CASE WHEN MIN(R1.CONSOLIDATIONSEQ) IS NULL THEN '000' ELSE MIN(R1.CONSOLIDATIONSEQ) END CONSOLIDATIONSEQ FROM ( SELECT CE.STORERKEY, CE.EXTERNALORDERKEY, CE.CARRIERNAME, CE.CONSIGNMENTID, MAX(CESC.CONSOLIDATIONSEQ) CONSOLIDATIONSEQ FROM   CARRIEREVENTS CE LEFT JOIN CARRIEREVENTSTATUSCODES CESC ON  CE.EVENTSTATUSCODE = CESC.EVENTCODE  AND          CESC.CONSOLIDATE = 'Y' GROUP  BY CE.STORERKEY, CE.EXTERNALORDERKEY, CE.CARRIERNAME, CE.CONSIGNMENTID, CE.ARTICLEID ) R1 GROUP BY R1.STORERKEY, R1.EXTERNALORDERKEY, R1.CARRIERNAME, R1.CONSIGNMENTID ) R2 GROUP BY R2.STORERKEY, R2.EXTERNALORDERKEY, R2.CARRIERNAME ) R3 WHERE  CARRIEREVENTSTATUSCODES.CONSOLIDATIONSEQ = R3.CONSOLIDATIONSEQ GROUP  BY R3.STORERKEY, R3.EXTERNALORDERKEY, R3.CARRIERNAME, R3.CONSOLIDATIONSEQ) CET   ON CET.EXTERNALORDERKEY = OT.EXTERNORDERKEY   AND CET.STORERKEY = OT.STORERKEY LEFT JOIN (SELECT EXTERNORDERKEY, STORERKEY, COUNT(DISTINCT(CarrierCode)) CCC , MAX(CarrierCode) MAXCC, MAX(CarrierName) MAXCN, COUNT(DISTINCT(CarrierName)) CCN FROM ENTERPRISE.ALL_ORDERS  WITH (NOLOCK) GROUP BY EXTERNORDERKEY, STORERKEY) OT2  ON OT2.EXTERNORDERKEY = OT.EXTERNORDERKEY  AND OT2.STORERKEY = OT.STORERKEY WHERE 1=1 " & AndFilter & " GROUP BY OT.EXTERNORDERKEY, OT.TYPE, OT.STORERKEY, OT.BUYERPO,  OT.C_COMPANY, OT.C_CITY, OT.C_STATE, OT.C_ZIP, OT.C_COUNTRY,  OT.C_ADDRESS1, OT.C_ADDRESS2,  OT.C_ADDRESS3, OT.C_ADDRESS4, OT.C_ADDRESS5,  VS.VASSTARTDATE, VS.VASENDDATE, CET.ORDER_TRANSPORT_STATUS, OT2.CCC, OT2.MAXCC,  OT2.MAXCN, OT2.CCN  HAVING 1=1  " & HavingFilter
+            SQL += ") as ds where 1=1 " & FinalFilter
         End If
     End Sub
     Private Sub GetInventoryBalanceQuery(ByRef SQL As String)

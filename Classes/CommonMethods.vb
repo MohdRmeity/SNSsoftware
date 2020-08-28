@@ -649,6 +649,92 @@ Public Class CommonMethods
         Next
         Return reports
     End Function
+    Public Shared Function getOrderTypePerUser(ByVal userkey As String) As String()
+        Dim ordertypes As String()
+        Dim s As String = ""
+        Dim dt As DataTable = New DataTable
+        If dbtype = "sql" Then
+            Try
+                Using connection As SqlConnection = New SqlConnection(dbconx)
+                    connection.Open()
+                    Dim query As SqlCommand = New SqlCommand("select OrderType from dbo.USERCONTROL where USERKEY = @ukey", connection)
+                    query.Parameters.AddWithValue("@ukey", userkey)
+                    Using people As SqlDataAdapter = New SqlDataAdapter
+                        people.SelectCommand = query
+                        people.Fill(dt)
+                        For Each row As DataRow In dt.Rows
+                            s = row("OrderType").ToString
+                        Next
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        Else
+            Try
+                Using connection As OracleConnection = New OracleConnection(dbconx)
+                    connection.Open()
+                    Dim query As OracleCommand = New OracleCommand("select OrderType from SYSTEM.USERCONTROL where USERKEY = :ukey", connection)
+                    query.Parameters.Add(New OracleParameter("ukey", userkey))
+                    Using orderdata As OracleDataAdapter = New OracleDataAdapter
+                        orderdata.SelectCommand = query
+                        orderdata.Fill(dt)
+                        For Each row As DataRow In dt.Rows
+                            s = row("OrderType").ToString
+                        Next
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        End If
+        If s.Equals("") Then
+            ordertypes = Nothing
+        Else
+            ordertypes = s.Split(","c)
+        End If
+        Return ordertypes
+    End Function
+    Public Shared Function getDateFilterPerUser(ByVal userkey As String) As String
+        Dim DateFilter As String = ""
+        Dim sql As String = "select DateFilter from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "USERCONTROL where USERKEY ='" & userkey & "'"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        If ds.Tables(0).Rows.Count > 0 Then DateFilter = ds.Tables(0).Rows(0)!DateFilter
+        If DateFilter = "" Then Return "0"
+        Return DateFilter
+    End Function
+    Public Shared Function getOrderTypes(ByVal userkey As String) As DataTable
+        Dim MyDataTable As DataTable = New DataTable
+        If dbtype = "sql" Then
+            Dim query As String = "select CODE, DESCRIPTION from enterprise.codelkup where listname = 'ORDERTYPE'"
+            Try
+                Using connection As SqlConnection = New SqlConnection(dbconx)
+                    connection.Open()
+                    Dim cmd As SqlCommand = New SqlCommand(query, connection)
+
+                    If Not getOrderTypePerUser(userkey)(0).Equals("ALL") Then
+                        query += " and CODE IN (SELECT ltrim(rtrim(value)) Type FROM dbo.USERCONTROL CROSS APPLY STRING_SPLIT(ORDERTYPE, ',') WHERE userkey = @userkey)"
+                        cmd = New SqlCommand(query, connection)
+                        cmd.Parameters.AddWithValue("@userkey", userkey)
+                    End If
+
+                    Using orderdata As SqlDataAdapter = New SqlDataAdapter
+                        orderdata.SelectCommand = cmd
+                        orderdata.Fill(MyDataTable)
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        End If
+        Return MyDataTable
+    End Function
     Public Shared Function getButtons(ByVal profile As String) As DataTable
         Dim sql As String = ""
         If profile = "getAll" Then

@@ -171,7 +171,7 @@
                             <asp:Button ID="btnReload" data-toggle="tooltip" title="Manual Refresh" runat="server" Text="" CssClass="ReloadButton" OnClientClick="javascript:reloaddate();return false;" />
                         </div>
 
-                        <div class="TimerSettings" >
+                        <div class="TimerSettings"  id="RefreshSettings" runat="server" >
                             <div class="TimerSettingsInner">
                                 <div class="TimeDiv AnimateMe" data-time="30">30 Sec</div>
                                 <div class="TimeDiv AnimateMe" data-time="60">1 Min</div>
@@ -196,19 +196,23 @@
     <dx:ASPxTimer ID="ASPxTimer1" runat="server" ClientInstanceName="timer">
         <ClientSideEvents Tick="function(s, e) {webDesigner.ReloadData();}" />
     </dx:ASPxTimer>
-    <dx:ASPxDashboard ID="ASPxDashboard1" runat="server" ClientInstanceName="webDesigner"
-        AllowExportDashboardItems="True" OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
+     <div id="popup"> </div>
+      <dx:ASPxDashboard ID="ASPxDashboard1" runat="server"
+        ClientInstanceName="webDesigner"
+        ClientSideEvents-Init="function(s, e) { initializeControls(); }"
+        AllowExportDashboardItems="True"
+        OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
         OnCustomParameters="ASPxDashboard1_CustomParameters"
         Height="899px"
         IncludeDashboardIdToUrl="True"
         OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
         OnConnectionError="ASPxDashboard1_ConnectionError">
         <ClientSideEvents
-            BeforeRender="onBeforeRender"
-            DashboardTitleToolbarUpdated="function(s,e) { onDashboardTitleToolbarUpdated({ component: s.getDashboardControl(), options: e.Options }); }" />
+            BeforeRender="onBeforeRender" ItemCaptionToolbarUpdated="ItemCaptionToolbarUpdated" DashboardTitleToolbarUpdated ="DashboardTitleToolbarUpdated" />
         <BackendOptions Uri="" />
         <DataRequestOptions ItemDataRequestMode="Auto" />
     </dx:ASPxDashboard>
+
     <asp:Button runat="server" ID="MyHiddenButton" ClientIDMode="Static" Text="" Style="display: none;" OnClick="MyHiddenButton_Click" />
     <input class="HiddenTime" id="HiddenTime" runat="server" type="hidden" value="0" />
     

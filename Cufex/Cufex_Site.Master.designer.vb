@@ -365,6 +365,15 @@ Partial Public Class Cufex_Site
     Protected WithEvents DivSubMain_Warehouse_OrderManagement As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''DivSubMain_Warehouse_OrderTracking control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivSubMain_Warehouse_OrderTracking As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''DivMain_Inventory control.
     '''</summary>
     '''<remarks>
@@ -435,6 +444,15 @@ Partial Public Class Cufex_Site
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents DivMain As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''CarrierEvents control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents CarrierEvents As Global.SNSsoftware.Cufex_Warehouse_OrderTracking_CarrierEvents
     
     '''<summary>
     '''HeaderMenu control.
