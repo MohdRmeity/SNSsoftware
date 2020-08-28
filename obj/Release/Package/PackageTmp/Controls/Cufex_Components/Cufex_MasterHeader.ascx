@@ -5,7 +5,7 @@
     <div class="u-ht-xs-3"></div>
     <div class="NormalDiv1100Max">
         
-        <div class="floatR">
+        <div class="floatR" id="MasterHeaderControls" runat="server">
             <div class="floatL u-ht-xs-45">
                 <div class="u-ht-xs-5"></div>
                 <div class="u-ht-xs-3"></div>
@@ -22,9 +22,9 @@
                     <span class="icon ion-ios-arrow-down ArrowProf"></span>
                 </div>
                 <div class="ProfileData u-hide">
-                    <div class="u-pb-xs-15">
+                 <%--   <div class="u-pb-xs-15">
                         <div class="u-relative HoverProf">
-                            <a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_Profiles", Nothing)%>" class="u-imgLink"></a>
+                            <a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Users", Nothing) & "?user=" & Session("BUserCode")%>" class="u-imgLink"></a>
                             <div class="u-inlineBlock">
                                 <span class="icon ion-ios-contact PMenuIcon"></span>
                             </div>
@@ -33,9 +33,9 @@
                                 <span class="textalignL PMenuItemName u-animateMe">Edit Profile</span>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
-                    <div class="u-pb-xs-15">
+                  <%--  <div class="u-pb-xs-15">
                         <div class="u-relative HoverProf">
                             <a href="#" class="u-imgLink"></a>
                             <div class="u-inlineBlock">
@@ -46,7 +46,7 @@
                                 <span class="textalignL PMenuItemName u-animateMe">Get Help</span>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
                     <div class="u-pb-xs-15">
                         <div class="u-relative HoverProf">

@@ -518,7 +518,7 @@ body {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0 50px;
-    min-width: 500px;
+    min-width: 320px;
 }
 
     .NormalDiv1118Max.ZeroPadding {
@@ -932,7 +932,7 @@ body {
 
 .ProfileData {
     width: 168px;
-    height: 140px;
+    height: 57px;
     border-radius: 3px;
     box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px 0 rgba(9, 30, 66, 0.31);
     background-color: #ffffff;
@@ -1006,6 +1006,14 @@ body {
         background-image: url(../../images/Cufex_Images/MenuHome.svg);
         width: 20px;
         height: 19px;
+    }
+
+    .MenuIcon.Administration {
+        background-image: url(../../images/Cufex_Images/MenuAdministration.svg);
+        width: 17px;
+        height: 21px;
+        background-size: 27px;
+        background-position: center;
     }
 
     .MenuIcon.Security {
@@ -1156,6 +1164,10 @@ body {
     color: #171725;
     margin-bottom: 15px;
 }
+
+    .MenuSubItem a {
+        display: inline-block;
+    }
 
 
     .MenuSubItem:hover {
@@ -1471,10 +1483,10 @@ body {
 }
 
 .CufexBG {
-    background-image: url(../../images/Cufex_Images/LoginBG.jpg);
+    /*background-image: url(../../images/Cufex_Images/LoginBG.jpg);*/
     background-position: top center;
     background-repeat: no-repeat;
-    background-color: #000;
+    background-color: #F7F7F7;
     width: 100%;
 }
 
@@ -11811,6 +11823,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         width: calc(100% - 60px);
     }
 
+    .widthContent.FullContent {
+        width: 100%;
+    }
+
 .MenuContainer {
     width: 250px;
     height: 100vh;
@@ -11999,6 +12015,33 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
 }
 
+    .GridCell .chosen-container .chosen-choices {
+        border: none;
+        border-radius: 0;
+        padding: 7px 11px;
+    }
+
+        .GridCell .chosen-container .chosen-choices .chosen-search-input {
+            background-color: transparent;
+            border-width: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter-Regular' !important;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: italic;
+            letter-spacing: normal;
+            color: #C7CDD6 !important;
+        }
+
+    .GridCell .chosen-container.chosen-container-active .chosen-choices {
+        background-color: #f8f9fb;
+        border: 1px solid #CCC;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
 .GridRow:nth-child(even) {
     background-color: rgba(245, 248, 250, 0.5);
 }
@@ -12008,9 +12051,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-right: 23px;
     cursor: pointer;
 }
-
-
-
 
 .editWidth {
     width: 50px;
@@ -12073,22 +12113,39 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 
 
-    .editStyleNew.View {
-        margin-left: 14px;
-        margin-right: 0;
-        width: 22px;
-        height: 14px;
-        background-image: url(../../images/Cufex_Images/View.svg);
-        background-size: contain;
-        -webkit-transition: all 0s ease-in-out;
-        -moz-transition: all 0s ease-in-out;
-        -o-transition: all 0s ease-in-out;
-        transition: all 0s ease-in-out;
+.editStyleView {
+    margin-left: 14px;
+    margin-right: 0;
+    width: 22px;
+    height: 14px;
+    background-image: url(../../images/Cufex_Images/View.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+}
+
+    .editStyleView:hover {
+        background-image: url(../../images/Cufex_Images/ViewB.svg);
     }
 
-        .editStyleNew.View:hover {
-            background-image: url(../../images/Cufex_Images/ViewB.svg);
-        }
+.selectStyle {
+    height: 20px;
+    background-image: url(../../images/Cufex_Images/Select.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    margin-right: 9px;
+}
+
+    .selectStyle:hover {
+        background-image: url(../../images/Cufex_Images/SelectB.svg);
+    }
 
 .CloneStyle {
     width: 25px;
@@ -12168,26 +12225,24 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     left: -4px;
 }
 
-/*#endregion */
-
-/*#region Common */
-.GtitleContainer {
-    height: 14px;
+.SearchDropDown {
+    position: absolute;
+    bottom: 5px;
+    right: 3px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../images/Cufex_Images/Search.svg);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
 }
 
-.Gtitle {
-    opacity: 0.9;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 1px;
-    color: #92929d;
-    opacity: 1;
-}
-
-    .Gtitle.Closed {
-        opacity: 0;
+    .SearchDropDown:hover {
+        background-image: url(../../images/Cufex_Images/SearchB.svg);
     }
 
+/*#endregion */
+/*#region Common */
 .AllMenuItems {
     opacity: 1;
 }
@@ -12315,7 +12370,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-color: #3673ff;
     }
 
-.btnDelete, .btnSave, .btnDeleteDetail, .btnSaveDetail {
+.btnDelete, .btnSave, .btnDeleteDetail {
     cursor: pointer;
     height: 35px;
     border-radius: 4px;
@@ -12335,12 +12390,12 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
 }
 
-.btnSave, .btnSaveDetail {
+.btnSave {
     padding-left: 38px;
     padding-right: 20px;
 }
 
-    .btnDelete:after, .btnSave:after, .btnDeleteDetail:after, .btnSaveDetail:after {
+    .btnDelete:after, .btnSave:after, .btnDeleteDetail:after {
         content: '';
         position: absolute;
         background-image: url(../../images/Cufex_Images/Delete.svg);
@@ -12357,14 +12412,14 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 20px;
     }
 
-    .btnSave:after, .btnSaveDetail:after {
+    .btnSave:after {
         background-image: url(../../images/Cufex_Images/Save.svg);
         width: 18px;
         height: 18px;
         left: 13px;
     }
 
-    .btnDelete:hover, .btnSave:hover, .btnDeleteDetail:hover, .btnSaveDetail:hover {
+    .btnDelete:hover, .btnSave:hover, .btnDeleteDetail:hover {
         background-color: #555;
         color: #FFF;
     }
@@ -12407,9 +12462,43 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 6px;
     }
 
-.VerticalSep {
-    border-left: 2px solid #e9eaec;
-    height: 35px;
+.btnExport, .btnExportDetails {
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/Export.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 13px;
+}
+
+.btnImport {
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/Import.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 13px;
+}
+
+.btnRefresh, .btnRefreshDetails {
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/Refresh.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 21px;
+    height: 23px;
+    vertical-align: middle;
+    margin-right: 13px;
+}
+
+.VerticalSep, .VerticalSep2 {
+    border-left: 1px solid #e9eaec;
+    height: 27px;
+    vertical-align: middle;
 }
 
 .AbsoInsideBtnGrey {
@@ -12534,7 +12623,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     border-right: 1px solid #eaedf3;
 }
 
-
     .GridContentCell:nth-child(even) {
         color: #607497;
     }
@@ -12546,6 +12634,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
     .GridContentCell.Initial {
         font-family: inherit;
+    }
+
+    .HeaderGridView .GridResults .GridContentCell[data-id='1']:not(.Initial), .GridContentCell.Link {
+        color: #3673ff !important;
+        text-decoration: underline;
     }
 
 .borderRight0 {
@@ -12973,10 +13066,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 
 .NewHeaderRecord {
-    padding: 19px 0;
+    padding: 19px 0 50px 0;
 }
 
-.PageResizer {
+.ui-resizable-s {
     border: 2px solid #e9eaec;
     width: 100%;
     height: 33px;
@@ -12986,6 +13079,9 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 15px 19px;
+    background-color: #F8F9FB;
+    bottom: 0;
+    z-index: 0 !important;
 }
 
 .RecordDetail {
@@ -12994,6 +13090,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 /*#endregion*/
 
 /*#region Popup */
+.MyContainerPopup .mCSB_container {
+    width: 100% !important;
+}
+
 .New_Modify_Record_PopUp {
     display: none;
     width: 100%;
@@ -13030,7 +13130,8 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-left: 21px;
     letter-spacing: normal;
     color: #354052;
-    padding-bottom: 45px;
+    margin-bottom: 45px;
+    display: inline-block;
 }
 
 .FloatRecord {
@@ -13043,11 +13144,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 .FloatRecordNew {
-    width: 20%;
+    width: 25%;
     padding: 5px;
 }
 
-    .FloatRecordNew:nth-child(5n+1) {
+    .FloatRecordNew:nth-child(4n+1) {
         padding-left: 0;
     }
 
@@ -13086,6 +13187,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     line-height: normal;
     letter-spacing: normal;
     color: #9b9b9b;
+    display: inline-block;
 }
 
     .FloatRecordTitleNew span {
@@ -13101,6 +13203,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .FloatRecordField {
     width: 300px;
+    position: relative;
 }
 
 .textRecordStyle {
@@ -13124,6 +13227,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-color: rgba(120, 131, 152, 0.4);
     }
 
+    .textRecordStyle.Error {
+        padding-right: 25px;
+        border: 1px solid #b0494e;
+    }
+
     .textRecordStyle:focus {
         outline: none;
     }
@@ -13133,6 +13241,22 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-repeat: no-repeat;
         background-position: 95% center;
     }
+
+.ErrorIcon {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url(../../images/Cufex_Images/Error.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
 .UserAddEditContainer {
     position: relative;
@@ -13188,30 +13312,35 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .ClosePopup {
     position: absolute;
-    font-size: 30px;
-    right: 23px;
-    top: 20px;
-    color: #607497;
+    right: 20px;
+    top: 24px;
     cursor: pointer;
+    background-image: url(../../images/Cufex_Images/ClosePopup.svg);
+    background-repeat: no-repeat;
+    width: 23px;
+    height: 23px;
+    background-size: contain;
 }
 
     .ClosePopup:hover {
-        color: #3673ff;
+        background-image: url(../../images/Cufex_Images/ClosePopupH.svg);
     }
-
 
 
 .SaveRecordNow {
     position: absolute;
-    font-size: 30px;
-    right: 65px;
-    top: 20px;
-    color: #607497;
+    right: 55px;
+    top: 26px;
     cursor: pointer;
+    background-image: url(../../images/Cufex_Images/SavePopup.svg);
+    background-repeat: no-repeat;
+    width: 19px;
+    height: 19px;
+    background-size: contain;
 }
 
     .SaveRecordNow:hover {
-        color: #3673ff;
+        background-image: url(../../images/Cufex_Images/SavePopupH.svg);
     }
 
 .ActionHiddenButtons {
@@ -13264,11 +13393,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 
 .Details_FloatRecordNew {
-    width: 20%;
+    width: 25%;
     padding: 5px;
 }
 
-    .Details_FloatRecordNew:nth-child(5n+1) {
+    .Details_FloatRecordNew:nth-child(4n+1) {
         padding-left: 0;
     }
 
@@ -13305,6 +13434,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     line-height: normal;
     letter-spacing: normal;
     color: #9b9b9b;
+    display: inline-block;
 }
 
     .Details_FloatRecordTitleNew span {
@@ -13320,7 +13450,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .Details_FloatRecordField {
     width: 270px;
-    height: 39px;
+    height: 41px;
 }
 
 .Details_textRecordStyle {
@@ -13357,21 +13487,32 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .btnDeleteDtl {
     position: absolute;
     top: 10px;
-    right: 27px;
-    width: 32px;
-    height: 32px;
-    background-image: url(../../images/Cufex_Images/btnDeleteDtl.png);
-    background-size: 28px;
+    right: 21px;
+    width: 16px;
+    height: 20px;
+    background-image: url(../../images/Cufex_Images/DeletePopup.svg);
     background-repeat: no-repeat;
     cursor: pointer;
+    background-size: contain;
 }
 
     .btnDeleteDtl:hover {
-        background-image: url(../../images/Cufex_Images/btnDeleteDtlBlue.png);
+        background-image: url(../../images/Cufex_Images/DeletePopupH.svg);
     }
 
-/*#endregion*/
+.PasswordInfo {
+    color: #3673ff;
+    padding-top: 10px;
+    padding-left: 21px;
+    padding-right: 21px;
+    padding-bottom: 21px;
+    line-height: 1.3;
+}
 
+.jscolor {
+    background-color: #fafbfc;
+}
+/*#endregion*/
 /*#region Adjust Columns Popup */
 .Adjust_Columns_PopUp {
     display: none;
@@ -13381,7 +13522,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: absolute;
     height: 100%;
     background-color: rgba(19, 24, 32, 0.8);
-    padding-top: 60px;
+    padding-top: 45px;
     z-index: 10;
 }
 
@@ -13528,29 +13669,235 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 /*#endregion */
 
-/*#region ReportViewer */
-#ctl00_Cufex_MainContent_ReportViewer1_fixedTable, #aspnetForm #ReportViewer1_fixedTable {
-    width: 60% !important;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    height: 100% !important;
+/*#region Responsive */
+
+@media all and (max-width:1320px) {
+
+    .FloatRecord {
+        width: 50%;
+        max-width: 100%;
+    }
+
+    .FloatRecordTitle, .FloatRecordField {
+        width: 100%;
+    }
+
+    .FloatRecordTitle {
+        padding-top: 0;
+        height: 30px;
+    }
+
+    .Details_FloatRecord {
+        width: 33.33%;
+        max-width: 100%;
+    }
+
+        .Details_FloatRecord:nth-child(3n+3) {
+            padding-right: 35px;
+        }
+
+    .Details_FloatRecordTitle, .Details_FloatRecordField {
+        width: 100%;
+    }
+
+    .FloatRecordNew, .Details_FloatRecordNew {
+        width: 33.33%;
+    }
+
+        .FloatRecordNew:nth-child(4n+1), .Details_FloatRecordNew:nth-child(4n+1) {
+            padding-left: 5px;
+        }
+
+        .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
+            padding-left: 0;
+        }
 }
 
-div[id^="ctl00_Cufex_MainContent_ReportViewer1"], #aspnetForm div[id^="ReportViewer1_ctl05"] {
-    background-color: transparent !important;
+@media all and (max-width: 1080px) {
+    .MainHeader .floatL .floatL {
+        width: 100%;
+    }
+
+    .MainHeaderProfileDetails .floatL .floatL {
+        width: unset;
+    }
+
+    .MainPageDesc {
+        padding-bottom: 25px;
+    }
+
+    .MainHeaderProfileDetails .MainPageDesc {
+        padding-bottom: 0;
+    }
+
+    .ActionHiddenButtons {
+        top: 125px;
+    }
+
+    .FloatRecordNew, .Details_FloatRecordNew {
+        width: 50%;
+    }
+
+        .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
+            padding-left: 5px;
+        }
+
+        .FloatRecordNew:nth-child(2n+1), .Details_FloatRecordNew:nth-child(2n+1) {
+            padding-left: 0;
+        }
+
+    .NewHeaderRecord {
+        padding: 10px 0 50px 0;
+    }
 }
 
-input[id^="ctl00_Cufex_MainContent_ReportViewer1"]:last-child, #aspnetForm input[id^="ReportViewer1"]:last-child {
-    background-color: #fefefe !important;
-    height: 29px !important;
-    border-width: 2px !important;
-    border-style: inset !important;
-    border-color: initial !important;
-    border-image: initial !important;
+@media all and (max-width:860px) {
+    .NormalDiv1118Max {
+        padding: 0 20px;
+    }
+
+    .Details_FloatRecord {
+        width: 50%;
+    }
+
+        .Details_FloatRecord:nth-child(3n+3) {
+            padding-right: 10px;
+        }
+
+        .Details_FloatRecord:nth-child(2n+2) {
+            padding-right: 35px;
+        }
 }
 
-#ctl00_ContentPlaceHolder1_ReportViewer1_ctl05_ctl00_First, #aspnetForm ReportViewer1_ctl05_ctl00_First {
-    width: 80%;
+@media all and (max-width:650px) {
+    .R_PopupTitle {
+        padding-bottom: 25px;
+    }
+
+    .FloatRecord {
+        width: 100%;
+    }
+
+    .FloatRecordSep {
+        display: none;
+    }
+
+        .FloatRecordSep:last-child {
+            display: block;
+        }
+
+    .Details_FloatRecord {
+        width: 100%;
+        padding-right: 35px;
+    }
+
+        .Details_FloatRecord:nth-child(3n+3) {
+            padding-right: 35px;
+        }
+
+    .NewHeaderRecord {
+        padding: 10px 0 0 0;
+    }
+
+    .ui-resizable-s {
+        display: none !important;
+    }
+
+    .RecordDetail {
+        padding-top: 25px;
+    }
+
+    .FloatRecordNew, .Details_FloatRecordNew {
+        width: 100%;
+        padding: 0;
+    }
+
+        .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
+            padding-left: 0;
+        }
 }
-/*#endregion ReportViewer */
+
+@media all and (max-width:550px) {
+
+    .MainHeader:not(.MainHeaderProfileDetails) table, .MainHeader:not(.MainHeaderProfileDetails) table tbody, .MainHeader:not(.MainHeaderProfileDetails) table tr {
+        width: 100%;
+        display: block;
+        float: left;
+    }
+
+        .MainHeader:not(.MainHeaderProfileDetails) table td {
+            width: 50%;
+            display: block;
+            float: left;
+        }
+
+            .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(1), .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(5), .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(7) {
+                padding-right: 10px;
+            }
+
+            .MainHeader:not(.MainHeaderProfileDetails) table td div, .MainHeader:not(.MainHeaderProfileDetails) table td a {
+                margin-bottom: 10px;
+            }
+
+            .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(9) div, .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(7) a {
+                margin-bottom: 0;
+            }
+
+
+    .MainHeaderProfileDetails table td a {
+        margin-bottom: 25px;
+    }
+
+    .RecordDetail table, .RecordDetail table tbody, .RecordDetail table tr {
+        width: 100%;
+        display: block;
+        float: left;
+    }
+
+    .RecordDetail table {
+        padding-top: 10px;
+    }
+
+        .RecordDetail table td {
+            width: 50%;
+            display: block;
+            float: left;
+        }
+
+            .RecordDetail table td:nth-child(1), .RecordDetail table td:nth-child(3) {
+                padding-right: 10px;
+            }
+
+    .btnQuickEntry, .btnAddNew, .btnDelete, .btnSave, .btnDeleteDetail {
+        padding-top: 8px;
+    }
+
+    .btnNew {
+        padding-top: 10px;
+    }
+
+    .MainHeaderProfileDetails .btnDelete {
+        padding-top: 0;
+    }
+
+    .ActionHiddenButtons {
+        top: 170px;
+    }
+
+    .BackDetail {
+        float: right;
+        margin-top: 10px;
+    }
+
+    .DetailsGridView {
+        padding-top: 25px !important;
+    }
+}
+
+@media all and (max-width:448px) {
+    .MainHeaderProfileDetails .MainPageDesc {
+        padding-bottom: 25px;
+    }
+}
+
+/*#endregion */

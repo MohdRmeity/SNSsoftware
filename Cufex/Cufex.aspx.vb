@@ -64,12 +64,13 @@ Partial Public Class Cufex
         Dim userID As Integer = 0
         Dim dt As DataTable = New DataTable
         Dim refreshTime As String = ""
+        Dim dashboardTheme As String = ""
 
         If CommonMethods.dbtype = "sql" Then
             Try
                 Using connection As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                     connection.Open()
-                    Dim query As SqlCommand = New SqlCommand("select ID, ACTIVE, PASSWORD, HASHKEY, DASHBOARDREFRESHTIME  from dbo.PORTALUSERS where USERKEY=@user", connection)
+                    Dim query As SqlCommand = New SqlCommand("select ID, ACTIVE, PASSWORD, HASHKEY, DASHBOARDREFRESHTIME,DASHBOARDTHEME  from dbo.PORTALUSERS where USERKEY=@user", connection)
                     query.Parameters.AddWithValue("@user", LCase(txtUserName.Text))
                     Using people As SqlDataAdapter = New SqlDataAdapter
                         people.SelectCommand = query
@@ -80,6 +81,7 @@ Partial Public Class Cufex
                             key = row("HASHKEY").ToString
                             userID = Val(row("ID"))
                             refreshTime = row("DASHBOARDREFRESHTIME").ToString
+                            dashboardTheme = row("DASHBOARDTHEME").ToString
                         Next
                     End Using
                     connection.Close()
@@ -105,6 +107,7 @@ Partial Public Class Cufex
                             key = row("HASHKEY").ToString
                             userID = Val(row("ID").ToString)
                             refreshTime = row("DASHBOARDREFRESHTIME").ToString
+                            dashboardTheme = row("DASHBOARDTHEME").ToString
                         Next
                     End Using
                     connection.Close()
@@ -151,11 +154,13 @@ Partial Public Class Cufex
                     Dim Cufex_Cookie As New HttpCookie("Cufex_Username")
                     Cufex_Cookie.Value = LCase(txtUserName.Text)
                     Cufex_Cookie.Expires = GetLebanonTime().AddDays(365)
+                    Cufex_Cookie.Secure = True
                     HttpContext.Current.Response.Cookies.Add(Cufex_Cookie)
 
                     Dim Cufex_CookieP As New HttpCookie("Cufex_Password")
                     Cufex_CookieP.Value = txtPassword.Text
                     Cufex_CookieP.Expires = GetLebanonTime().AddDays(365)
+                    Cufex_CookieP.Secure = True
                     HttpContext.Current.Response.Cookies.Add(Cufex_CookieP)
 
                     If Request("InWindow") = "yes" Then
@@ -163,7 +168,7 @@ Partial Public Class Cufex
                     Else
                         Session("userkey") = LCase(txtUserName.Text)
                         Session("refershTime") = refreshTime
-
+                        Session("dashboardTheme") = dashboardTheme
                         If Not Session("Cufex_AfterLoginURL") Is Nothing Then
                             If Session("Cufex_AfterLoginURL") <> "" Then
                                 Dim Cufex_AfterLoginURL As String = Session("Cufex_AfterLoginURL")

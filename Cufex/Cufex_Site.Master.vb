@@ -76,6 +76,7 @@ Public Class Cufex_Site
         Warehouse_ASN
         Warehouse_Shipment
         Warehouse_OrderManagement
+        Warehouse_OrderTracking
         Inventory_Balance
         Reporting_ViewReports
         Popup_Items
@@ -135,6 +136,15 @@ Public Class Cufex_Site
         End Set
     End Property
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        HttpContext.Current.Response.Headers.Remove("Server")
+        HttpContext.Current.Response.AppendHeader("X-XSS-Protection", "0")
+        HttpContext.Current.Response.AppendHeader("X-Powered-By", "SNS EMEA")
+        HttpContext.Current.Response.AppendHeader("Strict-Transport-Security", "max-age=15768000")
+        HttpContext.Current.Response.AppendHeader("X-Frame-Options", "SAMEORIGIN")
+        HttpContext.Current.Response.AppendHeader("X-Content-Type-Options", "nosniff")
+        HttpContext.Current.Response.AppendHeader("Vary", "Accept-Encoding")
+        HttpContext.Current.Response.AppendHeader("ETAG", "")
+
         Dim LoginBackgroundColor As String = CommonMethods.LoginBackgroundColor
         If LoginBackgroundColor <> "" Then
             If LoginBackgroundColor.StartsWith("#") And LoginBackgroundColor.Length = 7 Then
@@ -238,6 +248,9 @@ Public Class Cufex_Site
                             If CType(Cufex_MainContent.FindControl("SearchRow3"), HtmlTableRow) IsNot Nothing Then
                                 CType(Cufex_MainContent.FindControl("SearchRow3"), HtmlTableRow).Style.Add("display", "none")
                             End If
+                            If CType(Cufex_MainContent.FindControl("SearchRowDetails"), HtmlTableRow) IsNot Nothing Then
+                                CType(Cufex_MainContent.FindControl("SearchRowDetails"), HtmlTableRow).Style.Add("display", "none")
+                            End If
                         End If
                     End If
                 End If
@@ -246,6 +259,12 @@ Public Class Cufex_Site
             If section = SectionName.Popup Then
                 widthMenu.Visible = False
                 widthContent.Attributes("class") += " FullContent"
+            End If
+
+            If Subsection = SubSectionName.Warehouse_OrderTracking Then
+                CarrierEvents.Visible = True
+            Else
+                CarrierEvents.Visible = False
             End If
         End If
     End Sub
@@ -271,7 +290,9 @@ Public Class Cufex_Site
         DivSubMain_Warehouse_ASN.Visible = CommonMethods.getPermission("Warehouse->ASN Receipt (Screen)", Session("userkey").ToString) <> "0"
         DivSubMain_Warehouse_Shipment.Visible = CommonMethods.getPermission("Warehouse->Shipment Order (Screen)", Session("userkey").ToString) <> "0"
         DivSubMain_Warehouse_OrderManagement.Visible = CommonMethods.getPermission("Warehouse->Order Management (Screen)", Session("userkey").ToString) <> "0"
-        DivMain_Warehouse.Visible = DivSubMain_Warehouse_PO.Visible Or DivSubMain_Warehouse_ASN.Visible Or DivSubMain_Warehouse_Shipment.Visible Or DivSubMain_Warehouse_OrderManagement.Visible
+        'DivSubMain_Warehouse_OrderTracking.Visible = CommonMethods.getPermission("Warehouse->Order Tracking (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Warehouse_OrderTracking.Visible = False
+        DivMain_Warehouse.Visible = DivSubMain_Warehouse_PO.Visible Or DivSubMain_Warehouse_ASN.Visible Or DivSubMain_Warehouse_Shipment.Visible Or DivSubMain_Warehouse_OrderManagement.Visible Or DivSubMain_Warehouse_OrderTracking.Visible
 
         DivSubMain_Inventory_Balance.Visible = CommonMethods.getPermission("Inventory->Inventory Balance (Screen)", Session("userkey").ToString) <> "0"
         DivMain_Inventory.Visible = DivSubMain_Inventory_Balance.Visible
@@ -318,6 +339,7 @@ Public Class Cufex_Site
         DivSubMain_Warehouse_ASN.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_ASN, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Warehouse_Shipment.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_Shipment, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Warehouse_OrderManagement.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_OrderManagement, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
+        DivSubMain_Warehouse_OrderTracking.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_OrderTracking, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Inventory_Balance.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Inventory_Balance, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Reporting_ViewReports.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Reporting_ViewReports, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
     End Sub

@@ -38,6 +38,7 @@ Public Class URLRewriter
             routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_ASN", "cufex/Warehouse/ASN", "~/Cufex/Cufex_Warehouse_ASN.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_Shipment", "cufex/Warehouse/Shipment", "~/Cufex/Cufex_Warehouse_Shipment.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_OrderManagement", "cufex/Warehouse/OrderManagement", "~/Cufex/Cufex_Warehouse_OrderManagement.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_OrderTracking", "cufex/Warehouse/OrderTracking", "~/Cufex/Cufex_Warehouse_OrderTracking.aspx")
 
             routes.MapPageRoute("SNSsoftware-Cufex-Inventory_Balance", "cufex/Inventory/Balance", "~/Cufex/Cufex_Inventory_Balance.aspx")
 

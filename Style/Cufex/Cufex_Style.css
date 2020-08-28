@@ -11810,18 +11810,38 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
     height: 100vh;
 }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthMenu {
+        display: none;
+    }
+}
 
     .widthMenu.Closed {
         width: 60px;
     }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthMenu.Closed {
+        display: none;
+    }
+}
 
 .widthContent {
     width: calc(100% - 250px);
+}
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthContent {
+        width: 100%;
+    }
 }
 
     .widthContent.Closed {
         width: calc(100% - 60px);
     }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthContent.Closed {
+        width: 100%;
+    }
+}
 
     .widthContent.FullContent {
         width: 100%;
@@ -11996,7 +12016,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     border: solid 1px #eaedf3;
     background-color: #ffffff;
     display: table;
-    box-shadow: 4px 0 14px 0 rgba(0, 0, 0, 0.09);
 }
 
 .GridRow {
@@ -12586,6 +12605,9 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 .SearchClass {
+    position:absolute;
+    top:0;
+    left:0;
     background-color: transparent;
     border-width: 0;
     width: 100%;
@@ -13668,6 +13690,192 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 1px;
     }
 /*#endregion */
+
+/*#region Carrier Events */
+
+.CarrierEventsMenuContainer {
+    position: fixed;
+    width: calc(100% - 250px);
+    height: 100vh;
+    z-index: 101 !important;
+}
+
+    .CarrierEventsMenuContainer.Active {
+        background-color: rgba(0,0,0,0.75);
+    }
+
+.CarrierEventsMenu {
+    position: absolute;
+    height: 100vh;
+    width: 0;
+    background-color: #FFF;
+    top: 0;
+    right: 0;
+}
+
+    .CarrierEventsMenu.Level1 {
+        width: 236px;
+    }
+
+.CarrierEventsHeader {
+    padding: 16px;
+    background-color: #3673ff;
+    position: relative;
+    height: 50px;
+}
+
+.CloseCarrierEvents {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    background-image: url(../../images/Cufex_Images/ClosePopup.svg);
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: center center;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: none;
+}
+
+.CarrierEventsHeaderTitle {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.05px;
+    height: 18px;
+    display: none;
+}
+
+.CarriersDiv {
+    position: relative;
+    padding: 20px 0 20px 16px;
+}
+
+.CarrierContainer {
+    position: relative;
+    padding-left: 35px;
+    margin-top: 25px;
+    width: 200px;
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/MenuArrowRightGray.svg);
+    background-repeat: no-repeat;
+    background-position: 98.5% center;
+    background-size: 8px 10px;
+}
+
+    .CarrierContainer:first-child {
+        margin-top: 0;
+    }
+
+.EventDescription {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    width: 28px;
+    height: 28px;
+    background-image: url(../../images/Cufex_Images/Delivered.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.CarrierArrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    background-image: url(../../images/Cufex_Images/MenuArrowRightGray.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 5px;
+    height: 10px;
+}
+
+.CarrierConsignment {
+    color: #4a4a4a;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-transform: uppercase;
+}
+
+.CarrierName {
+    color: #4a4a4a;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 17px;
+}
+
+.CarrierEventsBtn {
+    position: absolute;
+    top: 50%;
+    left: -55px;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    width: 55px;
+    height: 55px;
+    border-radius: 6px 0 0 6px;
+    background-color: #3673ff;
+    display: none;
+    background-image: url(../../images/Cufex_Images/Truck.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+
+    .CarrierEventsBtn.Inactive {
+        background-color: #ececec;
+        cursor: default;
+    }
+
+.CarrierEventsNbrCircle {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0);
+    -o-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    width: 20px;
+    height: 20px;
+    border-radius: 12px;
+    border: 1px solid #ffffff;
+    background-color: #2553bd;
+}
+
+.CarrierEventsNbr {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.27px;
+}
+/*#endregion Carrier Events */
 
 /*#region Responsive */
 

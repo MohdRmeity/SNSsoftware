@@ -6,11 +6,32 @@
     <div class="NormalDiv1118Max GetFullHeightAtLeast">
         <div style="height: 33px;"></div>
         <div class="MainHeader">
-            <div class="MainPageTitle" data-id="Inventory_Balance">
-                Inventory Balance
-            </div>
-            <div class="MainPageDesc">
-                Check your inventory balance
+            <div class="iWantMyChildrenFloatHeight" style="position: relative;">
+                <div class="floatL Width100">
+                    <div class="floatL">
+                        <div class="MainPageTitle" data-id="Inventory_Balance">
+                            Inventory Balance
+                        </div>
+                        <div class="MainPageDesc">
+                            Check your inventory balance
+                        </div>
+                    </div>
+                    <table class="floatR">
+                        <tr>
+                            <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div style="position: relative; padding-top: 25px; width: 100%;" class="HeaderGridView content_3">
@@ -77,8 +98,9 @@
                     <td class="GridCell GridHeadSearch selectAllWidth">
                         <div class="GridSearch"></div>
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
@@ -95,8 +117,11 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Available" />
                     </td>
-                    <td class="GridCell GridHeadSearch borderRight0">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Status" />
+                    <td class="GridCell GridHeadSearch borderRight0" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputStatus" data-id="Status">
+                            <option value="HOLD">HOLD</option>
+                            <option value="OK">OK</option>
+                        </select>
                     </td>
                 </tr>
                 <tr class="GridRow NoResults">
@@ -140,8 +165,7 @@
                 </table>
             </div>
         </div>
-
-        <div style="position: relative; height: 70px;"></div>
+        <div style="position: relative; height: 15px;"></div>
         <div class="New_Modify_Record_PopUp">
             <div style="position: relative;">
                 <div class="MyAbso_Record_PopUpContainer">
@@ -286,7 +310,7 @@
                         Drag to customize your preferred columns order
                     </div>
                     <div class="circle"></div>
-                    <div style="position: relative; height: 400px; width: 100%;" class="content_4 GridColumnsChooser">
+                    <div style="position: relative; height: 380px; width: 100%;" class="content_4 GridColumnsChooser">
                     </div>
                     <div class="iWantMyChildrenFloatHeight">
                         <div class="floatL Width100">
@@ -305,7 +329,6 @@
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />
         <input type="hidden" id="SortBy" value="SerialKey desc" />
-        <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Inventory_Balance-details", New With {.id = 0})) %>" />
 
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="2" data-hidden="false" data-primarykey="true" />

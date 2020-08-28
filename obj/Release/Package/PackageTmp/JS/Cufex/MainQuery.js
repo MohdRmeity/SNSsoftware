@@ -115,7 +115,10 @@ function SetMasterResize() {
     var WindowHeight = parseInt($(window).height());
     var WindowWidth = $(window).width();
 
-    $('.GetFullHeightAtLeast').css({ "min-height": WindowHeight + "px" }); 
+    //$('.GetFullHeightAtLeast').css({ "min-height": WindowHeight + "px" }); 
+
+    $('.GetFullHeightAtLeast').css({ "min-height": WindowHeight - parseInt($('.WhiteHead').height()) + "px" }); 
+
     $('.GetFullHeightAtLeastRemoveFooter').css({ "min-height": WindowHeight - parseInt($('.DivFooter').height()) + "px" });
     $('.GetFullHeight').css({ "height": WindowHeight + "px" });
     $('.GetFullHeightAtMax').css({ "max-height": WindowHeight + "px" });

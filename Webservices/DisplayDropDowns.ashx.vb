@@ -113,7 +113,7 @@ Public Class DisplayDropDowns
             DTable1 = CommonMethods.getProfiles()
             DTable2 = CommonMethods.getUsers()
 
-            DropDownFields += "ProfileName:::"
+            DropDownFields += "ProfileName:: "
             For i = 0 To DTable1.Rows.Count - 1
                 With DTable1.Rows(i)
                     DropDownFields += IIf(i <> 0, ",", "") & !PROFILENAME
@@ -233,6 +233,32 @@ Public Class DisplayDropDowns
             For i = 0 To DTable4.Rows.Count - 1
                 With DTable4.Rows(i)
                     DropDownFields += IIf(i <> 0, ",", "") & !Description
+                End With
+            Next
+        ElseIf mySearchTable = "Warehouse_OrderTracking" Then
+            DTable1 = CommonMethods.getOrderTypes(HttpContext.Current.Session("userkey").ToString)
+            DropDownFields += "OrderType:::"
+            For i = 0 To DTable1.Rows.Count - 1
+                With DTable1.Rows(i)
+                    DropDownFields += IIf(i <> 0, ",", "") & !Description
+                End With
+            Next
+
+            sql = "select DISTINCT PORTALDESCRIPTION from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALORDERSTATUSSETUP"
+            ds = tb.Cursor(sql)
+            DTable2 = ds.Tables(0)
+            DropDownFields += ";;;PortalDescription:::"
+            For i = 0 To DTable2.Rows.Count - 1
+                With DTable2.Rows(i)
+                    DropDownFields += IIf(i <> 0, ",", "") & !PORTALDESCRIPTION
+                End With
+            Next
+
+            DTable3 = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
+            DropDownFields += ";;;Facility:::MULTI~~~MULTI,"
+            For i = 0 To DTable3.Rows.Count - 1
+                With DTable3.Rows(i)
+                    DropDownFields += IIf(i <> 0, ",", "") & !DB_LOGID & "~~~" & !db_name
                 End With
             Next
         End If

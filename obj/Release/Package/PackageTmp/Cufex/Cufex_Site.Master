@@ -23,6 +23,7 @@
         <link href="<%= sAppPath %>Style/Cufex/sweet-alert.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
         <link href="<%= sAppPath %>Style/Cufex/Cufex_Style.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
         <link href="<%= sAppPath %>Style/ChosenSelect/chosen.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
+        <link href="<%= sAppPath %>Style/Dropzone/dropzone.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
         <noscript>
             <link href="<%= sAppPath %>Style/JQuery/normalize.css" rel="stylesheet" type="text/css" />
         </noscript>
@@ -45,7 +46,7 @@
             </div>
         </div>
 
-        <div class="DivMain" id="DivMainContainer" runat="server">
+        <div class="DivMain" id="DivMainContainer" runat="server" style="opacity: 0;">
             <script type="text/javascript">
                 var sAppPath = "<%= sAppPath %>";
                 var BUserCode = "<%= BUserCode%>";
@@ -61,45 +62,58 @@
             <div class="u-relative">
                 <div class="u-table u-width100" id="TableNotloggedIn" runat="server">
                     <div class="u-tableCell">
-                        <div class="floatL widthMenu AnimateMe">
-                            <div class="MenuContainer AnimateMe">
+                        <div class="floatL widthMenu AnimateMe" id="widthMenu" runat="server">
+                            <div class="MenuContainer AnimateMe" id="SideMenu" runat="server">
                                 <div class="u-ht-xs-20"></div>
                                 <div class="u-pl-xs-20 PositionRelative">
                                     <div class="PinMenu">
                                         <div class="MenuPin Pinned"></div>
                                     </div>
                                     <div class="MainLogoContainer">
-                                        <div class="MainLogo u-relative">
+                                        <div class="MainLogo u-relative" id="MainLogo" runat="server">
                                             WMS Portal  <a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home", Nothing)%>" class="u-imgLink Logo" title="SNS software"></a>
                                         </div>
                                     </div>
                                     <div class="OpenMenu Closed">
                                         <div class="MenuArrowRight"></div>
                                     </div>
-                                    <div class="u-ht-xs-55"></div>
-                                    <div class="GtitleContainer">
-                                        <div class="Gtitle">MAIN</div>
-                                    </div>
-                                    <div class="u-ht-xs-20"></div>
+                                    <div class="u-ht-xs-35"></div>
                                 </div>
                                 <div class="AllMenuItems">
-                                    <div visible="false" id="DivMain_Home_Def" runat="server">
-                                        <div class="u-relative u-pl-xs-20  u-pt-xs-5">
+                                    <div id="DivMain_Home_Def" runat="server" style="margin-bottom: 0 !important;">
+                                        <a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home", Nothing)%>">
+                                            <div class="u-relative u-pl-xs-20  u-pt-xs-5">
+                                                <div class="Selector"></div>
+                                                <div class="u-pb-xs-30 MenuArrow" id="DivMain_Home_Def_MenuArrow" runat="server">
+                                                    <div class="u-inlineBlock MenuIcon Home">
+                                                    </div>
+                                                    <div class="u-inlineBlock valignT">
+                                                        <div class="u-ht-xs-5"></div>
+                                                        <span class="textalignL MenuItemName">Home</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div id="DivMain_Administration" runat="server">
+                                        <div class="u-relative  u-pl-xs-20  u-pt-xs-5">
                                             <div class="Selector"></div>
-                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Home_Def_MenuArrow" runat="server">
-                                                <div class="u-inlineBlock MenuIcon Home">
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Administration_MenuArrow" runat="server">
+                                                <div class="u-inlineBlock MenuIcon Administration">
                                                 </div>
                                                 <div class="u-inlineBlock valignT">
                                                     <div class="u-ht-xs-5"></div>
-                                                    <span class="textalignL MenuItemName">Home</span>
+                                                    <span class="textalignL MenuItemName">Administration</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Home_Def_OrdersManager" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home_Def_OrdersManager", Nothing)%>">Orders Manager</a></div>
-                                            <div visible="false" id="DivSubMain_Home_Def_Inventory_Management" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home_Def_Inventory_Management", Nothing)%>">Inventory Management</a></div>
-                                            <div visible="false" id="DivSubMain_Home_Def_Inbound" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Home_Def_Inbound", Nothing)%>">Inbound</a></div>
+                                            <div id="DivSubMain_Administration_ExportLogs" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Administration_ExportLogs", Nothing)%>">Export Logs</a></div>
+                                            <div id="DivSubMain_Administration_ImportLogs" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Administration_ImportLogs", Nothing)%>">Import Logs</a></div>
+                                            <div id="DivSubMain_Administration_FileManagementLogs" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Administration_FileManagementLogs", Nothing)%>">File Management Logs</a></div>
+                                            <div id="DivSubMain_Administration_FileManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Administration_FileManagement", Nothing)%>">File Management</a></div>
+                                            <div id="DivSubMain_Administration_UITemplates" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Administration_UITemplates", Nothing)%>">UI Templates</a></div>
                                         </div>
                                     </div>
-                                    <div visible="false" id="DivMain_Security" runat="server">
+                                    <div id="DivMain_Security" runat="server">
                                         <div class="u-relative  u-pl-xs-20  u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Security_MenuArrow" runat="server">
@@ -110,21 +124,15 @@
                                                     <span class="textalignL MenuItemName">Security</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Security_Profile" runat="server">
-                                                <div class="u-relative">
-                                                    Profile
-                                                    <div visible="false" id="DivSubSubMain_Security_Profile_ChangePassword" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_ChangePassword", Nothing)%>">Change Password</a></div>
-                                                    <div visible="false" id="DivSubSubMain_Security_Profile_Users" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_Users", Nothing)%>">Users</a></div>
-                                                    <div visible="false" id="DivSubSubMain_Security_Profile_UsersControl" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_UsersControl", Nothing)%>">Users Control</a></div>
-                                                    <div visible="false" id="DivSubSubMain_Security_Profile_Profiles" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_Profiles", Nothing)%>">Profiles</a></div>
-                                                    <div visible="false" id="DivSubSubMain_Security_Profile_UserProfile" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profile_UserProfile", Nothing)%>">Users Profile</a></div>
-                                                </div>
-                                            </div>
-                                            <%--<div visible="false" id="DivSubMain_Security_Settings" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Settings_General", Nothing)%>">Settings</a></div>--%>
+                                            <div id="DivSubMain_Security_ChangePassword" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_ChangePassword", Nothing)%>">Change Password</a></div>
+                                            <div id="DivSubMain_Security_Users" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Users", Nothing)%>">Users</a></div>
+                                            <div id="DivSubMain_Security_UsersControl" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UsersControl", Nothing)%>">Users Control</a></div>
+                                            <div id="DivSubMain_Security_Profiles" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)%>">Profiles</a></div>
+                                            <div id="DivSubMain_Security_UserProfile" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UserProfile", Nothing)%>">Users Profile</a></div>
                                         </div>
                                     </div>
 
-                                    <div visible="false" id="DivMain_Configuration" runat="server">
+                                    <div id="DivMain_Configuration" runat="server">
                                         <div class="u-relative  u-pl-xs-20  u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Configuration_MenuArrow" runat="server">
@@ -135,14 +143,14 @@
                                                     <span class="textalignL MenuItemName">Configuration</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Configuration_ShipTo" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipTo", Nothing)%>">Ship To</a></div>
-                                            <div visible="false" id="DivSubMain_Configuration_Suppliers" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Suppliers", Nothing)%>">Suppliers</a></div>
-                                            <div visible="false" id="DivSubMain_Configuration_Items" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)%>">Items</a></div>
-                                            <div visible="false" id="DivSubMain_Configuration_ItemCatalogue" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)%>">Item Catalogue</a></div>
+                                            <div id="DivSubMain_Configuration_ShipTo" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipTo", Nothing)%>">Ship To</a></div>
+                                            <div id="DivSubMain_Configuration_ShipFrom" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipFrom", Nothing)%>">Ship From</a></div>
+                                            <div id="DivSubMain_Configuration_Items" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)%>">Items</a></div>
+                                            <div id="DivSubMain_Configuration_ItemCatalogue" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)%>">Item Catalogue</a></div>
 
                                         </div>
                                     </div>
-                                    <div visible="false" id="DivMain_Warehouse" runat="server">
+                                    <div id="DivMain_Warehouse" runat="server">
                                         <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Warehouse_MenuArrow" runat="server">
@@ -153,13 +161,13 @@
                                                     <span class="textalignL MenuItemName">Warehouse</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Warehouse_PO" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)%>">Purchase Order</a></div>
-                                            <div visible="false" id="DivSubMain_Warehouse_ASN" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)%>">ASN</a></div>
-                                            <div visible="false" id="DivSubMain_Warehouse_Shipment" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)%>">Shipment</a></div>
-                                            <div visible="false" id="DivSubMain_Warehouse_OrderManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)%>">Order Management</a></div>
+                                            <div id="DivSubMain_Warehouse_PO" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)%>">Purchase Order</a></div>
+                                            <div id="DivSubMain_Warehouse_ASN" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)%>">ASN</a></div>
+                                            <div id="DivSubMain_Warehouse_Shipment" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)%>">Shipment</a></div>
+                                            <div id="DivSubMain_Warehouse_OrderManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)%>">Order Management</a></div>
                                         </div>
                                     </div>
-                                    <div visible="false" id="DivMain_Inventory" runat="server">
+                                    <div id="DivMain_Inventory" runat="server">
                                         <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
                                             <div class="Selector"></div>
                                             <div class="u-pb-xs-30 MenuArrow" id="DivMain_Inventory_MenuArrow" runat="server">
@@ -170,33 +178,32 @@
                                                     <span class="textalignL MenuItemName">Inventory</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_Inventory_Balance" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Inventory_Balance", Nothing)%>">Balance</a></div>
+                                            <div id="DivSubMain_Inventory_Balance" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Inventory_Balance", Nothing)%>">Balance</a></div>
                                         </div>
                                     </div>
-                                    <div visible="false" id="DivMain_ReportsandKPIs" runat="server">
+                                    <div id="DivMain_Reporting" runat="server">
                                         <div class="u-relative  u-pl-xs-20 u-pt-xs-5">
                                             <div class="Selector"></div>
-                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_ReportsandKPIs_MenuArrow" runat="server">
+                                            <div class="u-pb-xs-30 MenuArrow" id="DivMain_Reporting_MenuArrow" runat="server">
                                                 <div class="u-inlineBlock MenuIcon Reports">
                                                 </div>
                                                 <div class="u-inlineBlock valignT">
                                                     <div class="u-ht-xs-5"></div>
-                                                    <span class="textalignL MenuItemName">Reports & KPIs</span>
+                                                    <span class="textalignL MenuItemName">Reporting</span>
                                                 </div>
                                             </div>
-                                            <div visible="false" id="DivSubMain_ReportsandKPIs_ViewReports" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-ReportsandKPIs_ViewReports", Nothing)%>">View Reports</a></div>
-                                            <%--<div visible="false" id="DivSubMain_ReportsandKPIs_NewReports" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-ReportsandKPIs_NewReports", Nothing)%>">New Report</a></div>--%>
+                                            <div id="DivSubMain_Reporting_ViewReports" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Reporting_ViewReports", Nothing)%>">View Reports</a></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="floatL widthContent AnimateMe">
+                        <div class="floatL widthContent AnimateMe" id="widthContent" runat="server">
                             <div class="DivMain zindexMain" id="DivMain" runat="server">
                                 <div class="iWantMyChildrenFloatHeight u-relative">
                                     <div class="u-ht-xs-70">
                                     </div>
-                                    <div class="WhiteHead">
+                                    <div class="WhiteHead" id="HeaderMenu" runat="server">
                                         <uc1:Cufex_MasterHeader runat="server" ID="Cufex_MasterHeader" />
                                     </div>
                                     <asp:ContentPlaceHolder ID="Cufex_MainContent" runat="server">
@@ -250,8 +257,11 @@
         <script type="text/javascript" src="<%= sAppPath %>js/MsgBox/sweet-alert.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/chosen.jquery.min.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/MainQuery.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>JS/Dropzone/dropzone.min.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/Master.min.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/ColResizable/colResizable-1.6.min.js?v=<%=AppVersion%>"></script>
+        <script type="text/javascript" src="<%= sAppPath %>JS/ColorPicker/jscolor.js?v=<%=AppVersion%>"></script>
+
 
 
         <asp:ContentPlaceHolder ID="Cufex_ScriptContent" runat="server">
@@ -263,8 +273,19 @@
 
         <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/legacy.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/Jcrop/jquery.Jcrop.js?v=<%=AppVersion%>"></script>
-        <script type="text/javascript" data-pace-options='{ "document": false }' src="<%= sAppPath %>js/Pace-Modified.min.js?v=<%=AppVersion%>"></script>
+        <%--<script type="text/javascript" data-pace-options='{ "document": false }' src="<%= sAppPath %>js/Pace-Modified.min.js?v=<%=AppVersion%>"></script>--%>
         <input type="hidden" class="Cufex_Forms" value="1" />
+
+        <input type="hidden" id="HiddenMenuOpen" runat="server" class="HiddenMenuOpen" value="1" />
+        <input type="hidden" id="HiddenFileImportLimit" runat="server" class="HiddenFileImportLimit" value="5" />
+        <input type="hidden" id="HiddenFileUploadLimit" runat="server" class="HiddenFileUploadLimit" value="5" />
+
+        <input type="hidden" id="HiddenLoginBackgroundColor" runat="server" class="HiddenLoginBackgroundColor" value="" />
+        <input type="hidden" id="HiddenMenuBackgroundColor" runat="server" class="HiddenMenuBackgroundColor" value="" />
+        <input type="hidden" id="HiddenScreenBackgroundColor" runat="server" class="HiddenScreenBackgroundColor" value="" />
+        <input type="hidden" id="HiddenGridBackgroundColor" runat="server" class="HiddenGridBackgroundColor" value="" />
+        <input type="hidden" id="HiddenButtonBackgroundColor" runat="server" class="HiddenButtonBackgroundColor" value="" />
+        <input type="hidden" id="HiddenTextBackgroundColor" runat="server" class="HiddenTextBackgroundColor" value="" />
     </form>
 </body>
 </html>

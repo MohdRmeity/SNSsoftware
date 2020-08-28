@@ -10,10 +10,10 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="LogInContainer" runat="server">
     <div class="LogInMainDiv CufexBG GetFullHeightAtLeast CoverImage">
         <div class="NormalDiv">
-            <div class="HeaderFloat1">
+            <%--<div class="HeaderFloat1">
                 <a href="<%= sAppPath %>" title="Cufex">
                     <img src="<%= sAppPath%>images/Cufex_Images/CufexLoginLogo.png" alt="Cufex Logo" /></a>
-            </div>
+            </div>--%>
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
                     <div class="floatL Width100 Login_Details">
@@ -36,7 +36,7 @@
                                 <asp:Button ID="BtnSubmit" runat="server" CssClass="MyButtonLogin IWantAMouseOVerNowBut80" Text="RESET PASSWORD" OnClientClick="return Cufex_Valid();" />
                             </div>
                             <div class="floatL Width100 textalignC">
-                                <a href="<%= Page.GetRouteUrl("SNSsoftware-CMS", Nothing)%>" class="MyLink">Return Login</a>
+                                <a href="<%= Page.GetRouteUrl("SNSsoftware-Home", Nothing)%>" class="MyLink">Return Login</a>
                             </div>
                         </div>
                     </div>
@@ -48,8 +48,6 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.LogInMainDiv').hide();
-            $('.DivFooter').hide();
             Cufex_Set();
         });
         $(window).load(function () {

@@ -150,6 +150,7 @@
   <ItemGroup>
     <Content Include="Controls\Cufex_Components\Cufex_MasterMenu.ascx" />
     <Content Include="Controls\Cufex_Components\Cufex_MasterHeader.ascx" />
+    <Content Include="Controls\Cufex_Components\Cufex_Warehouse_OrderTracking_CarrierEvents.ascx" />
     <Content Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx" />
     <Content Include="Cufex\Cufex_Administration_ExportLogs.aspx" />
     <Content Include="Cufex\Cufex_Administration_FileManagement.aspx" />
@@ -178,6 +179,7 @@
     <Content Include="Cufex\Cufex_Security_Users.aspx" />
     <Content Include="Cufex\Cufex_Inventory_Balance.aspx" />
     <Content Include="Cufex\Cufex_Warehouse_OrderManagement.aspx" />
+    <Content Include="Cufex\Cufex_Warehouse_OrderTracking.aspx" />
     <Content Include="Cufex\Cufex_Warehouse_Shipment.aspx" />
     <Content Include="Cufex\Cufex_Warehouse_ASN.aspx" />
     <Content Include="Cufex\Cufex_Warehouse_PO.aspx" />
@@ -253,6 +255,13 @@
     </Compile>
     <Compile Include="Controls\Cufex_Components\Cufex_MasterHeader.ascx.vb">
       <DependentUpon>Cufex_MasterHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Cufex_Components\Cufex_Warehouse_OrderTracking_CarrierEvents.ascx.designer.vb">
+      <DependentUpon>Cufex_Warehouse_OrderTracking_CarrierEvents.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Cufex_Components\Cufex_Warehouse_OrderTracking_CarrierEvents.ascx.vb">
+      <DependentUpon>Cufex_Warehouse_OrderTracking_CarrierEvents.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Cufex_PlugIns\Cufex_Logout.aspx.designer.vb">
@@ -456,6 +465,13 @@
     </Compile>
     <Compile Include="Cufex\Cufex_Warehouse_OrderManagement.aspx.vb">
       <DependentUpon>Cufex_Warehouse_OrderManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_OrderTracking.aspx.designer.vb">
+      <DependentUpon>Cufex_Warehouse_OrderTracking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cufex\Cufex_Warehouse_OrderTracking.aspx.vb">
+      <DependentUpon>Cufex_Warehouse_OrderTracking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cufex\Cufex_Warehouse_Shipment.aspx.designer.vb">

@@ -25,7 +25,7 @@ Public Class ExportItemsDetails
         End If
         Dim RecordsCount As Integer = 0
         If SearchTable = "Warehouse_OrderManagement" Then ColumnsNames = ColumnsNames.Replace("Price", "UnitPrice as Price").Replace("Currency", "SUsr5 as Currency")
-        Dim SQL As String = " set dateformat dmy select " & ColumnsNames & " from "
+        Dim SQL As String = " set dateformat mdy select " & ColumnsNames & " from "
         Dim warehouselevel As String = ""
 
         If ExportRowsLimit > 0 Then
