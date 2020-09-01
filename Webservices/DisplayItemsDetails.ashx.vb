@@ -189,7 +189,8 @@ Public Class DisplayItemsDetails
                     Case "Warehouse_SO"
                         With ds.Tables(0).Rows(0)
                             Dim measureunit As Double = CommonMethods.getUomMeasure(Facility, !PackKey.ToString(), !UOM.ToString)
-                            Dim externln As String = "", Sku As String = "", OpenQty As String = "",
+                            Dim externln As String = "", Sku As String = "", OpenQty As String = "", OriginalQty As String = "",
+                                QtyAllocated As String = "", QtyPicked As String = "", ShippedQty As String = "",
                             PackKey As String = "", UOM As String = "", UDF1Dtl As String = "", UDF2Dtl As String = "",
                                 UDF3Dtl As String = "", UDF4Dtl As String = "", UDF5Dtl As String = "", Lottable01 As String = "",
                                 Lottable02 As String = "", Lottable03 As String = "", Lottable04 As String = "", Lottable05 As String = "",
@@ -199,6 +200,12 @@ Public Class DisplayItemsDetails
                             If Not .IsNull("ExternLineNo") Then externln = !ExternLineNo
                             If Not .IsNull("Sku") Then Sku = !Sku
                             If Not .IsNull("OpenQty") Then OpenQty = (Double.Parse(!OpenQty.ToString) / measureunit).ToString
+							 'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN
+                            If Not .IsNull("OriginalQty") Then OriginalQty = (Double.Parse(!OriginalQty.ToString) / measureunit).ToString
+                            If Not .IsNull("QtyAllocated") Then QtyAllocated = (Double.Parse(!QtyAllocated.ToString) / measureunit).ToString
+                            If Not .IsNull("QtyPicked") Then QtyPicked = (Double.Parse(!QtyPicked.ToString) / measureunit).ToString
+                            If Not .IsNull("ShippedQty") Then ShippedQty = (Double.Parse(!ShippedQty.ToString) / measureunit).ToString
+                            'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END
                             If Not .IsNull("PackKey") Then PackKey = !PackKey
                             If Not .IsNull("UOM") Then UOM = !UOM
                             If Not .IsNull("SUsr1") Then UDF1Dtl = !SUsr1
@@ -249,6 +256,12 @@ Public Class DisplayItemsDetails
                             SavedDetailsFields += "ExternLineNo:::" & externln
                             SavedDetailsFields += ";;;Sku:::" & Sku
                             SavedDetailsFields += ";;;OpenQty:::" & OpenQty
+							'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN
+                            SavedDetailsFields += ";;;OriginalQty:::" & OriginalQty
+                            SavedDetailsFields += ";;;QtyAllocated:::" & QtyAllocated
+                            SavedDetailsFields += ";;;QtyPicked:::" & QtyPicked
+                            SavedDetailsFields += ";;;ShippedQty:::" & ShippedQty
+                            'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END
                             SavedDetailsFields += ";;;PackKey:::" & PackKey
                             SavedDetailsFields += ";;;UOM:::" & UOM
                             SavedDetailsFields += ";;;SUsr1:::" & UDF1Dtl

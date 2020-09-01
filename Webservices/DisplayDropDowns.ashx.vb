@@ -16,6 +16,8 @@ Public Class DisplayDropDowns
         Dim DTable2 As DataTable = Nothing
         Dim DTable3 As DataTable = Nothing
         Dim DTable4 As DataTable = Nothing
+		'Mohamad Rmeity - Changing Container Type to dropdown
+        Dim DTable5 As DataTable = Nothing
 
         If mySearchTable = "PORTALUSERS" Then
             DTable1 = CommonMethods.getTimeZones()
@@ -207,6 +209,8 @@ Public Class DisplayDropDowns
             DTable2 = CommonMethods.getCountries()
             DTable3 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECEIPTYPE")
             DTable4 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECSTATUS")
+			'Mohamad Rmeity - Changing Container Type to dropdown
+            DTable5 = CommonMethods.getCodeDD("enterprise", "codelkup", "CONTAINERT")
 
             DropDownFields += "Facility:::"
             For i = 0 To DTable1.Rows.Count - 1
@@ -232,6 +236,14 @@ Public Class DisplayDropDowns
             DropDownFields += ";;;ReceiptStatusSearch:::"
             For i = 0 To DTable4.Rows.Count - 1
                 With DTable4.Rows(i)
+                    DropDownFields += IIf(i <> 0, ",", "") & !Description
+                End With
+            Next
+			
+			'Mohamad Rmeity - Changing Container Type to dropdown
+            DropDownFields += ";;;ContainerType:::"
+            For i = 0 To DTable5.Rows.Count - 1
+                With DTable5.Rows(i)
                     DropDownFields += IIf(i <> 0, ",", "") & !Description
                 End With
             Next

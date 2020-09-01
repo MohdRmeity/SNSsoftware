@@ -223,6 +223,9 @@ Public Class AutoPostBackDropDowns
                     valuesstr = "'" & valuesstr & "'"
                     If Not UCase(valuesstr).Contains("'ALL'") Then
                         AndFilter = " and STORERKEY IN (" + valuesstr + ") "
+					Else
+                        'Mohamad Rmeity - AndFilter was taking the previous value
+                        AndFilter = " "
                     End If
                 End If
                 sql += "select StorerKey,Company from " & warehouselevel & ".storer where type= " & IIf(i = 0, "1", "2") & " " & AndFilter

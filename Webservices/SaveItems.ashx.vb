@@ -286,6 +286,7 @@ Public Class SaveItems
         Dim tmp As String = ""
         Dim IsValid As Boolean = True
         Dim EditOperation As Boolean = MyID <> 0
+		'Mohamad Rmeity - Adding dashboard refresh time to the user screen
         Dim firstname As String = HttpContext.Current.Request.Item("Field_FirstName") _
         , lastname As String = HttpContext.Current.Request.Item("Field_LastName") _
         , userkey As String = HttpContext.Current.Request.Item("Field_UserKey") _
@@ -294,6 +295,7 @@ Public Class SaveItems
         , confirm As String = HttpContext.Current.Request.Item("Field_ConfirmPassword") _
         , active As String = HttpContext.Current.Request.Item("Field_Active") _
         , timezone As String = HttpContext.Current.Request.Item("Field_TimeZone") _
+		, dashboard As String = HttpContext.Current.Request.Item("Field_DASHBOARDREFRESHTIME") _
         , originalpass As String = "", keypass As String = ""
 
         If String.IsNullOrEmpty(userkey) Then
@@ -316,6 +318,12 @@ Public Class SaveItems
             tmp += "Email must be defined <br/>"
         End If
 
+		'Mohamad Rmeity - Adding dashboard refresh time to the user screen - BEGIN
+        If String.IsNullOrEmpty(dashboard) Then
+            dashboard = "20000"
+        End If
+        'Mohamad Rmeity - Adding dashboard refresh time to the user screen - END
+		
         If Not EditOperation Then
             If String.IsNullOrEmpty(password) Then
                 IsValid = False
@@ -370,7 +378,7 @@ Public Class SaveItems
             If EditOperation Then
                 Try
                     If CommonMethods.dbtype = "sql" Then
-                        Dim updatequery As String = "set dateformat dmy update dbo.PORTALUSERS set ACTIVE= @flag , Password= @passw , Email = @email , TimeZone = @timezone, EDITWHO= @ukey , EDITDATE='" & Now & "', HASHKEY= @hkey where USERKEY = @userk"
+                        Dim updatequery As String = "set dateformat dmy update dbo.PORTALUSERS set ACTIVE= @flag , Password= @passw , Email = @email , TimeZone = @timezone, DASHBOARDREFRESHTIME = @dashboard, EDITWHO= @ukey , EDITDATE='" & Now & "', HASHKEY= @hkey where USERKEY = @userk"
                         Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As SqlCommand = New SqlCommand(updatequery, conn)
@@ -379,12 +387,14 @@ Public Class SaveItems
                         cmd.Parameters.AddWithValue("@email", email)
                         cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey").ToString)
                         cmd.Parameters.AddWithValue("@timezone", timezone)
+						'Mohamad Rmeity - Adding dashboard refresh time to the user screen
+                        cmd.Parameters.AddWithValue("@dashboard", dashboard)
                         cmd.Parameters.AddWithValue("@hkey", keypass)
                         cmd.Parameters.AddWithValue("@userk", userkey)
                         cmd.ExecuteNonQuery()
                         conn.Close()
                     Else
-                        Dim updatequery As String = "update SYSTEM.PORTALUSERS set ACTIVE= :flag , Password= :passw , Email = :email, TimeZone = :timezone, EDITWHO=:ukey , EDITDATE=SYSDATE, HASHKEY=:hkey where   USERKEY = :userk"
+                        Dim updatequery As String = "update SYSTEM.PORTALUSERS set ACTIVE= :flag , Password= :passw , Email = :email, TimeZone = :timezone, DASHBOARDREFRESHTIME = :dashboard, EDITWHO=:ukey , EDITDATE=SYSDATE, HASHKEY=:hkey where   USERKEY = :userk"
                         Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                         conn.Open()
                         Dim cmd As OracleCommand = New OracleCommand(updatequery, conn)
@@ -392,6 +402,8 @@ Public Class SaveItems
                         cmd.Parameters.Add(New OracleParameter("passw", originalpass))
                         cmd.Parameters.Add(New OracleParameter("email", email))
                         cmd.Parameters.Add(New OracleParameter("timezone", timezone))
+						'Mohamad Rmeity - Adding dashboard refresh time to the user screen
+                        cmd.Parameters.Add(New OracleParameter("dashboard", dashboard))
                         cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey").ToString))
                         cmd.Parameters.Add(New OracleParameter("hkey", keypass))
                         cmd.Parameters.Add(New OracleParameter("userk", userkey))
@@ -409,7 +421,7 @@ Public Class SaveItems
                     Dim keyh As String = CommonMethods.CreateSalt(password.Length)
                     Try
                         If CommonMethods.dbtype = "sql" Then
-                            Dim insert As String = "set dateformat dmy insert into  dbo.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, TIMEZONE, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE , HASHKEY) values ( @act, @ukey, @fname, @lname, @email, @timezone, @passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', '" & Now & "', '" & Now & "', @keyh);"
+                            Dim insert As String = "set dateformat dmy insert into  dbo.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, TIMEZONE, DASHBOARDREFRESHTIME, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE , HASHKEY) values ( @act, @ukey, @fname, @lname, @email, @timezone, @dashboard, @passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', '" & Now & "', '" & Now & "', @keyh);"
                             Dim widgets As String = "set dateformat dmy insert into dbo.USERWIDGETS (WIDGETID,USERKEY, ADDDATE) values (1,'" & LCase(userkey) & "','" & Now & "'),(4,'" & LCase(userkey) & "','" & Now & "'),(6,'" & LCase(userkey) & "','" & Now & "'),(7,'" & LCase(userkey) & "','" & Now & "'); "
                             Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                             conn.Open()
@@ -421,13 +433,15 @@ Public Class SaveItems
                             cmd.Parameters.AddWithValue("@lname", lastname)
                             cmd.Parameters.AddWithValue("@email", email)
                             cmd.Parameters.AddWithValue("@timezone", timezone)
+							'Mohamad Rmeity - Adding dashboard refresh time to the user screen
+                            cmd.Parameters.AddWithValue("@dashboard", dashboard)
                             cmd.Parameters.AddWithValue("@passw", CommonMethods.GenerateHash(password, keyh))
                             cmd.Parameters.AddWithValue("@keyh", keyh)
                             cmd.ExecuteNonQuery()
 
                             conn.Close()
                         Else
-                            Dim insert As String = "insert into  SYSTEM.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, TIMEZONE, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE  , HASHKEY) values( :act, :ukey, :fname, :lname, :email, :timezone, :passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', SYSDATE,SYSDATE, :keyh )"
+                            Dim insert As String = "insert into  SYSTEM.PORTALUSERS (ACTIVE, USERKEY, FIRSTNAME, LASTNAME, EMAIL, TIMEZONE, DASHBOARDREFRESHTIME, PASSWORD, ADDWHO, EDITWHO , ADDDATE,EDITDATE  , HASHKEY) values( :act, :ukey, :fname, :lname, :email, :timezone, :dashboard, :passw, '" & HttpContext.Current.Session("userkey").ToString & "',  '" & HttpContext.Current.Session("userkey").ToString & "', SYSDATE,SYSDATE, :keyh )"
                             Dim widgets As String = "insert into SYSTEM.USERWIDGETS (WIDGETID,USERKEY, ADDDATE) values (1,'" & LCase(userkey) & "','" & Now & "'),(4,'" & LCase(userkey) & "','" & Now & "'),(6,'" & LCase(userkey) & "','" & Now & "'),(7,'" & LCase(userkey) & "','" & Now & "'); "
                             Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                             conn.Open()
@@ -439,6 +453,8 @@ Public Class SaveItems
                             cmd.Parameters.Add(New OracleParameter("lname", lastname))
                             cmd.Parameters.Add(New OracleParameter("email", email))
                             cmd.Parameters.Add(New OracleParameter("timezone", timezone))
+							'Mohamad Rmeity - Adding dashboard refresh time to the user screen
+                            cmd.Parameters.Add(New OracleParameter("dashboard", dashboard))
                             cmd.Parameters.Add(New OracleParameter("passw", CommonMethods.GenerateHash(password, keyh)))
                             cmd.Parameters.Add(New OracleParameter("keyh", keyh))
                             cmd.ExecuteNonQuery()
@@ -1109,7 +1125,6 @@ Public Class SaveItems
         , Sku As String = UCase(HttpContext.Current.Request.Item("Field_Sku")) _
         , PackKey As String = HttpContext.Current.Request.Item("Field_PackKey") _
         , Descr As String = HttpContext.Current.Request.Item("Field_Descr") _
-        , TariffKey As String = HttpContext.Current.Request.Item("Field_TariffKey") _
         , StdCube As String = HttpContext.Current.Request.Item("Field_StdCube") _
         , StdNetWgt As String = HttpContext.Current.Request.Item("Field_StdNetWgt") _
         , StdGrossWgt As String = HttpContext.Current.Request.Item("Field_StdGrossWgt") _
@@ -1137,7 +1152,8 @@ Public Class SaveItems
 
         If Not String.IsNullOrEmpty(Descr) Then Command += "<Descr>" & Descr & "</Descr>"
         If Not String.IsNullOrEmpty(PackKey) Then Command += "<PackKey>" & PackKey & "</PackKey>"
-        If Not String.IsNullOrEmpty(TariffKey) Then Command += "<TariffKey>" & TariffKey & "</TariffKey>"
+        'Mohamad Rmeity - Removing Tariff Key from items screen
+        'If Not String.IsNullOrEmpty(TariffKey) Then Command += "<TariffKey>" & TariffKey & "</TariffKey>"
         If Not String.IsNullOrEmpty(StdCube) Then Command += "<StdCube>" & StdCube & "</StdCube>"
         If Not String.IsNullOrEmpty(StdNetWgt) Then Command += "<StdNetWgt>" & StdNetWgt & "</StdNetWgt>"
         If Not String.IsNullOrEmpty(StdGrossWgt) Then Command += "<StdGrossWgt>" & StdGrossWgt & "</StdGrossWgt>"

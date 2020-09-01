@@ -360,7 +360,6 @@ Public Class SaveItemsNew
         , Sku As String = UCase(HttpContext.Current.Request.Item("Field_Sku")) _
         , PackKey As String = HttpContext.Current.Request.Item("Field_PackKey") _
         , Descr As String = HttpContext.Current.Request.Item("Field_Descr") _
-        , TariffKey As String = HttpContext.Current.Request.Item("Field_TariffKey") _
         , StdCube As String = HttpContext.Current.Request.Item("Field_StdCube") _
         , StdNetWgt As String = HttpContext.Current.Request.Item("Field_StdNetWgt") _
         , StdGrossWgt As String = HttpContext.Current.Request.Item("Field_StdGrossWgt") _
@@ -388,7 +387,8 @@ Public Class SaveItemsNew
 
         If Not String.IsNullOrEmpty(Descr) Then Command += "<Descr>" & Descr & "</Descr>"
         If Not String.IsNullOrEmpty(PackKey) Then Command += "<PackKey>" & PackKey & "</PackKey>"
-        If Not String.IsNullOrEmpty(TariffKey) Then Command += "<TariffKey>" & TariffKey & "</TariffKey>"
+        'Mohamad Rmeity - Removing Tariff Key from items screen
+        'If Not String.IsNullOrEmpty(TariffKey) Then Command += "<TariffKey>" & TariffKey & "</TariffKey>"
         If Not String.IsNullOrEmpty(StdCube) Then Command += "<StdCube>" & StdCube & "</StdCube>"
         If Not String.IsNullOrEmpty(StdNetWgt) Then Command += "<StdNetWgt>" & StdNetWgt & "</StdNetWgt>"
         If Not String.IsNullOrEmpty(StdGrossWgt) Then Command += "<StdGrossWgt>" & StdGrossWgt & "</StdGrossWgt>"

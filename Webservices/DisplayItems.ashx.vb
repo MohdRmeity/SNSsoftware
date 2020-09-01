@@ -59,6 +59,8 @@ Public Class DisplayItems
             GetOrderTrackingQuery(Sql, MyID)
         ElseIf mySearchTable = "Inventory_Balance" Then
             Dim InvBalInfo As String() = HttpContext.Current.Request.Item("MyID").ToString.Split(New String() {"~~~"}, StringSplitOptions.RemoveEmptyEntries)
+			'Mohamad Rmeity - Grouping by SKU/Facility rather than each LLI records
+            MyID = InvBalInfo.Count
             GetInventoryBalanceQuery(Sql, InvBalInfo)
         End If
 
@@ -140,6 +142,12 @@ Public Class DisplayItems
                         If Not .IsNull("Active") Then
                             SavedFields += ";;;Active:::" & !Active
                         End If
+						
+						'Mohamad Rmeity - Adding dashboard refresh time to the user screen - BEGIN
+                            If Not .IsNull("DASHBOARDREFRESHTIME") Then
+                                SavedFields += ";;;DASHBOARDREFRESHTIME:::" & !DASHBOARDREFRESHTIME
+                            End If
+                        'Mohamad Rmeity - Adding dashboard refresh time to the user screen - END
 
                         If Not .IsNull("Password") Then
                             SavedFields += ";;;Password:::" & !Password
@@ -312,9 +320,10 @@ Public Class DisplayItems
                             SavedFields += ";;;PackKey:::" & !PackKey
                         End If
 
-                        If Not .IsNull("TariffKey") Then
-                            SavedFields += ";;;TariffKey:::" & !TariffKey
-                        End If
+                       'Mohamad Rmeity - Removing Tariff Key from items screen
+                            'If Not .IsNull("TariffKey") Then
+                            '    SavedFields += ";;;TariffKey:::" & !TariffKey
+                            'End If
 
                         If Not .IsNull("StdCube") Then
                             SavedFields += ";;;StdCube:::" & !StdCube
@@ -882,15 +891,17 @@ Public Class DisplayItems
                                         If Not nodeDT("ToId").IsEmpty Then
                                             ToId += IIf(i <> 0, "~~~", "") & nodeDT("ToId").InnerText.ToString()
                                         End If
-                                        If Not nodeDT("ToLoc").IsEmpty Then
-                                            ToLoc += IIf(i <> 0, "~~~", "") & nodeDT("ToLoc").InnerText.ToString()
-                                        End If
+										'Mohamad Rmeity - Removing ToLoc & Tariff
+                                        'If Not nodeDT("ToLoc").IsEmpty Then
+                                        '    ToLoc += IIf(i <> 0, "~~~", "") & nodeDT("ToLoc").InnerText.ToString()
+                                        'End If
                                         If Not nodeDT("ConditionCode").IsEmpty Then
                                             ConditionCode += IIf(i <> 0, "~~~", "") & nodeDT("ConditionCode").InnerText.ToString()
                                         End If
-                                        If Not nodeDT("TariffKey").IsEmpty Then
-                                            TariffKey += IIf(i <> 0, "~~~", "") & nodeDT("TariffKey").InnerText.ToString()
-                                        End If
+										'Mohamad Rmeity - Removing ToLoc & Tariff
+                                        'If Not nodeDT("TariffKey").IsEmpty Then
+                                        '    TariffKey += IIf(i <> 0, "~~~", "") & nodeDT("TariffKey").InnerText.ToString()
+                                        'End If
                                         If Not nodeDT("Lottable01").IsEmpty Then
                                             Lottable01 += IIf(i <> 0, "~~~", "") & nodeDT("Lottable01").InnerText.ToString()
                                         End If
@@ -984,9 +995,11 @@ Public Class DisplayItems
                                     SavedDetailsFields += ";;;UOM:::" & UOM
                                     SavedDetailsFields += ";;;POKey:::" & POKeyDtl
                                     SavedDetailsFields += ";;;ToId:::" & ToId
-                                    SavedDetailsFields += ";;;ToLoc:::" & ToLoc
+									'Mohamad Rmeity - Removing ToLoc & Tariff
+                                    'SavedDetailsFields += ";;;ToLoc:::" & ToLoc
                                     SavedDetailsFields += ";;;ConditionCode:::" & ConditionCode
-                                    SavedDetailsFields += ";;;TariffKey:::" & TariffKey
+									'Mohamad Rmeity - Removing ToLoc & Tariff
+                                    'SavedDetailsFields += ";;;TariffKey:::" & TariffKey
                                     SavedDetailsFields += ";;;Lottable01:::" & Lottable01
                                     SavedDetailsFields += ";;;Lottable02:::" & Lottable02
                                     SavedDetailsFields += ";;;Lottable03:::" & Lottable03
@@ -1141,7 +1154,7 @@ Public Class DisplayItems
                                 End If
 
                                 Dim measureunit As Double = 1
-                                Dim externln As String = "", Sku As String = "", OpenQty As String = "",
+                                Dim externln As String = "", Sku As String = "", OpenQty As String = "", ShippedQty As String = "",
                                 PackKey As String = "", UOM As String = "", UDF1Dtl As String = "", UDF2Dtl As String = "",
                                     UDF3Dtl As String = "", UDF4Dtl As String = "", UDF5Dtl As String = "", Lottable01 As String = "",
                                     Lottable02 As String = "", Lottable03 As String = "", Lottable04 As String = "", Lottable05 As String = "",
@@ -1163,6 +1176,10 @@ Public Class DisplayItems
                                         End If
                                         If Not nodeDT("OpenQty").IsEmpty Then
                                             OpenQty += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("OpenQty").InnerText.ToString()) / measureunit).ToString
+										'Mohamad Rmeity - Adding Shipped Qty to Quick Entry/View 
+                                        If Not nodeDT("ShippedQty").IsEmpty Then
+                                            ShippedQty += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("ShippedQty").InnerText.ToString()) / measureunit).ToString
+                                        End If
                                         End If
                                         If Not nodeDT("PackKey").IsEmpty Then
                                             PackKey += IIf(i <> 0, "~~~", "") & nodeDT("PackKey").InnerText.ToString()
@@ -1243,6 +1260,8 @@ Public Class DisplayItems
                                     SavedDetailsFields += "ExternLineNo:::" & externln
                                     SavedDetailsFields += ";;;Sku:::" & Sku
                                     SavedDetailsFields += ";;;OpenQty:::" & OpenQty
+									'Mohamad Rmeity - Adding Shipped Qty to Quick Entry/View 
+                                    SavedDetailsFields += ";;;ShippedQty:::" & ShippedQty
                                     SavedDetailsFields += ";;;PackKey:::" & PackKey
                                     SavedDetailsFields += ";;;UOM:::" & UOM
                                     SavedDetailsFields += ";;;SUsr1:::" & UDF1Dtl
@@ -1955,24 +1974,25 @@ Public Class DisplayItems
                         warehouselevel = s
                     End If
                     warehouselevel = warehouselevel.Split("_")(1)
-
-                    Sql += " SELECT SerialKey, '" & wname & "' as Facility, StorerKey, Sku, Status "
+                    'Mohamad Rmeity - Grouping by SKU/Facility rather than each LLI records
+                    Sql += " SELECT '" & wname & "' as Facility, WHSEID, StorerKey, Sku, MIN(Status) Status "
                     Sql += " FROM " & warehouselevel & ".LOTxLOCxID "
                     Sql += " Where (StorerKey >= '0') "
                     Sql += " AND(StorerKey <= 'ZZZZZZZZZZ') AND(Sku >= '0') AND(Sku <= 'ZZZZZZZZZZ') "
                     Sql += " AND(Lot >= '0') AND(Lot <= 'ZZZZZZZZZZ') AND(Loc >= '0') AND(Loc <= 'ZZZZZZZZZZ') "
                     Sql += " AND(Id >= ' ') AND(Id <= 'ZZZZZZZZZZZZZZZZZZ') " & AndFilter
+                    Sql += " GROUP BY StorerKey, Sku, WHSEID"
                     Sql += " UNION"
                 Next
                 If Sql.EndsWith("UNION") Then Sql = Sql.Remove(Sql.Length - 5)
-                Sql += ") as ds where 1=1 and SerialKey = " & MyID
+                Sql += ") as ds where 1=1 and WHSEID = '" & MyWarehouse & "'"
                 If ShowDetails Then
-                    Sql += " And StorerKey = '" & MyStorerKey & "' and Sku='" & MySku & "' and Status = '" & MyStatus & "'"
+                    Sql += " And StorerKey = '" & MyStorerKey & "' and Sku='" & MySku & "' "
 
                     If LCase(MyStatus) = "ok" Then
-                        Sql += " SELECT L.LOT, (L.qty-L.qtyallocated-L.qtypicked-L.qtyonhold- L.QTYPREALLOCATED) as QTY, LA.Lottable01, LA.Lottable02, LA.Lottable03, LA.Lottable04,  LA.Lottable05, LA.Lottable06, LA.Lottable07, LA.Lottable08, LA.Lottable09, LA.Lottable10, LA.Lottable11, LA.Lottable12 , S.Lottable01LABEL, S.Lottable02LABEL, S.Lottable03LABEL, S.Lottable04LABEL, S.Lottable05LABEL, S.Lottable06LABEL, S.Lottable07LABEL, S.Lottable08LABEL, S.Lottable09LABEL, S.Lottable10LABEL, S.Lottable11LABEL, S.Lottable12LABEL FROM " & MyWarehouse & ".LOT L," & MyWarehouse & ".LotAttribute LA,  " & MyWarehouse & ".SKU S WHERE  L.STORERKEY = '" & MyStorerKey & "'   AND L.SKU = '" & MySku & "' and L.LOT = LA.LOT AND L.SKU = LA.SKU AND L.STORERKEY = LA.STORERKEY AND S.SKU = L.SKU AND S.STORERKEY = L.STORERKEY AND (L.qty-L.qtyallocated-L.qtypicked-L.qtyonhold- L.QTYPREALLOCATED)>0 "
+                        Sql += " SELECT L.LOT, (L.qty-L.qtyallocated-L.qtypicked-L.qtyonhold- L.QTYPREALLOCATED) as QTY, LA.Lottable01, LA.Lottable02, LA.Lottable03, LA.Lottable04,  LA.Lottable05, LA.Lottable06, LA.Lottable07, LA.Lottable08, LA.Lottable09, LA.Lottable10, LA.Lottable11, LA.Lottable12 , S.Lottable01LABEL, S.Lottable02LABEL, S.Lottable03LABEL, S.Lottable04LABEL, S.Lottable05LABEL, S.Lottable06LABEL, S.Lottable07LABEL, S.Lottable08LABEL, S.Lottable09LABEL, S.Lottable10LABEL, S.Lottable11LABEL, S.Lottable12LABEL FROM " & MyWarehouse & ".LOT L," & MyWarehouse & ".LotAttribute LA,  " & MyWarehouse & ".SKU S WHERE  L.STORERKEY = '" & MyStorerKey & "'   AND L.SKU = '" & MySku & "' and L.LOT = LA.LOT AND L.SKU = LA.SKU AND L.STORERKEY = LA.STORERKEY AND S.SKU = L.SKU AND S.STORERKEY = L.STORERKEY AND (L.qty-L.qtyallocated-L.qtypicked-L.qtyonhold- L.QTYPREALLOCATED)>0 order by LOT asc"
                     Else
-                        Sql += " SELECT L.LOT, L.QTYONHOLD as QTY, LA.Lottable01, LA.Lottable02, LA.Lottable03, LA.Lottable04,  LA.Lottable05, LA.Lottable06, LA.Lottable07, LA.Lottable08, LA.Lottable09, LA.Lottable10, LA.Lottable11, LA.Lottable12 , S.Lottable01LABEL, S.Lottable02LABEL, S.Lottable03LABEL, S.Lottable04LABEL,   S.Lottable05LABEL, S.Lottable06LABEL, S.Lottable07LABEL, S.Lottable08LABEL, S.Lottable09LABEL, S.Lottable10LABEL, S.Lottable11LABEL, S.Lottable12LABEL FROM " & MyWarehouse & ".LOT L," & MyWarehouse & ".LotAttribute LA,  " & MyWarehouse & ".SKU S WHERE  L.STORERKEY = '" & MyStorerKey & "'   AND L.SKU = '" & MySku & "'   and L.LOT = LA.LOT AND L.SKU = LA.SKU AND L.STORERKEY = LA.STORERKEY AND S.SKU = L.SKU AND S.STORERKEY = L.STORERKEY AND L.QTYONHOLD>0"
+                        Sql += " SELECT L.LOT, L.QTYONHOLD as QTY, LA.Lottable01, LA.Lottable02, LA.Lottable03, LA.Lottable04,  LA.Lottable05, LA.Lottable06, LA.Lottable07, LA.Lottable08, LA.Lottable09, LA.Lottable10, LA.Lottable11, LA.Lottable12 , S.Lottable01LABEL, S.Lottable02LABEL, S.Lottable03LABEL, S.Lottable04LABEL,   S.Lottable05LABEL, S.Lottable06LABEL, S.Lottable07LABEL, S.Lottable08LABEL, S.Lottable09LABEL, S.Lottable10LABEL, S.Lottable11LABEL, S.Lottable12LABEL FROM " & MyWarehouse & ".LOT L," & MyWarehouse & ".LotAttribute LA,  " & MyWarehouse & ".SKU S WHERE  L.STORERKEY = '" & MyStorerKey & "'   AND L.SKU = '" & MySku & "'   and L.LOT = LA.LOT AND L.SKU = LA.SKU AND L.STORERKEY = LA.STORERKEY AND S.SKU = L.SKU AND S.STORERKEY = L.STORERKEY AND L.QTYONHOLD>0 order by LOT asc"
                     End If
                 End If
             End If

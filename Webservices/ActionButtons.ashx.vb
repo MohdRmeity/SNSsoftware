@@ -189,8 +189,11 @@ Public Class ActionButtons
                 externokey = !EXTERNORDERKEY.ToString()
                 Owner = !STORERKEY.ToString()
                 If Not String.IsNullOrEmpty(!RequestedShipDate.ToString()) Then
-                    Dim DateTime As DateTime = DateTime.ParseExact(!RequestedShipDate.ToString(), "MM/dd/yyyy HH:mm:ss", Nothing)
-                    reqdate = DateTime.ToString("dd/MM/yyyy HH:mm:ss")
+					'Mohamad Rmeity - Changing RequestedShipDate format in release
+                    'Dim DateTime As DateTime = DateTime.ParseExact(!RequestedShipDate.ToString(), "MM/dd/yyyy HH:mm:ss", Nothing)
+                    'reqdate = DateTime.ToString("dd/MM/yyyy HH:mm:ss")
+                    Dim DateTime As DateTime = DateTime.ParseExact(!RequestedShipDate.ToString(), "dd/MM/yyyy HH:mm:ss", Nothing)
+                    reqdate = DateTime.ToString("yyyy-MM-ddTHH:mm:ssZ")
                 End If
                 OrderXml += "<ShipmentOrder><ShipmentOrderHeader><ExternOrderKey>" & externokey & "</ExternOrderKey>" &
                 "<StorerKey>" & Owner & "</StorerKey><Type>" & !Type.ToString() & "</Type>" &

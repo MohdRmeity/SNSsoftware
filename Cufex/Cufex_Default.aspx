@@ -211,7 +211,7 @@
         AllowExportDashboardItems="True"
         OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
         OnCustomParameters="ASPxDashboard1_CustomParameters"
-        Height="899px"
+        Height="898px"
         IncludeDashboardIdToUrl="True"
         OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
         OnConnectionError="ASPxDashboard1_ConnectionError">

@@ -86,6 +86,8 @@ Public Class GetItems
             GetOrderTrackingQuery(SQL, SearchQuery)
         ElseIf SearchTable = "Inventory_Balance" Then
             GetInventoryBalanceQuery(SQL)
+            'Mohamad Rmeity - Sort by storer
+            SortBy = "StorerKey asc"
         ElseIf SearchTable = "REPORTSPORTAL" Then
             SearchTable = "REPORTSPROFILEDETAIL"
             If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable
@@ -776,12 +778,13 @@ Public Class GetItems
                 MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?storer=" & !StorerKey & "&sku=" & !Sku & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
-                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) & "?storer=" & !StorerKey & "&sku=" & !Sku & "'>"
+                MyRecords += "                        " & !StorerKey
+                MyRecords += "                    </td>"
+				'Mohamad Rmeity - Switching SKU & Owner
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+				MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) & "?storer=" & !StorerKey & "&sku=" & !Sku & "'>"
                 MyRecords += "                        " & !Sku
                 MyRecords += "                        </a>"
-                MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !StorerKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
                 MyRecords += "                        " & !Descr
@@ -1268,7 +1271,7 @@ Public Class GetItems
             With OBJTable.Rows(i)
                 MyRecords += "		<tr Class='GridRow GridResults'>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
-                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "~~~" & !Status & "~~~" & !StorerKey & "~~~" & !Sku & "~~~" & !Facility & "' data-queryurl=''></div>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !Status & "~~~" & !StorerKey & "~~~" & !Sku & "~~~" & !Facility & "' data-queryurl=''></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
                 MyRecords += "                    </td>"
@@ -1498,6 +1501,7 @@ Public Class GetItems
                     End If
                     warehouselevel = warehouselevel.Split("_")(1)
 
+                    'Mohamad Rmeity - Changing SO QUery
                     SQL += " select SerialKey, '" & wname & "' as Facility, StorerKey, OrderKey, "
                     SQL += " ConsigneeKey, ExternOrderKey, SUsr1, SUsr2, SUsr3, SUsr4, SUsr5, "
                     SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , OrderDate )", "(OrderDate + interval '" & TimeZone & "' hour)") & " as OrderDate, "
@@ -1509,6 +1513,17 @@ Public Class GetItems
                     SQL += " from " & warehouselevel & ".Orders where 1=1  " & AndFilter
                     SQL += " UNION"
                 Next
+
+                'SQL += " select top 1 SerialKey, '" & wname & "' as Facility, StorerKey, OrderKey, "
+                'SQL += " ConsigneeKey, ExternOrderKey, SUsr1, SUsr2, SUsr3, SUsr4, SUsr5, "
+                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , OrderDate )", "(OrderDate + interval '" & TimeZone & "' hour)") & " as OrderDate, "
+                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , ActualShipDate )", "(ActualShipDate + interval '" & TimeZone & "' hour)") & " as ActualShipDate, "
+                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , RequestedShipDate )", "(RequestedShipDate + interval '" & TimeZone & "' hour)") & " as RequestedShipDate, "
+                'SQL += " (select DESCRIPTION from wmwhse1.codelkup where code=Orders.Type And listname = 'ORDERTYPE' ) as OrderType, "
+                'SQL += " (select DESCRIPTION from wmwhse1.orderstatussetup where code=orders.Status ) as Status, "
+                'SQL += " (select Company from wmwhse1.storer where type=2 and storerkey=orders.ConsigneeKey) as ConsigneeName "
+                'SQL += " from  wmwhse1.Orders where 1=1  and Orderkey = '0000273661'"
+                'SQL += " UNION"
 
                 If SQL.EndsWith("UNION") Then SQL = SQL.Remove(SQL.Length - 5)
                 SQL += ") as ds where 1=1 "
@@ -1697,14 +1712,16 @@ Public Class GetItems
                     End If
                     warehouselevel = warehouselevel.Split("_")(1)
 
-                    SQL += " SELECT lli.SerialKey, '" & wname & "' as Facility, lli.StorerKey, lli.Sku, sum(lli.Qty) Qty, "
+                    'Mohamad Rmeity - Grouping by SKU/Facility rather than each LLI records
+                    SQL += " SELECT '" & wname & "' as Facility, lli.StorerKey, lli.Sku, sum(lli.Qty) Qty, "
                     SQL += " case when status ='OK' then  sum((lli.Qty-lli.QtyAllocated-lli.QtyPicked)) else 0 end Available, "
                     SQL += " lli.Status , s.DESCR as Description FROM " & warehouselevel & ".LOTxLOCxID lli , " & warehouselevel & ".SKU s "
                     SQL += " WHERE s.sku=lli.Sku And lli.StorerKey= s.STORERKEY And (lli.StorerKey >= '0') "
                     SQL += " AND(lli.StorerKey <= 'ZZZZZZZZZZ') AND(lli.Sku >= '0') AND(lli.Sku <= 'ZZZZZZZZZZ') "
                     SQL += " AND(Lot >= '0') AND(Lot <= 'ZZZZZZZZZZ') AND(Loc >= '0') AND(Loc <= 'ZZZZZZZZZZ') "
                     SQL += " AND(Id >= ' ') AND(Id <= 'ZZZZZZZZZZZZZZZZZZ') " & AndFilter
-                    SQL += " GROUP BY lli.SerialKey, lli.WhseID, lli.StorerKey, lli.Sku, lli.Status, s.descr"
+                    SQL += " GROUP BY lli.WhseID, lli.StorerKey, lli.Sku, lli.Status, s.descr "
+                    SQL += " HAVING sum(lli.Qty) > 0 "
                     SQL += " UNION"
                 Next
                 If SQL.EndsWith("UNION") Then SQL = SQL.Remove(SQL.Length - 5)

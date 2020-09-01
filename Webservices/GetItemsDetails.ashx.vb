@@ -324,6 +324,24 @@ Public Class GetItemsDetails
                 measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
                 MyRecords += "                        " & (Double.Parse(!OpenQty.ToString) / measureunit).ToString
                 MyRecords += "                    </td>"
+				'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!OriginalQty.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!QtyAllocated.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!QtyPicked.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!ShippedQty.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !PackKey
                 MyRecords += "                    </td>"

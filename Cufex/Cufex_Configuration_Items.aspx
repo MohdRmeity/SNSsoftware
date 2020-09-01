@@ -75,15 +75,16 @@
                     <td class="GridCell GridHead selectAllWidth">
                         <div class="AdjustColumns"></div>
                     </td>
-                    <td class="GridCell GridHead" data-id="Sku">
-                        <span class="MyTitleHead">Item</span>
+					<!-- Mohamad Rmeity - Switching Owner & SKU -->
+                    <td class="GridCell GridHead" data-id="StorerKey">
+                        <span class="MyTitleHead">Owner</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="StorerKey">
-                        <span class="MyTitleHead">Owner</span>
+                    <td class="GridCell GridHead" data-id="Sku">
+                        <span class="MyTitleHead">Item</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -143,11 +144,11 @@
                     <td class="GridCell GridHeadSearch selectAllWidth">
                         <div class="GridSearch"></div>
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Sku" />
+					<td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="Sku" />
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="Descr" />
@@ -389,8 +390,9 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-        <input type="hidden" class="MyFields" value="Sku" data-columnname="Item" data-priority="1" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="User ID" data-priority="2" data-hidden="false" data-primarykey="true" />
+		<!-- Mohamad Rmeity - Switching Owner & SKU -->
+        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Item" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="Sku" data-columnname="User ID" data-priority="2" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Descr" data-columnname="Item Description" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyFields" value="PackKey" data-columnname="Pack" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="TariffKey" />
