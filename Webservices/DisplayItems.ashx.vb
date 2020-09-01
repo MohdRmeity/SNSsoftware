@@ -1931,12 +1931,12 @@ Public Class DisplayItems
         Sql += " SELECT (CASE WHEN WHSEID = 'MULTI' THEN 'MULTI' ELSE (select db_alias from wmsadmin.pl_db where db_logid = WHSEID) END) AS FACILITY, * from dbo.ORDERTRACKINGDETAIL OT where 1=1 " & AndFilter & " Order By OrderLineNumber asc "
     End Sub
     Private Sub GetInventoryBalanceQuery(ByRef Sql As String, ByVal InvBalInfo As String())
-        Dim MyID As Integer = Val(InvBalInfo(0))
+        Dim MyID As Integer = Val(InvBalInfo(2))
         Dim AndFilter As String = ""
-        Dim MyStatus As String = InvBalInfo(1)
-        Dim MyStorerKey As String = InvBalInfo(2)
-        Dim MySku As String = InvBalInfo(3)
-        Dim MyWarehouse As String = CommonMethods.getFacilityDBName(InvBalInfo(4))
+        Dim MyStatus As String = InvBalInfo(0)
+        Dim MyStorerKey As String = InvBalInfo(1)
+        Dim MySku As String = InvBalInfo(2)
+        Dim MyWarehouse As String = CommonMethods.getFacilityDBName(InvBalInfo(3))
         If LCase(MyWarehouse.Substring(0, 6)) = "infor_" Then MyWarehouse = MyWarehouse.Substring(6, MyWarehouse.Length - 6)
         If LCase(MyWarehouse).Contains("_") Then MyWarehouse = MyWarehouse.Split("_")(1)
 
