@@ -13,11 +13,12 @@ Public Class GetItemsDetails
         Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Facility"))
         Dim Key As String = HttpContext.Current.Request.Item("Key")
+        Dim StorerKey As String = HttpContext.Current.Request.Item("StorerKey")
         Dim SortBy As String = HttpContext.Current.Request.Item("SortBy")
         Dim AndFilter As String = ""
-        Dim SQL As String = " set dateformat dmy select * from "
+        Dim SQL As String = " set dateformat mdy select * from "
 
-        If SearchTable <> "Warehouse_OrderManagement" Then
+        If SearchTable <> "Warehouse_OrderManagement" And SearchTable <> "Warehouse_OrderTracking" Then
             If Facility = "" Then
                 Facility = HttpContext.Current.Request.UrlReferrer.Query.Substring(HttpContext.Current.Request.UrlReferrer.Query.IndexOf("=") + 1).Split("&")(0)
             End If
@@ -39,12 +40,18 @@ Public Class GetItemsDetails
                 SQL += "ORDERDETAIL"
                 AndFilter = "OrderKey"
             End If
+            SQL += " where 1=1 and " & AndFilter & " = '" & Key & "'"
         Else
-            SQL += IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAGDETAIL"
-            AndFilter = "OrderKey"
+            If SearchTable = "Warehouse_OrderManagement" Then
+                SQL += IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAGDETAIL"
+                AndFilter = "OrderKey"
+                SQL += " where 1=1 and " & AndFilter & " = '" & Key & "'"
+            Else
+                GetOrderTrackingDetailsQuery(SQL, Key, StorerKey)
+                SortBy = "OrderLineNumber asc"
+            End If
         End If
 
-        SQL += " where 1=1 and " & AndFilter & " = '" & Key & "'"
 
         SearchItem(SearchQuery, SearchTable, SQL)
         SQL += " order by " & SortBy
@@ -61,7 +68,9 @@ Public Class GetItemsDetails
             ElseIf SearchTable = "Warehouse_SO" Then
                 GetSORecordsDetails(OBJTable, MyRecords, Facility)
             ElseIf SearchTable = "Warehouse_OrderManagement" Then
-                GetOrderManagementRecordsDetails(OBJTable, MyRecords, Facility)
+                GetOrderManagementRecordsDetails(OBJTable, MyRecords)
+            ElseIf SearchTable = "Warehouse_OrderTracking" Then
+                GetOrderTrackingRecordsDetails(OBJTable, MyRecords)
             End If
         End If
 
@@ -91,20 +100,22 @@ Public Class GetItemsDetails
 
                 If MySearchInsideTerms(0) = "Facility" And SearchTable = "USERCONTROL" Then
                     Sql += " And UserKey in (select UserKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & " USERCONTROLFACILITY where Facility in (select DB_Name from wmsadmin.pl_db where isActive='1' and db_enterprise='0' and DB_ALIAS "
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += "and ( " & MySearchInsideTerms(0)
                 Else
                     Sql += " and " & MySearchInsideTerms(0)
                 End If
 
                 If MySearchInsideTerms(1).Contains("%") Then
                     Sql += " Like N'" & MySearchInsideTerms(1) & "'"
-                ElseIf MySearchInsideTerms(1).Contains("<") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains(">") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                ElseIf MySearchInsideTerms(1).Contains("<") And Not MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<") + 1, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains(">") And Not MySearchInsideTerms(1).Contains(">=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">") + 1, "'") & "'"
                 ElseIf MySearchInsideTerms(1).Contains(">=") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains("=<") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">=") + 2, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<=") + 2, "'") & "'"
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("between ") Then
                     Sql += " " & MySearchInsideTerms(1)
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("today") Then
@@ -123,12 +134,27 @@ Public Class GetItemsDetails
                         Sql += ",'" & MySearchAndTerms(k) & "'"
                     Next
                     Sql += " )"
+                ElseIf LCase(MySearchInsideTerms(1)).Contains(";") Then
+                    Dim MySearchAndTerms() As String = Split(LCase(MySearchInsideTerms(1)), ";")
+                    Sql += " in ("
+                    For k = 0 To MySearchAndTerms.Length - 1
+                        Sql += IIf(k <> 0, ",", "") & "'" & MySearchAndTerms(k).Replace(" ", "") & "'"
+                    Next
+                    Sql += " )"
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
+                    Dim MyDateTime As DateTime
+                    If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
+                        Sql += " Or " & MySearchInsideTerms(0) & " = CAST ('" & MySearchInsideTerms(1) & "' as Date) "
+                    End If
                 Else
                     Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
                 End If
 
                 If MySearchInsideTerms(0) = "Facility" And SearchTable = "USERCONTROL" Then
                     Sql += " ))"
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += " )"
                 End If
             End If
         Next
@@ -298,6 +324,24 @@ Public Class GetItemsDetails
                 measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
                 MyRecords += "                        " & (Double.Parse(!OpenQty.ToString) / measureunit).ToString
                 MyRecords += "                    </td>"
+				'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!OriginalQty.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!QtyAllocated.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!QtyPicked.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                measureunit = CommonMethods.getUomMeasure(Facility, !PackKey.ToString, !UOM.ToString)
+                MyRecords += "                        " & (Double.Parse(!ShippedQty.ToString) / measureunit).ToString
+                MyRecords += "                    </td>"
+                'Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !PackKey
                 MyRecords += "                    </td>"
@@ -359,12 +403,11 @@ Public Class GetItemsDetails
             End With
         Next
     End Sub
-    Private Sub GetOrderManagementRecordsDetails(ByVal OBJTable As DataTable, ByRef MyRecords As String, ByVal Facility As String)
-        Dim Lottable04 As String, Lottable05 As String, measureunit As Double
+    Private Sub GetOrderManagementRecordsDetails(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        Dim Lottable04 As String, Lottable05 As String
         For i = 0 To OBJTable.Rows.Count - 1
             Lottable04 = ""
             Lottable05 = ""
-            measureunit = 1
             With OBJTable.Rows(i)
                 MyRecords += "		<tr Class='GridRow GridResults'>"
                 MyRecords += "                    <td class='GridCell selectAllWidth'>"
@@ -452,6 +495,86 @@ Public Class GetItemsDetails
                 MyRecords += "                </tr>"
             End With
         Next
+    End Sub
+    Private Sub GetOrderTrackingRecordsDetails(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        Dim OriginalQty, OpenQty, AvailableQty, QtyAllocated, QtyPicked, ShippedQty As Integer
+        For i = 0 To OBJTable.Rows.Count - 1
+            OriginalQty = 0
+            OpenQty = 0
+            AvailableQty = 0
+            QtyAllocated = 0
+            QtyPicked = 0
+            ShippedQty = 0
+            With OBJTable.Rows(i)
+                If Not .IsNull("OriginalQty") Then OriginalQty = Val(!OriginalQty)
+                If Not .IsNull("OpenQty") Then OpenQty = Val(!OpenQty)
+                If Not .IsNull("AvailableQty") Then AvailableQty = Val(!AvailableQty)
+                If Not .IsNull("QtyAllocated") Then QtyAllocated = Val(!QtyAllocated)
+                If Not .IsNull("QtyPicked") Then QtyPicked = Val(!QtyPicked)
+                If Not .IsNull("ShippedQty") Then ShippedQty = Val(!ShippedQty)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
+                MyRecords += "                        " & !Facility
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+                MyRecords += "                        " & !OrderKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
+                MyRecords += "                        " & !OrderLineNumber
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                MyRecords += "                        " & !ExternLineNo
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                MyRecords += "                        " & !Sku
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                MyRecords += "                        " & !SkuDescription
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & !CarrierName
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
+                MyRecords += "                        " & !PackKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='9'>"
+                MyRecords += "                        " & OriginalQty
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='10'>"
+                MyRecords += "                        " & OpenQty
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='11'>"
+                MyRecords += "                        " & AvailableQty
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='12'>"
+                MyRecords += "                        " & QtyAllocated
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='13'>"
+                MyRecords += "                        " & QtyPicked
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='14'>"
+                MyRecords += "                        " & ShippedQty
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='15'>"
+                MyRecords += "                        " & !PortalDescription
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
+
+    'Queries
+    Private Sub GetOrderTrackingDetailsQuery(ByRef Sql As String, ByVal ExternOrderKey As String, ByVal StorerKey As String)
+        Dim AndFilter As String = ""
+        AndFilter += " And ExternOrderKey = '" & ExternOrderKey & "'"
+        AndFilter += " And StorerKey = '" & StorerKey & "'"
+        Sql = " SELECT * from ( "
+        Sql += " SELECT (CASE WHEN WHSEID = 'MULTI' THEN 'MULTI' ELSE (select db_alias from wmsadmin.pl_db where db_logid = WHSEID) END) AS FACILITY, * from dbo.ORDERTRACKINGDETAIL where 1=1 " & AndFilter
+        Sql += " ) DS where 1=1 "
     End Sub
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable
         Get

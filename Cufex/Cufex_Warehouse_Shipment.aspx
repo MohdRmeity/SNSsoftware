@@ -24,6 +24,18 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -190,8 +202,9 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="OrderKey" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
@@ -205,11 +218,13 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="ConsigneeName" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Status" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderStatusSearch" data-id="Status">
+                        </select>
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="OrderType" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderTypeSearch" data-id="OrderType">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="CAST(OrderDate AS date)" />
@@ -295,7 +310,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Facility<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack">
+                                <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -314,7 +329,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Owner<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -333,14 +348,14 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Type<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType">
+                                <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType" data-mode="single">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Consignee</div>
                             <div>
-                                <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey">
+                                <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -386,6 +401,9 @@
                                 <input type="text" class="textRecordStyle InputSUsr5" />
                             </div>
                         </div>
+                        <div class="floatL Width100 DisplayNone" style="padding-top: 10px">
+                            <div class="dropzone"></div>
+                        </div>
                     </div>
                     <div class="floatL Width100 RecordDetail">
                         <div class="floatL">
@@ -400,16 +418,21 @@
                                         Back to List
                                     </div>
                                 </td>
+                                <td style="width: 13px;"></td>
                                 <td>
-                                    <div class="VerticalSep" style="display: none;"></div>
+                                    <a id="btnExportDetails" runat="server" class="btnExportDetails AnimateMe" title="Export"></a>
                                 </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <div class="VerticalSep2"></div>
+                                </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <a id="btnRefreshDetails" runat="server" class="btnRefreshDetails AnimateMe" title="Refresh"></a>
+                                </td>
+                                <td style="width: 13px;"></td>
                                 <td>
                                     <a id="btnNew" runat="server" class="btnNew AnimateMe">New
-                                    </a>
-                                </td>
-                                <td style="width: 13px; display: none;"></td>
-                                <td>
-                                    <a id="btnSaveDetail" runat="server" class="btnSaveDetail AnimateMe" style="display: none;">Add
                                     </a>
                                 </td>
                                 <td style="width: 13px;"></td>
@@ -449,6 +472,36 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
+                                <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN -->
+                                <td class="GridCell GridHead" data-id="OriginalQty">
+                                    <span class="MyTitleHead">Ordered Qty</span>
+                                    <div class="AbsoSorting">
+                                        <div class="SortUp"></div>
+                                        <div class="SortDown"></div>
+                                    </div>
+                                </td>
+                                <td class="GridCell GridHead" data-id="QtyAllocated">
+                                    <span class="MyTitleHead">Allocated Qty</span>
+                                    <div class="AbsoSorting">
+                                        <div class="SortUp"></div>
+                                        <div class="SortDown"></div>
+                                    </div>
+                                </td>
+                                <td class="GridCell GridHead" data-id="QtyPicked">
+                                    <span class="MyTitleHead">Picked Qty</span>
+                                    <div class="AbsoSorting">
+                                        <div class="SortUp"></div>
+                                        <div class="SortDown"></div>
+                                    </div>
+                                </td>
+                                <td class="GridCell GridHead" data-id="ShippedQty">
+                                    <span class="MyTitleHead">Shipped Qty</span>
+                                    <div class="AbsoSorting">
+                                        <div class="SortUp"></div>
+                                        <div class="SortDown"></div>
+                                    </div>
+                                </td>
+                                <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END -->
                                 <td class="GridCell GridHead" data-id="PackKey">
                                     <span class="MyTitleHead">Pack</span>
                                     <div class="AbsoSorting">
@@ -589,6 +642,20 @@
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="OpenQty" />
                                 </td>
+                                <%-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN --%>
+                                <td class="GridCell GridHeadSearch">
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="OriginalQty" />
+                                </td>
+                                <td class="GridCell GridHeadSearch">
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="QtyAllocated" />
+                                </td>
+                                <td class="GridCell GridHeadSearch">
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="QtyPicked" />
+                                </td>
+                                <td class="GridCell GridHeadSearch">
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="ShippedQty" />
+                                </td>
+                                <%-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END --%>
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="PackKey" />
                                 </td>
@@ -620,10 +687,10 @@
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable03" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
-                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable04" />
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Cast(Lottable04 As Date)" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
-                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable05" />
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Cast(Lottable05 As Date)" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable06" />
@@ -666,6 +733,12 @@
                                 <td class="GridCell GridContentCell borderRight0" data-id="18"></td>
                                 <td class="GridCell GridContentCell borderRight0" data-id="19"></td>
                                 <td class="GridCell GridContentCell borderRight0" data-id="20"></td>
+                                <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN -->
+                                <td class="GridCell GridContentCell borderRight0" data-id="21"></td>
+                                <td class="GridCell GridContentCell borderRight0" data-id="22"></td>
+                                <td class="GridCell GridContentCell borderRight0" data-id="23"></td>
+                                <td class="GridCell GridContentCell borderRight0" data-id="24"></td>
+                                <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END -->
                             </tr>
                         </table>
                         <div class="PagingContainer">
@@ -705,9 +778,10 @@
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew floatL">Item<span>*</span></div>
-                            <div>
-                                <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku">
+                            <div class="PositionRelative">
+                                <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku" data-mode="single">
                                 </select>
+                                <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility,Owner" data-requiredfields=".InputFacility,.InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?warehouse=.InputFacility&storer=.InputStorerKey" %>"></div>
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
@@ -716,17 +790,44 @@
                                 <input type="text" class="Details_textRecordStyle InputDetailsOpenQty" />
                             </div>
                         </div>
+                        <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN -->
+                        <div class="Details_FloatRecordNew floatL">
+                            <div class="Details_FloatRecordTitleNew">Ordered Qty</div>
+                            <div>
+                                <input type="text" class="Details_textRecordStyle InputDetailsOriginalQty" data-disabled=""/>
+                            </div>
+                        </div>
+                        <div class="Details_FloatRecordNew floatL">
+                            <div class="Details_FloatRecordTitleNew">Allocated Qty</div>
+                            <div>
+                                <input type="text" class="Details_textRecordStyle InputDetailsQtyAllocated" data-disabled=""/>
+                            </div>
+                        </div>
+                        <div class="Details_FloatRecordNew floatL">
+                            <div class="Details_FloatRecordTitleNew">Picked Qty</div>
+                            <div>
+                                <input type="text" class="Details_textRecordStyle InputDetailsQtyPicked" data-disabled=""/>
+                            </div>
+                        </div>
+                        <div class="Details_FloatRecordNew floatL">
+                            <div class="Details_FloatRecordTitleNew">Shipped Qty</div>
+                            <div>
+                                <input type="text" class="Details_textRecordStyle InputDetailsShippedQty" data-disabled=""/>
+                            </div>
+                        </div>
+                        <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END -->
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Pack</div>
-                            <div>
-                                <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails">
+                            <div class="PositionRelative">
+                                <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails" data-mode="single">
                                 </select>
+                                <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility" data-requiredfields=".InputFacility" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Packs", Nothing)) & "?warehouse=.InputFacility" %>"></div>
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">UOM</div>
                             <div>
-                                <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM">
+                                <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -832,8 +933,8 @@
                 <div class="MyAbso_Record_PopUpContainer">
                     <div class="R_PopupTitle">
                         SO and Details
-                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"><span class="ion-ios-checkmark-circle-outline"></span></div>
-                        <div class="ClosePopup AnimateMe"><span class="ion-ios-exit"></span></div>
+                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"></div>
+                        <div class="ClosePopup AnimateMe"></div>
                     </div>
                     <div style="position: relative; height: 500px; width: 100%;" class="MyContainerPopup GetFullHeightForPopup content_4">
                         <div class="iWantMyChildrenFloatHeight">
@@ -842,7 +943,7 @@
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">Facility*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack">
+                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -862,7 +963,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Owner*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -883,14 +984,14 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Type*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType">
+                                        <select data-placeholder="Select Types" multiple class="chosen-select InputOrderType" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Consignee</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey">
+                                        <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -960,8 +1061,9 @@
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Item*</div>
                                                 <div class="Details_FloatRecordField floatL" style="position: relative;">
-                                                    <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku">
+                                                    <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku" data-mode="single">
                                                     </select>
+                                                    <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility,Owner" data-requiredfields=".InputFacility,.InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?warehouse=.InputFacility&storer=.InputStorerKey" %>"></div>
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
@@ -972,16 +1074,24 @@
                                             </div>
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Pack</div>
-                                                <div class="Details_FloatRecordField floatL">
-                                                    <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails">
+                                                <div class="Details_FloatRecordField floatL" style="position: relative;">
+                                                    <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails" data-mode="single">
                                                     </select>
+                                                    <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility" data-requiredfields=".InputFacility" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Packs", Nothing)) & "?warehouse=.InputFacility" %>"></div>
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">UOM</div>
                                                 <div class="Details_FloatRecordField floatL">
-                                                    <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM">
+                                                    <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM" data-mode="single">
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <!-- Mohamad Rmeity - Adding Shipped Qty to Quick Entry/View -->
+                                            <div class="Details_FloatRecord floatL">
+                                                <div class="Details_FloatRecordTitle floatL">Shipped Qty</div>
+                                                <div class="Details_FloatRecordField floatL">
+                                                    <input type="text" class="Details_textRecordStyle InputDetailsShippedQty" readonly="true" disabled="disabled" />
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
@@ -1132,25 +1242,37 @@
         <input type="hidden" class="MyFields" value="SUsr4" data-columnname="UDF4" data-priority="15" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SUsr5" data-columnname="UDF5" data-priority="16" data-hidden="false" />
 
+        <input type="hidden" id="HiddenCanUploadFiles" runat="server" class="HiddenCanUploadFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewOwnFiles" runat="server" class="HiddenCanViewOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewAllFiles" runat="server" class="HiddenCanViewAllFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveOwnFiles" runat="server" class="HiddenCanRemoveOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveAllFiles" runat="server" class="HiddenCanRemoveAllFiles" value="0" />
+
         <input type="hidden" class="MyDetailsFields" value="ExternLineNo" data-columnname="Extern Line#" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyDetailsFields" value="Sku" data-columnname="Item" data-priority="2" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyDetailsFields" value="OpenQty" data-columnname="Open Qty" data-priority="3" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="PackKey" data-columnname="Pack" data-priority="4" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="UOM" data-columnname="UOM" data-priority="5" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="SUsr1" data-columnname="UDF1" data-priority="6" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="SUsr2" data-columnname="UDF2" data-priority="7" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="SUsr3" data-columnname="UDF3" data-priority="8" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="SUsr4" data-columnname="UDF4" data-priority="9" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="SUsr5" data-columnname="UDF5" data-priority="10" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable01" data-columnname="Lottable01" data-priority="11" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable02" data-columnname="Lottable02" data-priority="12" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable03" data-columnname="Lottable03" data-priority="13" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable04" data-columnname="Lottable04" data-priority="14" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable05" data-columnname="Lottable05" data-priority="15" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable06" data-columnname="Lottable06" data-priority="16" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable07" data-columnname="Lottable07" data-priority="17" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable08" data-columnname="Lottable08" data-priority="18" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable09" data-columnname="Lottable09" data-priority="19" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable10" data-columnname="Lottable10" data-priority="20" data-hidden="false" />
+        <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - BEGIN -->
+        <input type="hidden" class="MyDetailsFields" value="OriginalQty" data-columnname="Ordered Qty" data-priority="4" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="QtyAllocated" data-columnname="Allocated Qty" data-priority="5" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="QtyPicked" data-columnname="Picked Qty" data-priority="6" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="ShippedQty" data-columnname="Shipped Qty" data-priority="7" data-hidden="false" />
+        <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END -->
+        <input type="hidden" class="MyDetailsFields" value="PackKey" data-columnname="Pack" data-priority="8" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="UOM" data-columnname="UOM" data-priority="9" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="SUsr1" data-columnname="UDF1" data-priority="10" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="SUsr2" data-columnname="UDF2" data-priority="11" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="SUsr3" data-columnname="UDF3" data-priority="12" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="SUsr4" data-columnname="UDF4" data-priority="13" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="SUsr5" data-columnname="UDF5" data-priority="14" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable01" data-columnname="Lottable01" data-priority="15" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable02" data-columnname="Lottable02" data-priority="16" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable03" data-columnname="Lottable03" data-priority="17" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable04" data-columnname="Lottable04" data-priority="18" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable05" data-columnname="Lottable05" data-priority="19" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable06" data-columnname="Lottable06" data-priority="20" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable07" data-columnname="Lottable07" data-priority="21" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable08" data-columnname="Lottable08" data-priority="22" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable09" data-columnname="Lottable09" data-priority="23" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable10" data-columnname="Lottable10" data-priority="24" data-hidden="false" />
     </div>
 </asp:Content>

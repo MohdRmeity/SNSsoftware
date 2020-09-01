@@ -932,7 +932,7 @@ body {
 
 .ProfileData {
     width: 168px;
-    height: 95px;
+    height: 57px;
     border-radius: 3px;
     box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px 0 rgba(9, 30, 66, 0.31);
     background-color: #ffffff;
@@ -1006,6 +1006,14 @@ body {
         background-image: url(../../images/Cufex_Images/MenuHome.svg);
         width: 20px;
         height: 19px;
+    }
+
+    .MenuIcon.Administration {
+        background-image: url(../../images/Cufex_Images/MenuAdministration.svg);
+        width: 17px;
+        height: 21px;
+        background-size: 27px;
+        background-position: center;
     }
 
     .MenuIcon.Security {
@@ -1156,6 +1164,10 @@ body {
     color: #171725;
     margin-bottom: 15px;
 }
+
+    .MenuSubItem a {
+        display: inline-block;
+    }
 
 
     .MenuSubItem:hover {
@@ -1471,10 +1483,10 @@ body {
 }
 
 .CufexBG {
-    background-image: url(../../images/Cufex_Images/LoginBG.jpg);
+    /*background-image: url(../../images/Cufex_Images/LoginBG.jpg);*/
     background-position: top center;
     background-repeat: no-repeat;
-    background-color: #000;
+    background-color: #F7F7F7;
     width: 100%;
 }
 
@@ -11798,17 +11810,41 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
     height: 100vh;
 }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthMenu {
+        display: none;
+    }
+}
 
     .widthMenu.Closed {
         width: 60px;
     }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthMenu.Closed {
+        display: none;
+    }
+}
 
 .widthContent {
     width: calc(100% - 250px);
 }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthContent {
+        width: 100%;
+    }
+}
 
     .widthContent.Closed {
         width: calc(100% - 60px);
+    }
+@media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+    .widthContent.Closed {
+        width: 100%;
+    }
+}
+
+    .widthContent.FullContent {
+        width: 100%;
     }
 
 .MenuContainer {
@@ -11980,7 +12016,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     border: solid 1px #eaedf3;
     background-color: #ffffff;
     display: table;
-    box-shadow: 4px 0 14px 0 rgba(0, 0, 0, 0.09);
 }
 
 .GridRow {
@@ -11999,6 +12034,33 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
 }
 
+    .GridCell .chosen-container .chosen-choices {
+        border: none;
+        border-radius: 0;
+        padding: 7px 11px;
+    }
+
+        .GridCell .chosen-container .chosen-choices .chosen-search-input {
+            background-color: transparent;
+            border-width: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter-Regular' !important;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: italic;
+            letter-spacing: normal;
+            color: #C7CDD6 !important;
+        }
+
+    .GridCell .chosen-container.chosen-container-active .chosen-choices {
+        background-color: #f8f9fb;
+        border: 1px solid #CCC;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
 .GridRow:nth-child(even) {
     background-color: rgba(245, 248, 250, 0.5);
 }
@@ -12008,9 +12070,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-right: 23px;
     cursor: pointer;
 }
-
-
-
 
 .editWidth {
     width: 50px;
@@ -12087,6 +12146,24 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
     .editStyleView:hover {
         background-image: url(../../images/Cufex_Images/ViewB.svg);
+    }
+
+.selectStyle {
+    height: 20px;
+    background-image: url(../../images/Cufex_Images/Select.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    margin-right: 9px;
+}
+
+    .selectStyle:hover {
+        background-image: url(../../images/Cufex_Images/SelectB.svg);
     }
 
 .CloneStyle {
@@ -12167,8 +12244,23 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     left: -4px;
 }
 
-/*#endregion */
+.SearchDropDown {
+    position: absolute;
+    bottom: 5px;
+    right: 3px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../images/Cufex_Images/Search.svg);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
 
+    .SearchDropDown:hover {
+        background-image: url(../../images/Cufex_Images/SearchB.svg);
+    }
+
+/*#endregion */
 /*#region Common */
 .AllMenuItems {
     opacity: 1;
@@ -12297,7 +12389,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-color: #3673ff;
     }
 
-.btnDelete, .btnSave, .btnDeleteDetail, .btnSaveDetail {
+.btnDelete, .btnSave, .btnDeleteDetail {
     cursor: pointer;
     height: 35px;
     border-radius: 4px;
@@ -12317,12 +12409,12 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
 }
 
-.btnSave, .btnSaveDetail {
+.btnSave {
     padding-left: 38px;
     padding-right: 20px;
 }
 
-    .btnDelete:after, .btnSave:after, .btnDeleteDetail:after, .btnSaveDetail:after {
+    .btnDelete:after, .btnSave:after, .btnDeleteDetail:after {
         content: '';
         position: absolute;
         background-image: url(../../images/Cufex_Images/Delete.svg);
@@ -12339,14 +12431,14 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 20px;
     }
 
-    .btnSave:after, .btnSaveDetail:after {
+    .btnSave:after {
         background-image: url(../../images/Cufex_Images/Save.svg);
         width: 18px;
         height: 18px;
         left: 13px;
     }
 
-    .btnDelete:hover, .btnSave:hover, .btnDeleteDetail:hover, .btnSaveDetail:hover {
+    .btnDelete:hover, .btnSave:hover, .btnDeleteDetail:hover {
         background-color: #555;
         color: #FFF;
     }
@@ -12389,9 +12481,51 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 6px;
     }
 
-.VerticalSep {
-    border-left: 2px solid #e9eaec;
-    height: 35px;
+.btnExport, .btnExportDetails {
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/Export.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 13px;
+    display: none;
+    opacity: 0;
+}
+
+.btnImport {
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/Import.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 13px;
+    display: none;
+    opacity: 0;
+}
+
+.btnRefresh, .btnRefreshDetails {
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/Refresh.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 21px;
+    height: 23px;
+    vertical-align: middle;
+    margin-right: 13px;
+    display: none;
+    opacity: 0;
+}
+
+.VerticalSep, .VerticalSep2 {
+    border-left: 1px solid #e9eaec;
+    height: 27px;
+    vertical-align: middle;
+    display: none;
+    opacity: 0;
 }
 
 .AbsoInsideBtnGrey {
@@ -12479,6 +12613,9 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 .SearchClass {
+    position:absolute;
+    top:0;
+    left:0;
     background-color: transparent;
     border-width: 0;
     width: 100%;
@@ -12529,10 +12666,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         font-family: inherit;
     }
 
-.HeaderGridView .GridResults .GridContentCell[data-id='1']:not(.Initial) {
-    color: #3673ff !important;
-    text-decoration: underline;
-}
+    .HeaderGridView .GridResults .GridContentCell[data-id='1']:not(.Initial), .GridContentCell.Link {
+        color: #3673ff !important;
+        text-decoration: underline;
+    }
 
 .borderRight0 {
     border-right: 0;
@@ -13023,7 +13160,8 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-left: 21px;
     letter-spacing: normal;
     color: #354052;
-    padding-bottom: 45px;
+    margin-bottom: 45px;
+    display: inline-block;
 }
 
 .FloatRecord {
@@ -13079,6 +13217,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     line-height: normal;
     letter-spacing: normal;
     color: #9b9b9b;
+    display: inline-block;
 }
 
     .FloatRecordTitleNew span {
@@ -13094,7 +13233,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .FloatRecordField {
     width: 300px;
-    position:relative;
+    position: relative;
 }
 
 .textRecordStyle {
@@ -13119,7 +13258,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 
     .textRecordStyle.Error {
-        padding-right:25px;
+        padding-right: 25px;
         border: 1px solid #b0494e;
     }
 
@@ -13203,30 +13342,35 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .ClosePopup {
     position: absolute;
-    font-size: 30px;
-    right: 23px;
-    top: 20px;
-    color: #607497;
+    right: 20px;
+    top: 24px;
     cursor: pointer;
+    background-image: url(../../images/Cufex_Images/ClosePopup.svg);
+    background-repeat: no-repeat;
+    width: 23px;
+    height: 23px;
+    background-size: contain;
 }
 
     .ClosePopup:hover {
-        color: #3673ff;
+        background-image: url(../../images/Cufex_Images/ClosePopupH.svg);
     }
-
 
 
 .SaveRecordNow {
     position: absolute;
-    font-size: 30px;
-    right: 65px;
-    top: 20px;
-    color: #607497;
+    right: 55px;
+    top: 26px;
     cursor: pointer;
+    background-image: url(../../images/Cufex_Images/SavePopup.svg);
+    background-repeat: no-repeat;
+    width: 19px;
+    height: 19px;
+    background-size: contain;
 }
 
     .SaveRecordNow:hover {
-        color: #3673ff;
+        background-image: url(../../images/Cufex_Images/SavePopupH.svg);
     }
 
 .ActionHiddenButtons {
@@ -13320,6 +13464,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     line-height: normal;
     letter-spacing: normal;
     color: #9b9b9b;
+    display: inline-block;
 }
 
     .Details_FloatRecordTitleNew span {
@@ -13372,17 +13517,17 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .btnDeleteDtl {
     position: absolute;
     top: 10px;
-    right: 15px;
-    width: 32px;
-    height: 32px;
-    background-image: url(../../images/Cufex_Images/btnDeleteDtl.png);
-    background-size: 28px;
+    right: 21px;
+    width: 16px;
+    height: 20px;
+    background-image: url(../../images/Cufex_Images/DeletePopup.svg);
     background-repeat: no-repeat;
     cursor: pointer;
+    background-size: contain;
 }
 
     .btnDeleteDtl:hover {
-        background-image: url(../../images/Cufex_Images/btnDeleteDtlBlue.png);
+        background-image: url(../../images/Cufex_Images/DeletePopupH.svg);
     }
 
 .PasswordInfo {
@@ -13394,8 +13539,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     line-height: 1.3;
 }
 
+.jscolor {
+    background-color: #fafbfc;
+}
 /*#endregion*/
-
 /*#region Adjust Columns Popup */
 .Adjust_Columns_PopUp {
     display: none;
@@ -13551,6 +13698,192 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 1px;
     }
 /*#endregion */
+
+/*#region Carrier Events */
+
+.CarrierEventsMenuContainer {
+    position: fixed;
+    width: calc(100% - 250px);
+    height: 100vh;
+    z-index: 101 !important;
+}
+
+    .CarrierEventsMenuContainer.Active {
+        background-color: rgba(0,0,0,0.75);
+    }
+
+.CarrierEventsMenu {
+    position: absolute;
+    height: 100vh;
+    width: 0;
+    background-color: #FFF;
+    top: 0;
+    right: 0;
+}
+
+    .CarrierEventsMenu.Level1 {
+        width: 236px;
+    }
+
+.CarrierEventsHeader {
+    padding: 16px;
+    background-color: #3673ff;
+    position: relative;
+    height: 50px;
+}
+
+.CloseCarrierEvents {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    background-image: url(../../images/Cufex_Images/ClosePopup.svg);
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: center center;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: none;
+}
+
+.CarrierEventsHeaderTitle {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.05px;
+    height: 18px;
+    display: none;
+}
+
+.CarriersDiv {
+    position: relative;
+    padding: 20px 0 20px 16px;
+}
+
+.CarrierContainer {
+    position: relative;
+    padding-left: 35px;
+    margin-top: 25px;
+    width: 200px;
+    cursor: pointer;
+    background-image: url(../../images/Cufex_Images/MenuArrowRightGray.svg);
+    background-repeat: no-repeat;
+    background-position: 98.5% center;
+    background-size: 8px 10px;
+}
+
+    .CarrierContainer:first-child {
+        margin-top: 0;
+    }
+
+.EventDescription {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    width: 28px;
+    height: 28px;
+    background-image: url(../../images/Cufex_Images/Delivered.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.CarrierArrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    background-image: url(../../images/Cufex_Images/MenuArrowRightGray.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 5px;
+    height: 10px;
+}
+
+.CarrierConsignment {
+    color: #4a4a4a;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-transform: uppercase;
+}
+
+.CarrierName {
+    color: #4a4a4a;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 17px;
+}
+
+.CarrierEventsBtn {
+    position: absolute;
+    top: 50%;
+    left: -55px;
+    transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    width: 55px;
+    height: 55px;
+    border-radius: 6px 0 0 6px;
+    background-color: #3673ff;
+    display: none;
+    background-image: url(../../images/Cufex_Images/Truck.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+
+    .CarrierEventsBtn.Inactive {
+        background-color: #ececec;
+        cursor: default;
+    }
+
+.CarrierEventsNbrCircle {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0);
+    -o-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    width: 20px;
+    height: 20px;
+    border-radius: 12px;
+    border: 1px solid #ffffff;
+    background-color: #2553bd;
+}
+
+.CarrierEventsNbr {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.27px;
+}
+/*#endregion Carrier Events */
 
 /*#region Responsive */
 
@@ -13751,7 +14084,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
                 padding-right: 10px;
             }
 
-    .btnQuickEntry, .btnAddNew, .btnDelete, .btnSave, .btnDeleteDetail, .btnSaveDetail {
+    .btnQuickEntry, .btnAddNew, .btnDelete, .btnSave, .btnDeleteDetail {
         padding-top: 8px;
     }
 

@@ -24,14 +24,10 @@ Public Class UserConfiguration
                 Dim ColumnsWidthes As String = ""
                 Dim ColumnsHidden As String = ""
                 Dim GridTypes As String = ""
-                Dim MenuOpen As String = "1"
 
                 If ds IsNot Nothing Then
                     If ds.Tables(0).Rows.Count > 0 Then
                         UserConfigTable = ds.Tables(0)
-                    End If
-                    If ds.Tables(1).Rows.Count > 0 Then
-                        MenuOpen = ds.Tables(1).Rows(0)!MenuOpen
                     End If
                 End If
 
@@ -61,9 +57,6 @@ Public Class UserConfiguration
 
                 writer.WritePropertyName("GridTypes")
                 writer.WriteValue(GridTypes)
-
-                writer.WritePropertyName("MenuOpen")
-                writer.WriteValue(MenuOpen)
             End If
 
             writer.WriteEndObject()
@@ -71,66 +64,71 @@ Public Class UserConfiguration
         context.Response.Write(sw)
         context.Response.End()
     End Sub
-
     Private Function SetUserConfiguration() As String
-        Dim sql As String = ""
-        Dim tb As SQLExec = New SQLExec
-        Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
-        Dim UserKey As String = HttpContext.Current.Session("userkey").ToString
-        Dim MenuOpen As String = HttpContext.Current.Request.Item("MenuOpen")
-        Dim ColumnsNames As String = HttpContext.Current.Request.Item("ColumnsNames")
-        Dim ColumnsPriorities As String = HttpContext.Current.Request.Item("ColumnsPriorities")
-        Dim ColumnsWidthes As String = HttpContext.Current.Request.Item("ColumnsWidthes")
-        Dim ColumnsHidden As String = HttpContext.Current.Request.Item("ColumnsHidden")
-        Dim GridTypes As String = HttpContext.Current.Request.Item("GridTypes")
-        Dim tmp As String = ""
+        Try
+            Dim sql As String = ""
+            Dim tb As SQLExec = New SQLExec
+            Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
+            Dim UserKey As String = HttpContext.Current.Session("userkey").ToString
+            Dim MenuOpen As String = HttpContext.Current.Request.Item("MenuOpen")
+            Dim ColumnsNames As String = HttpContext.Current.Request.Item("ColumnsNames")
+            Dim ColumnsPriorities As String = HttpContext.Current.Request.Item("ColumnsPriorities")
+            Dim ColumnsWidthes As String = HttpContext.Current.Request.Item("ColumnsWidthes")
+            Dim ColumnsHidden As String = HttpContext.Current.Request.Item("ColumnsHidden")
+            Dim GridTypes As String = HttpContext.Current.Request.Item("GridTypes")
+            Dim tmp As String = ""
 
-        sql += " Update " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS "
-        sql += " Set MenuOpen = '" & MenuOpen & "' where UserKey = '" & UserKey & "'"
+            sql += " Update " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS "
+            sql += " Set MenuOpen = '" & MenuOpen & "' where UserKey = '" & UserKey & "'"
 
-        If SearchTable <> "" Then
-            sql += " delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
-            sql += " where UserKey = '" & UserKey & "' and ScreenName = '" & SearchTable & "'"
-            tmp = tb.Execute(sql)
+            If SearchTable <> "" Then
+                sql += " delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
+                sql += " where UserKey = '" & UserKey & "' and ScreenName = '" & SearchTable & "'"
+                tmp = tb.Execute(sql)
 
-            If tmp = "" Then
-                sql = ""
-                Dim ColumnsNamesArray As String() = ColumnsNames.Split(",")
-                Dim ColumnsPrioritiesArray As String() = ColumnsPriorities.Split(",")
-                Dim ColumnsWidthesArray As String() = ColumnsWidthes.Split(",")
-                Dim ColumnsHiddenArray As String() = ColumnsHidden.Split(",")
-                Dim GridTypesArray As String() = GridTypes.Split(",")
+                If tmp = "" Then
+                    sql = ""
+                    Dim ColumnsNamesArray As String() = ColumnsNames.Split(",")
+                    Dim ColumnsPrioritiesArray As String() = ColumnsPriorities.Split(",")
+                    Dim ColumnsWidthesArray As String() = ColumnsWidthes.Split(",")
+                    Dim ColumnsHiddenArray As String() = ColumnsHidden.Split(",")
+                    Dim GridTypesArray As String() = GridTypes.Split(",")
 
-                For i = 0 To ColumnsNamesArray.Length - 1
-                    sql += " insert into " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
-                    sql += " (ID, USERKEY, SCREENNAME, GRIDTYPE, COLUMNNAME, COLUMNPRIORITY, COLUMNWIDTH, COLUMNHIDDEN) VALUES ( "
-                    sql += "'" & (i + 1).ToString & "',"
-                    sql += "'" & UserKey & "',"
-                    sql += "'" & SearchTable & "',"
-                    sql += "'" & GridTypesArray(i).ToString & "',"
-                    sql += "'" & ColumnsNamesArray(i).ToString & "',"
-                    sql += "'" & ColumnsPrioritiesArray(i).ToString & "',"
-                    sql += "'" & ColumnsWidthesArray(i).ToString & "',"
-                    sql += "'" & ColumnsHiddenArray(i).ToString & "')"
-                Next
+                    For i = 0 To ColumnsNamesArray.Length - 1
+                        sql += " insert into " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
+                        sql += " (ID, USERKEY, SCREENNAME, GRIDTYPE, COLUMNNAME, COLUMNPRIORITY, COLUMNWIDTH, COLUMNHIDDEN) VALUES ( "
+                        sql += "'" & (i + 1).ToString & "',"
+                        sql += "'" & UserKey & "',"
+                        sql += "'" & SearchTable & "',"
+                        sql += "'" & GridTypesArray(i).ToString & "',"
+                        sql += "'" & ColumnsNamesArray(i).ToString & "',"
+                        sql += "'" & ColumnsPrioritiesArray(i).ToString & "',"
+                        sql += "'" & ColumnsWidthesArray(i).ToString & "',"
+                        sql += "'" & ColumnsHiddenArray(i).ToString & "')"
+                    Next
+                End If
             End If
-        End If
 
-        tmp = tb.Execute(sql)
-        Return tmp
+            tmp = tb.Execute(sql)
+            Return tmp
+        Catch ex As Exception
+            Return Nothing
+        End Try
     End Function
     Private Function GetUserConfiguration() As DataSet
-        Dim sql As String = ""
-        Dim tb As SQLExec = New SQLExec
-        Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
-        Dim UserKey As String = HttpContext.Current.Session("userkey").ToString
+        Try
+            Dim sql As String = ""
+            Dim tb As SQLExec = New SQLExec
+            Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
+            Dim UserKey As String = HttpContext.Current.Session("userkey").ToString
 
-        sql += " Select * from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
-        sql += " where UserKey = '" & UserKey & "' and ScreenName = '" & SearchTable & "' order by ID asc "
-        sql += " Select MenuOpen from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS"
-        sql += " where UserKey = '" & UserKey & "'"
+            sql += " Select * from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERSCONFIGURATION "
+            sql += " where UserKey = '" & UserKey & "' and ScreenName = '" & SearchTable & "' order by ID asc "
 
-        Return tb.Cursor(sql)
+            Return tb.Cursor(sql)
+        Catch ex As Exception
+        End Try
+        Return Nothing
     End Function
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable
         Get

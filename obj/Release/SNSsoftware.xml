@@ -1,0 +1,4209 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SNSsoftware
+</name>
+</assembly>
+<members>
+<member name="T:SNSsoftware.My.MyWebExtension">
+ <summary>
+ Module used to define the properties that are available in the My Namespace for Web projects.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:SNSsoftware.My.MyWebExtension.Computer">
+ <summary>
+ Returns information about the host computer.
+ </summary>
+</member>
+<member name="P:SNSsoftware.My.MyWebExtension.User">
+ <summary>
+ Returns information for the current Web user.
+ </summary>
+</member>
+<member name="P:SNSsoftware.My.MyWebExtension.Request">
+ <summary>
+ Returns Request object.
+ </summary>
+</member>
+<member name="P:SNSsoftware.My.MyWebExtension.Response">
+ <summary>
+ Returns Response object.
+ </summary>
+</member>
+<member name="P:SNSsoftware.My.MyWebExtension.Log">
+ <summary>
+ Returns the Asp log object.
+ </summary>
+</member>
+<member name="T:SNSsoftware.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:SNSsoftware.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:SNSsoftware.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:SNSsoftware.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ABCAnalysisReport">
+<summary>
+  Looks up a localized string similar to ABC Analysis Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Actions">
+<summary>
+  Looks up a localized string similar to Actions.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Active">
+<summary>
+  Looks up a localized string similar to Active.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ActualShipDate">
+<summary>
+  Looks up a localized string similar to Actual ShipDate.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Add">
+<summary>
+  Looks up a localized string similar to Add.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Address1">
+<summary>
+  Looks up a localized string similar to Address1.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Address2">
+<summary>
+  Looks up a localized string similar to Address2.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Address3">
+<summary>
+  Looks up a localized string similar to Address3.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Address4">
+<summary>
+  Looks up a localized string similar to Address4.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Address5">
+<summary>
+  Looks up a localized string similar to Address5.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Address6">
+<summary>
+  Looks up a localized string similar to Address6.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.AdjustmentReasoncodeKPI">
+<summary>
+  Looks up a localized string similar to Adjustment/Reason code KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.AdjustmentReasons">
+<summary>
+  Looks up a localized string similar to Adjustment Reasons.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Allocate">
+<summary>
+  Looks up a localized string similar to Allocate.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.AllocatedQty">
+<summary>
+  Looks up a localized string similar to Allocated Qty.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.AllOwners">
+<summary>
+  Looks up a localized string similar to All Owners.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ASN">
+<summary>
+  Looks up a localized string similar to ASN.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ASNReceipt">
+<summary>
+  Looks up a localized string similar to ASN/Receipt.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.AvailableQty">
+<summary>
+  Looks up a localized string similar to Available Qty.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Buyer">
+<summary>
+  Looks up a localized string similar to Buyer.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.BuyerReference">
+<summary>
+  Looks up a localized string similar to Buyer Reference.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Cancel">
+<summary>
+  Looks up a localized string similar to Cancel.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Carrier">
+<summary>
+  Looks up a localized string similar to Carrier.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Category">
+<summary>
+  Looks up a localized string similar to Category.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ChangePassword">
+<summary>
+  Looks up a localized string similar to Change Password.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.City">
+<summary>
+  Looks up a localized string similar to City.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.CloseToExpiryReport">
+<summary>
+  Looks up a localized string similar to Close To Expiry Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.CommingleItems">
+<summary>
+  Looks up a localized string similar to Commingle Items.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.CommingleLots">
+<summary>
+  Looks up a localized string similar to Commingle Lots.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Company">
+<summary>
+  Looks up a localized string similar to Company.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Configuration">
+<summary>
+  Looks up a localized string similar to Configuration.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ConfirmPassword">
+<summary>
+  Looks up a localized string similar to Confirm Password.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Consignee">
+<summary>
+  Looks up a localized string similar to Consignee.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ConsigneeKey">
+<summary>
+  Looks up a localized string similar to Consignee Key.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ConsigneeName">
+<summary>
+  Looks up a localized string similar to Consignee Name.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Contact1">
+<summary>
+  Looks up a localized string similar to Contact1.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Contact2">
+<summary>
+  Looks up a localized string similar to Contact2.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ContainerRef">
+<summary>
+  Looks up a localized string similar to Container Ref.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ContainerReference">
+<summary>
+  Looks up a localized string similar to Container Reference.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ContainerType">
+<summary>
+  Looks up a localized string similar to Container Type.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Country">
+<summary>
+  Looks up a localized string similar to Country.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.CountryofOrigin">
+<summary>
+  Looks up a localized string similar to Country of Origin.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Cube">
+<summary>
+  Looks up a localized string similar to Cube.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Currency">
+<summary>
+  Looks up a localized string similar to Currency.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Delete">
+<summary>
+  Looks up a localized string similar to Delete.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.DeleteConfirmation">
+<summary>
+  Looks up a localized string similar to Are you sure you want to delete the selected item(s)?.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Description">
+<summary>
+  Looks up a localized string similar to Description.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Edit">
+<summary>
+  Looks up a localized string similar to Edit.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.EffectiveDate">
+<summary>
+  Looks up a localized string similar to Effective Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Email">
+<summary>
+  Looks up a localized string similar to Email.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Email1">
+<summary>
+  Looks up a localized string similar to Email1.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Email2">
+<summary>
+  Looks up a localized string similar to Email2.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Email_PasswordCode">
+<summary>
+  Looks up a localized string similar to Dear &lt;b&gt;{0}&lt;/b&gt;,
+&lt;br/&gt;
+&lt;br/&gt;
+Your password reset code: &lt;b&gt;{1}&lt;/b&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;If you did not request to change password please ignore this message.&lt;/b&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+SNS.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Email_PasswordReset">
+<summary>
+  Looks up a localized string similar to Dear &lt;b&gt;{0}&lt;/b&gt;,
+&lt;br/&gt;
+&lt;br/&gt;
+Your password has been changed by the administrator.&lt;br/&gt;
+New Password: &lt;b&gt;{1}&lt;/b&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;b&gt;Please consider changing your password soon.&lt;/b&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+SNS..
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Entry">
+<summary>
+  Looks up a localized string similar to Entry.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Explode">
+<summary>
+  Looks up a localized string similar to Explode.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ExternLine">
+<summary>
+  Looks up a localized string similar to Extern Line#.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ExternLineNo">
+<summary>
+  Looks up a localized string similar to Extern Line No.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ExternOrderKey">
+<summary>
+  Looks up a localized string similar to Extern Order Key.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ExternPO">
+<summary>
+  Looks up a localized string similar to Extern PO.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ExternReceiptKey">
+<summary>
+  Looks up a localized string similar to Extern ReceiptKey.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Facility">
+<summary>
+  Looks up a localized string similar to Facility.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FirstName">
+<summary>
+  Looks up a localized string similar to First Name.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Flag">
+<summary>
+  Looks up a localized string similar to Flag.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromASN">
+<summary>
+  Looks up a localized string similar to From ASN.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromCustomerOrder">
+<summary>
+  Looks up a localized string similar to From Customer Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromDate">
+<summary>
+  Looks up a localized string similar to From Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromOrder">
+<summary>
+  Looks up a localized string similar to From Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromOrderDate">
+<summary>
+  Looks up a localized string similar to From Order Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromShipDate">
+<summary>
+  Looks up a localized string similar to From Ship Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromSku">
+<summary>
+  Looks up a localized string similar to From Sku.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromStorer">
+<summary>
+  Looks up a localized string similar to From Storer.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.FromZone">
+<summary>
+  Looks up a localized string similar to From Zone.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.GrossWgt">
+<summary>
+  Looks up a localized string similar to Gross Wgt.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.History">
+<summary>
+  Looks up a localized string similar to History.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Hold">
+<summary>
+  Looks up a localized string similar to Hold.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Home">
+<summary>
+  Looks up a localized string similar to Home.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ID">
+<summary>
+  Looks up a localized string similar to ID.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Inventory">
+<summary>
+  Looks up a localized string similar to Inventory.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.InventoryAdjustmentSummaryReport">
+<summary>
+  Looks up a localized string similar to Inventory Adjustment Summary Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.InventoryBalance">
+<summary>
+  Looks up a localized string similar to Inventory Balance.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.InventoryHoldKPI">
+<summary>
+  Looks up a localized string similar to Inventory Hold KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Item">
+<summary>
+  Looks up a localized string similar to Item.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ItemCatalogue">
+<summary>
+  Looks up a localized string similar to Item Catalogue.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ItemCatalogueDetails">
+<summary>
+  Looks up a localized string similar to Item Catalogue Details.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ItemDescription">
+<summary>
+  Looks up a localized string similar to Item Description.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ItemDetails">
+<summary>
+  Looks up a localized string similar to Item Details.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ItemGroup">
+<summary>
+  Looks up a localized string similar to Item Group.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Items">
+<summary>
+  Looks up a localized string similar to Items.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Key">
+<summary>
+  Looks up a localized string similar to Key.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.KPIs">
+<summary>
+  Looks up a localized string similar to KPIs.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.KPITitle">
+<summary>
+  Looks up a localized string similar to KPI Title.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.LastName">
+<summary>
+  Looks up a localized string similar to Last Name.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Line">
+<summary>
+  Looks up a localized string similar to Line#.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Load">
+<summary>
+  Looks up a localized string similar to Load.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.LoadWidget">
+<summary>
+  Looks up a localized string similar to Load Widget.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Location">
+<summary>
+  Looks up a localized string similar to Location.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.LOGIN">
+<summary>
+  Looks up a localized string similar to LOGIN.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Logout">
+<summary>
+  Looks up a localized string similar to Logout.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.LogoutConfirm">
+<summary>
+  Looks up a localized string similar to Are you sure you want to logout?.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.LoseId">
+<summary>
+  Looks up a localized string similar to LoseId.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable">
+<summary>
+  Looks up a localized string similar to Lottable.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable01">
+<summary>
+  Looks up a localized string similar to Lottable01.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable02">
+<summary>
+  Looks up a localized string similar to Lottable02.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable03">
+<summary>
+  Looks up a localized string similar to Lottable03.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable04">
+<summary>
+  Looks up a localized string similar to Lottable04.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable05">
+<summary>
+  Looks up a localized string similar to Lottable05.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable06">
+<summary>
+  Looks up a localized string similar to Lottable06.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable07">
+<summary>
+  Looks up a localized string similar to Lottable07.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable08">
+<summary>
+  Looks up a localized string similar to Lottable08.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable09">
+<summary>
+  Looks up a localized string similar to Lottable09.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable10">
+<summary>
+  Looks up a localized string similar to Lottable10.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable11">
+<summary>
+  Looks up a localized string similar to Lottable11.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Lottable12">
+<summary>
+  Looks up a localized string similar to Lottable12.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ManagementOrder">
+<summary>
+  Looks up a localized string similar to Management Order#.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.MaxExpiryDate">
+<summary>
+  Looks up a localized string similar to Max Expiry Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.MeasuredBy">
+<summary>
+  Looks up a localized string similar to Measured By.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.MinExpiryDate">
+<summary>
+  Looks up a localized string similar to Min Expiry Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NBofOrdersNotReleasedtoWMSKPI">
+<summary>
+  Looks up a localized string similar to NB# of Orders Not Released to WMS KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NBofPendingOrdersKPI">
+<summary>
+  Looks up a localized string similar to NB# of Pending Orders KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NetWgt">
+<summary>
+  Looks up a localized string similar to Net Wgt.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewAsn">
+<summary>
+  Looks up a localized string similar to New Asn.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewASNReceipt">
+<summary>
+  Looks up a localized string similar to New ASN/Receipt.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewDetail">
+<summary>
+  Looks up a localized string similar to New Detail.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewItem">
+<summary>
+  Looks up a localized string similar to New Item.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewItemCatalogue">
+<summary>
+  Looks up a localized string similar to New Item Catalogue.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewOrder">
+<summary>
+  Looks up a localized string similar to New Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewOrderManagement">
+<summary>
+  Looks up a localized string similar to New Order Management.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewPassword">
+<summary>
+  Looks up a localized string similar to New Password.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewPO">
+<summary>
+  Looks up a localized string similar to New PO.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewProfile">
+<summary>
+  Looks up a localized string similar to New Profile.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewPurchaseOrder">
+<summary>
+  Looks up a localized string similar to New Purchase Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewShipmentOrder">
+<summary>
+  Looks up a localized string similar to New Shipment Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewShipTo">
+<summary>
+  Looks up a localized string similar to New Ship To.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewSO">
+<summary>
+  Looks up a localized string similar to New SO.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewSupplier">
+<summary>
+  Looks up a localized string similar to New Supplier.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewUser">
+<summary>
+  Looks up a localized string similar to New User.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.NewUserControl">
+<summary>
+  Looks up a localized string similar to New User Control.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.No">
+<summary>
+  Looks up a localized string similar to No.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OpenQty">
+<summary>
+  Looks up a localized string similar to Open Qty.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Order">
+<summary>
+  Looks up a localized string similar to Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OrderDate">
+<summary>
+  Looks up a localized string similar to Order Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OrderKey">
+<summary>
+  Looks up a localized string similar to Order Key.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OrderManagement">
+<summary>
+  Looks up a localized string similar to Order Management.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OrderManagementEntry">
+<summary>
+  Looks up a localized string similar to Order Management Entry.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OrderManagKey">
+<summary>
+  Looks up a localized string similar to Order ManagKey.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OrdersNotReleasedtoWMSKPI">
+<summary>
+  Looks up a localized string similar to Orders Not Released to WMS KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OriginalPassword">
+<summary>
+  Looks up a localized string similar to Original Password.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.OriginalQty">
+<summary>
+  Looks up a localized string similar to Original Qty.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Owner">
+<summary>
+  Looks up a localized string similar to Owner.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Pack">
+<summary>
+  Looks up a localized string similar to Pack.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PackDescription">
+<summary>
+  Looks up a localized string similar to Pack Description.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PackingListReport">
+<summary>
+  Looks up a localized string similar to Packing List Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Password">
+<summary>
+  Looks up a localized string similar to Password.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PasswordQuote">
+<summary>
+  Looks up a localized string similar to * Password must be at least 10 characters, have one upper case letter, one lower case letter and one base 10 digits (0 to 9).
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PendingOrdersKPI">
+<summary>
+  Looks up a localized string similar to Pending Orders KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PermissionError">
+<summary>
+  Looks up a localized string similar to You do not have permission to this screen.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Phone1">
+<summary>
+  Looks up a localized string similar to Phone1.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Phone2">
+<summary>
+  Looks up a localized string similar to Phone2.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PickedQty">
+<summary>
+  Looks up a localized string similar to Picked Qty.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PO">
+<summary>
+  Looks up a localized string similar to PO.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PODate">
+<summary>
+  Looks up a localized string similar to PO Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.POKey">
+<summary>
+  Looks up a localized string similar to PO Key.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PONumber">
+<summary>
+  Looks up a localized string similar to PO Number.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Price">
+<summary>
+  Looks up a localized string similar to Price.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PrintReceivingTallySheet">
+<summary>
+  Looks up a localized string similar to Print Receiving Tally Sheet.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Profile">
+<summary>
+  Looks up a localized string similar to Profile.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ProfileDetails">
+<summary>
+  Looks up a localized string similar to Profile Details.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ProfileName">
+<summary>
+  Looks up a localized string similar to Profile Name.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Profiles">
+<summary>
+  Looks up a localized string similar to Profiles.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PurchaseOrder">
+<summary>
+  Looks up a localized string similar to Purchase Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.PurchaseOrder1">
+<summary>
+  Looks up a localized string similar to Purchase Order#.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.QtyAvailable">
+<summary>
+  Looks up a localized string similar to Qty Available.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.QtyExpected">
+<summary>
+  Looks up a localized string similar to Qty Expected.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.QtyonHand">
+<summary>
+  Looks up a localized string similar to Qty on Hand.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.QtyOrdered">
+<summary>
+  Looks up a localized string similar to Qty Ordered.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.QtyPicked">
+<summary>
+  Looks up a localized string similar to Qty Picked.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.QtyReceived">
+<summary>
+  Looks up a localized string similar to Qty Received.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.QtyShipped">
+<summary>
+  Looks up a localized string similar to Qty Shipped.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Reason">
+<summary>
+  Looks up a localized string similar to Reason.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Receipt">
+<summary>
+  Looks up a localized string similar to Receipt.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReceiptDate">
+<summary>
+  Looks up a localized string similar to Receipt Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReceiptEntry">
+<summary>
+  Looks up a localized string similar to Receipt Entry.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReceiptKey">
+<summary>
+  Looks up a localized string similar to ReceiptKey.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReceiptLine">
+<summary>
+  Looks up a localized string similar to Receipt Line#.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReceivedASNsKPI">
+<summary>
+  Looks up a localized string similar to Received ASNs KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReceivedGoodsReport">
+<summary>
+  Looks up a localized string similar to Received Goods Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReceivingTallySheetReport">
+<summary>
+  Looks up a localized string similar to Receiving Tally Sheet Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.refresh">
+<summary>
+  Looks up a localized string similar to refresh.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReleaseAllocate">
+<summary>
+  Looks up a localized string similar to Release &amp; Allocate.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReleasetoSCE">
+<summary>
+  Looks up a localized string similar to Release to SCE.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Report">
+<summary>
+  Looks up a localized string similar to Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReportName">
+<summary>
+  Looks up a localized string similar to Report Name.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Reports">
+<summary>
+  Looks up a localized string similar to Reports.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReportsKPIs">
+<summary>
+  Looks up a localized string similar to Reports &amp; KPIs.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReportTitle">
+<summary>
+  Looks up a localized string similar to Report Title.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ReqShipDate">
+<summary>
+  Looks up a localized string similar to Req ShipDate.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.RequestedShipDate">
+<summary>
+  Looks up a localized string similar to Requested ShipDate.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Returntolist">
+<summary>
+  Looks up a localized string similar to Return to list.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Save">
+<summary>
+  Looks up a localized string similar to Save.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.SCAC">
+<summary>
+  Looks up a localized string similar to SCAC.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ScreenAction">
+<summary>
+  Looks up a localized string similar to Screen Action.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Search">
+<summary>
+  Looks up a localized string similar to Search.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Security">
+<summary>
+  Looks up a localized string similar to Security.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.SellerReference">
+<summary>
+  Looks up a localized string similar to Seller Reference.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.SERIALKEY">
+<summary>
+  Looks up a localized string similar to SERIAL KEY.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShipmentOrder">
+<summary>
+  Looks up a localized string similar to Shipment Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShipmentOrderEntry">
+<summary>
+  Looks up a localized string similar to Shipment Order Entry.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShipmentOrderSummaryReport">
+<summary>
+  Looks up a localized string similar to Shipment Order Summary Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShippedOrdersKPI">
+<summary>
+  Looks up a localized string similar to Shipped Orders KPI.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShippedQty">
+<summary>
+  Looks up a localized string similar to Shipped Qty.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShipTo">
+<summary>
+  Looks up a localized string similar to Ship To.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShipToDetails">
+<summary>
+  Looks up a localized string similar to Ship To Details.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShowParameters">
+<summary>
+  Looks up a localized string similar to Show Parameters.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ShowReport">
+<summary>
+  Looks up a localized string similar to Show Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.So">
+<summary>
+  Looks up a localized string similar to So.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.State">
+<summary>
+  Looks up a localized string similar to State.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Status">
+<summary>
+  Looks up a localized string similar to Status.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.StockMovementReport">
+<summary>
+  Looks up a localized string similar to Stock Movement Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.StockReport">
+<summary>
+  Looks up a localized string similar to Stock Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Supplier">
+<summary>
+  Looks up a localized string similar to Supplier.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.SupplierDetails">
+<summary>
+  Looks up a localized string similar to Supplier Details.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Suppliers">
+<summary>
+  Looks up a localized string similar to Suppliers.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.TariffKey">
+<summary>
+  Looks up a localized string similar to Tariff Key.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.TarrifKey">
+<summary>
+  Looks up a localized string similar to Tarrif Key.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToASN">
+<summary>
+  Looks up a localized string similar to To ASN.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToCustomerOrder">
+<summary>
+  Looks up a localized string similar to To Customer Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToDate">
+<summary>
+  Looks up a localized string similar to To Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToLocation">
+<summary>
+  Looks up a localized string similar to To Location.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToLPN">
+<summary>
+  Looks up a localized string similar to To LPN.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToOrder">
+<summary>
+  Looks up a localized string similar to To Order.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToOrderDate">
+<summary>
+  Looks up a localized string similar to To Order Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToShipDate">
+<summary>
+  Looks up a localized string similar to To Ship Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToSku">
+<summary>
+  Looks up a localized string similar to To Sku.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToStorer">
+<summary>
+  Looks up a localized string similar to To Storer.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ToZone">
+<summary>
+  Looks up a localized string similar to To Zone.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.TransportationMode">
+<summary>
+  Looks up a localized string similar to Transportation Mode.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Type">
+<summary>
+  Looks up a localized string similar to Type.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UDf1">
+<summary>
+  Looks up a localized string similar to UDf1.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UDf2">
+<summary>
+  Looks up a localized string similar to UDf2.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UDf3">
+<summary>
+  Looks up a localized string similar to UDf3.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UDf4">
+<summary>
+  Looks up a localized string similar to UDf4.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UDf5">
+<summary>
+  Looks up a localized string similar to UDf5.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UOM">
+<summary>
+  Looks up a localized string similar to UOM.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UPDATEPASSWORD">
+<summary>
+  Looks up a localized string similar to UPDATE PASSWORD.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.User">
+<summary>
+  Looks up a localized string similar to User.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UserControl">
+<summary>
+  Looks up a localized string similar to User Control.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UserControlDetails">
+<summary>
+  Looks up a localized string similar to User Control Details.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UserDetails">
+<summary>
+  Looks up a localized string similar to User Details.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UserFacility">
+<summary>
+  Looks up a localized string similar to User Facility.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UserID">
+<summary>
+  Looks up a localized string similar to User ID.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.UserProfile">
+<summary>
+  Looks up a localized string similar to User Profile.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Users">
+<summary>
+  Looks up a localized string similar to Users.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.View">
+<summary>
+  Looks up a localized string similar to View.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ViewReports">
+<summary>
+  Looks up a localized string similar to View Reports.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Warehouse">
+<summary>
+  Looks up a localized string similar to Warehouse.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.WarehouseRef">
+<summary>
+  Looks up a localized string similar to Warehouse Ref.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.WarehouseReference">
+<summary>
+  Looks up a localized string similar to Warehouse Reference.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.WarehouseSummaryReport">
+<summary>
+  Looks up a localized string similar to Warehouse Summary Report.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Welcome">
+<summary>
+  Looks up a localized string similar to Welcome.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.wmid">
+<summary>
+  Looks up a localized string similar to wmid.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.wmsid">
+<summary>
+  Looks up a localized string similar to wmsid.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.WMSOrderKey">
+<summary>
+  Looks up a localized string similar to WMS OrderKey.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Yes">
+<summary>
+  Looks up a localized string similar to Yes.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.Zip">
+<summary>
+  Looks up a localized string similar to Zip.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources.ZipCode">
+<summary>
+  Looks up a localized string similar to Zip Code.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources._Date">
+<summary>
+  Looks up a localized string similar to Date.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources._New">
+<summary>
+  Looks up a localized string similar to New.
+</summary>
+</member>
+<member name="P:SNSsoftware.Resources.Resources._ReadOnly">
+<summary>
+  Looks up a localized string similar to Read Only.
+</summary>
+</member>
+<member name="F:SNSsoftware.Cufex_MasterHeader._MasterHeaderControls">
+<summary>
+MasterHeaderControls control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_MasterHeader._lblWelcome">
+<summary>
+lblWelcome control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_MasterHeader._imgProfile">
+<summary>
+imgProfile control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ExportLogs._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ExportLogs._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ExportLogs._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagement._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagement._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagement._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagementLogs._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagementLogs._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_FileManagementLogs._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_ImportLogs._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_ImportLogs._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_ImportLogs._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Administration_UITemplates._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ItemCatalogue._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipFrom._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_ShipTo._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Dashboard._ASPxTimer1">
+<summary>
+ASPxTimer1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Dashboard._ASPxDashboard1">
+<summary>
+ASPxDashboard1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._head">
+<summary>
+head control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_DashboardSite._ContentPlaceHolder1">
+<summary>
+ContentPlaceHolder1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Popup_Items._QueryUrlStr">
+<summary>
+QueryUrlStr control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Popup_Locations._QueryUrlStr">
+<summary>
+QueryUrlStr control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Popup_Packs._QueryUrlStr">
+<summary>
+QueryUrlStr control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Reporting_ReportDesigner._ASPxReportDesigner">
+<summary>
+ASPxReportDesigner control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Reporting_ReportViewer._ASPxWebDocumentViewer">
+<summary>
+ASPxWebDocumentViewer control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Reporting_ViewReports._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Reporting_ViewReports._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._txtCode">
+<summary>
+txtCode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._txtPassword">
+<summary>
+txtPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._txtConfirmPassword">
+<summary>
+txtConfirmPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._CVError1">
+<summary>
+CVError1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._rqCode">
+<summary>
+rqCode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._rqPassword">
+<summary>
+rqPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._rqConfirmPassword">
+<summary>
+rqConfirmPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ResetPasswordByCode._BtnSubmit">
+<summary>
+BtnSubmit control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ForgotPassword._txtUserName">
+<summary>
+txtUserName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ForgotPassword._txtEmail">
+<summary>
+txtEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ForgotPassword._CVError1">
+<summary>
+CVError1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ForgotPassword._rqUsername">
+<summary>
+rqUsername control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ForgotPassword._rqEmail">
+<summary>
+rqEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_ForgotPassword._BtnSubmit">
+<summary>
+BtnSubmit control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._txtUserName">
+<summary>
+txtUserName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._txtPassword">
+<summary>
+txtPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._CVError1">
+<summary>
+CVError1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._rqUsername">
+<summary>
+rqUsername control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._rqPassword">
+<summary>
+rqPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._matching">
+<summary>
+matching control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._txtConfirmPassword">
+<summary>
+txtConfirmPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._rqConfirmPassword">
+<summary>
+rqConfirmPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._errorS">
+<summary>
+errorS control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._CVError2">
+<summary>
+CVError2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._LoginButton">
+<summary>
+LoginButton control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._BtnLogin">
+<summary>
+BtnLogin control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._UpdatePasswordButton">
+<summary>
+UpdatePasswordButton control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._BtnUpdatePassword">
+<summary>
+BtnUpdatePassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._errorU">
+<summary>
+errorU control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex._CVError3">
+<summary>
+CVError3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Configuration_Items._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_ChangePassword._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_ProfilesDetails._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_ProfilesDetails._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_ProfilesDetails._SearchRow2">
+<summary>
+SearchRow2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_ProfilesDetails._SearchRow3">
+<summary>
+SearchRow3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_ProfilesDetails._QueryUrlStr">
+<summary>
+QueryUrlStr control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Profiles._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UsersControl._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_UserProfile._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnImport">
+<summary>
+btnImport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._TableAction1">
+<summary>
+TableAction1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._TableAction2">
+<summary>
+TableAction2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Security_Users._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Inventory_Balance._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Inventory_Balance._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Inventory_Balance._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._TableAction1">
+<summary>
+TableAction1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._TableAction2">
+<summary>
+TableAction2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnNew">
+<summary>
+btnNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnDeleteDetail">
+<summary>
+btnDeleteDetail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._SearchRowDetails">
+<summary>
+SearchRowDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_OrderManagement._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._TableAction1">
+<summary>
+TableAction1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._TableAction2">
+<summary>
+TableAction2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnNew">
+<summary>
+btnNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnDeleteDetail">
+<summary>
+btnDeleteDetail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._SearchRowDetails">
+<summary>
+SearchRowDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_Shipment._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnNew">
+<summary>
+btnNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnDeleteDetail">
+<summary>
+btnDeleteDetail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._SearchRowDetails">
+<summary>
+SearchRowDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_ASN._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnExport">
+<summary>
+btnExport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnRefresh">
+<summary>
+btnRefresh control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnQuickEntry">
+<summary>
+btnQuickEntry control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnSaveHeader">
+<summary>
+btnSaveHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnDelete">
+<summary>
+btnDelete control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._SearchRow">
+<summary>
+SearchRow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnExportDetails">
+<summary>
+btnExportDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnRefreshDetails">
+<summary>
+btnRefreshDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnNew">
+<summary>
+btnNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnDeleteDetail">
+<summary>
+btnDeleteDetail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._SearchRowDetails">
+<summary>
+SearchRowDetails control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenID">
+<summary>
+HiddenID control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanUploadFiles">
+<summary>
+HiddenCanUploadFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanViewOwnFiles">
+<summary>
+HiddenCanViewOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanViewAllFiles">
+<summary>
+HiddenCanViewAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanRemoveOwnFiles">
+<summary>
+HiddenCanRemoveOwnFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Warehouse_PO._HiddenCanRemoveAllFiles">
+<summary>
+HiddenCanRemoveAllFiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._lblExpandCollapseStatus">
+<summary>
+lblExpandCollapseStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._btnReload">
+<summary>
+btnReload control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._RefreshSettings">
+<summary>
+RefreshSettings control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._RefeshTimeLabel">
+<summary>
+RefeshTimeLabel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._ASPxTimer1">
+<summary>
+ASPxTimer1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._ASPxDashboard1">
+<summary>
+ASPxDashboard1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._MyHiddenButton">
+<summary>
+MyHiddenButton control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Default._HiddenTime">
+<summary>
+HiddenTime control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._metaPlaceHolder">
+<summary>
+metaPlaceHolder control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._Cufex_CommonCss">
+<summary>
+Cufex_CommonCss control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._Cufex_HeadContent">
+<summary>
+Cufex_HeadContent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._MasterPageBodyTag">
+<summary>
+MasterPageBodyTag control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMainContainer">
+<summary>
+DivMainContainer control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._TableNotloggedIn">
+<summary>
+TableNotloggedIn control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._widthMenu">
+<summary>
+widthMenu control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._SideMenu">
+<summary>
+SideMenu control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._MainLogo">
+<summary>
+MainLogo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Home_Def">
+<summary>
+DivMain_Home_Def control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Home_Def_MenuArrow">
+<summary>
+DivMain_Home_Def_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Administration">
+<summary>
+DivMain_Administration control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Administration_MenuArrow">
+<summary>
+DivMain_Administration_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_ExportLogs">
+<summary>
+DivSubMain_Administration_ExportLogs control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_ImportLogs">
+<summary>
+DivSubMain_Administration_ImportLogs control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_FileManagementLogs">
+<summary>
+DivSubMain_Administration_FileManagementLogs control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_FileManagement">
+<summary>
+DivSubMain_Administration_FileManagement control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Administration_UITemplates">
+<summary>
+DivSubMain_Administration_UITemplates control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Security">
+<summary>
+DivMain_Security control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Security_MenuArrow">
+<summary>
+DivMain_Security_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Security_ChangePassword">
+<summary>
+DivSubMain_Security_ChangePassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Security_Users">
+<summary>
+DivSubMain_Security_Users control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Security_UsersControl">
+<summary>
+DivSubMain_Security_UsersControl control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Security_Profiles">
+<summary>
+DivSubMain_Security_Profiles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Security_UserProfile">
+<summary>
+DivSubMain_Security_UserProfile control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Configuration">
+<summary>
+DivMain_Configuration control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Configuration_MenuArrow">
+<summary>
+DivMain_Configuration_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Configuration_ShipTo">
+<summary>
+DivSubMain_Configuration_ShipTo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Configuration_ShipFrom">
+<summary>
+DivSubMain_Configuration_ShipFrom control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Configuration_Items">
+<summary>
+DivSubMain_Configuration_Items control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Configuration_ItemCatalogue">
+<summary>
+DivSubMain_Configuration_ItemCatalogue control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Warehouse">
+<summary>
+DivMain_Warehouse control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Warehouse_MenuArrow">
+<summary>
+DivMain_Warehouse_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Warehouse_PO">
+<summary>
+DivSubMain_Warehouse_PO control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Warehouse_ASN">
+<summary>
+DivSubMain_Warehouse_ASN control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Warehouse_Shipment">
+<summary>
+DivSubMain_Warehouse_Shipment control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Warehouse_OrderManagement">
+<summary>
+DivSubMain_Warehouse_OrderManagement control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Inventory">
+<summary>
+DivMain_Inventory control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Inventory_MenuArrow">
+<summary>
+DivMain_Inventory_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Inventory_Balance">
+<summary>
+DivSubMain_Inventory_Balance control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Reporting">
+<summary>
+DivMain_Reporting control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain_Reporting_MenuArrow">
+<summary>
+DivMain_Reporting_MenuArrow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivSubMain_Reporting_ViewReports">
+<summary>
+DivSubMain_Reporting_ViewReports control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._widthContent">
+<summary>
+widthContent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivMain">
+<summary>
+DivMain control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HeaderMenu">
+<summary>
+HeaderMenu control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._Cufex_MasterHeader">
+<summary>
+Cufex_MasterHeader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._Cufex_MainContent">
+<summary>
+Cufex_MainContent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._DivDenied">
+<summary>
+DivDenied control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._LogInContainer">
+<summary>
+LogInContainer control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._panel1">
+<summary>
+panel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._fromdefault">
+<summary>
+fromdefault control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertTitle">
+<summary>
+AlertTitle control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertText">
+<summary>
+AlertText control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertType">
+<summary>
+AlertType control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertallowOutsideClick">
+<summary>
+AlertallowOutsideClick control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertshowCancelButton">
+<summary>
+AlertshowCancelButton control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertconfirmButtonText">
+<summary>
+AlertconfirmButtonText control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertconfirmButtonColor">
+<summary>
+AlertconfirmButtonColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertcancelButtonText">
+<summary>
+AlertcancelButtonText control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertcloseOnConfirm">
+<summary>
+AlertcloseOnConfirm control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertimageUrl">
+<summary>
+AlertimageUrl control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._AlertimageSize">
+<summary>
+AlertimageSize control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._Alerttimer">
+<summary>
+Alerttimer control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenMenuStatus">
+<summary>
+HiddenMenuStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._Cufex_ScriptContent">
+<summary>
+Cufex_ScriptContent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenMenuOpen">
+<summary>
+HiddenMenuOpen control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenFileImportLimit">
+<summary>
+HiddenFileImportLimit control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenFileUploadLimit">
+<summary>
+HiddenFileUploadLimit control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenLoginBackgroundColor">
+<summary>
+HiddenLoginBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenMenuBackgroundColor">
+<summary>
+HiddenMenuBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenScreenBackgroundColor">
+<summary>
+HiddenScreenBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenGridBackgroundColor">
+<summary>
+HiddenGridBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenButtonBackgroundColor">
+<summary>
+HiddenButtonBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._HiddenTextBackgroundColor">
+<summary>
+HiddenTextBackgroundColor control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Site._WBody">
+<summary>
+WBody control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Site._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+</members>
+</doc>

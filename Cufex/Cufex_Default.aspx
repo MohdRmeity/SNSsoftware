@@ -7,12 +7,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/DeleteExtension.js"></script>
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/SaveAsExtension.js"></script>
+    <script src="../JS/Dashboards/ExportExtension.js"></script>
+
     <script src="../JS/Dashboards/scripts.js?v=2013"></script>
     <link href="../JS/Dashboards/styles.css?v=2013" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Defines the "Save As" extension template. -->
-    <script type="text/html" id="dx-save-as-form">
+       <script type="text/html" id="dx-save-as-form">
         <div>Dashboard Name:</div>
         <div style="margin: 10px 0" data-bind="dxTextBox: { value: newName }"></div>
         <div data-bind="dxButton: { text: 'Save', onClick: saveAs }"></div>
@@ -23,8 +25,6 @@
             return ASPxDashboard.getDashboardControl();
         }
     </script>
-
-
 
     <script type="text/javascript">
         var ass = 0;
@@ -71,6 +71,17 @@
             padding: 10px 20px;
         }
 
+        @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+            .MainDashboardSettings {
+                display: none;
+            }
+        }
+
+        @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
+            .exportItemIcon {
+                display: none;
+            }
+        }
 
         .TimerSettings {
             position: relative;
@@ -146,9 +157,9 @@
         }
 
         .ExpandCollapseStatus {
-            
         }
-         .RefreshTimeLabel {
+
+        .RefreshTimeLabel {
             margin-right: 25px;
             width: 170px;
         }
@@ -156,22 +167,22 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
     <div class="NormalDiv1118Max ZeroPadding">
-        <div class="MainDashboardSettings">
+        <div class="MainDashboardSettings" id="MainDashboardSettingsID">
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
-
+                    <asp:Button ID="Button1" runat="server" Text="Button" Visible="False"  OnClick="Button1_Click" />
                     <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton floatL" />
 
                     <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton floatL" />
 
-                    <asp:Label ID="lblExpandCollapseStatus" runat="server" CssClass="ExpandCollapseStatus floatL" Text="Expand List"></asp:Label>
+                    <asp:Label ID="lblExpandCollapseStatus" runat="server" CssClass="ExpandCollapseStatus floatL" Text="Collapse List"></asp:Label>
 
                     <div class="floatR">
                         <div class="floatR">
                             <asp:Button ID="btnReload" data-toggle="tooltip" title="Manual Refresh" runat="server" Text="" CssClass="ReloadButton" OnClientClick="javascript:reloaddate();return false;" />
                         </div>
 
-                        <div class="TimerSettings" >
+                        <div class="TimerSettings" id="RefreshSettings" runat="server">
                             <div class="TimerSettingsInner">
                                 <div class="TimeDiv AnimateMe" data-time="30">30 Sec</div>
                                 <div class="TimeDiv AnimateMe" data-time="60">1 Min</div>
@@ -184,11 +195,8 @@
                             </div>
                             <asp:Label ID="RefeshTimeLabel" runat="server" CssClass="RefreshTimeLabel floatR" Text=""></asp:Label>
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -196,22 +204,25 @@
     <dx:ASPxTimer ID="ASPxTimer1" runat="server" ClientInstanceName="timer">
         <ClientSideEvents Tick="function(s, e) {webDesigner.ReloadData();}" />
     </dx:ASPxTimer>
-    <dx:ASPxDashboard ID="ASPxDashboard1" runat="server" ClientInstanceName="webDesigner"
-        AllowExportDashboardItems="True" OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
+    <div id="popup"></div>
+    <dx:ASPxDashboard ID="ASPxDashboard1" runat="server"
+        ClientInstanceName="webDesigner"
+        ClientSideEvents-Init="function(s, e) { initializeControls(); }"
+        AllowExportDashboardItems="True"
+        OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
         OnCustomParameters="ASPxDashboard1_CustomParameters"
-        Height="899px"
+        Height="898px"
         IncludeDashboardIdToUrl="True"
         OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
         OnConnectionError="ASPxDashboard1_ConnectionError">
         <ClientSideEvents
-            BeforeRender="onBeforeRender"
-            DashboardTitleToolbarUpdated="function(s,e) { onDashboardTitleToolbarUpdated({ component: s.getDashboardControl(), options: e.Options }); }" />
+            BeforeRender="onBeforeRender" ItemCaptionToolbarUpdated="ItemCaptionToolbarUpdated" DashboardTitleToolbarUpdated="DashboardTitleToolbarUpdated" />
         <BackendOptions Uri="" />
         <DataRequestOptions ItemDataRequestMode="Auto" />
     </dx:ASPxDashboard>
+
     <asp:Button runat="server" ID="MyHiddenButton" ClientIDMode="Static" Text="" Style="display: none;" OnClick="MyHiddenButton_Click" />
     <input class="HiddenTime" id="HiddenTime" runat="server" type="hidden" value="0" />
-    
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
     <script type="text/javascript">
@@ -229,7 +240,7 @@
                 ////$(".RefreshTimeLabel").text(textRefersh);
 
                 document.getElementById("MyHiddenButton").click();
-              
+
             });
         });
     </script>

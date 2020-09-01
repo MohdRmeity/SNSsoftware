@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class Cufex_MasterHeader
     
     '''<summary>
+    '''MasterHeaderControls control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MasterHeaderControls As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lblWelcome control.
     '''</summary>
     '''<remarks>

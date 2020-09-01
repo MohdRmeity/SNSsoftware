@@ -31,6 +31,18 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -63,6 +75,7 @@
                     <td class="GridCell GridHead selectAllWidth">
                         <div class="AdjustColumns"></div>
                     </td>
+					<!-- Mohamad Rmeity - Switching Owner & SKU -->
                     <td class="GridCell GridHead" data-id="StorerKey">
                         <span class="MyTitleHead">Owner</span>
                         <div class="AbsoSorting">
@@ -131,7 +144,7 @@
                     <td class="GridCell GridHeadSearch selectAllWidth">
                         <div class="GridSearch"></div>
                     </td>
-                    <td class="GridCell GridHeadSearch">
+					<td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -207,7 +220,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Owner<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -226,7 +239,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Pack</div>
                             <div>
-                                <select data-placeholder="Select Pack" multiple class="chosen-select InputPackKey">
+                                <select data-placeholder="Select Pack" multiple class="chosen-select InputPackKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -273,8 +286,8 @@
 
                     <div class="R_PopupTitle">
                         Item
-                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"><span class="ion-ios-checkmark-circle-outline"></span></div>
-                        <div class="ClosePopup AnimateMe"><span class="ion-ios-exit"></span></div>
+                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"></div>
+                        <div class="ClosePopup AnimateMe"></div>
                     </div>
                     <div style="position: relative; height: 500px; width: 100%;" class="MyContainerPopup GetFullHeightForPopup content_4">
                         <div class="iWantMyChildrenFloatHeight">
@@ -283,7 +296,7 @@
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">Owner*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -303,7 +316,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Pack</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Pack" multiple class="chosen-select InputPackKey">
+                                        <select data-placeholder="Select Pack" multiple class="chosen-select InputPackKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -377,8 +390,9 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="User ID" data-priority="1" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="Sku" data-columnname="Item" data-priority="2" data-hidden="false" data-primarykey="true" />
+		<!-- Mohamad Rmeity - Switching Owner & SKU -->
+        <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Item" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <input type="hidden" class="MyFields" value="Sku" data-columnname="User ID" data-priority="2" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Descr" data-columnname="Item Description" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyFields" value="PackKey" data-columnname="Pack" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="TariffKey" />

@@ -16,6 +16,12 @@ Public Class URLRewriter
             routes.MapPageRoute("SNSsoftware-Cufex-Forget_Password", "cufex/Forget_Password", "~/Cufex/Cufex_ForgotPassword.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Reset_Password", "cufex/Reset_Password", "~/Cufex/Cufex_ResetPasswordByCode.aspx")
 
+            routes.MapPageRoute("SNSsoftware-Cufex-Administration_ExportLogs", "cufex/Administration/ExportLogs", "~/Cufex/Cufex_Administration_ExportLogs.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Administration_ImportLogs", "cufex/Administration/ImportLogs", "~/Cufex/Cufex_Administration_ImportLogs.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Administration_FileManagementLogs", "cufex/Administration/FileManagementLogs", "~/Cufex/Cufex_Administration_FileManagementLogs.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Administration_FileManagement", "cufex/Administration/FileManagement", "~/Cufex/Cufex_Administration_FileManagement.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Administration_UITemplates", "cufex/Administration/UITemplates", "~/Cufex/Cufex_Administration_UITemplates.aspx")
+
             routes.MapPageRoute("SNSsoftware-Cufex-Security_ChangePassword", "cufex/Security/ChangePassword", "~/Cufex/Cufex_Security_ChangePassword.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Security_Users", "cufex/Security/ProfileUsers", "~/Cufex/Cufex_Security_Users.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Security_UsersControl", "cufex/Security/UsersControl", "~/Cufex/Cufex_Security_UsersControl.aspx")
@@ -32,6 +38,7 @@ Public Class URLRewriter
             routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_ASN", "cufex/Warehouse/ASN", "~/Cufex/Cufex_Warehouse_ASN.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_Shipment", "cufex/Warehouse/Shipment", "~/Cufex/Cufex_Warehouse_Shipment.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_OrderManagement", "cufex/Warehouse/OrderManagement", "~/Cufex/Cufex_Warehouse_OrderManagement.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Warehouse_OrderTracking", "cufex/Warehouse/OrderTracking", "~/Cufex/Cufex_Warehouse_OrderTracking.aspx")
 
             routes.MapPageRoute("SNSsoftware-Cufex-Inventory_Balance", "cufex/Inventory/Balance", "~/Cufex/Cufex_Inventory_Balance.aspx")
 
@@ -39,6 +46,11 @@ Public Class URLRewriter
             routes.MapPageRoute("SNSsoftware-Cufex-Reporting_ReportDesigner", "cufex/Reporting/ReportDesigner", "~/Cufex/Cufex_Reporting_ReportDesigner.aspx")
             routes.MapPageRoute("SNSsoftware-Cufex-Reporting_ReportViewer", "cufex/Reporting/ReportViewer", "~/Cufex/Cufex_Reporting_ReportViewer.aspx")
 
+            routes.MapPageRoute("SNSsoftware-Cufex-Popup_Items", "cufex/Search/Items", "~/Cufex/Cufex_Popup_Items.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Popup_Packs", "cufex/Search/Packs", "~/Cufex/Cufex_Popup_Packs.aspx")
+            routes.MapPageRoute("SNSsoftware-Cufex-Popup_Locations", "cufex/Search/Locations", "~/Cufex/Cufex_Popup_Locations.aspx")
+
+            routes.MapPageRoute("SNSsoftware-Cufex-Dashboard", "cufex/Dashboard", "~/Cufex/Cufex_Dashboard.aspx")
 #End Region
 
             routes.Canonicalize().Www().Lowercase().NoTrailingSlash()

@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports Newtonsoft.Json
 
 Public Class GetItems
@@ -14,7 +15,7 @@ Public Class GetItems
         Dim AndFilter As String = ""
         Dim QueryUrlStr As String = HttpContext.Current.Request.Item("QueryUrlStr")
         Dim TabName As String = HttpContext.Current.Request.Item("TabName")
-        Dim SQL As String = " set dateformat dmy "
+        Dim SQL As String = " set dateformat mdy "
 
         If TabName = "Actions" Then
             SearchTable = "PROFILEDETAIL"
@@ -24,23 +25,35 @@ Public Class GetItems
             SearchTable = "PROFILEDETAILDASHBOARDS"
         End If
 
-        If SearchTable = "PORTALUSERS" Then
+        If SearchTable = "PORTALUSERS" Or SearchTable = "LOGSEXPORT" Or SearchTable = "LOGSIMPORT" Or SearchTable = "LOGSFILES" Or SearchTable = "UITEMPLATES" Then
             If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable
+        ElseIf SearchTable = "FILEMANAGEMENT" Then
+            GetFileManagementQuery(SQL)
         ElseIf SearchTable = "USERPROFILE" Or SearchTable = "USERCONTROL" Or SearchTable = "PROFILES" Then
             If CommonMethods.dbtype <> "sql" Then
                 SearchTable = "System." & SearchTable
                 SortBy = "SerialKey desc"
             End If
         ElseIf SearchTable = "PROFILEDETAIL" Or SearchTable = "REPORTSPROFILEDETAIL" Or SearchTable = "PROFILEDETAILDASHBOARDS" Then
-            AndFilter = " and ProfileName='" & QueryUrlStr & "'"
+            AndFilter = " and ProfileName='" & QueryUrlStr & "' and Blocked = 0 "
             If CommonMethods.dbtype <> "sql" Then
                 SearchTable = "System." & SearchTable
                 SortBy = "SerialKey desc"
             End If
         ElseIf SearchTable.Contains("enterprise.storer") Then
-            Dim type As String = SearchTable(SearchTable.Length - 1)
+            Dim type As String = IIf(SearchTable = "enterprise.storer2", "2", "12")
             AndFilter = " and Type=" & type
-            SearchTable = SearchTable.Remove(SearchTable.Length - 1)
+            If type = "2" Then
+                Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
+                If Not consignees Is Nothing Then
+                    Dim consigneesstr As String = String.Join("','", consignees)
+                    consigneesstr = "'" & consigneesstr & "'"
+                    If Not UCase(consigneesstr).Contains("'ALL'") Then
+                        AndFilter += " and STORERKEY IN (" + consigneesstr + ") "
+                    End If
+                End If
+            End If
+            SearchTable = "enterprise.storer"
         ElseIf SearchTable = "enterprise.sku" Or SearchTable = "SKUCATALOGUE" Then
             Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
             If Not owners Is Nothing Then
@@ -69,15 +82,19 @@ Public Class GetItems
             GetSOQuery(SQL)
         ElseIf SearchTable = "Warehouse_OrderManagement" Then
             GetOrderManagementQuery(SQL)
+        ElseIf SearchTable = "Warehouse_OrderTracking" Then
+            GetOrderTrackingQuery(SQL, SearchQuery)
         ElseIf SearchTable = "Inventory_Balance" Then
             GetInventoryBalanceQuery(SQL)
+            'Mohamad Rmeity - Sort by storer
+            SortBy = "StorerKey asc"
         ElseIf SearchTable = "REPORTSPORTAL" Then
             SearchTable = "REPORTSPROFILEDETAIL"
             If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable
             AndFilter = " and report in (" & CommonMethods.getReportsPerUser(HttpContext.Current.Session("userkey").ToString) & ")"
         End If
 
-        If SearchTable <> "Warehouse_PO" And SearchTable <> "Warehouse_ASN" And SearchTable <> "Warehouse_SO" And SearchTable <> "Warehouse_OrderManagement" And SearchTable <> "Inventory_Balance" And SearchTable <> "REPORTSPROFILEDETAIL" Then
+        If SearchTable <> "Warehouse_PO" And SearchTable <> "Warehouse_ASN" And SearchTable <> "Warehouse_SO" And SearchTable <> "Warehouse_OrderManagement" And SearchTable <> "Inventory_Balance" And SearchTable <> "REPORTSPROFILEDETAIL" And SearchTable <> "FILEMANAGEMENT" And SearchTable <> "Warehouse_OrderTracking" Then
             SQL += " Select top " & CommonMethods.TopCount & " * from " & SearchTable & " where 1=1 " & AndFilter
         End If
 
@@ -85,7 +102,7 @@ Public Class GetItems
             SQL += " select distinct top " & CommonMethods.TopCount & " (REPORT) , REPORT_NAME " & IIf(TabName <> "", ",ID, EDIT", "") & " from " & SearchTable & " where 1=1 " & AndFilter
         End If
 
-        SearchItem(SearchQuery, SearchTable, SQL)
+        If SearchTable <> "Warehouse_OrderTracking" Then SearchItem(SearchQuery, SearchTable, SQL)
         SQL += " order by " & SortBy
 
         '1
@@ -95,11 +112,23 @@ Public Class GetItems
         End If
 
         Dim DS As DataSet = tb.Cursor(SQL)
-        Dim OBJTable As DataTable = DS.Tables(0)
+        Dim OBJTable As DataTable = Nothing
+
+        If DS IsNot Nothing Then OBJTable = DS.Tables(0)
 
         Dim MyRecords As String = ""
         If Not OBJTable Is Nothing Then
-            If SearchTable = "PORTALUSERS" Then
+            If SearchTable = "LOGSEXPORT" Then
+                GetLogsExportRecords(OBJTable, MyRecords)
+            ElseIf SearchTable = "LOGSIMPORT" Then
+                GetLogsImportRecords(OBJTable, MyRecords)
+            ElseIf SearchTable = "LOGSFILES" Then
+                GetLogsFileManagementRecords(OBJTable, MyRecords)
+            ElseIf SearchTable = "FILEMANAGEMENT" Then
+                GetFileManagementRecords(OBJTable, MyRecords)
+            ElseIf SearchTable = "UITEMPLATES" Then
+                GetUITemplatesRecords(OBJTable, MyRecords)
+            ElseIf SearchTable = "PORTALUSERS" Then
                 GetUserRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "USERCONTROL" Then
                 GetUserControlRecords(OBJTable, MyRecords, DS.Tables(1))
@@ -129,6 +158,8 @@ Public Class GetItems
                 GetSORecords(OBJTable, MyRecords)
             ElseIf SearchTable = "Warehouse_OrderManagement" Then
                 GetOrderManagementRecords(OBJTable, MyRecords)
+            ElseIf SearchTable = "Warehouse_OrderTracking" Then
+                GetOrderTrackingRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "Inventory_Balance" Then
                 GetInventoryBalanceRecords(OBJTable, MyRecords)
             ElseIf SearchTable = "REPORTSPROFILEDETAIL" Then
@@ -149,7 +180,6 @@ Public Class GetItems
         End Using
         context.Response.Write(sw)
         context.Response.End()
-
     End Sub
 
     'SeachItem
@@ -163,20 +193,22 @@ Public Class GetItems
 
                 If MySearchInsideTerms(0) = "Facility" And SearchTable = "USERCONTROL" Then
                     Sql += " And UserKey in (select UserKey from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & " USERCONTROLFACILITY where Facility in (select DB_Name from wmsadmin.pl_db where isActive='1' and db_enterprise='0' and DB_ALIAS "
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += "and ( " & MySearchInsideTerms(0)
                 Else
                     Sql += " and " & MySearchInsideTerms(0)
                 End If
 
                 If MySearchInsideTerms(1).Contains("%") Then
                     Sql += " Like N'" & MySearchInsideTerms(1) & "'"
-                ElseIf MySearchInsideTerms(1).Contains("<") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains(">") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                ElseIf MySearchInsideTerms(1).Contains("<") And Not MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<") + 1, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains(">") And Not MySearchInsideTerms(1).Contains(">=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">") + 1, "'") & "'"
                 ElseIf MySearchInsideTerms(1).Contains(">=") Then
-                    Sql += " " & MySearchInsideTerms(1)
-                ElseIf MySearchInsideTerms(1).Contains("=<") Then
-                    Sql += " " & MySearchInsideTerms(1)
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">=") + 2, "'") & "'"
+                ElseIf MySearchInsideTerms(1).Contains("<=") Then
+                    Sql += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<=") + 2, "'") & "'"
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("between ") Then
                     Sql += " " & MySearchInsideTerms(1)
                 ElseIf LCase(MySearchInsideTerms(1)).Contains("today") Then
@@ -195,18 +227,208 @@ Public Class GetItems
                         Sql += ",'" & MySearchAndTerms(k) & "'"
                     Next
                     Sql += " )"
+                ElseIf LCase(MySearchInsideTerms(1)).Contains(";") Then
+                    Dim MySearchAndTerms() As String = Split(LCase(MySearchInsideTerms(1)), ";")
+                    Sql += " in ("
+                    For k = 0 To MySearchAndTerms.Length - 1
+                        Sql += IIf(k <> 0, ",", "") & "'" & MySearchAndTerms(k).Replace(" ", "") & "'"
+                    Next
+                    Sql += " )"
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
+                    Dim MyDateTime As DateTime
+                    If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
+                        Sql += " Or " & MySearchInsideTerms(0) & " = CAST ('" & MySearchInsideTerms(1) & "' as Date) "
+                    End If
                 Else
                     Sql += " Like N'%" & MySearchInsideTerms(1) & "%'"
                 End If
 
                 If MySearchInsideTerms(0) = "Facility" And SearchTable = "USERCONTROL" Then
                     Sql += " ))"
+                ElseIf LCase(MySearchInsideTerms(0)).Contains("cast") Then
+                    Sql += " )"
                 End If
             End If
         Next
     End Sub
-
     'Records
+    Private Sub GetLogsExportRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        For i = 0 To OBJTable.Rows.Count - 1
+            With OBJTable.Rows(i)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Initial' data-id='1'>"
+                MyRecords += "                        " & !UserKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+                MyRecords += "                        " & !ScreenName
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
+                MyRecords += "                        " & !RecordsCount
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                MyRecords += "                        " & Format(!AddDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
+    Private Sub GetLogsImportRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        For i = 0 To OBJTable.Rows.Count - 1
+            With OBJTable.Rows(i)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Initial' data-id='1'>"
+                MyRecords += "                        " & !UserKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+                MyRecords += "                        " & !ScreenName
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='3'>"
+                MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicFiles/ImportFiles/" & !FileName & "'>"
+                MyRecords += "                        " & !FileName
+                MyRecords += "                        </a>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                MyRecords += "                        " & !FileSize
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                MyRecords += "                        " & !FileStatus
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                MyRecords += "                        " & Format(!AddDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
+    Private Sub GetLogsFileManagementRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        For i = 0 To OBJTable.Rows.Count - 1
+            With OBJTable.Rows(i)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Initial' data-id='1'>"
+                MyRecords += "                        " & !AddWho
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+                MyRecords += "                        " & !ScreenName
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
+                MyRecords += "                        " & !WhseID
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                MyRecords += "                        " & !RecKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='5'>"
+                Dim FileExtension As String = LCase(!FileName.ToString.Substring(!FileName.ToString.LastIndexOf(".") + 1))
+                Dim IsImage As Boolean = FileExtension = "png" Or FileExtension = "tiff" Or FileExtension = "jpg" Or FileExtension = "jpeg" Or FileExtension = "gif"
+                MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicFiles/FileManagement/" & !FileName & "' " & IIf(IsImage, "target='_blank' rel='noopener'", "") & ">"
+                MyRecords += "                        " & !FileName
+                MyRecords += "                        </a>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                MyRecords += "                        " & CommonMethods.FormatFileSize(!FileSize)
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & !ActivityType
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
+                MyRecords += "                        " & Format(!AddDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
+    Private Sub GetFileManagementRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        For i = 0 To OBJTable.Rows.Count - 1
+            With OBJTable.Rows(i)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Initial' data-id='1'>"
+                MyRecords += "                        " & !UserKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+                MyRecords += "                        " & !ScreenName
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
+                MyRecords += "                        " & !WhseID
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                MyRecords += "                        " & !RecKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='5'>"
+                Dim FileExtension As String = LCase(!FileName.ToString.Substring(!FileName.ToString.LastIndexOf(".") + 1))
+                Dim IsImage As Boolean = FileExtension = "png" Or FileExtension = "tiff" Or FileExtension = "jpg" Or FileExtension = "jpeg" Or FileExtension = "gif"
+                MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicFiles/FileManagement/" & !FileName & "' " & IIf(IsImage, "target='_blank' rel='noopener'", "") & ">"
+                MyRecords += "                        " & !FileName
+                MyRecords += "                        </a>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                MyRecords += "                        " & CommonMethods.FormatFileSize(!FileSize)
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & Format(!AddDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
+    Private Sub GetUITemplatesRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        Dim page As Page = New Page
+        For i = 0 To OBJTable.Rows.Count - 1
+            With OBJTable.Rows(i)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell selectAllWidth'>"
+                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrd' type='checkbox' id='ChkSelect" & i & "' data-id='" & !SerialKey & "' />"
+                MyRecords += "                        <label for='ChkSelect" & i & "'><span class='CheckBoxStyle'></span></label>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?template=" & !UITEMPLATEID & "'></div>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
+                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Administration_UITemplates", Nothing)) & "?template=" & !UITEMPLATEID & "'>"
+                MyRecords += "                        " & !UITEMPLATEID
+                MyRecords += "                        </a>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='2'>"
+                MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicImages/LogosImages/" & !PortalLogo & "' target='_blank' rel='noopener' >"
+                MyRecords += "                        " & !PortalLogo
+                MyRecords += "                        </a>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
+                MyRecords += "                        " & !MenuBackgroundColor
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                MyRecords += "                        " & !ScreenBackgroundColor
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                MyRecords += "                        " & !GridBackgroundColor
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                MyRecords += "                        " & !ButtonBackgroundColor
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & !TextBackgroundColor
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
     Private Sub GetUserRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
         Dim page As Page = New Page
         For i = 0 To OBJTable.Rows.Count - 1
@@ -236,6 +458,9 @@ Public Class GetItems
                 MyRecords += "                        " & !Email
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                MyRecords += "                        " & !TimeZone
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
                 MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrdActive' type='checkbox' " & IIf(Val(!Active) = 1, "checked", "") & " id='ChkActive" & i & "' data-id='" & !ID & "' />"
                 MyRecords += "                        <label for='ChkActive" & i & "'><span class='CheckBoxStyle'></span></label>"
                 MyRecords += "                    </td>"
@@ -277,7 +502,7 @@ Public Class GetItems
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !SupplierKey
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
                 Dim dr As DataRow() = OBJTable2.Select("UserKey = '" & !UserKey & "'")
                 For j = 0 To dr.Count - 1
                     If j = 0 Then
@@ -286,6 +511,18 @@ Public Class GetItems
                         MyRecords += ", " & dr(j)!Facility
                     End If
                 Next
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                MyRecords += "                        " & !ExportRowsLimit
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & !FileImportLimit
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
+                MyRecords += "                        " & !FileUploadLimit
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='9'>"
+                MyRecords += "                        " & !UITemplateID
                 MyRecords += "                    </td>"
                 MyRecords += "                </tr>"
             End With
@@ -541,12 +778,13 @@ Public Class GetItems
                 MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?storer=" & !StorerKey & "&sku=" & !Sku & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
-                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) & "?storer=" & !StorerKey & "&sku=" & !Sku & "'>"
                 MyRecords += "                        " & !StorerKey
-                MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
+				'Mohamad Rmeity - Switching SKU & Owner
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+				MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) & "?storer=" & !StorerKey & "&sku=" & !Sku & "'>"
                 MyRecords += "                        " & !Sku
+                MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
                 MyRecords += "                        " & !Descr
@@ -587,14 +825,14 @@ Public Class GetItems
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)) & "?item=" & !SerialKey & "'>"
-                MyRecords += "                        " & !StorerKey
+                MyRecords += "                        " & !Sku
                 MyRecords += "                        </a>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
-                MyRecords += "                        " & !ConsigneeKey
+                MyRecords += "                        " & !StorerKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
-                MyRecords += "                        " & !Sku
+                MyRecords += "                        " & !ConsigneeKey
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !Price
@@ -760,7 +998,7 @@ Public Class GetItems
                 MyRecords += "                        " & !OriginCountry
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='14'>"
-                MyRecords += "                        " & !TransportationMode
+                MyRecords += "                        " & CommonMethods.GetTransMode(!TransportationMode.ToString)
                 MyRecords += "                    </td>"
                 MyRecords += "                </tr>"
             End With
@@ -927,12 +1165,113 @@ Public Class GetItems
             End With
         Next
     End Sub
+    Private Sub GetOrderTrackingRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
+        Dim CustomOrderDate As String, CustReqDate As String, CustActShipDate, VASStartDate, VASEndDate As String
+        Dim page As Page = New Page
+        For i = 0 To OBJTable.Rows.Count - 1
+            CustomOrderDate = ""
+            CustReqDate = ""
+            CustActShipDate = ""
+            VASStartDate = ""
+            VASEndDate = ""
+            With OBJTable.Rows(i)
+                MyRecords += "		<tr Class='GridRow GridResults'>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !ExternOrderKey & "~~~" & !StorerKey & "' data-queryurl='?externorderkey=" & !ExternOrderKey & "&storerkey=" & !StorerKey & "'></div>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
+                MyRecords += "                        <div class='editStyle' data-id='" & !ExternOrderKey & "~~~" & !StorerKey & "' data-queryurl='?externorderkey=" & !ExternOrderKey & "&storerkey=" & !StorerKey & "'></div>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
+                MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderTracking", Nothing)) & "?externorderkey=" & !ExternOrderKey & "&storerkey=" & !StorerKey & "'>"
+                MyRecords += "                        " & !ExternOrderKey
+                MyRecords += "                        </a>"
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='2'>"
+                MyRecords += "                        " & !StorerKey
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='3'>"
+                MyRecords += "                        " & !Facility
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
+                If Not .IsNull("CustomOrderDate") Then
+                    CustomOrderDate = Format(!CustomOrderDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & CustomOrderDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                If Not .IsNull("CustReqDate") Then
+                    CustReqDate = Format(!CustReqDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & CustReqDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
+                If Not .IsNull("CustActShipDate") Then
+                    CustActShipDate = Format(!CustActShipDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & CustActShipDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & !OrderType
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
+                MyRecords += "                        " & !PortalDescription
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='9'>"
+                MyRecords += "                        " & !Order_Transport_Status
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='10'>"
+                MyRecords += "                        " & !VASStatus
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='11'>"
+                MyRecords += "                        " & !CarrierName
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='12'>"
+                MyRecords += "                        " & !C_Company
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='13'>"
+                MyRecords += "                        " & !C_Address1
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='14'>"
+                MyRecords += "                        " & !BuyerPO
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='15'>"
+                MyRecords += "                        " & !SUsr1
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='16'>"
+                MyRecords += "                        " & !SUsr2
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='17'>"
+                MyRecords += "                        " & !SUsr3
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='18'>"
+                MyRecords += "                        " & !SUsr4
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='19'>"
+                MyRecords += "                        " & !SUsr5
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='20'>"
+                If Not .IsNull("VASStartDate") Then
+                    VASStartDate = Format(!VASStartDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & VASStartDate
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='21'>"
+                If Not .IsNull("VASEndDate") Then
+                    VASEndDate = Format(!VASEndDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
+                End If
+                MyRecords += "                        " & VASEndDate
+                MyRecords += "                    </td>"
+                MyRecords += "                </tr>"
+            End With
+        Next
+    End Sub
     Private Sub GetInventoryBalanceRecords(ByVal OBJTable As DataTable, ByRef MyRecords As String)
         For i = 0 To OBJTable.Rows.Count - 1
             With OBJTable.Rows(i)
                 MyRecords += "		<tr Class='GridRow GridResults'>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
-                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "~~~" & !Status & "~~~" & !StorerKey & "~~~" & !Sku & "~~~" & !Facility & "' data-queryurl=''></div>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !Status & "~~~" & !StorerKey & "~~~" & !Sku & "~~~" & !Facility & "' data-queryurl=''></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
                 MyRecords += "                    </td>"
@@ -994,6 +1333,18 @@ Public Class GetItems
     End Sub
 
     'Queries
+    Private Sub GetFileManagementQuery(ByRef SQL As String)
+        SQL += " select top " & CommonMethods.TopCount & " * from ("
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_PO' as ScreenName,POKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PO_FILES UNION ALL"
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_ASN' as ScreenName,ReceiptKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "RECEIPT_FILES UNION ALL"
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_SO' as ScreenName,OrderKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERS_FILES UNION ALL"
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_OrderManagement' as ScreenName,OrderManagKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG_FILES"
+        SQL += " ) as ds where 1=1 "
+    End Sub
     Private Sub GetPurchaseOrderQuery(ByRef SQL As String)
         Dim wname As String = "", warehouselevel As String = "", AndFilter As String = ""
         Dim wnameRow As DataRow() = Nothing
@@ -1150,6 +1501,7 @@ Public Class GetItems
                     End If
                     warehouselevel = warehouselevel.Split("_")(1)
 
+                    'Mohamad Rmeity - Changing SO QUery
                     SQL += " select SerialKey, '" & wname & "' as Facility, StorerKey, OrderKey, "
                     SQL += " ConsigneeKey, ExternOrderKey, SUsr1, SUsr2, SUsr3, SUsr4, SUsr5, "
                     SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , OrderDate )", "(OrderDate + interval '" & TimeZone & "' hour)") & " as OrderDate, "
@@ -1214,6 +1566,118 @@ Public Class GetItems
             End If
         End If
     End Sub
+    Private Sub GetOrderTrackingQuery(ByRef SQL As String, ByVal SearchQuery As String)
+        Dim AndFilter As String = "", HavingFilter As String = "", FinalFilter As String = ""
+        Dim TimeZone As Integer = 0
+
+        If Integer.TryParse(HttpContext.Current.Session("timezone").ToString, TimeZone) Then
+            TimeZone = Integer.Parse(HttpContext.Current.Session("timezone").ToString)
+        End If
+
+        Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
+        Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
+        Dim types As String() = CommonMethods.getOrderTypePerUser(HttpContext.Current.Session("userkey").ToString)
+        Dim datefilter As String = CommonMethods.getDateFilterPerUser(HttpContext.Current.Session("userkey").ToString)
+
+        If owners IsNot Nothing And consignees IsNot Nothing And types IsNot Nothing Then
+            Dim ownersstr As String = String.Join("','", owners)
+            ownersstr = "'" & ownersstr & "'"
+            If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and OT.STORERKEY IN (" & ownersstr & ")"
+
+            Dim consigneesstr As String = String.Join("','", consignees)
+            consigneesstr = "'" & consigneesstr & "'"
+            If Not UCase(consigneesstr).Contains("'ALL'") Then AndFilter += " and OT.ConsigneeKey IN (" & consigneesstr & ")"
+
+            Dim typesstr As String = String.Join("','", types)
+            typesstr = "'" & typesstr & "'"
+            If Not UCase(typesstr).Contains("'ALL'") Then AndFilter += " and OT.TYPE IN (" & typesstr & ")"
+
+            If datefilter <> "0" Then HavingFilter += " and MIN(OT.ADDDATE) >= GETUTCDATE() - " & datefilter
+
+            Dim MySearchTerms() As String = Split(SearchQuery, ",")
+
+            For i = 0 To MySearchTerms.Length - 1
+                Dim MySearchInsideTerms() As String = Split(MySearchTerms(i), ":")
+
+                If MySearchInsideTerms.Length = 2 Then
+                    If MySearchInsideTerms(0) <> "CarrierName" And MySearchInsideTerms(0) <> "OrderType" And MySearchInsideTerms(0) <> "PortalDescription" And MySearchInsideTerms(0) <> "Order_Transport_Status" And MySearchInsideTerms(0) <> "VASStatus" And MySearchInsideTerms(0) <> "Facility" And MySearchInsideTerms(0) <> "VASStartDate" And MySearchInsideTerms(0) <> "VASEndDate" And MySearchInsideTerms(0) <> "CustomOrderDate" And MySearchInsideTerms(0) <> "CustReqDate" And MySearchInsideTerms(0) <> "CustActShipDate" Then
+                        AndFilter += " And OT." & MySearchInsideTerms(0) & " Like N'"
+                        If MySearchInsideTerms(1).Contains("%") Then
+                            AndFilter += MySearchInsideTerms(1) & "'"
+                        Else
+                            AndFilter += "%" & MySearchInsideTerms(1) & "%'"
+                        End If
+                    Else
+                        If MySearchInsideTerms(0) = "CarrierName" Then
+                            AndFilter += " And OT2.MAXCN Like N'"
+                            If MySearchInsideTerms(1).Contains("%") Then
+                                AndFilter += MySearchInsideTerms(1) & "'"
+                            Else
+                                AndFilter += "%" & MySearchInsideTerms(1) & "%'"
+                            End If
+                        ElseIf MySearchInsideTerms(0) = "OrderType" Or MySearchInsideTerms(0) = "PortalDescription" Then
+                            FinalFilter += " And " & MySearchInsideTerms(0) & "='" & MySearchInsideTerms(1) & "'"
+                        ElseIf MySearchInsideTerms(0) = "Order_Transport_Status" Or MySearchInsideTerms(0) = "VASStatus" Then
+                            FinalFilter += " And " & MySearchInsideTerms(0) & " Like N'"
+                            If MySearchInsideTerms(1).Contains("%") Then
+                                FinalFilter += MySearchInsideTerms(1) & "'"
+                            Else
+                                FinalFilter += "%" & MySearchInsideTerms(1) & "%'"
+                            End If
+                        ElseIf MySearchInsideTerms(0) = "Facility" Then
+                            If MySearchInsideTerms(1) <> "MULTI" Then
+                                FinalFilter += " And " & MySearchInsideTerms(0) & "='" & MySearchInsideTerms(1) & "'"
+                            Else
+                                HavingFilter += " AND COUNT(OT.WHSEID) > 1 "
+                            End If
+                        Else
+                            Dim StrJoin As String = "", MyField As String = ""
+
+                            If MySearchInsideTerms(0) = "VASStartDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , VS.VASStartDate),101)"
+                            ElseIf MySearchInsideTerms(0) = "VASEndDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , VS.VASEndDate),101)"
+                            ElseIf MySearchInsideTerms(0) = "CustomOrderDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , MIN(OT.OrderDate)),101)"
+                            ElseIf MySearchInsideTerms(0) = "CustReqDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , MIN(OT.REQUESTEDSHIPDATE)),101)"
+                            ElseIf MySearchInsideTerms(0) = "CustActShipDate" Then
+                                MyField = "convert(char,DATEADD(hh , " & TimeZone & " , MIN(OT.ACTUALSHIPDATE)),101)"
+                            End If
+
+                            If MySearchInsideTerms(1).Contains("<") And Not MySearchInsideTerms(1).Contains("<=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<") + 1, "'") & "'"
+                            ElseIf MySearchInsideTerms(1).Contains(">") And Not MySearchInsideTerms(1).Contains(">=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">") + 1, "'") & "'"
+                            ElseIf MySearchInsideTerms(1).Contains(">=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf(">=") + 2, "'") & "'"
+                            ElseIf MySearchInsideTerms(1).Contains("<=") Then
+                                StrJoin += " " & MySearchInsideTerms(1).Insert(MySearchInsideTerms(1).IndexOf("<=") + 2, "'") & "'"
+                            ElseIf LCase(MySearchInsideTerms(1)).Contains("today") Then
+                                StrJoin += " = convert(date,getdate()) "
+                            Else
+                                StrJoin += " Like N'%" & MySearchInsideTerms(1) & "%'"
+                                Dim MyDateTime As DateTime
+                                If DateTime.TryParseExact(MySearchInsideTerms(1), CommonMethods.dformat, CultureInfo.CurrentCulture, DateTimeStyles.None, MyDateTime) Then
+                                    StrJoin += " Or " & MyField & " = convert(char,DATEADD(hh , " & TimeZone & " , '" & MySearchInsideTerms(1) & "'),101) "
+                                End If
+                            End If
+                            StrJoin += " )"
+                            If MySearchInsideTerms(0).Contains("VAS") Then
+                                AndFilter += " AND (" & MyField & StrJoin
+                            Else
+                                HavingFilter += " AND (" & MyField & StrJoin
+                            End If
+                        End If
+                    End If
+                End If
+            Next
+
+            SQL += " select top " & CommonMethods.TopCount & " * from ("
+            SQL += " SELECT OT.EXTERNORDERKEY, (CASE WHEN COUNT(OT.WHSEID) > 1 then 'MULTI' else (select db_alias from wmsadmin.pl_db where db_logid = MAX(OT.WHSEID)) END) AS FACILITY,  (select DESCRIPTION from enterprise.codelkup where code=OT.Type AND listname = 'ORDERTYPE' ) AS ORDERTYPE,   MIN(OT.STATUS) AS STATUS,   (SELECT PORTALDESCRIPTION from dbo.PORTALORDERSTATUSSETUP WITH (NOLOCK) WHERE CODE =CAST(MIN(OT.STATUS) as INT)) AS PORTALDESCRIPTION, DATEADD(hh , " & TimeZone & ", MIN(OT.ORDERDATE)) AS CustomOrderDate,   DATEADD(hh , " & TimeZone & " , MIN(OT.REQUESTEDSHIPDATE)) AS CustReqDate,   DATEADD (hh , " & TimeZone & " , MIN(OT.ACTUALSHIPDATE)) AS CustActShipDate,   OT.STORERKEY, (CASE WHEN OT2.CCC > 1 then 'MULTI' WHEN OT2.MAXCC IS NULL THEN 'No Carrier Assigned' else OT2.MAXCC END) AS CarrierCode,  (CASE WHEN OT2.CCN > 1 then 'MULTI' WHEN OT2.MAXCN IS NULL THEN 'No Carrier Assigned' else OT2.MAXCN END) AS CarrierName,   OT.BUYERPO,   MAX(OT.CONSIGNEEKEY) CONSIGNEEKEY,   OT.C_COMPANY,   OT.C_CITY,   OT.C_STATE,  OT.C_ZIP,   OT.C_COUNTRY,  OT.C_ADDRESS1,   OT.C_ADDRESS2,   OT.C_ADDRESS3,   OT.C_ADDRESS4,   OT.C_ADDRESS5,   MIN(OT.SUSR1) SUSR1,  MIN(OT.SUSR2) SUSR2,   MIN(OT.SUSR3) SUSR3,   MIN(OT.SUSR4) SUSR4,   MIN(OT.SUSR5) SUSR5,   VS.VASSTARTDATE,  VS.VASENDDATE,  (COUNT(DISTINCT(OT.WHSEID))) AS NBROFSPLIT,  CASE WHEN CET.ORDER_TRANSPORT_STATUS IS NULL THEN 'Not Started' ELSE CET.ORDER_TRANSPORT_STATUS END ORDER_TRANSPORT_STATUS,  (CASE WHEN (VS.VASENDDATE IS NOT NULL AND VS.VASSTARTDATE IS NOT NULL) THEN 'VAS Out' WHEN  VS.VASSTARTDATE IS NOT NULL THEN 'VAS In' ELSE 'Not Started' END) AS VASSTATUS,  MIN(OT.ADDDATE) as ADDDATE  FROM ENTERPRISE.ALL_ORDERS OT  LEFT JOIN dbo.VAS VS WITH (NOLOCK)  ON VS.EXTERNALORDERKEY = OT.EXTERNORDERKEY   AND VS.STORERKEY = OT.STORERKEY  LEFT JOIN (SELECT R3.STORERKEY, R3.EXTERNALORDERKEY, R3.CARRIERNAME, R3.CONSOLIDATIONSEQ, CASE WHEN MIN(CARRIEREVENTSTATUSCODES.EVENTDESCRIPTION) IS NULL THEN 'Not Started' ELSE MIN(CARRIEREVENTSTATUSCODES.EVENTDESCRIPTION) END ORDER_TRANSPORT_STATUS FROM   CARRIEREVENTSTATUSCODES,  ( SELECT R2.STORERKEY, R2.EXTERNALORDERKEY, R2.CARRIERNAME, MIN(R2.CONSOLIDATIONSEQ) CONSOLIDATIONSEQ FROM ( SELECT R1.STORERKEY, R1.EXTERNALORDERKEY, R1.CARRIERNAME, R1.CONSIGNMENTID, CASE WHEN MIN(R1.CONSOLIDATIONSEQ) IS NULL THEN '000' ELSE MIN(R1.CONSOLIDATIONSEQ) END CONSOLIDATIONSEQ FROM ( SELECT CE.STORERKEY, CE.EXTERNALORDERKEY, CE.CARRIERNAME, CE.CONSIGNMENTID, MAX(CESC.CONSOLIDATIONSEQ) CONSOLIDATIONSEQ FROM   CARRIEREVENTS CE LEFT JOIN CARRIEREVENTSTATUSCODES CESC ON  CE.EVENTSTATUSCODE = CESC.EVENTCODE  AND          CESC.CONSOLIDATE = 'Y' GROUP  BY CE.STORERKEY, CE.EXTERNALORDERKEY, CE.CARRIERNAME, CE.CONSIGNMENTID, CE.ARTICLEID ) R1 GROUP BY R1.STORERKEY, R1.EXTERNALORDERKEY, R1.CARRIERNAME, R1.CONSIGNMENTID ) R2 GROUP BY R2.STORERKEY, R2.EXTERNALORDERKEY, R2.CARRIERNAME ) R3 WHERE  CARRIEREVENTSTATUSCODES.CONSOLIDATIONSEQ = R3.CONSOLIDATIONSEQ GROUP  BY R3.STORERKEY, R3.EXTERNALORDERKEY, R3.CARRIERNAME, R3.CONSOLIDATIONSEQ) CET   ON CET.EXTERNALORDERKEY = OT.EXTERNORDERKEY   AND CET.STORERKEY = OT.STORERKEY LEFT JOIN (SELECT EXTERNORDERKEY, STORERKEY, COUNT(DISTINCT(CarrierCode)) CCC , MAX(CarrierCode) MAXCC, MAX(CarrierName) MAXCN, COUNT(DISTINCT(CarrierName)) CCN FROM ENTERPRISE.ALL_ORDERS  WITH (NOLOCK) GROUP BY EXTERNORDERKEY, STORERKEY) OT2  ON OT2.EXTERNORDERKEY = OT.EXTERNORDERKEY  AND OT2.STORERKEY = OT.STORERKEY WHERE 1=1 " & AndFilter & " GROUP BY OT.EXTERNORDERKEY, OT.TYPE, OT.STORERKEY, OT.BUYERPO,  OT.C_COMPANY, OT.C_CITY, OT.C_STATE, OT.C_ZIP, OT.C_COUNTRY,  OT.C_ADDRESS1, OT.C_ADDRESS2,  OT.C_ADDRESS3, OT.C_ADDRESS4, OT.C_ADDRESS5,  VS.VASSTARTDATE, VS.VASENDDATE, CET.ORDER_TRANSPORT_STATUS, OT2.CCC, OT2.MAXCC,  OT2.MAXCN, OT2.CCN  HAVING 1=1  " & HavingFilter
+            SQL += ") as ds where 1=1 " & FinalFilter
+        End If
+    End Sub
     Private Sub GetInventoryBalanceQuery(ByRef SQL As String)
         Dim wname As String = "", warehouselevel As String = "", AndFilter As String = ""
         Dim wnameRow As DataRow() = Nothing
@@ -1248,14 +1712,16 @@ Public Class GetItems
                     End If
                     warehouselevel = warehouselevel.Split("_")(1)
 
-                    SQL += " SELECT lli.SerialKey, '" & wname & "' as Facility, lli.StorerKey, lli.Sku, sum(lli.Qty) Qty, "
+                    'Mohamad Rmeity - Grouping by SKU/Facility rather than each LLI records
+                    SQL += " SELECT '" & wname & "' as Facility, lli.StorerKey, lli.Sku, sum(lli.Qty) Qty, "
                     SQL += " case when status ='OK' then  sum((lli.Qty-lli.QtyAllocated-lli.QtyPicked)) else 0 end Available, "
                     SQL += " lli.Status , s.DESCR as Description FROM " & warehouselevel & ".LOTxLOCxID lli , " & warehouselevel & ".SKU s "
                     SQL += " WHERE s.sku=lli.Sku And lli.StorerKey= s.STORERKEY And (lli.StorerKey >= '0') "
                     SQL += " AND(lli.StorerKey <= 'ZZZZZZZZZZ') AND(lli.Sku >= '0') AND(lli.Sku <= 'ZZZZZZZZZZ') "
                     SQL += " AND(Lot >= '0') AND(Lot <= 'ZZZZZZZZZZ') AND(Loc >= '0') AND(Loc <= 'ZZZZZZZZZZ') "
                     SQL += " AND(Id >= ' ') AND(Id <= 'ZZZZZZZZZZZZZZZZZZ') " & AndFilter
-                    SQL += " GROUP BY lli.SerialKey, lli.WhseID, lli.StorerKey, lli.Sku, lli.Status, s.descr"
+                    SQL += " GROUP BY lli.WhseID, lli.StorerKey, lli.Sku, lli.Status, s.descr "
+                    SQL += " HAVING sum(lli.Qty) > 0 "
                     SQL += " UNION"
                 Next
                 If SQL.EndsWith("UNION") Then SQL = SQL.Remove(SQL.Length - 5)

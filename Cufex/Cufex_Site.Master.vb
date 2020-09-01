@@ -37,11 +37,13 @@ Public Class Cufex_Site
         ResetPassword
         Home
         Home_Def
+        Administration
         Security
         Configuration
         Warehouse
         Inventory
         Reporting
+        Popup
     End Enum
     Public Property section As SectionName
         Get
@@ -56,6 +58,11 @@ Public Class Cufex_Site
     End Property
     Enum SubSectionName
         NothingSelected
+        Administration_ExportLogs
+        Administration_ImportLogs
+        Administration_FileManagementLogs
+        Administration_FileManagement
+        Administration_UITemplates
         Security_ChangePassword
         Security_Users
         Security_UsersControl
@@ -69,8 +76,12 @@ Public Class Cufex_Site
         Warehouse_ASN
         Warehouse_Shipment
         Warehouse_OrderManagement
+        Warehouse_OrderTracking
         Inventory_Balance
         Reporting_ViewReports
+        Popup_Items
+        Popup_Locations
+        Popup_Packs
     End Enum
     Public Property Subsection As SubSectionName
         Get
@@ -125,15 +136,65 @@ Public Class Cufex_Site
         End Set
     End Property
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        HttpContext.Current.Response.Headers.Remove("Server")
+        HttpContext.Current.Response.AppendHeader("X-XSS-Protection", "0")
+        HttpContext.Current.Response.AppendHeader("X-Powered-By", "SNS EMEA")
+        HttpContext.Current.Response.AppendHeader("Strict-Transport-Security", "max-age=15768000")
+        HttpContext.Current.Response.AppendHeader("X-Frame-Options", "SAMEORIGIN")
+        HttpContext.Current.Response.AppendHeader("X-Content-Type-Options", "nosniff")
+        HttpContext.Current.Response.AppendHeader("Vary", "Accept-Encoding")
+        HttpContext.Current.Response.AppendHeader("ETAG", "")
+
+        Dim LoginBackgroundColor As String = CommonMethods.LoginBackgroundColor
+        If LoginBackgroundColor <> "" Then
+            If LoginBackgroundColor.StartsWith("#") And LoginBackgroundColor.Length = 7 Then
+                HiddenLoginBackgroundColor.Value = LoginBackgroundColor
+            End If
+        End If
+
         If Not section = SectionName.LogIn And Not section = SectionName.ForgetPassword And Not section = SectionName.ResetPassword Then
             CheckIfLogged()
-            UserInfo.LoginUser = HttpContext.Current.Session("userkey").ToString
+            If HttpContext.Current.Session("userkey") Is Nothing Then
+                UserInfo.LoginUser = Nothing
+            Else
+                UserInfo.LoginUser = HttpContext.Current.Session("userkey").ToString
+            End If
             If Not Page.IsPostBack Then
                 FixMenuVisibleItems()
+                HiddenMenuOpen.Value = CommonMethods.GetUserMenuOpen()
+
+                Dim UserUITemplate As DataTable = CommonMethods.GetUserUITemplate()
+                If UserUITemplate.Rows.Count > 0 Then
+                    With UserUITemplate.Rows(0)
+                        HiddenMenuBackgroundColor.Value = !MenuBackgroundColor
+                        HiddenScreenBackgroundColor.Value = !ScreenBackgroundColor
+                        HiddenGridBackgroundColor.Value = !GridBackgroundColor
+                        HiddenButtonBackgroundColor.Value = !ButtonBackgroundColor
+                        HiddenTextBackgroundColor.Value = !TextBackgroundColor
+
+                        If Not String.IsNullOrEmpty(!PortalLogo) Then
+                            MainLogo.Style.Add("background-image", sAppPath & "DynamicImages/LogosImages/" & !PortalLogo)
+                        End If
+
+                        If Not String.IsNullOrEmpty(HiddenMenuBackgroundColor.Value) Then
+                            HeaderMenu.Style.Add("background-color", HiddenMenuBackgroundColor.Value)
+                            SideMenu.Style.Add("background-color", HiddenMenuBackgroundColor.Value)
+                        End If
+                    End With
+                End If
             End If
 
-            If Not section = SectionName.Home Then
+            If Not section = SectionName.Home_Def Then
                 If Not Page.IsPostBack Then
+                    Dim UserControlInfo As DataTable = CommonMethods.GetUserControlInfo()
+                    If UserControlInfo.Rows.Count > 0 Then
+                        With UserControlInfo.Rows(0)
+                            HiddenFileImportLimit.Value = !FileImportLimit
+                            HiddenFileUploadLimit.Value = !FileUploadLimit
+                        End With
+                    End If
+                    HttpContext.Current.Session("timezone") = CommonMethods.GetUserUtcOffsetHours()
+
                     DivMain.Visible = CanView
                     DivDenied.Visible = Not CanView
                     If CanView Then
@@ -187,15 +248,24 @@ Public Class Cufex_Site
                             If CType(Cufex_MainContent.FindControl("SearchRow3"), HtmlTableRow) IsNot Nothing Then
                                 CType(Cufex_MainContent.FindControl("SearchRow3"), HtmlTableRow).Style.Add("display", "none")
                             End If
+                            If CType(Cufex_MainContent.FindControl("SearchRowDetails"), HtmlTableRow) IsNot Nothing Then
+                                CType(Cufex_MainContent.FindControl("SearchRowDetails"), HtmlTableRow).Style.Add("display", "none")
+                            End If
                         End If
                     End If
                 End If
             End If
 
-            Dim localZone As TimeZone = TimeZone.CurrentTimeZone
-            Dim CurrentDate As DateTime = Now
-            Dim currentOffset As TimeSpan = localZone.GetUtcOffset(CurrentDate)
-            HttpContext.Current.Session("timezone") = currentOffset.Hours.ToString
+            If section = SectionName.Popup Then
+                widthMenu.Visible = False
+                widthContent.Attributes("class") += " FullContent"
+            End If
+
+            If Subsection = SubSectionName.Warehouse_OrderTracking Then
+                CarrierEvents.Visible = True
+            Else
+                CarrierEvents.Visible = False
+            End If
         End If
     End Sub
     Public Sub FixMenuVisibleItems()
@@ -211,7 +281,7 @@ Public Class Cufex_Site
         DivMain_Security.Visible = DivSubMain_Security_ChangePassword.Visible Or DivSubMain_Security_Users.Visible Or DivSubMain_Security_UsersControl.Visible Or DivSubMain_Security_UserProfile.Visible Or DivSubMain_Security_Profiles.Visible
 
         DivSubMain_Configuration_ShipTo.Visible = CommonMethods.getPermission("Configuration->Ship To (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Configuration_ShipFrom.Visible = CommonMethods.getPermission("Configuration->Suppliers (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Configuration_ShipFrom.Visible = CommonMethods.getPermission("Configuration->Ship From (Screen)", Session("userkey").ToString) <> "0"
         DivSubMain_Configuration_Items.Visible = CommonMethods.getPermission("Configuration->Items (Screen)", Session("userkey").ToString) <> "0"
         DivSubMain_Configuration_ItemCatalogue.Visible = CommonMethods.getPermission("Configuration->Item Catalogue (Screen)", Session("userkey").ToString) <> "0"
         DivMain_Configuration.Visible = DivSubMain_Configuration_ShipTo.Visible Or DivSubMain_Configuration_ShipFrom.Visible Or DivSubMain_Configuration_Items.Visible Or DivSubMain_Configuration_ItemCatalogue.Visible
@@ -220,7 +290,9 @@ Public Class Cufex_Site
         DivSubMain_Warehouse_ASN.Visible = CommonMethods.getPermission("Warehouse->ASN Receipt (Screen)", Session("userkey").ToString) <> "0"
         DivSubMain_Warehouse_Shipment.Visible = CommonMethods.getPermission("Warehouse->Shipment Order (Screen)", Session("userkey").ToString) <> "0"
         DivSubMain_Warehouse_OrderManagement.Visible = CommonMethods.getPermission("Warehouse->Order Management (Screen)", Session("userkey").ToString) <> "0"
-        DivMain_Warehouse.Visible = DivSubMain_Warehouse_PO.Visible Or DivSubMain_Warehouse_ASN.Visible Or DivSubMain_Warehouse_Shipment.Visible Or DivSubMain_Warehouse_OrderManagement.Visible
+        'DivSubMain_Warehouse_OrderTracking.Visible = CommonMethods.getPermission("Warehouse->Order Tracking (Screen)", Session("userkey").ToString) <> "0"
+        DivSubMain_Warehouse_OrderTracking.Visible = False
+        DivMain_Warehouse.Visible = DivSubMain_Warehouse_PO.Visible Or DivSubMain_Warehouse_ASN.Visible Or DivSubMain_Warehouse_Shipment.Visible Or DivSubMain_Warehouse_OrderManagement.Visible Or DivSubMain_Warehouse_OrderTracking.Visible
 
         DivSubMain_Inventory_Balance.Visible = CommonMethods.getPermission("Inventory->Inventory Balance (Screen)", Session("userkey").ToString) <> "0"
         DivMain_Inventory.Visible = DivSubMain_Inventory_Balance.Visible
@@ -232,6 +304,7 @@ Public Class Cufex_Site
     Private Sub SetMenuItemsClass()
         'First Level
         DivMain_Home_Def.Attributes("class") = IIf(section = SectionName.Home_Def, IIf(MenuLevel = 0, "MenuItemStyleSel", ""), "")
+        DivMain_Administration.Attributes("class") = "MenuItemStyle " & IIf(section = SectionName.Administration, IIf(MenuLevel = 0, "MenuItemStyleActive", "MenuItemStyleSel"), "")
         DivMain_Security.Attributes("class") = "MenuItemStyle " & IIf(section = SectionName.Security, IIf(MenuLevel = 0, "MenuItemStyleActive", "MenuItemStyleSel"), "")
         DivMain_Configuration.Attributes("class") = "MenuItemStyle " & IIf(section = SectionName.Configuration, IIf(MenuLevel = 0, "MenuItemStyleActive", "MenuItemStyleSel"), "")
         DivMain_Warehouse.Attributes("class") = "MenuItemStyle " & IIf(section = SectionName.Warehouse, IIf(MenuLevel = 0, "MenuItemStyleActive", "MenuItemStyleSel"), "")
@@ -240,6 +313,7 @@ Public Class Cufex_Site
 
         'First Level Menu Arrow
         DivMain_Home_Def_MenuArrow.Attributes("class") += IIf(section = SectionName.Home_Def, IIf(MenuLevel = 0, " Opened", ""), "")
+        DivMain_Administration_MenuArrow.Attributes("class") += IIf(section = SectionName.Administration, IIf(MenuLevel = 0, " Opened", ""), "")
         DivMain_Security_MenuArrow.Attributes("class") += IIf(section = SectionName.Security, IIf(MenuLevel = 0, "", " Opened"), "")
         DivMain_Configuration_MenuArrow.Attributes("class") += IIf(section = SectionName.Configuration, IIf(MenuLevel = 0, "", " Opened"), "")
         DivMain_Warehouse_MenuArrow.Attributes("class") += IIf(section = SectionName.Warehouse, IIf(MenuLevel = 0, "", " Opened"), "")
@@ -247,6 +321,11 @@ Public Class Cufex_Site
         DivMain_Reporting_MenuArrow.Attributes("class") += IIf(section = SectionName.Reporting, IIf(MenuLevel = 0, "", " Opened"), "")
 
         'Second Level
+        DivSubMain_Administration_ExportLogs.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Administration_ExportLogs, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
+        DivSubMain_Administration_ImportLogs.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Administration_ImportLogs, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
+        DivSubMain_Administration_FileManagementLogs.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Administration_FileManagementLogs, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
+        DivSubMain_Administration_FileManagement.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Administration_FileManagement, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
+        DivSubMain_Administration_UITemplates.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Administration_UITemplates, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Security_ChangePassword.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Security_ChangePassword, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Security_Users.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Security_Users, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Security_UsersControl.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Security_UsersControl, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
@@ -260,11 +339,14 @@ Public Class Cufex_Site
         DivSubMain_Warehouse_ASN.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_ASN, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Warehouse_Shipment.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_Shipment, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Warehouse_OrderManagement.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_OrderManagement, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
+        DivSubMain_Warehouse_OrderTracking.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Warehouse_OrderTracking, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Inventory_Balance.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Inventory_Balance, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
         DivSubMain_Reporting_ViewReports.Attributes("class") = "MenuSubItem " & IIf(Subsection = SubSectionName.Reporting_ViewReports, IIf(MenuLevel = 1, "MenuSubItemActive", "MenuSubItemSel"), "")
     End Sub
     Private Sub CheckIfLogged()
         On Error Resume Next
+        'Response.Redirect(Page.GetRouteUrl("SNSsoftware-Home", Nothing))
+
         If Not LoggedIn Then
             'Response.Redirect("Cufex.aspx")
             If Val(fromdefault.Value) > 0 And Page.IsPostBack Then
@@ -278,7 +360,7 @@ Public Class Cufex_Site
             Else
                 HttpContext.Current.Session("Cufex_AfterLoginURL") = Page.Request.Url.AbsoluteUri
                 'did not pass through the Cufex Login screen to reach this form, then redirect
-                Response.Redirect(Page.GetRouteUrl("SNSsoftware-CMS", Nothing))
+                Response.Redirect(Page.GetRouteUrl("SNSsoftware-Home", Nothing))
             End If
         Else
             'winLogIn.VisibleOnPageLoad = False

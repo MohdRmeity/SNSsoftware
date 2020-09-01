@@ -24,6 +24,18 @@
                     <table class="floatR">
                         <tr>
                             <td>
+                                <a id="btnExport" runat="server" class="btnExport AnimateMe" title="Export"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <div class="VerticalSep"></div>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
+                                <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
+                            </td>
+                            <td style="width: 13px;"></td>
+                            <td>
                                 <a id="btnQuickEntry" runat="server" class="btnQuickEntry AnimateMe">Quick Entry
                                 </a>
                             </td>
@@ -46,7 +58,8 @@
                             <td id="TableAction2" runat="server">
                                 <div class="btnActions">Actions</div>
                                 <div class="ActionHiddenButtons">
-                                    <div class="BtnDoSomeThing AnimateMe" data-id="1"><span class="ion-ios-trending-up MyFontIon"></span><span style="vertical-align: 4px;">Release to SCE</span></div>
+                                    <!-- Mohamad Rmeity - Changing label from Release to SCE to Release to WMS -->
+                                    <div class="BtnDoSomeThing AnimateMe" data-id="1"><span class="ion-ios-trending-up MyFontIon"></span><span style="vertical-align: 4px;">Release to WMS</span></div>
                                     <div class="BtnDoSomeThing AnimateMe" data-id="2"><span class="ion-ios-trending-up MyFontIon"></span><span style="vertical-align: 4px;">Release & Allocate</span></div>
                                 </div>
                             </td>
@@ -65,7 +78,8 @@
                         <div class="AdjustColumns"></div>
                     </td>
                     <td class="GridCell GridHead" data-id="OrderManagKey">
-                        <span class="MyTitleHead">Order Manag Key</span>
+                        <!-- Mohamad Rmeity - Changing label from Order Manag Key to Order Management No. -->
+                        <span class="MyTitleHead">Order Management No.</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -86,21 +100,23 @@
                         </div>
                     </td>
                     <td class="GridCell GridHead" data-id="ExternOrderKey">
-                        <span class="MyTitleHead">Extern Order Key</span>
+                        <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+                        <span class="MyTitleHead">External Order No.</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
+                    <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
                     <td class="GridCell GridHead" data-id="ConsigneeKey">
-                        <span class="MyTitleHead">Consignee</span>
+                        <span class="MyTitleHead">Ship To</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
                     <td class="GridCell GridHead" data-id="ConsigneeName">
-                        <span class="MyTitleHead">Consignee Name</span>
+                        <span class="MyTitleHead">Ship To Name</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -184,8 +200,9 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="OrderManagKey" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Facility" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputFacility" data-id="Facility">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
@@ -199,11 +216,16 @@
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="ConsigneeName" />
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="OrderManagStatus" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderManagStatusSearch" data-id="OrderManagStatus">
+                            <option value="CREATED in SCE">CREATED in SCE</option>
+                            <option value="CREATED & ALLOCATED">CREATED & ALLOCATED</option>
+                            <option value="NOT CREATED in SCE">NOT CREATED in SCE</option>
+                        </select>
                     </td>
-                    <td class="GridCell GridHeadSearch">
-                        <input type="text" placeholder="Search" class="SearchClass" data-id="Type" />
+                    <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                        <select data-placeholder="Search" multiple class="chosen-select SearchClass InputOrderTypeSearch" data-id="Type">
+                        </select>
                     </td>
                     <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="CAST(OrderDate AS date)" />
@@ -285,18 +307,20 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Facility<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack">
+                                <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack" data-mode="single">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Order Key</div>
+                            <!-- Mohamad Rmeity - Changing label from Order Key to Order Management No. -->
+                            <div class="FloatRecordTitleNew">Order Management No.</div>
                             <div>
                                 <input type="text" class="textRecordStyle InputOrderManagKey" data-value="Auto Generated" data-disabled="" />
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Extern Order Key</div>
+                            <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+                            <div class="FloatRecordTitleNew">External Order No.</div>
                             <div>
                                 <input type="text" class="textRecordStyle InputExternOrderKey" />
                             </div>
@@ -304,7 +328,7 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Owner<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -323,14 +347,15 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Type<span>*</span></div>
                             <div>
-                                <select data-placeholder="Select Types" multiple class="chosen-select InputType">
+                                <select data-placeholder="Select Types" multiple class="chosen-select InputType" data-mode="single">
                                 </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Consignee</div>
+                            <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
+                            <div class="FloatRecordTitleNew">Ship To</div>
                             <div>
-                                <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey">
+                                <select data-placeholder="Select Ship To" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -376,7 +401,9 @@
                                 <input type="text" class="textRecordStyle InputWMSOrderKey" data-disabled="" />
                             </div>
                         </div>
-
+                        <div class="floatL Width100 DisplayNone" style="padding-top: 10px">
+                            <div class="dropzone"></div>
+                        </div>
                     </div>
                     <div class="floatL Width100 RecordDetail">
                         <div class="floatL">
@@ -391,16 +418,21 @@
                                         Back to List
                                     </div>
                                 </td>
+                                <td style="width: 13px;"></td>
                                 <td>
-                                    <div class="VerticalSep" style="display: none;"></div>
+                                    <a id="btnExportDetails" runat="server" class="btnExportDetails AnimateMe" title="Export"></a>
                                 </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <div class="VerticalSep2"></div>
+                                </td>
+                                <td style="width: 13px;"></td>
+                                <td>
+                                    <a id="btnRefreshDetails" runat="server" class="btnRefreshDetails AnimateMe" title="Refresh"></a>
+                                </td>
+                                <td style="width: 13px;"></td>
                                 <td>
                                     <a id="btnNew" runat="server" class="btnNew AnimateMe">New
-                                    </a>
-                                </td>
-                                <td style="width: 13px; display: none;"></td>
-                                <td>
-                                    <a id="btnSaveDetail" runat="server" class="btnSaveDetail AnimateMe" style="display: none;">Add
                                     </a>
                                 </td>
                                 <td style="width: 13px;"></td>
@@ -621,10 +653,10 @@
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable03" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
-                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable04" />
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Cast(Lottable04 As Date)" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
-                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable05" />
+                                    <input type="text" placeholder="Search" class="SearchClass" data-id="Cast(Lottable05 As Date)" />
                                 </td>
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable06" />
@@ -707,9 +739,10 @@
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew floatL">Item<span>*</span></div>
-                            <div>
-                                <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku">
+                            <div class="PositionRelative">
+                                <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku" data-mode="single">
                                 </select>
+                                <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility,Owner" data-requiredfields=".InputFacility,.InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?warehouse=.InputFacility&storer=.InputStorerKey" %>"></div>
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
@@ -719,16 +752,17 @@
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
-                            <div class="Details_FloatRecordTitleNew">Pack</div>
-                            <div>
-                                <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails">
+                            <div class="Details_FloatRecordTitleNew">Pack<span>*</span></div>
+                            <div class="PositionRelative">
+                                <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails" data-mode="single">
                                 </select>
+                                <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility" data-requiredfields=".InputFacility" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Packs", Nothing)) & "?warehouse=.InputFacility" %>"></div>
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">UOM</div>
                             <div>
-                                <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM">
+                                <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -840,8 +874,8 @@
                 <div class="MyAbso_Record_PopUpContainer">
                     <div class="R_PopupTitle">
                         Order and Details
-                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"><span class="ion-ios-checkmark-circle-outline"></span></div>
-                        <div class="ClosePopup AnimateMe"><span class="ion-ios-exit"></span></div>
+                        <div class="SaveRecordNow AnimateMe" id="btnSave" runat="server"></div>
+                        <div class="ClosePopup AnimateMe"></div>
                     </div>
                     <div style="position: relative; height: 500px; width: 100%;" class="MyContainerPopup GetFullHeightForPopup content_4">
                         <div class="iWantMyChildrenFloatHeight">
@@ -850,19 +884,21 @@
                                     <input type="hidden" id="MyID" class="MyRecordID" value="0" />
                                     <div class="FloatRecordTitle floatL">Facility*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack">
+                                        <select data-placeholder="Select Facilities" multiple class="chosen-select InputFacility InputAutoPostBack" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Order Key</div>
+                                    <!-- Mohamad Rmeity - Changing label from Order Manag Key to Order Management No. -->
+                                    <div class="FloatRecordTitle floatL">Order Management No.</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputOrderManagKey" data-value="Auto Generated" data-disabled="" />
                                     </div>
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Extern Order Key</div>
+                                    <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+                                    <div class="FloatRecordTitle floatL">External Order No.</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputExternOrderKey" />
                                     </div>
@@ -870,7 +906,7 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Owner*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey">
+                                        <select data-placeholder="Select Owners" multiple class="chosen-select InputStorerKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -891,14 +927,15 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Type*</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Types" multiple class="chosen-select InputType">
+                                        <select data-placeholder="Select Types" multiple class="chosen-select InputType" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
+                                <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Consignee</div>
+                                    <div class="FloatRecordTitle floatL">Ship To</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey">
+                                        <select data-placeholder="Select Ship To" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -967,8 +1004,9 @@
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Item*</div>
                                                 <div class="Details_FloatRecordField floatL" style="position: relative;">
-                                                    <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku">
+                                                    <select data-placeholder="Select Items" multiple class="chosen-select InputDetailsSku" data-mode="single">
                                                     </select>
+                                                    <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility,Owner" data-requiredfields=".InputFacility,.InputStorerKey" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Items", Nothing)) & "?warehouse=.InputFacility&storer=.InputStorerKey" %>"></div>
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
@@ -978,20 +1016,28 @@
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
-                                                <div class="Details_FloatRecordTitle floatL">Pack</div>
-                                                <div class="Details_FloatRecordField floatL">
-                                                    <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails">
+                                                <div class="Details_FloatRecordTitle floatL">Pack*</div>
+                                                <div class="Details_FloatRecordField floatL" style="position: relative;">
+                                                    <select data-placeholder="Select Packs" multiple class="chosen-select InputDetailsPackKey InputAutoPostBackDetails" data-mode="single">
                                                     </select>
+                                                    <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility" data-requiredfields=".InputFacility" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Packs", Nothing)) & "?warehouse=.InputFacility" %>"></div>
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">UOM</div>
                                                 <div class="Details_FloatRecordField floatL">
-                                                    <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM">
+                                                    <select data-placeholder="Select UOMs" multiple class="chosen-select InputDetailsUOM" data-mode="single">
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
+                                                <div class="Details_FloatRecordTitle floatL">UDF1</div>
+                                                <div class="Details_FloatRecordField floatL">
+                                                    <input type="text" class="Details_textRecordStyle InputDetailsSUsr1" />
+                                                </div>
+                                            </div>
+                                            <!-- Mohamad Rmeity - Changing Order Management Detail record to have less fields -->
+                                            <%--<div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Price</div>
                                                 <div class="Details_FloatRecordField floatL">
                                                     <input type="text" class="Details_textRecordStyle InputDetailsPrice" data-disabled="" />
@@ -1001,12 +1047,6 @@
                                                 <div class="Details_FloatRecordTitle floatL">Currency</div>
                                                 <div class="Details_FloatRecordField floatL">
                                                     <input type="text" class="Details_textRecordStyle InputDetailsCurrency" data-disabled="" />
-                                                </div>
-                                            </div>
-                                            <div class="Details_FloatRecord floatL">
-                                                <div class="Details_FloatRecordTitle floatL">UDF1</div>
-                                                <div class="Details_FloatRecordField floatL">
-                                                    <input type="text" class="Details_textRecordStyle InputDetailsSUsr1" />
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
@@ -1086,7 +1126,7 @@
                                                 <div class="Details_FloatRecordField floatL">
                                                     <input type="text" class="Details_textRecordStyle InputDetailsLottable10" />
                                                 </div>
-                                            </div>
+                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -1128,12 +1168,15 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-        <input type="hidden" class="MyFields" value="OrderManagKey" data-columnname="Order Manag Key" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <!-- Mohamad Rmeity - Changing label from Order Manag Key to Order Management No. -->
+        <input type="hidden" class="MyFields" value="OrderManagKey" data-columnname="Order Management No." data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" />
         <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="3" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ExternOrderKey" data-columnname="Extern Order Key" data-priority="4" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Consignee" data-priority="5" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ConsigneeName" data-columnname="Consignee Name" data-priority="6" data-hidden="false" />
+        <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+        <input type="hidden" class="MyFields" value="ExternOrderKey" data-columnname="External Order No." data-priority="4" data-hidden="false" />
+        <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
+        <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Ship To" data-priority="5" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="ConsigneeName" data-columnname="Ship To Name" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyFields" value="OrderManagStatus" data-columnname="Status" data-priority="7" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Type" data-columnname="Type" data-priority="8" data-hidden="false" />
         <input type="hidden" class="MyFields" value="OrderDate" data-columnname="Order Date" data-priority="9" data-hidden="false" />
@@ -1143,6 +1186,12 @@
         <input type="hidden" class="MyFields" value="SUsr3" data-columnname="UDF3" data-priority="13" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SUsr4" data-columnname="UDF4" data-priority="14" data-hidden="false" />
         <input type="hidden" class="MyFields" value="SUsr5" data-columnname="UDF5" data-priority="15" data-hidden="false" />
+
+        <input type="hidden" id="HiddenCanUploadFiles" runat="server" class="HiddenCanUploadFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewOwnFiles" runat="server" class="HiddenCanViewOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanViewAllFiles" runat="server" class="HiddenCanViewAllFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveOwnFiles" runat="server" class="HiddenCanRemoveOwnFiles" value="0" />
+        <input type="hidden" id="HiddenCanRemoveAllFiles" runat="server" class="HiddenCanRemoveAllFiles" value="0" />
 
         <input type="hidden" class="MyDetailsFields" value="ExternLineNo" data-columnname="Extern Line#" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyDetailsFields" value="Sku" data-columnname="Item" data-priority="2" data-hidden="false" data-primarykey="true" />

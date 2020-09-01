@@ -86,6 +86,33 @@ Partial Public Class Cufex_Site
     Protected WithEvents TableNotloggedIn As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''widthMenu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents widthMenu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''SideMenu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SideMenu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''MainLogo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MainLogo As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''DivMain_Home_Def control.
     '''</summary>
     '''<remarks>
@@ -102,6 +129,69 @@ Partial Public Class Cufex_Site
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents DivMain_Home_Def_MenuArrow As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''DivMain_Administration control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivMain_Administration As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''DivMain_Administration_MenuArrow control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivMain_Administration_MenuArrow As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''DivSubMain_Administration_ExportLogs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivSubMain_Administration_ExportLogs As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''DivSubMain_Administration_ImportLogs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivSubMain_Administration_ImportLogs As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''DivSubMain_Administration_FileManagementLogs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivSubMain_Administration_FileManagementLogs As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''DivSubMain_Administration_FileManagement control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivSubMain_Administration_FileManagement As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''DivSubMain_Administration_UITemplates control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivSubMain_Administration_UITemplates As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''DivMain_Security control.
@@ -275,6 +365,15 @@ Partial Public Class Cufex_Site
     Protected WithEvents DivSubMain_Warehouse_OrderManagement As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''DivSubMain_Warehouse_OrderTracking control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DivSubMain_Warehouse_OrderTracking As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''DivMain_Inventory control.
     '''</summary>
     '''<remarks>
@@ -329,6 +428,15 @@ Partial Public Class Cufex_Site
     Protected WithEvents DivSubMain_Reporting_ViewReports As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''widthContent control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents widthContent As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''DivMain control.
     '''</summary>
     '''<remarks>
@@ -336,6 +444,24 @@ Partial Public Class Cufex_Site
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents DivMain As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''CarrierEvents control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents CarrierEvents As Global.SNSsoftware.Cufex_Warehouse_OrderTracking_CarrierEvents
+    
+    '''<summary>
+    '''HeaderMenu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HeaderMenu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''Cufex_MasterHeader control.
@@ -516,4 +642,85 @@ Partial Public Class Cufex_Site
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Cufex_ScriptContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
+    
+    '''<summary>
+    '''HiddenMenuOpen control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenMenuOpen As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenFileImportLimit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenFileImportLimit As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenFileUploadLimit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenFileUploadLimit As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenLoginBackgroundColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenLoginBackgroundColor As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenMenuBackgroundColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenMenuBackgroundColor As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenScreenBackgroundColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenScreenBackgroundColor As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenGridBackgroundColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenGridBackgroundColor As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenButtonBackgroundColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenButtonBackgroundColor As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
+    '''HiddenTextBackgroundColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenTextBackgroundColor As Global.System.Web.UI.HtmlControls.HtmlInputHidden
 End Class

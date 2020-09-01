@@ -5,6 +5,7 @@ Imports System.Globalization
 Imports System.IO
 Imports System.Net
 Imports System.Net.Mail
+Imports System.Net.Mime
 Imports System.Reflection
 Imports System.Security.Cryptography
 Imports System.Web.Services.Description
@@ -24,6 +25,8 @@ Public Class CommonMethods
     Public Shared datef As String = ConfigurationManager.AppSettings("datef")
     Public Shared DashboardRefreshTime As String = ConfigurationManager.AppSettings("DashboardRefreshTimeInSeconds")
     Public Shared TopCount As String = ConfigurationManager.AppSettings("TopCount")
+    Public Shared LoginBackgroundColor As String = ConfigurationManager.AppSettings("LoginBackgroundColor")
+    Public Shared ExternalDashboardRefreshTimeInSeconds As String = ConfigurationManager.AppSettings("ExternalDashboardRefreshTimeInSeconds")
     Public Shared Function AreEqual(ByVal plainTextInput As String, ByVal hashedInput As String, ByVal salt As String) As Boolean
         Dim newHashedPin As String = GenerateHash(plainTextInput, salt)
         Return newHashedPin.Equals(hashedInput)
@@ -284,6 +287,67 @@ Public Class CommonMethods
             logger.Error(e1, "", "")
         End Try
     End Sub
+
+
+    Public Shared Sub SendEmail(ByVal addresses As String, ByVal subject As String, ByVal body As String, ByVal attachmentFilename As String)
+        Try
+            Dim fromAddress = New MailAddress(ConfigurationManager.AppSettings("smtp_email"), "SNS Support")
+
+            Dim fromPassword As String = ConfigurationManager.AppSettings("smtp_password")
+            Dim smtp = New SmtpClient With {
+                .Host = ConfigurationManager.AppSettings("smtp_host"),
+                .Port = Integer.Parse(ConfigurationManager.AppSettings("smtp_port")),
+                .EnableSsl = True,
+                .DeliveryMethod = SmtpDeliveryMethod.Network,
+                .UseDefaultCredentials = False,
+                .Credentials = New NetworkCredential(fromAddress.Address, fromPassword)
+            }
+
+            Dim message = New MailMessage()
+            message.Subject = subject
+            message.Body = body
+            message.IsBodyHtml = True
+            message.From = fromAddress
+
+            For Each address In addresses.Split({";"}, StringSplitOptions.RemoveEmptyEntries)
+                Try
+                    Dim mailAdd = New MailAddress(address)
+                    message.To.Add(mailAdd)
+                Catch ex As Exception
+
+                End Try
+            Next
+
+
+            Dim htmlMessage As String = "<html>
+                         <body>
+                         <p>" + body + "<br>
+                         <img src='cid:EmbeddedContent_1' />
+                         </body>
+                         </html>"
+
+            Dim htmlView As AlternateView = AlternateView.CreateAlternateViewFromString(htmlMessage, Encoding.UTF8, MediaTypeNames.Text.Html)
+            Dim plainView As AlternateView = AlternateView.CreateAlternateViewFromString(Regex.Replace(htmlMessage, "<[^>]+?>", String.Empty), Encoding.UTF8, MediaTypeNames.Text.Plain)
+            Dim mediaType As String = MediaTypeNames.Image.Jpeg
+            Dim img As LinkedResource = New LinkedResource(attachmentFilename, mediaType)
+            img.ContentId = "EmbeddedContent_1"
+            img.ContentType.MediaType = mediaType
+            img.TransferEncoding = TransferEncoding.Base64
+            img.ContentType.Name = img.ContentId
+            img.ContentLink = New Uri("cid:" & img.ContentId)
+            htmlView.LinkedResources.Add(img)
+            message.AlternateViews.Add(plainView)
+            message.AlternateViews.Add(htmlView)
+
+            message.IsBodyHtml = True
+
+
+            smtp.Send(message)
+        Catch e1 As Exception
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.Error(e1, "", "")
+        End Try
+    End Sub
     Public Shared Function checkUserExist(ByVal where As String) As Integer
         Dim exist As Integer = 0
         If dbtype = "sql" Then
@@ -314,6 +378,53 @@ Public Class CommonMethods
                     connection.Open()
                     Dim cmd As OracleCommand = New OracleCommand(query, connection)
                     cmd.Parameters.Add(New OracleParameter("ukey", where))
+                    Using people As OracleDataAdapter = New OracleDataAdapter
+                        Dim dt As DataTable = New DataTable
+                        people.SelectCommand = cmd
+                        people.Fill(dt)
+                        For Each row As DataRow In dt.Rows
+                            exist = Integer.Parse(row(0).ToString)
+                        Next
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        End If
+        Return exist
+    End Function
+    Public Shared Function checkUITemplateExist(ByVal where As String) As Integer
+        Dim exist As Integer = 0
+        If dbtype = "sql" Then
+            Dim query As String = "select count(1) from dbo.UITEMPLATES where UITEMPLATEID= @ut "
+            Try
+                Using connection As SqlConnection = New SqlConnection(dbconx)
+                    connection.Open()
+                    Dim cmd As SqlCommand = New SqlCommand(query, connection)
+                    cmd.Parameters.AddWithValue("@ut", where)
+                    Using people As SqlDataAdapter = New SqlDataAdapter
+                        Dim dt As DataTable = New DataTable
+                        people.SelectCommand = cmd
+                        people.Fill(dt)
+                        For Each row As DataRow In dt.Rows
+                            exist = Integer.Parse(row(0).ToString)
+                        Next
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        Else
+            Dim query As String = "select count(1) from SYSTEM.UITEMPLATES where UITEMPLATEID= :ut"
+            Try
+                Using connection As OracleConnection = New OracleConnection(dbconx)
+                    connection.Open()
+                    Dim cmd As OracleCommand = New OracleCommand(query, connection)
+                    cmd.Parameters.Add(New OracleParameter("ut", where))
                     Using people As OracleDataAdapter = New OracleDataAdapter
                         Dim dt As DataTable = New DataTable
                         people.SelectCommand = cmd
@@ -538,6 +649,92 @@ Public Class CommonMethods
         Next
         Return reports
     End Function
+    Public Shared Function getOrderTypePerUser(ByVal userkey As String) As String()
+        Dim ordertypes As String()
+        Dim s As String = ""
+        Dim dt As DataTable = New DataTable
+        If dbtype = "sql" Then
+            Try
+                Using connection As SqlConnection = New SqlConnection(dbconx)
+                    connection.Open()
+                    Dim query As SqlCommand = New SqlCommand("select OrderType from dbo.USERCONTROL where USERKEY = @ukey", connection)
+                    query.Parameters.AddWithValue("@ukey", userkey)
+                    Using people As SqlDataAdapter = New SqlDataAdapter
+                        people.SelectCommand = query
+                        people.Fill(dt)
+                        For Each row As DataRow In dt.Rows
+                            s = row("OrderType").ToString
+                        Next
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        Else
+            Try
+                Using connection As OracleConnection = New OracleConnection(dbconx)
+                    connection.Open()
+                    Dim query As OracleCommand = New OracleCommand("select OrderType from SYSTEM.USERCONTROL where USERKEY = :ukey", connection)
+                    query.Parameters.Add(New OracleParameter("ukey", userkey))
+                    Using orderdata As OracleDataAdapter = New OracleDataAdapter
+                        orderdata.SelectCommand = query
+                        orderdata.Fill(dt)
+                        For Each row As DataRow In dt.Rows
+                            s = row("OrderType").ToString
+                        Next
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        End If
+        If s.Equals("") Then
+            ordertypes = Nothing
+        Else
+            ordertypes = s.Split(","c)
+        End If
+        Return ordertypes
+    End Function
+    Public Shared Function getDateFilterPerUser(ByVal userkey As String) As String
+        Dim DateFilter As String = ""
+        Dim sql As String = "select DateFilter from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "USERCONTROL where USERKEY ='" & userkey & "'"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        If ds.Tables(0).Rows.Count > 0 Then DateFilter = ds.Tables(0).Rows(0)!DateFilter
+        If DateFilter = "" Then Return "0"
+        Return DateFilter
+    End Function
+    Public Shared Function getOrderTypes(ByVal userkey As String) As DataTable
+        Dim MyDataTable As DataTable = New DataTable
+        If dbtype = "sql" Then
+            Dim query As String = "select CODE, DESCRIPTION from enterprise.codelkup where listname = 'ORDERTYPE'"
+            Try
+                Using connection As SqlConnection = New SqlConnection(dbconx)
+                    connection.Open()
+                    Dim cmd As SqlCommand = New SqlCommand(query, connection)
+
+                    If Not getOrderTypePerUser(userkey)(0).Equals("ALL") Then
+                        query += " and CODE IN (SELECT ltrim(rtrim(value)) Type FROM dbo.USERCONTROL CROSS APPLY STRING_SPLIT(ORDERTYPE, ',') WHERE userkey = @userkey)"
+                        cmd = New SqlCommand(query, connection)
+                        cmd.Parameters.AddWithValue("@userkey", userkey)
+                    End If
+
+                    Using orderdata As SqlDataAdapter = New SqlDataAdapter
+                        orderdata.SelectCommand = cmd
+                        orderdata.Fill(MyDataTable)
+                    End Using
+                    connection.Close()
+                End Using
+            Catch exp As Exception
+                Dim logger As Logger = LogManager.GetCurrentClassLogger()
+                logger.Error(exp, "", "")
+            End Try
+        End If
+        Return MyDataTable
+    End Function
     Public Shared Function getButtons(ByVal profile As String) As DataTable
         Dim sql As String = ""
         If profile = "getAll" Then
@@ -554,7 +751,7 @@ Public Class CommonMethods
         If profile = "getAll" Then
             sql += "select RPT_ID,RPT_TITLE  from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALREPORTS"
         Else
-            sql += "select RPT_ID,RPT_TITLE from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALREPORTS WHERE RPT_ID NOT IN (SELECT REPORT FROM " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PROFILEDETAILREPORTS WHERE PROFILENAME= '" & profile & "') order by RPT_ID ASC"
+            sql += "select RPT_ID,RPT_TITLE from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALREPORTS WHERE RPT_ID NOT IN (SELECT REPORT FROM " & IIf(dbtype <> "sql", "SYSTEM.", "") & "REPORTSPROFILEDETAIL WHERE PROFILENAME= '" & profile & "') order by RPT_ID ASC"
         End If
         sql += " ORDER BY RPT_ID ASC "
         Dim ds As DataSet = (New SQLExec).Cursor(sql)
@@ -811,7 +1008,7 @@ Public Class CommonMethods
             If table <> "orderstatussetup" Then sql += " where listname='" & listname & "'"
         Else
             Dim dtw As DataTable = getFacilities()
-            If table <> "orderstatussetup" Then sql += "select CODE,DESCRIPTION from enterprisse." & table & " where listname ='" & listname & "'"
+            If table <> "orderstatussetup" Then sql += "select CODE,DESCRIPTION from enterprise." & table & " where listname ='" & listname & "'"
             For Each row As DataRow In dtw.Rows
                 warehouse = row("DB_NAME").ToString()
                 If LCase(warehouse.Substring(0, 6)) = "infor_" Then warehouse = warehouse.Substring(6, warehouse.Length - 6)
@@ -830,7 +1027,17 @@ Public Class CommonMethods
         Return ds.Tables(0)
     End Function
     Public Shared Function getUsers() As DataTable
-        Dim sql As String = "select USERKEY from " & IIf(dbtype <> "sql", "System.", "") & "PORTALUSERS WHERE ACTIVE=1"
+        Dim sql As String = "select USERKEY, FirstName, LastName from " & IIf(dbtype <> "sql", "System.", "") & "PORTALUSERS WHERE ACTIVE=1"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        Return ds.Tables(0)
+    End Function
+    Public Shared Function getUITemplates() As DataTable
+        Dim sql As String = "select UITemplateID from " & IIf(dbtype <> "sql", "System.", "") & "UITEMPLATES"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        Return ds.Tables(0)
+    End Function
+    Public Shared Function getTimeZones() As DataTable
+        Dim sql As String = "select name + ' (' + current_utc_offset + ')' as TimeZone from sys.time_zone_info"
         Dim ds As DataSet = (New SQLExec).Cursor(sql)
         Return ds.Tables(0)
     End Function
@@ -859,7 +1066,7 @@ Public Class CommonMethods
         Return ds.Tables(0)
     End Function
     Public Shared Function getFacilities() As DataTable
-        Dim sql As String = "select db_alias from wmsadmin.pl_db where isActive=1 and db_enterprise=0"
+        Dim sql As String = "select db_alias, db_name from wmsadmin.pl_db where isActive=1 and db_enterprise=0"
         Dim ds As DataSet = (New SQLExec).Cursor(sql)
         Return ds.Tables(0)
     End Function
@@ -1190,7 +1397,7 @@ Public Class CommonMethods
             End If
             If LCase(warehouse.Contains("_")) Then warehouse = warehouse.Split("_")(1)
         End If
-        If CommonMethods.dbtype = "sql" Then
+        If dbtype = "sql" Then
             sql = "select (RIGHT('00000' + CAST(ISNULL(max(cast(EXTERNLINENO as int))+1,1) AS varchar(5)) , 5)) as LineNum from " & warehouse & "." & table & "  where " & field & "='" & externokey & "' and EXTERNLINENO not like '%[^0-9]%'"
         Else
             sql = "select (SUBSTR(CONCAT('00000' , CAST(NVL(max(cast(EXTERNLINENO as integer))+1,1) AS nvarchar2(5))) , -5)) as LineNum from " & warehouse & "." & table & "  where " & field & "='" & externokey & "' and EXTERNLINENO not like '%[^0-9]%'"
@@ -1246,8 +1453,10 @@ Public Class CommonMethods
                 MyID = StrID.Split("=")(1)
             Case "USERCONTROL"
                 sql += "Select " & IIf(dbtype = "sql", "ID", "SerialKey") & " From " & IIf(dbtype <> "sql", "SYSTEM.", "") & SearchTable & " where UserKey = '" & StrID.Split("=")(1) & "'"
-            Case "enterprise.storer2", "enterprise.storer5"
-                sql += "Select SerialKey from " & SearchTable.Remove(SearchTable.Length - 1) & " where StorerKey = '" & StrID.Split("=")(1) & "' and Type = " & SearchTable(SearchTable.Length - 1)
+            Case "UITEMPLATES"
+                sql += "Select SerialKey From " & IIf(dbtype <> "sql", "SYSTEM.", "") & SearchTable & " where UITemplateID = '" & StrID.Split("=")(1) & "'"
+            Case "enterprise.storer2", "enterprise.storer12"
+                sql += "Select SerialKey from enterprise.storer where StorerKey = '" & StrID.Split("=")(1) & "' and Type = '" & IIf(SearchTable = "enterprise.storer2", "2", "12") & "'"
             Case "enterprise.sku"
                 sql += "Select SerialKey from " & SearchTable & " where StorerKey = '" & StrID.Split("=")(1).Split("&")(0) & "' and Sku = '" & StrID.Split("=")(2) & "'"
             Case "Warehouse_PO", "Warehouse_ASN", "Warehouse_SO", "Warehouse_OrderManagement"
@@ -1300,5 +1509,218 @@ Public Class CommonMethods
         End If
 
         Return Val(MyID)
+    End Function
+    Public Shared Function GetUserMenuOpen() As Integer
+        Dim MenuOpen As Integer = 1
+        Dim sql As String = "Select MenuOpen from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS Where UserKey = '" & HttpContext.Current.Session("userkey") & "'"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        If ds.Tables(0).Rows.Count > 0 Then MenuOpen = Val(ds.Tables(0).Rows(0)!MenuOpen)
+        Return MenuOpen
+    End Function
+    Public Shared Function GetUserControlInfo() As DataTable
+        Dim sql As String = " Select * From " & IIf(dbtype <> "sql", "SYSTEM.", "") & "USERCONTROL"
+        sql += " where UserKey = '" & HttpContext.Current.Session("userkey") & "'"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        If ds IsNot Nothing Then Return ds.Tables(0)
+        Return Nothing
+    End Function
+    Public Shared Function GetUserUITemplate() As DataTable
+        Dim sql As String = " Select * From " & IIf(dbtype <> "sql", "SYSTEM.", "") & "UITEMPLATES"
+        sql += " where UITEMPLATEID = (select UITEMPLATEID from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "USERCONTROL where Userkey = '" & HttpContext.Current.Session("userkey") & "')"
+        Dim ds As DataSet = (New SQLExec).Cursor(sql)
+        If ds IsNot Nothing Then Return ds.Tables(0)
+        Return Nothing
+    End Function
+    Public Shared Function SaveExportLogs(ByVal SearchTable As String, ByVal RecordsCount As Integer) As String
+        Dim tmp As String = ""
+        Dim TabName As String = HttpContext.Current.Request.Item("TabName")
+        Try
+            If dbtype = "sql" Then
+                Dim insert As String = "set dateformat dmy insert into dbo.LOGSEXPORT (USERKEY,SCREENNAME,RECORDSCOUNT,ADDDATE) values (@ukey, @screenname, @recordscount,'" & Now & "');"
+
+                Dim conn As SqlConnection = New SqlConnection(dbconx)
+                conn.Open()
+
+                Dim cmd As SqlCommand = New SqlCommand(insert, conn)
+                cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey"))
+                cmd.Parameters.AddWithValue("@screenname", SearchTable & IIf(TabName <> "", "_" & UCase(TabName), ""))
+                cmd.Parameters.AddWithValue("@recordscount", RecordsCount)
+                cmd.ExecuteNonQuery()
+
+                conn.Close()
+            Else
+                Dim insert As String = "set dateformat dmy insert into SYSTEM.LOGSEXPORT (USERKEY,SCREENNAME,RECORDSCOUNT,ADDDATE) values (:ukey, :screenname, :recordscount,SYSDATE);"
+                Dim conn As OracleConnection = New OracleConnection(dbconx)
+                conn.Open()
+
+                Dim cmd As OracleCommand = New OracleCommand(insert, conn)
+                cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey")))
+                cmd.Parameters.Add(New OracleParameter("screenname", SearchTable & IIf(TabName <> "", "_" & UCase(TabName), "")))
+                cmd.Parameters.Add(New OracleParameter("recordscount", RecordsCount))
+                cmd.ExecuteNonQuery()
+
+                conn.Close()
+            End If
+        Catch ex As Exception
+            tmp += "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.Error(ex, "", "")
+        End Try
+        Return tmp
+    End Function
+    Public Shared Function SaveImportLogs(ByVal SearchTable As String, ByVal FileName As String, ByVal FileSize As String, ByVal ErrorMessage As String) As String
+        Dim tmp As String = ""
+        Try
+            If dbtype = "sql" Then
+                Dim insert As String = "set dateformat dmy insert into dbo.LOGSIMPORT (USERKEY,SCREENNAME,FILENAME,FILESIZE,FILESTATUS,ERRORMESSAGE,ADDDATE) values (@ukey, @screenname, @filename,@filesize,@filestatus,@errormessage,'" & Now & "');"
+
+                Dim conn As SqlConnection = New SqlConnection(dbconx)
+                conn.Open()
+
+                Dim cmd As SqlCommand = New SqlCommand(insert, conn)
+                cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey"))
+                cmd.Parameters.AddWithValue("@screenname", SearchTable)
+                cmd.Parameters.AddWithValue("@filename", FileName)
+                cmd.Parameters.AddWithValue("@filesize", FileSize)
+                cmd.Parameters.AddWithValue("@filestatus", IIf(ErrorMessage = "", "Success", "Failure"))
+                cmd.Parameters.AddWithValue("@errormessage", IIf(ErrorMessage Is Nothing, "", ErrorMessage))
+                cmd.ExecuteNonQuery()
+
+                conn.Close()
+            Else
+                Dim insert As String = "set dateformat dmy insert into SYSTEM.LOGSIMPORT (USERKEY,SCREENNAME,FILENAME,FILESIZE,FILESTATUS,ERRORMESSAGE,ADDDATE) values (:ukey, :screenname, :filename,:filesize,:filestatus,:errormessage,SYSDATE);"
+                Dim conn As OracleConnection = New OracleConnection(dbconx)
+                conn.Open()
+
+                Dim cmd As OracleCommand = New OracleCommand(insert, conn)
+                cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey")))
+                cmd.Parameters.Add(New OracleParameter("screenname", SearchTable))
+                cmd.Parameters.Add(New OracleParameter("filename", FileName))
+                cmd.Parameters.Add(New OracleParameter("filesize", FileSize))
+                cmd.Parameters.Add(New OracleParameter("filestatus", IIf(ErrorMessage = "", "Success", "Failure")))
+                cmd.Parameters.Add(New OracleParameter("errormessage", IIf(ErrorMessage Is Nothing, "", ErrorMessage)))
+                cmd.ExecuteNonQuery()
+
+                conn.Close()
+            End If
+        Catch ex As Exception
+            tmp += "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.Error(ex, "", "")
+        End Try
+        Return tmp
+    End Function
+    Public Shared Function SaveFileActiviyLogs(ByVal SearchTable As String, ByVal Warehouse As String, ByVal Key As String, ByVal FileName As String, ByVal FileSize As Integer, ByVal ActivityType As String) As String
+        Dim tmp As String = ""
+
+        Try
+            If dbtype = "sql" Then
+                Dim insert As String = "set dateformat dmy insert into dbo.LOGSFILES (SCREENNAME, WHSEID,RECKEY,FileName,FileSize,ActivityType,ADDDATE,ADDWHO) values (@screenname,@warehouse, @key, @filename,@filesize,@activitytype,'" & Now & "',@ukey);"
+
+                Dim conn As SqlConnection = New SqlConnection(dbconx)
+                conn.Open()
+
+                Dim cmd As SqlCommand = New SqlCommand(insert, conn)
+                cmd.Parameters.AddWithValue("@screenname", SearchTable)
+                cmd.Parameters.AddWithValue("@warehouse", Warehouse)
+                cmd.Parameters.AddWithValue("@key", Key)
+                cmd.Parameters.AddWithValue("@filename", FileName)
+                cmd.Parameters.AddWithValue("@filesize", FileSize)
+                cmd.Parameters.AddWithValue("@activitytype", ActivityType)
+                cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey"))
+                cmd.ExecuteNonQuery()
+
+                conn.Close()
+            Else
+                Dim insert As String = "set dateformat dmy insert into SYSTEM.LOGSFILES (SCREENNAME, WHSEID,RECKEY,FileName,FileSize,ActivityType,ADDDATE,ADDWHO) values (:screenname,:warehouse, :key, :filename,:filesize,:activitytype,SYSDATE,:ukey);"
+                Dim conn As OracleConnection = New OracleConnection(dbconx)
+                conn.Open()
+
+                Dim cmd As OracleCommand = New OracleCommand(insert, conn)
+                cmd.Parameters.Add(New OracleParameter("screenname", SearchTable))
+                cmd.Parameters.Add(New OracleParameter("warehouse", Warehouse))
+                cmd.Parameters.Add(New OracleParameter("key", Key))
+                cmd.Parameters.Add(New OracleParameter("filename", FileName))
+                cmd.Parameters.Add(New OracleParameter("filesize", FileSize))
+                cmd.Parameters.Add(New OracleParameter("activitytype", ActivityType))
+                cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey")))
+                cmd.ExecuteNonQuery()
+
+                conn.Close()
+            End If
+        Catch ex As Exception
+            tmp += "Error: " & ex.Message & vbTab + ex.GetType.ToString & "<br/>"
+            Dim logger As Logger = LogManager.GetCurrentClassLogger()
+            logger.Error(ex, "", "")
+        End Try
+        Return tmp
+    End Function
+    Public Shared Function FormatFileSize(ByVal lngFileSize As Long) As String
+        Dim x As Integer = 0
+        Dim Suffix As String = ""
+        Dim Result As Single = lngFileSize
+
+        Do Until Int(Result) < 1000
+            x = x + 1
+            Result = Result / 1024
+        Loop
+
+        Result = Math.Round(Result, 2)
+
+        Select Case x
+            Case 0 'Bytes
+                Suffix = "Bytes"
+            Case 1 'KiloBytes
+                Suffix = "KB"
+            Case 2 'MegaBytes
+                Suffix = "MB"
+            Case 3 'GigaBytes
+                Suffix = "GB"
+            Case 4 'TeraBytes
+                Suffix = "TB"
+            Case 5 'PetaBytes
+                Suffix = "PB"
+            Case 6 'ExaBytes
+                Suffix = "EB"
+            Case 7 'ZettaBytes
+                Suffix = "ZB"
+            Case 8 'YottaBytes
+                Suffix = "YB"
+            Case Else
+                Suffix = "Too big to compute :)"
+        End Select
+
+        FormatFileSize = Format(Result, "#,##0.00") & " " & Suffix
+
+    End Function
+    Public Shared Function GetUserUtcOffsetHours() As String
+        Dim localZone As TimeZone = TimeZone.CurrentTimeZone
+        Dim currentOffset As TimeSpan = localZone.GetUtcOffset(Now)
+        Try
+            If HttpContext.Current.Session("userkey") IsNot Nothing Then
+                Dim sql As String = "Select TimeZone from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALUSERS where UserKey = '" & HttpContext.Current.Session("userkey") & "'"
+                Dim ds As DataSet = (New SQLExec).Cursor(sql)
+                If ds.Tables(0).Rows.Count > 0 Then
+                    Dim TimeZone As String = ds.Tables(0).Rows(0)!TimeZone
+                    Dim UTCOffset As String = TimeZone.Substring(TimeZone.LastIndexOf("(") + 1).Split(")")(0)
+                    currentOffset = TimeSpan.Parse(UTCOffset)
+                End If
+            End If
+        Catch ex As Exception
+        End Try
+        Return currentOffset.Hours.ToString
+    End Function
+    Public Shared Function GetTransMode(ByVal TransMode As String) As String
+        Dim MyTransMode As String = ""
+        If Not String.IsNullOrEmpty(TransMode) Then
+            If TransMode = "LTL" Then
+                MyTransMode = "Less than Truckload"
+            ElseIf TransMode = "MOTOR" Then
+                MyTransMode = "Truckload"
+            Else
+                MyTransMode = UCase(TransMode.Substring(0, 1)) & LCase(TransMode.Substring(1))
+            End If
+        End If
+        Return MyTransMode
     End Function
 End Class
