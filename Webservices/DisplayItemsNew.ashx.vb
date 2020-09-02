@@ -184,9 +184,10 @@ Public Class DisplayItemsNew
                             SavedFields += ";;;PackKey:::" & !PackKey
                         End If
 
-                        If Not .IsNull("TariffKey") Then
-                            SavedFields += ";;;TariffKey:::" & !TariffKey
-                        End If
+                        'Mohamad Rmeity - Removing Tariff Key from items screen
+                            'If Not .IsNull("TariffKey") Then
+                            '    SavedFields += ";;;TariffKey:::" & !TariffKey
+                            'End If
 
                         If Not .IsNull("StdCube") Then
                             SavedFields += ";;;StdCube:::" & !StdCube

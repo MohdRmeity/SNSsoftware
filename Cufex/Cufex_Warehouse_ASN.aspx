@@ -118,7 +118,8 @@
                         </div>
                     </td>
                     <td class="GridCell GridHead" data-id="ExternReceiptKey">
-                        <span class="MyTitleHead">Extern Receipt Key</span>
+                        <!-- Mohamad Rmeity - Changing label from Extern Receipt Key to External Receipt No. -->
+                        <span class="MyTitleHead">External Receipt No.</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -295,13 +296,15 @@
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Receipt Key</div>
+                            <<!-- Mohamad Rmeity - Changing label from Receipt Key to Receipt No. -->
+                            <div class="FloatRecordTitleNew">Receipt No.</div>
                             <div>
                                 <input type="text" class="textRecordStyle InputReceiptKey" data-value="Auto Generated" data-disabled="" />
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Extern Receipt Key</div>
+                            <!-- Mohamad Rmeity - Changing label from Extern Receipt Key to External Receipt No. -->
+                            <div class="FloatRecordTitleNew">External Receipt No.</div>
                             <div>
                                 <input type="text" class="textRecordStyle InputExternReceiptKey" />
                             </div>
@@ -360,7 +363,10 @@
                         <div class="FloatRecordNew floatL">
                             <div class="FloatRecordTitleNew">Container Type</div>
                             <div>
-                                <input type="text" class="textRecordStyle InputContainerType" />
+                                <!-- Mohamad Rmeity - Changing Container Type to dropdown -->
+                                <!--<input type="text" class="textRecordStyle InputContainerType" />-->
+                                <select data-placeholder="Select Container Type" multiple class="chosen-select InputContainerType" data-mode="single">
+                                </select>
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
@@ -490,13 +496,13 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="ToLoc">
+                                <%--<td class="GridCell GridHead" data-id="ToLoc">
                                     <span class="MyTitleHead">To Location</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
-                                </td>
+                                </td>--%>
                                 <td class="GridCell GridHead" data-id="ConditionCode">
                                     <span class="MyTitleHead">Hold</span>
                                     <div class="AbsoSorting">
@@ -504,13 +510,13 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="TariffKey">
+                                <%--<td class="GridCell GridHead" data-id="TariffKey">
                                     <span class="MyTitleHead">Tarrif Key</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
-                                </td>
+                                </td>--%>
                                 <td class="GridCell GridHead" data-id="Lottable01">
                                     <span class="MyTitleHead">Lottable01</span>
                                     <div class="AbsoSorting">
@@ -631,15 +637,15 @@
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="ToId" />
                                 </td>
-                                <td class="GridCell GridHeadSearch">
+                                <%--<td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="ToLoc" />
-                                </td>
+                                </td>--%>
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="ConditionCode" />
                                 </td>
-                                <td class="GridCell GridHeadSearch">
+                                <%--<td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="TariffKey" />
-                                </td>
+                                </td>--%>
                                 <td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="Lottable01" />
                                 </td>
@@ -815,12 +821,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="Details_FloatRecordNew floatL">
+                        <%--<div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Tarrif Key</div>
                             <div>
                                 <input type="text" class="Details_textRecordStyle InputDetailsTariffKey" />
                             </div>
-                        </div>
+                        </div>--%>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Lottable01</div>
                             <div>
@@ -920,14 +926,16 @@
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Receipt Key</div>
+                                    <!-- Mohamad Rmeity - Changing label from Receipt Key to Receipt No. -->
+                                    <div class="FloatRecordTitle floatL">Receipt No.</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputReceiptKey" data-value="Auto Generated" data-disabled="" />
                                     </div>
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Extern Receipt Key</div>
+                                    <!-- Mohamad Rmeity - Changing label from Extern Receipt Key to External Receipt No. -->
+                                    <div class="FloatRecordTitle floatL">External Receipt No.</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputExternReceiptKey" />
                                     </div>
@@ -990,7 +998,9 @@
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Container Type</div>
                                     <div class="FloatRecordField floatL">
-                                        <input type="text" class="textRecordStyle InputContainerType" />
+                                        <!-- Mohamad Rmeity - Changing Container Type to dropdown -->
+                                        <!--<input type="text" class="textRecordStyle InputContainerType" />-->
+                                        <select data-placeholder="Select Container Type" multiple class="chosen-select InputContainerType" data-mode="single">
                                     </div>
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
@@ -1078,14 +1088,7 @@
                                                     <input type="text" class="Details_textRecordStyle InputDetailsToId" />
                                                 </div>
                                             </div>
-                                            <div class="Details_FloatRecord floatL">
-                                                <div class="Details_FloatRecordTitle floatL">To Location</div>
-                                                <div class="Details_FloatRecordField floatL" style="position: relative;">
-                                                    <select data-placeholder="Select Locations" multiple class="chosen-select InputDetailsToLoc" data-mode="single">
-                                                    </select>
-                                                    <div class="SearchDropDown AnimateMe" data-requiredfieldsname="Facility" data-requiredfields=".InputFacility" data-url="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Popup_Locations", Nothing)) & "?warehouse=.InputFacility" %>"></div>
-                                                </div>
-                                            </div>
+
                                             <div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Hold</div>
                                                 <div class="Details_FloatRecordField floatL">
@@ -1102,12 +1105,6 @@
                                                         <option value="QUARANTINE">Quarantine</option>
                                                         <option value="RETURNS">Returns</option>
                                                     </select>
-                                                </div>
-                                            </div>
-                                            <div class="Details_FloatRecord floatL">
-                                                <div class="Details_FloatRecordTitle floatL">Tarrif Key</div>
-                                                <div class="Details_FloatRecordField floatL">
-                                                    <input type="text" class="Details_textRecordStyle InputDetailsTariffKey" />
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
@@ -1230,7 +1227,8 @@
         <input type="hidden" class="MyFields" value="Status" data-columnname="Status" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ReceiptType" data-columnname="Type" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyFields" value="POKey" data-columnname="PO Number" data-priority="7" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ExternReceiptKey" data-columnname="Extern Receipt Key" data-priority="8" data-hidden="false" />
+        <!-- Mohamad Rmeity - Changing label from Extern Receipt Key to External Receipt No. -->
+        <input type="hidden" class="MyFields" value="ExternReceiptKey" data-columnname="External Receipt No." data-priority="8" data-hidden="false" />
         <input type="hidden" class="MyFields" value="CarrierKey" data-columnname="Carrier" data-priority="9" data-hidden="false" />
         <input type="hidden" class="MyFields" value="WarehouseReference" data-columnname="Warehouse Reference" data-priority="10" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ContainerKey" data-columnname="Container Key" data-priority="11" data-hidden="false" />
@@ -1252,9 +1250,9 @@
         <input type="hidden" class="MyDetailsFields" value="UOM" data-columnname="UOM" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="POKey" data-columnname="PO" data-priority="7" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="ToId" data-columnname="To LPN" data-priority="8" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="ToLoc" data-columnname="To Location" data-priority="9" data-hidden="false" />
+        <!--<input type="hidden" class="MyDetailsFields" value="ToLoc" data-columnname="To Location" data-priority="9" data-hidden="false" />-->
         <input type="hidden" class="MyDetailsFields" value="ConditionCode" data-columnname="Hold" data-priority="10" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="TariffKey" data-columnname="Tarrif Key" data-priority="11" data-hidden="false" />
+        <!--<input type="hidden" class="MyDetailsFields" value="TariffKey" data-columnname="Tarrif Key" data-priority="11" data-hidden="false" />-->
         <input type="hidden" class="MyDetailsFields" value="Lottable01" data-columnname="Lottable01" data-priority="12" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="Lottable02" data-columnname="Lottable02" data-priority="13" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="Lottable03" data-columnname="Lottable03" data-priority="14" data-hidden="false" />

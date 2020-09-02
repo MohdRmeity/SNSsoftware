@@ -170,7 +170,7 @@
         <div class="MainDashboardSettings" id="MainDashboardSettingsID">
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
-                    <asp:Button ID="Button1" runat="server" Text="Button" Visible="False" OnClick="Button1_Click" />
+                    <asp:Button ID="Button1" runat="server" Text="Button" Visible="False"  OnClick="Button1_Click" />
                     <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton floatL" />
 
                     <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton floatL" />
@@ -211,7 +211,7 @@
         AllowExportDashboardItems="True"
         OnCustomDataCallback="ASPxDashboard1_CustomDataCallback"
         OnCustomParameters="ASPxDashboard1_CustomParameters"
-        Height="899px"
+        Height="898px"
         IncludeDashboardIdToUrl="True"
         OnConfigureDataReloadingTimeout="ASPxDashboard1_ConfigureDataReloadingTimeout"
         OnConnectionError="ASPxDashboard1_ConnectionError">

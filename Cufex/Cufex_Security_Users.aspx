@@ -229,6 +229,14 @@
                                         </select>
                                     </div>
                                 </div>
+								<!-- Mohamad Rmeity - Adding Dashboard Refresh Time to user screen -->
+                                <div class="FloatRecord floatL">
+                                    <div class="FloatRecordTitle floatL">Dashboard Refresh Time (in secs.)</div>
+                                    <div class="FloatRecordField floatL">
+                                        <input type="text" class="textRecordStyle InputDASHBOARDREFRESHTIME" />
+                                    </div>
+                                </div>
+                                <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Password*</div>
                                     <div class="FloatRecordField floatL">
@@ -241,7 +249,7 @@
                                         <input type="text" class="textRecordStyle InputActive" data-value="1" />
                                     </div>
                                 </div>
-                                <div class="FloatRecordSep floatL"></div>
+                                
                                 <div class="FloatRecord floatL">
                                     <div class="FloatRecordTitle floatL">Confirm Password*</div>
                                     <div class="FloatRecordField floatL">
@@ -292,6 +300,8 @@
         <input type="hidden" class="MyFields" value="Email" data-columnname="Email" data-priority="4" data-hidden="false" />
         <input type="hidden" class="MyFields" value="TimeZone" data-columnname="Time Zone" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Active" data-columnname="Active" data-priority="6" data-hidden="false" />
+		<!-- Mohamad Rmeity - Dashboard Refresh Time on user screen -->
+		<input type="hidden" class="MyFields" value="DASHBOARDREFRESHTIME"/>
         <input type="hidden" class="MyFields" value="Password" />
         <input type="hidden" class="MyFields" value="ConfirmPassword" />
 
