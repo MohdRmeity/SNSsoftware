@@ -59,7 +59,7 @@ Public Class DisplayItems
             GetOrderTrackingQuery(Sql, MyID)
         ElseIf mySearchTable = "Inventory_Balance" Then
             Dim InvBalInfo As String() = HttpContext.Current.Request.Item("MyID").ToString.Split(New String() {"~~~"}, StringSplitOptions.RemoveEmptyEntries)
-			'Mohamad Rmeity - Grouping by SKU/Facility rather than each LLI records
+            'Mohamad Rmeity - Grouping by SKU/Facility rather than each LLI records
             MyID = InvBalInfo.Count
             GetInventoryBalanceQuery(Sql, InvBalInfo)
         End If
@@ -142,11 +142,11 @@ Public Class DisplayItems
                         If Not .IsNull("Active") Then
                             SavedFields += ";;;Active:::" & !Active
                         End If
-						
-						'Mohamad Rmeity - Adding dashboard refresh time to the user screen - BEGIN
-                            If Not .IsNull("DASHBOARDREFRESHTIME") Then
-                                SavedFields += ";;;DASHBOARDREFRESHTIME:::" & !DASHBOARDREFRESHTIME
-                            End If
+
+                        'Mohamad Rmeity - Adding dashboard refresh time to the user screen - BEGIN
+                        If Not .IsNull("DASHBOARDREFRESHTIME") Then
+                            SavedFields += ";;;DASHBOARDREFRESHTIME:::" & !DASHBOARDREFRESHTIME
+                        End If
                         'Mohamad Rmeity - Adding dashboard refresh time to the user screen - END
 
                         If Not .IsNull("Password") Then
@@ -320,10 +320,10 @@ Public Class DisplayItems
                             SavedFields += ";;;PackKey:::" & !PackKey
                         End If
 
-                       'Mohamad Rmeity - Removing Tariff Key from items screen
-                            'If Not .IsNull("TariffKey") Then
-                            '    SavedFields += ";;;TariffKey:::" & !TariffKey
-                            'End If
+                        'Mohamad Rmeity - Removing Tariff Key from items screen
+                        'If Not .IsNull("TariffKey") Then
+                        '    SavedFields += ";;;TariffKey:::" & !TariffKey
+                        'End If
 
                         If Not .IsNull("StdCube") Then
                             SavedFields += ";;;StdCube:::" & !StdCube
@@ -891,14 +891,14 @@ Public Class DisplayItems
                                         If Not nodeDT("ToId").IsEmpty Then
                                             ToId += IIf(i <> 0, "~~~", "") & nodeDT("ToId").InnerText.ToString()
                                         End If
-										'Mohamad Rmeity - Removing ToLoc & Tariff
+                                        'Mohamad Rmeity - Removing ToLoc & Tariff
                                         'If Not nodeDT("ToLoc").IsEmpty Then
                                         '    ToLoc += IIf(i <> 0, "~~~", "") & nodeDT("ToLoc").InnerText.ToString()
                                         'End If
                                         If Not nodeDT("ConditionCode").IsEmpty Then
                                             ConditionCode += IIf(i <> 0, "~~~", "") & nodeDT("ConditionCode").InnerText.ToString()
                                         End If
-										'Mohamad Rmeity - Removing ToLoc & Tariff
+                                        'Mohamad Rmeity - Removing ToLoc & Tariff
                                         'If Not nodeDT("TariffKey").IsEmpty Then
                                         '    TariffKey += IIf(i <> 0, "~~~", "") & nodeDT("TariffKey").InnerText.ToString()
                                         'End If
@@ -995,10 +995,10 @@ Public Class DisplayItems
                                     SavedDetailsFields += ";;;UOM:::" & UOM
                                     SavedDetailsFields += ";;;POKey:::" & POKeyDtl
                                     SavedDetailsFields += ";;;ToId:::" & ToId
-									'Mohamad Rmeity - Removing ToLoc & Tariff
+                                    'Mohamad Rmeity - Removing ToLoc & Tariff
                                     'SavedDetailsFields += ";;;ToLoc:::" & ToLoc
                                     SavedDetailsFields += ";;;ConditionCode:::" & ConditionCode
-									'Mohamad Rmeity - Removing ToLoc & Tariff
+                                    'Mohamad Rmeity - Removing ToLoc & Tariff
                                     'SavedDetailsFields += ";;;TariffKey:::" & TariffKey
                                     SavedDetailsFields += ";;;Lottable01:::" & Lottable01
                                     SavedDetailsFields += ";;;Lottable02:::" & Lottable02
@@ -1176,10 +1176,10 @@ Public Class DisplayItems
                                         End If
                                         If Not nodeDT("OpenQty").IsEmpty Then
                                             OpenQty += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("OpenQty").InnerText.ToString()) / measureunit).ToString
-										'Mohamad Rmeity - Adding Shipped Qty to Quick Entry/View 
-                                        If Not nodeDT("ShippedQty").IsEmpty Then
-                                            ShippedQty += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("ShippedQty").InnerText.ToString()) / measureunit).ToString
-                                        End If
+                                            'Mohamad Rmeity - Adding Shipped Qty to Quick Entry/View 
+                                            If Not nodeDT("ShippedQty").IsEmpty Then
+                                                ShippedQty += IIf(i <> 0, "~~~", "") & (Double.Parse(nodeDT("ShippedQty").InnerText.ToString()) / measureunit).ToString
+                                            End If
                                         End If
                                         If Not nodeDT("PackKey").IsEmpty Then
                                             PackKey += IIf(i <> 0, "~~~", "") & nodeDT("PackKey").InnerText.ToString()
@@ -1260,7 +1260,7 @@ Public Class DisplayItems
                                     SavedDetailsFields += "ExternLineNo:::" & externln
                                     SavedDetailsFields += ";;;Sku:::" & Sku
                                     SavedDetailsFields += ";;;OpenQty:::" & OpenQty
-									'Mohamad Rmeity - Adding Shipped Qty to Quick Entry/View 
+                                    'Mohamad Rmeity - Adding Shipped Qty to Quick Entry/View 
                                     SavedDetailsFields += ";;;ShippedQty:::" & ShippedQty
                                     SavedDetailsFields += ";;;PackKey:::" & PackKey
                                     SavedDetailsFields += ";;;UOM:::" & UOM
@@ -1913,7 +1913,6 @@ Public Class DisplayItems
             End If
         End If
     End Sub
-
     Private Sub GetOrderTrackingQuery(ByRef Sql As String, ByVal MyID As String)
         Dim AndFilter As String = ""
         Dim TimeZone As Integer = 0

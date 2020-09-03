@@ -130,7 +130,7 @@
                                             <div id="DivSubMain_Security_Users" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Users", Nothing)%>">Users</a></div>
                                             <div id="DivSubMain_Security_UsersControl" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UsersControl", Nothing)%>">Users Control</a></div>
                                             <div id="DivSubMain_Security_Profiles" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)%>">Profiles</a></div>
-                                            <div id="DivSubMain_Security_UserProfile" runat="server" visible="false"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UserProfile", Nothing)%>">Users Profile</a></div>
+                                            <div id="DivSubMain_Security_UserProfile" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Security_UserProfile", Nothing)%>">Users Profile</a></div>
                                         </div>
                                     </div>
 
@@ -204,7 +204,6 @@
                         <div class="floatL widthContent AnimateMe" id="widthContent" runat="server">
                             <div class="DivMain zindexMain" id="DivMain" runat="server">
                                 <div class="iWantMyChildrenFloatHeight u-relative">
-                                    <uc1:Cufex_Warehouse_OrderTracking_CarrierEvents runat="server" id="CarrierEvents" />
                                     <div class="u-ht-xs-70">
                                     </div>
                                     <div class="WhiteHead" id="HeaderMenu" runat="server">
@@ -223,6 +222,7 @@
                         </div>
                     </div>
                 </div>
+                <uc1:Cufex_Warehouse_OrderTracking_CarrierEvents runat="server" ID="CarrierEvents" />
                 <asp:ContentPlaceHolder ID="LogInContainer" runat="server">
                 </asp:ContentPlaceHolder>
                 <div class="PointsMenu">

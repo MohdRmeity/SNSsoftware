@@ -1649,15 +1649,14 @@ function SetUITemplate() {
 
 function SetCarrierEvents() {
     $('.CarrierEventsBtn').unbind('click').click(function () {
-        if (!$(".CarrierEventsBtn").hasClass("Inactive") && !$(".CarrierEventsMenu").hasClass("Level1")) {
+        if (!$(".CarrierEventsBtn").hasClass("Inactive")) {
             if (NtorKermelElraceCondition == 0) {
+                disable_scroll();
                 NtorKermelElraceCondition = 1;
                 $(".CarrierEventsMenuContainer").addClass("Active");
-                $(".CarrierEventsMenu").addClass("Level1");
+                $(".CarrierEventsMenu").css({ "left": $(window).width() - $(".CarriersDiv").width() });
+                $(".CarriersDiv").height($(".CarrierEventsMenuContainer").height() - $(".CarrierEventsHeader").outerHeight() - 30);
                 setTimeout(function () {
-                    $(".CloseCarrierEvents,.CarrierEventsHeaderTitle").show();
-                    $(".CarriersDiv").height($(".CarrierEventsMenuContainer").height() - $(".CarrierEventsHeader").outerHeight() - 40);
-                    setOnCufex_Resize();
                     NtorKermelElraceCondition = 0;
                 }, 300);
             }
@@ -1665,18 +1664,19 @@ function SetCarrierEvents() {
     });
 
     $('.CloseCarrierEvents').unbind('click').click(function () {
-        if ($(".CarrierEventsMenu").hasClass("Level1")) {
-            if (NtorKermelElraceCondition == 0) {
-                NtorKermelElraceCondition = 1;
-                $(".CarrierEventsMenuContainer").removeClass("Active");
-                $(".CarrierEventsMenu").removeClass("Level1");
-                $(".CloseCarrierEvents,.CarrierEventsHeaderTitle").hide();
-                $(".CarriersDiv").height(0);
-                setTimeout(function () {
-                    setOnCufex_Resize();
-                    NtorKermelElraceCondition = 0;
-                }, 300);
-            }
+        if (NtorKermelElraceCondition == 0) {
+            NtorKermelElraceCondition = 1;
+            $(".CarrierEventsMenuContainer").removeClass("Active");
+            $(".CarrierEventsMenu").css({ "left": "100%" });
+            $(".CarriersDiv").height(0);
+            $(".CarrierEventInfo").hide();
+            $('.CarrierDiv').removeClass("Active");
+            $(this).addClass("Active");
+            $(".CarrierIndicator").css({ "top": 0, "height": $(".CarrierDiv").eq(0).outerHeight() });
+            setTimeout(function () {
+                enable_scroll();
+                NtorKermelElraceCondition = 0;
+            }, 300);
         }
     });
 }
@@ -2631,7 +2631,41 @@ function DisplayItemNew(DisplayID, QueryURL) {
                     else {
                         $(".CarrierEventsBtn").removeClass("Inactive");
                         $(".CarrierEventsNbrCircle").show();
-                        $(".CarrierEventsNbr").html(24);
+                        $(".CarrierEventsNbr").html(obj.CarrierEventsNbr);
+                        $(".CarriersDivRecords").html(obj.CarrierRecords);
+                        $(".CarriersDiv").height($(".CarrierEventsMenuContainer").height() - $(".CarrierEventsHeader").outerHeight() - 30);
+
+                        $('.CarrierDiv').unbind("click").bind("click", function (e) {
+                            if (!$(this).hasClass("Active")) {
+                                $('.CarrierDiv').removeClass("Active");
+                                $(this).addClass("Active");
+                                var Height = $(".CarrierDiv").eq(0).outerHeight();
+                                var Index = $(this).index();
+                                $(".CarrierIndicator").animate({
+                                    "top": (Height + 20) * Index,
+                                    "height": $(this).outerHeight()
+                                }, 300);
+
+                                $(".CarrierEventsMenu").css({ "left": $(window).width() - $(".CarriersDiv").width() - $(".CarrierEventInfo").outerWidth() });
+                                $(".CarrierEventInfo").hide();
+                                setTimeout(function () {
+                                    $(".CarrierEventInfo").fadeIn();
+                                    SetMasterResize();
+                                    $(".ArticlesDiv").height($(".CarrierEventsMenuContainer").height() - $(".CarrierEventInfo1").outerHeight() - 30);
+                                }, 300);
+
+                                $(".CarrierEventDescription").html("<div class='EventDescriptionBullet Category" + $(this).data("category") + "'></div>" + $(this).data("eventdescription"));
+                                $(".CarrierEventDescription").addClass("Category" + $(this).data("category"));
+                                $(".CarrierEventDate").html($(this).data("eventdate"));
+
+                                $(".CarrierConsignmentDate").html("Created on: <span>" + $(this).data("consignmentdate") + "</span>")
+                                $(".CarrierItems").html("Items: <span>" + $(this).data("items") + "</span>")
+                                $(".CarrierCube").html("Cube: <span>" + $(this).data("cube") + "</span>")
+                                $(".CarrierWeight").html("Weight: <span>" + $(this).data("weight") + "</span>")
+
+                                GetCarrierDetails("Articles");
+                            }
+                        });
                     }
                 }
 
@@ -4568,6 +4602,72 @@ function MoveTabLine(index) {
 function GetTime() {
     var dt = new Date();
     return dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+}
+
+function GetCarrierDetails(CarrierDetailType) {
+    if (AvoidWebServiceRaceCondition == 0) {
+        AvoidWebServiceRaceCondition = 1;
+        $(".preloader2").fadeIn();
+        var pageUrl = sAppPath + 'WebServices/CarrierEvents.ashx';
+
+        var data = new FormData();
+        data.append("CarrierDetailType", CarrierDetailType);
+        data.append("ExternalOrderKey", $(".CarrierDiv.Active").data("externalorderkey"));
+        data.append("StorerKey", $(".CarrierDiv.Active").data("storerkey"));
+        data.append("ConsignmentID", $(".CarrierDiv.Active").data("consignmentid"));
+        data.append("Category", $(".CarrierDiv.Active").data("category"));
+        //data.append("ArticleID", $(".ArticleDiv.Active").data("externaloderkey"));
+
+        $.ajax({
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: data,
+            url: pageUrl + "/GetCarrierEventsDetails",
+            success: OnLoadSuccess,
+            error: OnLoadError
+        });
+    }
+    function OnLoadSuccess(response) {
+        var obj = jQuery.parseJSON(response);
+        if (Object.keys(obj).length > 0) {
+
+            if (obj.CarrierDetailsRecords != "") {
+                $(".ArticlesDivRecords").html(obj.CarrierDetailsRecords);
+            }
+        } else {
+            console.log("Couldn't Get Carrier Details");
+        }
+
+        $('.TrackingHistoryDiv').unbind("click").bind("click", function (e) {
+            var $this = $(this);
+            if (!$this.hasClass("Active")) {
+                $('.TrackingHistoryDiv').not($this).siblings(".EventsDiv").slideUp(function () {
+                    setTimeout(function () {
+                        $('.TrackingHistoryDiv').not($this).removeClass("Active");
+                    }, 400);
+                });
+                $this.addClass("Active");
+                $this.siblings(".EventsDiv").slideDown();
+            }
+            else {
+                $this.siblings(".EventsDiv").slideUp(function () {
+                    $this.removeClass("Active");
+                });
+            }
+        });
+
+        $('.preloader2').fadeOut(300, function () {
+            setOnCufex_Resize();
+            AvoidWebServiceRaceCondition = 0;
+        });
+    }
+    function OnLoadError(response) {
+        console.log(response.error);
+        $('.preloader2').fadeOut(300, function () {
+            AvoidWebServiceRaceCondition = 0;
+        });
+    }
 }
 
 function setOnCufex_Resize() {

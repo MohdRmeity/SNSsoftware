@@ -209,7 +209,7 @@ Public Class DisplayDropDowns
             DTable2 = CommonMethods.getCountries()
             DTable3 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECEIPTYPE")
             DTable4 = CommonMethods.getCodeDD("enterprise", "codelkup", "RECSTATUS")
-			'Mohamad Rmeity - Changing Container Type to dropdown
+            'Mohamad Rmeity - Changing Container Type to dropdown
             DTable5 = CommonMethods.getCodeDD("enterprise", "codelkup", "CONTAINERT")
 
             DropDownFields += "Facility:::"
@@ -239,8 +239,8 @@ Public Class DisplayDropDowns
                     DropDownFields += IIf(i <> 0, ",", "") & !Description
                 End With
             Next
-			
-			'Mohamad Rmeity - Changing Container Type to dropdown
+
+            'Mohamad Rmeity - Changing Container Type to dropdown
             DropDownFields += ";;;ContainerType:::"
             For i = 0 To DTable5.Rows.Count - 1
                 With DTable5.Rows(i)

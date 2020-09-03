@@ -543,6 +543,9 @@
     <Compile Include="Webservices\ActionButtons.ashx.vb">
       <DependentUpon>ActionButtons.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Webservices\CarrierEvents.ashx.vb">
+      <DependentUpon>CarrierEvents.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Webservices\DeleteItemsDetails.ashx.vb">
       <DependentUpon>DeleteItemsDetails.ashx</DependentUpon>
     </Compile>
@@ -678,6 +681,7 @@
     <Content Include="Webservices\ExportItemsDetails.ashx" />
     <Content Include="Webservices\FileUpload.ashx" />
     <Content Include="Webservices\ImportItems.ashx" />
+    <Content Include="Webservices\CarrierEvents.ashx" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

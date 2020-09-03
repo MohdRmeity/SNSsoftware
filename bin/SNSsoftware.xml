@@ -4016,15 +4016,6 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:SNSsoftware.Cufex_Site._CarrierEvents">
-<summary>
-CarrierEvents control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
 <member name="F:SNSsoftware.Cufex_Site._HeaderMenu">
 <summary>
 HeaderMenu control.
@@ -4055,6 +4046,15 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:SNSsoftware.Cufex_Site._DivDenied">
 <summary>
 DivDenied control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:SNSsoftware.Cufex_Site._CarrierEvents">
+<summary>
+CarrierEvents control.
 </summary>
 <remarks>
 Auto-generated field.

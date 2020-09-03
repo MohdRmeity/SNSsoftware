@@ -1,14 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Group 16</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="04-Pop-up-Columns" transform="translate(-843.000000, -115.000000)">
-            <g id="Group-16" transform="translate(844.000000, 116.000000)">
-                <g id="close" opacity="0.49" transform="translate(7.000000, 7.000000)" fill="#000000">
-                    <path d="M5.55244955,5.00002197 L9.88558139,0.666860026 C10.0381395,0.514301507 10.0381395,0.266957877 9.88558139,0.114418889 C9.73302324,-0.0381200986 9.48568022,-0.0381396298 9.3331416,0.114418889 L5,4.44758084 L0.666858398,0.114418889 C0.514300251,-0.0381396298 0.266957226,-0.0381396298 0.11441861,0.114418889 C-0.0381200055,0.266977409 -0.0381395367,0.514321038 0.11441861,0.666860026 L4.44755045,5 L0.11441861,9.33316439 C-0.0381395367,9.48572291 -0.0381395367,9.73306654 0.11441861,9.88560552 C0.190687918,9.96187502 0.290668094,10 0.39064827,10 C0.490628445,10 0.59058909,9.96187502 0.666877929,9.88560552 L5,5.55246311 L9.33312207,9.88560552 C9.40939138,9.96187502 9.50937155,10 9.60935173,10 C9.70933191,10 9.80929255,9.96187502 9.88558139,9.88560552 C10.0381395,9.73304701 10.0381395,9.48570338 9.88558139,9.33316439 L5.55244955,5.00002197 Z" id="Path"></path>
-                </g>
-                <rect id="Rectangle" stroke="#979797" x="0" y="0" width="24" height="24" rx="12"></rect>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 26 26" style="enable-background:new 0 0 26 26;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#3673FF;}
+	.st1{fill:none;stroke:#3673FF;}
+</style>
+<title>Group 16</title>
+<g transform="translate(-843.000000, -115.000000)">
+	<g id="Group-16" transform="translate(844.000000, 116.000000)">
+		<g id="close" transform="translate(7.000000, 7.000000)">
+			<path id="Path" class="st0" d="M5.6,5l4.3-4.3c0.2-0.2,0.2-0.4,0-0.6C9.7,0,9.5,0,9.3,0.1L5,4.4L0.7,0.1C0.5,0,0.3,0,0.1,0.1
+				S0,0.5,0.1,0.7L4.4,5L0.1,9.3C0,9.5,0,9.7,0.1,9.9C0.2,10,0.3,10,0.4,10s0.2,0,0.3-0.1L5,5.6l4.3,4.3C9.4,10,9.5,10,9.6,10
+				c0.1,0,0.2,0,0.3-0.1c0.2-0.2,0.2-0.4,0-0.6L5.6,5z"/>
+		</g>
+		<path id="Rectangle" class="st1" d="M12,0L12,0c6.6,0,12,5.4,12,12l0,0c0,6.6-5.4,12-12,12l0,0C5.4,24,0,18.6,0,12l0,0
+			C0,5.4,5.4,0,12,0z"/>
+	</g>
+</g>
 </svg>
