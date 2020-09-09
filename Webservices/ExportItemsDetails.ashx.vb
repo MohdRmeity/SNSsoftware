@@ -14,6 +14,7 @@ Public Class ExportItemsDetails
         Dim ColumnsNames As String = HttpContext.Current.Request.Item("ColumnsNames")
         Dim Facility As String = CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Facility"))
         Dim Key As String = HttpContext.Current.Request.Item("Key")
+        Dim StorerKey As String = HttpContext.Current.Request.Item("StorerKey")
         Dim SortBy As String = HttpContext.Current.Request.Item("SortBy")
         Dim AndFilter As String = ""
         Dim tmp As String = ""
@@ -35,7 +36,7 @@ Public Class ExportItemsDetails
                 warehouselevel = Facility
             End If
             warehouselevel = warehouselevel.Split("_")(1)
-            If SearchTable <> "Warehouse_OrderManagement" Then
+            If SearchTable <> "Warehouse_OrderManagement" And SearchTable <> "Warehouse_OrderTracking" Then
                 SQL += warehouselevel & "."
                 If SearchTable = "Warehouse_PO" Then
                     SQL += "PODETAIL"
@@ -47,12 +48,18 @@ Public Class ExportItemsDetails
                     SQL += "ORDERDETAIL"
                     AndFilter = "OrderKey"
                 End If
+                SQL += " where 1=1 and " & AndFilter & " = '" & Key & "'"
             Else
-                SQL += IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAGDETAIL"
-                AndFilter = "OrderKey"
+                If SearchTable = "Warehouse_OrderManagement" Then
+                    SQL += IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAGDETAIL"
+                    AndFilter = "OrderKey"
+                    SQL += " where 1=1 and " & AndFilter & " = '" & Key & "'"
+                Else
+                    GetOrderTrackingDetailsQuery(SQL, Key, StorerKey)
+                    SortBy = "OrderLineNumber asc"
+                End If
             End If
 
-            SQL += " where 1=1 and " & AndFilter & " = '" & Key & "'"
 
             SearchItem(SearchQuery, SearchTable, SQL)
             SQL += " order by " & SortBy
@@ -172,6 +179,15 @@ Public Class ExportItemsDetails
                 End If
             End If
         Next
+    End Sub
+
+    Private Sub GetOrderTrackingDetailsQuery(ByRef Sql As String, ByVal ExternOrderKey As String, ByVal StorerKey As String)
+        Dim AndFilter As String = ""
+        AndFilter += " And ExternOrderKey = '" & ExternOrderKey & "'"
+        AndFilter += " And StorerKey = '" & StorerKey & "'"
+        Sql = " SELECT * from ( "
+        Sql += " SELECT (CASE WHEN WHSEID = 'MULTI' THEN 'MULTI' ELSE (select db_alias from wmsadmin.pl_db where db_logid = WHSEID) END) AS FACILITY, * from dbo.ORDERTRACKINGDETAIL where 1=1 " & AndFilter
+        Sql += " ) DS where 1=1 "
     End Sub
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable
         Get

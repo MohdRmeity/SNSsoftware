@@ -57,6 +57,10 @@ function SetDefaults() {
         if (!$(e.target).closest(".widthMenu").length > 0 && !$('.MenuPin').hasClass("Pinned") && !MenuClosed) {
             CloseMenu(true);
         }
+
+        if (!$(e.target).closest(".AMPM").length > 0) {
+            $(".TimeOptions").slideUp();
+        }
     });
 
     $(window).resize(function () {
@@ -140,7 +144,7 @@ function SNSFunctions() {
         $(this).hide();
         $(this).parent("td").prev("td").hide();
         $(".NewRecord").fadeIn();
-        $(".btnSave,.BackHeader,.NewDetailRecord").show();
+        $(".btnSave,.BackHeader,.NewDetailRecord,.btnVAS").show();
         $(this).parent("td").next("td").show();
         $(".MainPageDesc").html("Header");
 
@@ -207,7 +211,7 @@ function SNSFunctions() {
         $(".HeaderGridView").mCustomScrollbar("update");
         $('.BackHeader').hide();
         $('.btnAddNew').parent("td").next("td").hide();
-        $(".NewRecord, .btnSave, .BackHeader,.CarrierEventsBtn").hide();
+        $(".NewRecord, .btnSave, .BackHeader,.CarrierEventsBtn,.btnVAS").hide();
         $('.btnAddNew,.btnQuickEntry').show();
         $('.btnAddNew').parent("td").prev("td").show();
         $('.btnExport,.btnImport,.btnRefresh,.VerticalSep').show();
@@ -1716,20 +1720,59 @@ function SetCarrierEvents() {
             }, 300);
         }
     });
+
+    $('.btnVAS').unbind('click').click(function () {
+        $('.VAS_PopUp').fadeIn();
+        setOnCufex_Resize();
+    });
+
+    $('.CloseVASPopup').unbind('click').click(function () {
+        $('.VAS_PopUp').fadeOut();
+    });
+
+    $('.AMPM').find("input").keydown(function (e) {
+        e.preventDefault();
+    });
+
+    $('.AMPM').unbind('click').click(function () {
+        $(this).find(".TimeOptions").slideToggle();
+    });
+
+    $('.TimeLabel').unbind('click').click(function () {
+        $(this).parent(".TimeOptions").siblings("input").val($(this).html());
+    });
+
+    $(".NumericInput").on("keypress keyup blur", function (event) {
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+
+        if ($(this).val().length == 1) $(this).val("0" + $(this).val().toString());
+
+        if ($(this).val() == "00") {
+            $(this).val("01");
+        }
+        else if ($(this).val() > 12) {
+            $(this).val("12");
+        }
+
+
+    });
 }
 
-function initMap(MyLat, MyLong, MyIndex) {
+function initMap(MyIndex, MyLocation) {
     if ($('#map' + MyIndex).length > 0) {
         var marker = false;
         var map = new google.maps.Map(document.getElementById('map' + MyIndex), {
-            center: { lat: +MyLat, lng: +MyLong },
+            //center: { lat: +MyLat, lng: +MyLong },
             zoom: 16,
             mapTypeControl: true,
             mapTypeControlOptions: {
                 style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
                 mapTypeIds: ['roadmap', 'terrain', 'satellite', 'hybrid ']
             },
-            draggable: false,
+            draggable: true,
             zoomControl: true,
             zoomControlOptions: {
                 position: google.maps.ControlPosition.LEFT_CENTER
@@ -1746,10 +1789,28 @@ function initMap(MyLat, MyLong, MyIndex) {
         marker = new google.maps.Marker({
             map: map,
             draggable: false,
-            position: new google.maps.LatLng(parseFloat(MyLat), parseFloat(MyLong)),
-            url: "https://www.google.com/maps/?q=" + MyLat + "," + MyLong
+            //position: new google.maps.LatLng(parseFloat(MyLat), parseFloat(MyLong)),
+            //url: "https://www.google.com/maps/?q=" + MyLat + "," + MyLong
         });
+
+        var geocoder = new google.maps.Geocoder();
+        geocodeAddress(geocoder, map, MyLocation, MyIndex);
     }
+}
+
+function geocodeAddress(geocoder, resultsMap, address, index) {
+    geocoder.geocode({ address: address }, (results, status) => {
+        if (status === "OK") {
+            resultsMap.setCenter(results[0].geometry.location);
+            new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+            });
+        } else {
+            console.log("Geocode was not successful for the following reason: " + status);
+            document.getElementById('map' + index).style.display = "none";
+        }
+    });
 }
 
 function DeleteItems(MyItems, MyKeys) {
@@ -4300,7 +4361,7 @@ function ExportItemsDetails() {
         data.append("ColumnsNames", ColumnsNames.slice(0, -1));
         data.append("SortBy", SortByDetails);
         data.append("Facility", $('.NewHeaderRecord').find(".InputFacility").val());
-        var Key;
+        var Key, StorerKey;
         if ($('.MainPageTitle').attr("data-id") == "Warehouse_PO") {
             Key = $('.NewHeaderRecord').find(".InputPOKey").val();
         }
@@ -4313,7 +4374,12 @@ function ExportItemsDetails() {
         else if ($('.MainPageTitle').attr("data-id") == "Warehouse_OrderManagement") {
             Key = $('.NewHeaderRecord').find(".InputOrderManagKey").val();
         }
+        else if ($('.MainPageTitle').attr("data-id") == "Warehouse_OrderTracking") {
+            Key = $('.NewHeaderRecord').find(".InputExternOrderKey").val();
+            StorerKey = $('.NewHeaderRecord').find(".InputStorerKey").val();
+        }
         data.append("Key", Key);
+        data.append("StorerKey", StorerKey);
 
         $.ajax({
             type: "POST",
@@ -4726,6 +4792,7 @@ function GetCarrierDetails() {
                 });
                 $this.addClass("Active");
                 $this.siblings(".EventsDiv").slideDown();
+                SetMasterResize();
             }
             else {
                 $this.siblings(".EventsDiv").slideUp(function () {
@@ -4747,7 +4814,8 @@ function GetCarrierDetails() {
             });
 
             $(".map").each(function (e) {
-                initMap(33.8748955, 35.5318712, e);
+                var location = $(this).data("location");
+                initMap(e, location);
             });
 
             $(".EventsDiv").hide();
@@ -4824,4 +4892,15 @@ function setOnCufex_Resize() {
     $(".DetailsGridView").find('.mCSB_container').width($(".MainHeader").width());
 
     $(".content_4").mCustomScrollbar("update");
+
+    if ($(".CarrierEventsMenuContainer").length > 0) {
+        if ($(".CarrierEventsMenu").position().left != $(window).width()) {
+            if ($(".CarrierDiv.Active").length == 0) {
+                $(".CarrierEventsMenu").css({ "left": $(window).width() - $(".CarriersDiv").width() });
+            }
+            else {
+                $(".CarrierEventsMenu").css({ "left": $(window).width() - $(".CarriersDiv").width() - $(".CarrierEventInfo").outerWidth() });
+            }
+        }
+    }
 }

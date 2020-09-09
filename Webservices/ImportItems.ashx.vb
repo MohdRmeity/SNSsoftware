@@ -430,12 +430,12 @@ Public Class ImportItems
                                     If CommonMethods.dbtype = "sql" Then
                                         insert += " set dateformat dmy insert into dbo.PROFILES (PROFILENAME, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values ('" & profilename & "', '" & HttpContext.Current.Session("userkey").ToString & "', '" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "', '" & Now & "'); "
 
-                                        insertDetails += " set dateformat dmy insert into dbo.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
+                                        insertDetails += " set dateformat dmy insert into dbo.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE, BLOCKED) values "
                                         For Each row As DataRow In ButtonsTable.Rows
                                             If row("BUTTON").ToString().Contains("Security->") Then
-                                                insertDetails += "('" & profilename & "', '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                                                insertDetails += "('" & profilename & "', '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "', '" & row("BLOCKED").ToString & "'),"
                                             Else
-                                                insertDetails += "('" & profilename & "','" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                                                insertDetails += "('" & profilename & "','" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "', '" & row("BLOCKED").ToString & "'),"
                                             End If
                                         Next
                                         insertDetails = insertDetails.Remove(insertDetails.Length - 1)
@@ -454,13 +454,13 @@ Public Class ImportItems
                                     Else
                                         insert += " set dateformat dmy insert into SYSTEM.PROFILES (PROFILENAME, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values ('" & profilename & "', '" & HttpContext.Current.Session("userkey").ToString & "', '" & HttpContext.Current.Session("userkey").ToString & "','SYSDATE','SYSDATE'); "
 
-                                        insertDetails += " set dateformat dmy insert into  SYSTEM.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
+                                        insertDetails += " set dateformat dmy insert into  SYSTEM.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE, BLOCKED) values "
                                         Dim count As Integer = ButtonsTable.Rows.Count, y As Integer = 0
                                         For Each row As DataRow In ButtonsTable.Rows
                                             If row("BUTTON").ToString().Contains("Security->") Then
-                                                insertDetails += "('" & profilename & "', '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
+                                                insertDetails += "('" & profilename & "', '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE, '" & row("BLOCKED").ToString & "' from dual"
                                             Else
-                                                insertDetails += "('" & profilename & "' ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
+                                                insertDetails += "('" & profilename & "' ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE, '" & row("BLOCKED").ToString & "' from dual"
                                             End If
                                             y = y + 1
                                             If y < count Then insertDetails += " union all "

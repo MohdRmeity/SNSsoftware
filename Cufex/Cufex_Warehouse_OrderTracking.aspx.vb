@@ -12,6 +12,9 @@ Partial Public Class Cufex_Warehouse_OrderTracking
             Dim MyKey As String = Request.QueryString("externorderkey")
             Dim MyOwner As String = Request.QueryString("storerkey")
             If MyKey <> "" And MyOwner <> "" Then HiddenID.Value = MyKey & "~~~" & MyOwner
+
+
+
         End If
     End Sub
 End Class

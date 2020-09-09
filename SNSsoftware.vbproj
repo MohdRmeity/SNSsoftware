@@ -198,7 +198,6 @@
     <Content Include="JS\Dashboards\SaveAsExtension.js" />
     <Content Include="JS\Dashboards\scripts.js" />
     <Content Include="JS\Dashboards\styles.css" />
-    <Content Include="JS\JqueryMain\jquery-3.4.1.min.js" />
     <Content Include="Style\ChosenSelect\chosen.css" />
     <Content Include="Style\ChosenSelect\chosen.min.css">
       <DependentUpon>chosen.css</DependentUpon>

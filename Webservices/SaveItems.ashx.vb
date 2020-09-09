@@ -700,13 +700,13 @@ Public Class SaveItems
                         cmd.Parameters.AddWithValue("@pname", profilename)
                         cmd.ExecuteNonQuery()
 
-                        Dim insertDetails As String = "set dateformat dmy insert into  dbo.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
+                        Dim insertDetails As String = "set dateformat dmy insert into  dbo.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE, BLOCKED) values "
                         Dim ButtonsTable As DataTable = CommonMethods.getButtons("getAll")
                         For Each row As DataRow In ButtonsTable.Rows
                             If row("BUTTON").ToString().Contains("Security->") Then
-                                insertDetails += "( @pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                                insertDetails += "( @pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "','" & row("BLOCKED").ToString & "'),"
                             Else
-                                insertDetails += "( @pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "'),"
+                                insertDetails += "( @pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "','" & Now & "','" & Now & "','" & row("BLOCKED").ToString & "'),"
                             End If
                         Next
                         insertDetails = insertDetails.Remove(insertDetails.Length - 1)
@@ -744,14 +744,14 @@ Public Class SaveItems
                         cmd.Parameters.Add(New OracleParameter("pname", profilename))
                         cmd.ExecuteNonQuery()
 
-                        Dim insertDetails As String = "set dateformat dmy insert into SYSTEM.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE) values "
+                        Dim insertDetails As String = "set dateformat dmy insert into SYSTEM.PROFILEDETAIL (PROFILENAME, SCREENBUTTONNAME, EDIT, READONLY, ADDWHO, EDITWHO, ADDDATE,EDITDATE,BLOCKED) values "
                         Dim ButtonsTable As DataTable = CommonMethods.getButtons("getAll")
                         Dim count As Integer = ButtonsTable.Rows.Count, y As Integer = 0
                         For Each row As DataRow In ButtonsTable.Rows
                             If row("BUTTON").ToString().Contains("Security->") Then
-                                insertDetails += "( :pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
+                                insertDetails += "( :pname, '" & row("BUTTON").ToString() & "','0','1','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE, '" & row("BLOCKED").ToString & "' from dual"
                             Else
-                                insertDetails += "( :pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE from dual"
+                                insertDetails += "( :pname ,'" & row("BUTTON").ToString() & "','1','0','" & HttpContext.Current.Session("userkey").ToString & "','" & HttpContext.Current.Session("userkey").ToString & "',SYSDATE, SYSDATE, '" & row("BLOCKED").ToString & "' from dual"
                             End If
                             y = y + 1
                             If y < count Then insertDetails += " union all "

@@ -61,8 +61,10 @@ Public Class CarrierEvents
                 CarrierDetailsRecords += "   <div class='TrackingHistoryDiv'> Tracking History"
                 CarrierDetailsRecords += "   </div>"
                 CarrierDetailsRecords += "   <div class='EventsDiv'>"
-                CarrierDetailsRecords += "      <div class='map' id='map" & i & "'>"
-                CarrierDetailsRecords += "      </div>"
+                If CommonMethods.ShowCarrierEventsMap = "true" Then
+                    CarrierDetailsRecords += "      <div class='map' id='map" & i & "' data-location='" & !EventLocation & "'>"
+                    CarrierDetailsRecords += "      </div>"
+                End If
                 CarrierDetailsRecords += "      <div class='TrackingEventsDetailsDiv'> Tracking Events Details"
                 CarrierDetailsRecords += "      </div>"
                 CarrierDetailsRecords += "      <div class='HLine'>"
@@ -73,30 +75,28 @@ Public Class CarrierEvents
                 Dim dr As DataRow() = DS.Tables(1).Select("ArticleID = '" & !ArticleID & "'")
                 For j = 0 To dr.Count - 1
                     With dr(j)
-                        For k = 1 To 4
-                            CarrierDetailsRecords += "           <div class='floatL Width100 EventDiv'>"
-                            CarrierDetailsRecords += "               <div class='floatL EventsInfoDiv'>"
-                            CarrierDetailsRecords += "                  <div class='floatL CarrierEventDescription Category" & !Category & " Small'>" & !EventStatusDescr
-                            CarrierDetailsRecords += "                     <div class='EventDescriptionBullet Category" & !Category & "'>"
-                            CarrierDetailsRecords += "                     </div>"
-                            If k <> 4 Then
-                                CarrierDetailsRecords += "                 <div class='EventDivLine'>"
-                                CarrierDetailsRecords += "                 </div>"
-                            End If
-                            CarrierDetailsRecords += "                  </div>"
-                            CarrierDetailsRecords += "                  <div class='floatL VLine'>"
-                            CarrierDetailsRecords += "                  </div>"
-                            CarrierDetailsRecords += "                  <div class='floatL EventDate'>" & Format(!EventDate, "ddd MMMM dd - hh:mm tt")
-                            CarrierDetailsRecords += "                  </div>"
-                            CarrierDetailsRecords += "                  <div class='floatL Width100 EventInfo Location'>" & !EventLocation
-                            CarrierDetailsRecords += "                  </div>"
-                            CarrierDetailsRecords += "                  <div class='floatL Width100 EventInfo'>" & !EventNotes
-                            CarrierDetailsRecords += "                  </div>"
-                            CarrierDetailsRecords += "               </div>"
-                            CarrierDetailsRecords += "               <div class='floatL EventsImgDiv'>"
-                            CarrierDetailsRecords += "               </div>"
-                            CarrierDetailsRecords += "           </div>"
-                        Next
+                        CarrierDetailsRecords += "           <div class='floatL Width100 EventDiv'>"
+                        CarrierDetailsRecords += "               <div class='floatL EventsInfoDiv'>"
+                        CarrierDetailsRecords += "                  <div class='floatL CarrierEventDescription Category" & !Category & " Small'>" & !EventStatusDescr
+                        CarrierDetailsRecords += "                     <div class='EventDescriptionBullet Category" & !Category & "'>"
+                        CarrierDetailsRecords += "                     </div>"
+                        If j <> dr.Count - 1 Then
+                            CarrierDetailsRecords += "                 <div class='EventDivLine'>"
+                            CarrierDetailsRecords += "                 </div>"
+                        End If
+                        CarrierDetailsRecords += "                  </div>"
+                        CarrierDetailsRecords += "                  <div class='floatL VLine'>"
+                        CarrierDetailsRecords += "                  </div>"
+                        CarrierDetailsRecords += "                  <div class='floatL EventDate'>" & Format(!EventDate, "ddd MMMM dd - hh:mm tt")
+                        CarrierDetailsRecords += "                  </div>"
+                        CarrierDetailsRecords += "                  <div class='floatL Width100 EventInfo Location'>" & !EventLocation
+                        CarrierDetailsRecords += "                  </div>"
+                        CarrierDetailsRecords += "                  <div class='floatL Width100 EventInfo'>" & !EventNotes
+                        CarrierDetailsRecords += "                  </div>"
+                        CarrierDetailsRecords += "               </div>"
+                        CarrierDetailsRecords += "               <div class='floatL EventsImgDiv'>"
+                        CarrierDetailsRecords += "               </div>"
+                        CarrierDetailsRecords += "           </div>"
                     End With
                 Next
                 CarrierDetailsRecords += "            </div>"

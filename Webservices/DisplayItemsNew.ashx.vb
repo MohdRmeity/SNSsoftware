@@ -449,7 +449,7 @@ Public Class DisplayItemsNew
                             ReadOnlyFields += "C_Address5~~~BuyerPO~~~SUsr1~~~SUsr2~~~SUsr3~~~SUsr4~~~SUsr5~~~"
                             ReadOnlyFields += "VASStartDate~~~VASEndDate~~~NbrOfSplit~~~POD"
                         End With
-                        CarrierEventsNbr = ds.Tables(1).Rows.Count * 5
+                        CarrierEventsNbr = ds.Tables(1).Rows.Count
                         For i = 0 To CarrierEventsNbr - 1
                             With ds.Tables(1).Rows(0)
                                 CarrierRecords += "<div class='CarrierDiv' data-externalorderkey='" & !ExternalOrderKey & "' data-storerkey='" & !StorerKey & "' data-eventdescription='" & !EventDescription & "' data-consignmentdate = '" & Format(!ConsignmentDate, "MMMM dd, yyyy - hh:mm tt") & "' data-eventdate = '" & Format(!EventDate, "MMMM dd, yyyy - hh:mm tt") & "' data-cube='" & Val(!Cube) & "' data-items='" & !Items & "' data-weight='" & Val(!Weight) & "' data-category='" & !Category & "' data-consignmentid='" & !ConsignmentID & "'>"

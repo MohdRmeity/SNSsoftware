@@ -35,7 +35,7 @@ Public Class GetItems
                 SortBy = "SerialKey desc"
             End If
         ElseIf SearchTable = "PROFILEDETAIL" Or SearchTable = "REPORTSPROFILEDETAIL" Or SearchTable = "PROFILEDETAILDASHBOARDS" Then
-            AndFilter = " and ProfileName='" & QueryUrlStr & "' and Blocked = 0 "
+            AndFilter = " and ProfileName='" & QueryUrlStr & "'" & IIf(SearchTable = "PROFILEDETAIL", " and Blocked = 0 ", "")
             If CommonMethods.dbtype <> "sql" Then
                 SearchTable = "System." & SearchTable
                 SortBy = "SerialKey desc"

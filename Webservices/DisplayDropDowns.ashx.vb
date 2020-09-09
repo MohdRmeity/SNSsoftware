@@ -115,7 +115,7 @@ Public Class DisplayDropDowns
             DTable1 = CommonMethods.getProfiles()
             DTable2 = CommonMethods.getUsers()
 
-            DropDownFields += "ProfileName:: "
+            DropDownFields += "ProfileName::: "
             For i = 0 To DTable1.Rows.Count - 1
                 With DTable1.Rows(i)
                     DropDownFields += IIf(i <> 0, ",", "") & !PROFILENAME
