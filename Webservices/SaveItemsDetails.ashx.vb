@@ -46,6 +46,20 @@ Public Class SaveItemsDetails
             End If
             writer.WriteValue(Status)
 
+            writer.WritePropertyName("Warehouse")
+            writer.WriteValue(HttpContext.Current.Request.Item("Field_Facility"))
+
+            writer.WritePropertyName("key")
+            If tmp = "" Then
+                If mySearchTable = "Warehouse_PO" Then
+                    writer.WriteValue(HttpContext.Current.Request.Item("Field_POKey"))
+                ElseIf mySearchTable = "Warehouse_ASN" Then
+                    writer.WriteValue(HttpContext.Current.Request.Item("Field_ReceiptKey"))
+                ElseIf mySearchTable = "Warehouse_SO" Then
+                    writer.WriteValue(HttpContext.Current.Request.Item("Field_OrderKey"))
+                End If
+            End If
+
             writer.WriteEndObject()
         End Using
         context.Response.Write(sw)

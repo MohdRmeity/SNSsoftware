@@ -19,7 +19,10 @@ Partial Public Class Cufex_Warehouse_ASN
 
             Dim MyWarehouse As String = Request.QueryString("warehouse")
             Dim MyReceipt As String = Request.QueryString("receipt")
-            If MyWarehouse <> "" And MyReceipt <> "" Then HiddenID.Value = "?warehouse=" & MyWarehouse & "&receipt=" & MyReceipt
+            If MyWarehouse <> "" And MyReceipt <> "" Then
+                HiddenID.Value = "?warehouse=" & MyWarehouse & "&receipt=" & MyReceipt
+                HiddenKeys.Value = CommonMethods.getFacilityDBAlias(MyWarehouse) & "~~~" & MyReceipt
+            End If
         End If
     End Sub
 End Class

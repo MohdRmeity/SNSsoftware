@@ -15,19 +15,18 @@ $(document).ready(function () {
     MainLoad();
 });
 
-$(window).load(function () {
+$(window).on("load", function () {
     SetMasterResize();
 });
 
+
 var prm = Sys.WebForms.PageRequestManager.getInstance();
 prm.add_endRequest(function () { MainLoad(); });
-
 
 function GetWindowObj() {
     var MyWindow;
     if (parseInt($('.isInIframe').val()) == 1) MyWindow = window.top;
     else MyWindow = window;
-
 
     return MyWindow;
 }
@@ -46,7 +45,6 @@ function GotoParentIfInIfram(OpenNewWindow, Link, width, height) {
 }
 
 function MainLoad() {
-
     SetMainEvents();
     if (ToucheEvent) AddTouchHandler();
     if (Pirobox) SetPiroBox();
@@ -84,7 +82,6 @@ function SetPiroBox() {
     }
 }
 function SetMainEvents() {
-
     $('.GoToChildOnClick').unbind(myClickEvent).bind(myClickEvent, function () {
         GotoParentIfInIfram(false, $(this).find('a').attr("href"), 0, 0);
     });
@@ -111,11 +108,10 @@ function SetMainEvents() {
     });
 }
 function SetMasterResize() {
-
     var WindowHeight = parseInt($(window).height());
     var WindowWidth = $(window).width();
 
-    //$('.GetFullHeightAtLeast').css({ "min-height": WindowHeight + "px" }); 
+    //$('.GetFullHeightAtLeast').css({ "min-height": WindowHeight + "px" });
 
     $('.GetFullHeightAtLeast').css({ "min-height": WindowHeight - parseInt($('.WhiteHead').height()) + "px" });
 
@@ -162,13 +158,10 @@ function SetMasterResize() {
     $('.GetMyChildrenHeight').each(function () {
         $(this).css({ "height": parseInt($(this).children().height()) + "px" });
     });
-
 }
 function BtnClick(ValidationGroup) {
-
     var val = Page_ClientValidate(ValidationGroup);
     if (!val) {
-
         for (var i = 0; i < Page_Validators.length; i++) {
             var myPageID = "#" + Page_Validators[i].controltovalidate;
             var myPageIDClass = "." + Page_Validators[i].controltovalidate;
@@ -203,7 +196,6 @@ function BtnClick(ValidationGroup) {
     Page_BlockSubmit = false;
 
     return val;
-
 }
 function AddTouchHandler() {
     document.addEventListener("touchstart", touchHandler, true);
@@ -227,7 +219,6 @@ function touchHandler(event) {
     touch.target.dispatchEvent(simulatedEvent);
     event.preventDefault();
 }
-
 
 var keys = { 32: 1, 33: 1, 34: 1, 35: 1, 36: 1, 37: 1, 38: 1, 39: 1, 40: 1 };
 
@@ -279,7 +270,7 @@ try {
     window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
         get: function () { supportsPassive = true; }
     }));
-} catch (e) { }
+} catch (e) { console.log(e.message); }
 
 var wheelOpt = supportsPassive ? { passive: false } : false;
 var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';

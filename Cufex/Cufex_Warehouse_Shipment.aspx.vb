@@ -19,7 +19,10 @@ Partial Public Class Cufex_Warehouse_Shipment
 
             Dim MyWarehouse As String = Request.QueryString("warehouse")
             Dim MyOrder As String = Request.QueryString("order")
-            If MyWarehouse <> "" And MyOrder <> "" Then HiddenID.Value = "?warehouse=" & MyWarehouse & "&order=" & MyOrder
+            If MyWarehouse <> "" And MyOrder <> "" Then
+                HiddenID.Value = "?warehouse=" & MyWarehouse & "&order=" & MyOrder
+                HiddenKeys.Value = CommonMethods.getFacilityDBAlias(MyWarehouse) & "~~~" & MyOrder
+            End If
         End If
     End Sub
 End Class

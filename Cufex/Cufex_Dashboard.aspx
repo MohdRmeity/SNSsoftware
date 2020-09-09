@@ -6,13 +6,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 
-
     <style>
         .dx-layout-item-wrapper .dx-layout-item-container {
             margin: 0;
         }
-
-
 
         element.style {
             clear: both;
@@ -58,9 +55,7 @@
             background-color: white;
         }
     </style>
-
 </asp:Content>
-
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
@@ -70,8 +65,8 @@
 	                webDesigner.ReloadData();
                         }" />
         </dx:ASPxTimer>
-        <div style="position: absolute; left:0; right:0; top:0; bottom:0;">
-      
+        <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;">
+
             <dx:ASPxDashboard ID="ASPxDashboard1" runat="server"
                 ClientInstanceName="webDesigner"
                 OnCustomParameters="ASPxDashboard1_CustomParameters"
@@ -82,5 +77,4 @@
             </dx:ASPxDashboard>
         </div>
     </div>
-
 </asp:Content>

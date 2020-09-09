@@ -75,7 +75,7 @@
                     <td class="GridCell GridHead selectAllWidth">
                         <div class="AdjustColumns"></div>
                     </td>
-					<!-- Mohamad Rmeity - Switching Owner & SKU -->
+                    <!-- Mohamad Rmeity - Switching Owner & SKU -->
                     <td class="GridCell GridHead" data-id="StorerKey">
                         <span class="MyTitleHead">Owner</span>
                         <div class="AbsoSorting">
@@ -144,7 +144,7 @@
                     <td class="GridCell GridHeadSearch selectAllWidth">
                         <div class="GridSearch"></div>
                     </td>
-					<td class="GridCell GridHeadSearch">
+                    <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="StorerKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -390,7 +390,7 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-		<!-- Mohamad Rmeity - Switching Owner & SKU -->
+        <!-- Mohamad Rmeity - Switching Owner & SKU -->
         <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Item" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Sku" data-columnname="User ID" data-priority="2" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Descr" data-columnname="Item Description" data-priority="3" data-hidden="false" />

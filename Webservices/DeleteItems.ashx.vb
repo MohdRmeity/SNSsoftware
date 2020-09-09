@@ -10,6 +10,7 @@ Public Class DeleteItems
         Dim sql As String = "", tmp As String = ""
         Dim SearchTable As String = HttpContext.Current.Request.Item("SearchTable")
         Dim MyItems As String = HttpContext.Current.Request.Item("MyItems")
+        Dim MyKeys As String = HttpContext.Current.Request.Item("MyKeys")
         Dim QueryUrlStr As String = HttpContext.Current.Request.Item("QueryUrlStr")
 
         If MyItems.Contains("?") Then
@@ -95,11 +96,11 @@ Public Class DeleteItems
             sql += " delete from " & SearchTable & " where " & primKey & " In (" & MyItems & ") "
             tmp = tb.Execute(sql)
         ElseIf SearchTable = "Warehouse_PO" Then
-            tmp = DeletePurchaseOrder(MyItems)
+            tmp = DeletePurchaseOrder(MyKeys)
         ElseIf SearchTable = "Warehouse_ASN" Then
-            tmp = DeleteASN(MyItems)
+            tmp = DeleteASN(MyKeys)
         ElseIf SearchTable = "Warehouse_SO" Then
-            tmp = DeleteSO(MyItems)
+            tmp = DeleteSO(MyKeys)
         ElseIf SearchTable = "Warehouse_OrderManagement" Then
             primKey = "SerialKey"
             sql += " delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAGDETAIL where "
@@ -145,200 +146,82 @@ Public Class DeleteItems
         Next
         Return tmp
     End Function
-    Private Function DeletePurchaseOrder(ByVal MyItems As String) As String
-        Dim tmp As String = "", AndFilter As String = "", Sql As String = "", Command As String = "", wname As String = "", warehouselevel As String = ""
-        Dim wnameRow As DataRow() = Nothing
+    Private Function DeletePurchaseOrder(ByVal MyKeys As String) As String
+        Dim tmp As String = "", Command As String = "", Sql As String = ""
+        Dim MyKeysArr As String() = MyKeys.Split(New String() {","}, StringSplitOptions.RemoveEmptyEntries)
 
-        Dim dtw As DataTable = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
-        Dim warehouses(dtw.Rows.Count - 1) As String
-        Dim i As Integer = 0
+        For i = 0 To MyKeysArr.Count - 1
+            Dim MyKeyArrArr As String() = MyKeysArr(i).Split(New String() {"~~~"}, StringSplitOptions.RemoveEmptyEntries)
+            Dim Facility As String = MyKeyArrArr(0)
+            Dim POKey As String = MyKeyArrArr(1)
+            Dim ExternPOKey As String = MyKeyArrArr(2)
 
-        For Each row As DataRow In dtw.Rows
-            warehouses(i) = row("DB_Name").ToString()
-            i = i + 1
-        Next
+            Command = "<PurchaseOrderHeader><ExternPOKey>" & ExternPOKey & "</ExternPOKey><POKey>" & POKey & "</POKey></PurchaseOrderHeader>"
+            Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>PurchaseOrder</MessageType> <Action>delete</Action> <Sender> <User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>		<TenantId>INFOR</TenantId>		</Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(Facility) & "</SystemID>		</Recipient>	</Head>	<Body><PurchaseOrder> " & Command & "</PurchaseOrder></Body></Message>"
+            tmp = CommonMethods.DeleteXml(xml, Facility, "Po", POKey)
 
-        If i > 0 Then
-            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
-            Dim suppliers As String() = CommonMethods.getSupplierPerUser(HttpContext.Current.Session("userkey").ToString)
-
-            If owners IsNot Nothing And suppliers IsNot Nothing Then
-                Dim ownersstr As String = String.Join("','", owners)
-                ownersstr = "'" & ownersstr & "'"
-                If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
-
-                Dim consigneesstr As String = String.Join("','", suppliers)
-                consigneesstr = "'" & consigneesstr & "'"
-                If Not UCase(consigneesstr).Contains("'ALL'") Then AndFilter += " and SellerName IN (" & consigneesstr & ")"
-
-                Sql += " select * from ("
-                For Each s As String In warehouses
-                    Dim data As DataTable = New DataTable
-                    wnameRow = dtw.Select("DB_NAME='" & s & "'")
-                    If wnameRow.Count > 0 Then wname = wnameRow(0)!DB_LOGID
-
-                    If LCase(s.Substring(0, 6)) = "infor_" Then
-                        warehouselevel = s.Substring(6, s.Length - 6)
-                    Else
-                        warehouselevel = s
-                    End If
-                    warehouselevel = warehouselevel.Split("_")(1)
-
-                    Sql += " select SerialKey, '" & wname & "' as Facility, POKey, ExternPOKey "
-                    Sql += " from " & warehouselevel & ".po where 1=1  " & AndFilter
-                    Sql += " UNION"
-                Next
-                If Sql.EndsWith("UNION") Then Sql = Sql.Remove(Sql.Length - 5)
-                Sql += ") as ds where 1=1 and SerialKey in (" & MyItems & ")"
+            If tmp = "" Then
+                Dim Warehouse As String = CommonMethods.getFacilityDBName(Facility)
+                If LCase(Warehouse.Substring(0, 6)) = "infor_" Then Warehouse = Warehouse.Substring(6, Warehouse.Length - 6)
+                If LCase(Warehouse).Contains("_") Then Warehouse = Warehouse.Split("_")(1)
+                Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PO_FILES where WHSEID = '" & Warehouse & "' and POKEY='" & POKey & "'"
+                tmp = (New SQLExec).Execute(Sql)
             End If
-        End If
-        Dim ds As DataSet = (New SQLExec).Cursor(Sql)
-
-        For i = 0 To ds.Tables(0).Rows.Count - 1
-            With ds.Tables(0).Rows(i)
-                Command = "<PurchaseOrderHeader><ExternPOKey>" & !ExternPOKey.ToString & "</ExternPOKey><POKey>" & !POKey.ToString & "</POKey></PurchaseOrderHeader>"
-                Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>PurchaseOrder</MessageType> <Action>delete</Action> <Sender> <User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password><SystemID>MOVEX</SystemID>		<TenantId>INFOR</TenantId>		</Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(!Facility) & "</SystemID>		</Recipient>	</Head>	<Body><PurchaseOrder> " & Command & "</PurchaseOrder></Body></Message>"
-                tmp = CommonMethods.DeleteXml(xml, !Facility.ToString, "Po", !POKey.ToString)
-
-                If tmp = "" Then
-                    Dim Facility As String = CommonMethods.getFacilityDBName(!Facility)
-                    If LCase(Facility.Substring(0, 6)) = "infor_" Then Facility = Facility.Substring(6, Facility.Length - 6)
-                    If LCase(Facility).Contains("_") Then Facility = Facility.Split("_")(1)
-                    Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PO_FILES where WHSEID = '" & Facility & "' and POKEY='" & !POKey.ToString & "'"
-                    tmp = (New SQLExec).Execute(Sql)
-                End If
-            End With
             tmp = ""
         Next
+
         Return tmp
     End Function
-    Private Function DeleteASN(ByVal MyItems As String) As String
-        Dim tmp As String = "", AndFilter As String = "", Sql As String = "", Command As String = "", wname As String = "", warehouselevel As String = ""
-        Dim wnameRow As DataRow() = Nothing
+    Private Function DeleteASN(ByVal MyKeys As String) As String
+        Dim tmp As String = "", Command As String = "", Sql As String = ""
+        Dim MyKeysArr As String() = MyKeys.Split(New String() {","}, StringSplitOptions.RemoveEmptyEntries)
 
-        Dim dtw As DataTable = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
-        Dim warehouses(dtw.Rows.Count - 1) As String
-        Dim i As Integer = 0
+        For i = 0 To MyKeysArr.Count - 1
+            Dim MyKeyArrArr As String() = MyKeysArr(i).Split(New String() {"~~~"}, StringSplitOptions.RemoveEmptyEntries)
+            Dim Facility As String = MyKeyArrArr(0)
+            Dim ReceiptKey As String = MyKeyArrArr(1)
+            Dim ExternReceiptKey As String = MyKeyArrArr(2)
 
-        For Each row As DataRow In dtw.Rows
-            warehouses(i) = row("DB_Name").ToString()
-            i = i + 1
-        Next
+            Command = "<AdvancedShipNoticeHeader><ExternReceiptKey>" & ExternReceiptKey & "</ExternReceiptKey><ReceiptKey>" & ReceiptKey & "</ReceiptKey></AdvancedShipNoticeHeader>"
+            Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>AdvancedShipNotice</MessageType> <Action>delete</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId></Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(Facility) & "</SystemID>		</Recipient>	</Head>	<Body><AdvancedShipNotice> " & Command & "</AdvancedShipNotice></Body></Message>"
+            tmp = CommonMethods.DeleteXml(xml, Facility, "Receipt", ReceiptKey)
 
-        If i > 0 Then
-            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
-
-            If owners IsNot Nothing Then
-                Dim ownersstr As String = String.Join("','", owners)
-                ownersstr = "'" & ownersstr & "'"
-                If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
-
-                Sql += " select * from ("
-                For Each s As String In warehouses
-                    Dim data As DataTable = New DataTable
-                    wnameRow = dtw.Select("DB_NAME='" & s & "'")
-                    If wnameRow.Count > 0 Then wname = wnameRow(0)!DB_LOGID
-
-                    If LCase(s.Substring(0, 6)) = "infor_" Then
-                        warehouselevel = s.Substring(6, s.Length - 6)
-                    Else
-                        warehouselevel = s
-                    End If
-                    warehouselevel = warehouselevel.Split("_")(1)
-
-                    Sql += " select SerialKey, '" & wname & "' as Facility, ExternReceiptKey, ReceiptKey "
-                    Sql += " from " & warehouselevel & ".Receipt where 1=1  " & AndFilter
-                    Sql += " UNION"
-                Next
-                If Sql.EndsWith("UNION") Then Sql = Sql.Remove(Sql.Length - 5)
-                Sql += ") as ds where 1=1 and SerialKey in (" & MyItems & ")"
+            If tmp = "" Then
+                Dim Warehouse As String = CommonMethods.getFacilityDBName(Facility)
+                If LCase(Warehouse.Substring(0, 6)) = "infor_" Then Warehouse = Warehouse.Substring(6, Warehouse.Length - 6)
+                If LCase(Warehouse).Contains("_") Then Warehouse = Warehouse.Split("_")(1)
+                Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "RECEIPT_FILES where WHSEID = '" & Warehouse & "' and ReceiptKey='" & ReceiptKey & "'"
+                tmp = (New SQLExec).Execute(Sql)
             End If
-        End If
-        Dim ds As DataSet = (New SQLExec).Cursor(Sql)
-
-        For i = 0 To ds.Tables(0).Rows.Count - 1
-            With ds.Tables(0).Rows(i)
-                Command = "<AdvancedShipNoticeHeader><ExternReceiptKey>" & !ExternReceiptKey.ToString & "</ExternReceiptKey><ReceiptKey>" & !ReceiptKey.ToString & "</ReceiptKey></AdvancedShipNoticeHeader>"
-                Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>AdvancedShipNotice</MessageType> <Action>delete</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId></Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(!Facility) & "</SystemID>		</Recipient>	</Head>	<Body><AdvancedShipNotice> " & Command & "</AdvancedShipNotice></Body></Message>"
-                tmp = CommonMethods.DeleteXml(xml, !Facility.ToString, "Receipt", !ReceiptKey.ToString)
-
-                If tmp = "" Then
-                    Dim Facility As String = CommonMethods.getFacilityDBName(!Facility)
-                    If LCase(Facility.Substring(0, 6)) = "infor_" Then Facility = Facility.Substring(6, Facility.Length - 6)
-                    If LCase(Facility).Contains("_") Then Facility = Facility.Split("_")(1)
-                    Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "RECEIPT_FILES where WHSEID = '" & Facility & "' and ReceiptKey='" & !ReceiptKey.ToString & "'"
-                    tmp = (New SQLExec).Execute(Sql)
-                End If
-            End With
             tmp = ""
         Next
+
         Return tmp
     End Function
-    Private Function DeleteSO(ByVal MyItems As String) As String
-        Dim tmp As String = "", AndFilter As String = "", Sql As String = "", Command As String = "", wname As String = "", warehouselevel As String = ""
-        Dim wnameRow As DataRow() = Nothing
+    Private Function DeleteSO(ByVal MyKeys As String) As String
+        Dim tmp As String = "", Command As String = "", Sql As String = ""
+        Dim MyKeysArr As String() = MyKeys.Split(New String() {","}, StringSplitOptions.RemoveEmptyEntries)
 
-        Dim dtw As DataTable = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
-        Dim warehouses(dtw.Rows.Count - 1) As String
-        Dim i As Integer = 0
+        For i = 0 To MyKeysArr.Count - 1
+            Dim MyKeyArrArr As String() = MyKeysArr(i).Split(New String() {"~~~"}, StringSplitOptions.RemoveEmptyEntries)
+            Dim Facility As String = MyKeyArrArr(0)
+            Dim OrderKey As String = MyKeyArrArr(1)
+            Dim ExternOrderKey As String = MyKeyArrArr(2)
 
-        For Each row As DataRow In dtw.Rows
-            warehouses(i) = row("DB_Name").ToString()
-            i = i + 1
-        Next
+            Command = "<ShipmentOrderHeader><ExternOrderKey>" & ExternOrderKey & "</ExternOrderKey><OrderKey>" & OrderKey & "</OrderKey></ShipmentOrderHeader>"
+            Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>ShipmentOrder</MessageType> <Action>delete</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId></Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(Facility) & "</SystemID>		</Recipient>	</Head>	<Body><ShipmentOrder> " & Command & "</ShipmentOrder></Body></Message>"
+            tmp = CommonMethods.DeleteXml(xml, Facility, "Order", OrderKey)
 
-        If i > 0 Then
-            Dim owners As String() = CommonMethods.getOwnerPerUser(HttpContext.Current.Session("userkey").ToString)
-            Dim consignees As String() = CommonMethods.getConsigneePerUser(HttpContext.Current.Session("userkey").ToString)
-
-            If owners IsNot Nothing And consignees IsNot Nothing Then
-                Dim ownersstr As String = String.Join("','", owners)
-                ownersstr = "'" & ownersstr & "'"
-                If Not UCase(ownersstr).Contains("'ALL'") Then AndFilter += " and STORERKEY IN (" & ownersstr & ")"
-
-                Dim consigneesstr As String = String.Join("','", consignees)
-                consigneesstr = "'" & consigneesstr & "'"
-                If Not UCase(consigneesstr).Contains("'ALL'") Then AndFilter += " and ConsigneeKey IN (" & consigneesstr & ")"
-
-                Sql += " select * from ("
-                For Each s As String In warehouses
-                    Dim data As DataTable = New DataTable
-                    wnameRow = dtw.Select("DB_NAME='" & s & "'")
-                    If wnameRow.Count > 0 Then wname = wnameRow(0)!DB_LOGID
-
-                    If LCase(s.Substring(0, 6)) = "infor_" Then
-                        warehouselevel = s.Substring(6, s.Length - 6)
-                    Else
-                        warehouselevel = s
-                    End If
-                    warehouselevel = warehouselevel.Split("_")(1)
-
-                    Sql += " select SerialKey, '" & wname & "' as Facility, ExternOrderKey, OrderKey "
-                    Sql += " from " & warehouselevel & ".orders where 1=1  " & AndFilter
-                    Sql += " UNION"
-                Next
-                If Sql.EndsWith("UNION") Then Sql = Sql.Remove(Sql.Length - 5)
-                Sql += ") as ds where 1=1 and SerialKey in (" & MyItems & ")"
+            If tmp = "" Then
+                Dim Warehouse As String = CommonMethods.getFacilityDBName(Facility)
+                If LCase(Warehouse.Substring(0, 6)) = "infor_" Then Warehouse = Warehouse.Substring(6, Warehouse.Length - 6)
+                If LCase(Warehouse).Contains("_") Then Warehouse = Warehouse.Split("_")(1)
+                Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERS_FILES where WHSEID = '" & Warehouse & "' and OrderKey='" & OrderKey & "'"
+                tmp = (New SQLExec).Execute(Sql)
             End If
-        End If
-        Dim ds As DataSet = (New SQLExec).Cursor(Sql)
-
-        For i = 0 To ds.Tables(0).Rows.Count - 1
-            With ds.Tables(0).Rows(i)
-                Command = "<ShipmentOrderHeader><ExternOrderKey>" & !ExternOrderKey.ToString & "</ExternOrderKey><OrderKey>" & !OrderKey.ToString & "</OrderKey></ShipmentOrderHeader>"
-                Dim xml As String = "<Message> <Head> <MessageID>0000000003</MessageID> <MessageType>ShipmentOrder</MessageType> <Action>delete</Action> <Sender> 	<User>" & CommonMethods.username & "</User>			<Password>" & CommonMethods.password & "</Password>	<SystemID>MOVEX</SystemID>	<TenantId>INFOR</TenantId></Sender>		<Recipient>			<SystemID>" & CommonMethods.getFacilityDBName(!Facility) & "</SystemID>		</Recipient>	</Head>	<Body><ShipmentOrder> " & Command & "</ShipmentOrder></Body></Message>"
-                tmp = CommonMethods.DeleteXml(xml, !Facility.ToString, "Order", !OrderKey.ToString)
-
-                If tmp = "" Then
-                    Dim Facility As String = CommonMethods.getFacilityDBName(!Facility)
-                    If LCase(Facility.Substring(0, 6)) = "infor_" Then Facility = Facility.Substring(6, Facility.Length - 6)
-                    If LCase(Facility).Contains("_") Then Facility = Facility.Split("_")(1)
-                    Sql = "Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERS_FILES where WHSEID = '" & Facility & "' and OrderKey='" & !OrderKey.ToString & "'"
-                    tmp = (New SQLExec).Execute(Sql)
-                End If
-            End With
             tmp = ""
         Next
+
         Return tmp
     End Function
     ReadOnly Property IsReusable() As Boolean Implements IHttpHandler.IsReusable

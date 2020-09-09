@@ -17,7 +17,6 @@ jQuery.fn.KeyPressfunctionsOverride = function (options) {
             $('.SaveBtn').trigger('click');
             event.preventDefault();
             return false;
-        }        
+        }
     });
-
 }

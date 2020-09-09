@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 22:55:46</publishTime>
     </File>
     <File Include="App_GlobalResources/Resources.resx">
-      <publishTime>05/19/2020 16:38:38</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="bin/Canonicalize.dll">
-      <publishTime>05/19/2020 16:38:49</publishTime>
+      <publishTime>09/02/2020 20:42:15</publishTime>
     </File>
     <File Include="bin/CKEditor.NET.dll">
       <publishTime>07/15/2014 13:47:02</publishTime>
@@ -541,10 +541,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:27:18</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
-      <publishTime>05/19/2020 16:38:49</publishTime>
+      <publishTime>09/02/2020 20:42:15</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.pdb">
-      <publishTime>05/19/2020 16:38:49</publishTime>
+      <publishTime>09/02/2020 20:42:15</publishTime>
     </File>
     <File Include="bin/it/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:26:02</publishTime>
@@ -709,136 +709,136 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/22/2011 15:31:50</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
-      <publishTime>05/19/2020 16:38:49</publishTime>
+      <publishTime>09/02/2020 20:42:17</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.Common.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:23</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.WebForms.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:23</publishTime>
     </File>
     <File Include="bin/Microsoft.SqlServer.Types.dll">
       <publishTime>02/21/2014 04:28:46</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>05/19/2020 16:38:52</publishTime>
+      <publishTime>09/02/2020 20:42:25</publishTime>
     </File>
     <File Include="bin/NLog.dll">
-      <publishTime>05/19/2020 16:38:51</publishTime>
+      <publishTime>09/02/2020 20:42:24</publishTime>
     </File>
     <File Include="bin/Oracle.ManagedDataAccess.dll">
-      <publishTime>05/19/2020 16:38:52</publishTime>
+      <publishTime>09/02/2020 20:42:27</publishTime>
     </File>
     <File Include="bin/pt/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:25:24</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe.config">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/csc.rsp">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/csi.exe">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/csi.exe.config">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/csi.rsp">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Managed.Core.targets">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/Microsoft.Win32.Primitives.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.AppContext.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Collections.Immutable.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Console.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.DiagnosticSource.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.FileVersionInfo.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.Process.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Globalization.Calendars.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Compression.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Compression.ZipFile.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.DriveInfo.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.IO.Pipes.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Net.Http.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Net.Sockets.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Reflection.Metadata.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Runtime.InteropServices.RuntimeInformation.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.AccessControl.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
@@ -847,58 +847,58 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Algorithms.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Encoding.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Principal.Windows.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Threading.Tasks.Extensions.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Threading.Thread.dll">
       <publishTime>12/13/2017 21:09:38</publishTime>
     </File>
     <File Include="bin/roslyn/System.ValueTuple.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.ReaderWriter.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XmlDocument.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XPath.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/System.Xml.XPath.XDocument.dll">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.exe">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.exe.config">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/vbc.rsp">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
-      <publishTime>05/19/2020 16:38:50</publishTime>
+      <publishTime>09/02/2020 20:42:19</publishTime>
     </File>
     <File Include="bin/ru/DevExpress.Dashboard.v19.2.Core.resources.dll">
       <publishTime>03/22/2020 22:52:14</publishTime>
@@ -1054,13 +1054,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:25:46</publishTime>
     </File>
     <File Include="bin/SNSsoftware.dll">
-      <publishTime>08/18/2020 23:04:21</publishTime>
+      <publishTime>09/03/2020 23:55:02</publishTime>
     </File>
     <File Include="bin/SNSsoftware.pdb">
-      <publishTime>08/18/2020 23:04:21</publishTime>
+      <publishTime>09/03/2020 23:55:02</publishTime>
     </File>
     <File Include="bin/SNSsoftware.xml">
-      <publishTime>08/18/2020 23:04:11</publishTime>
+      <publishTime>09/03/2020 23:55:01</publishTime>
     </File>
     <File Include="bin/Tinify.dll">
       <publishTime>05/24/2018 10:15:50</publishTime>
@@ -1072,79 +1072,82 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:28:10</publishTime>
     </File>
     <File Include="Controls/Cufex_Components/Cufex_MasterHeader.ascx">
-      <publishTime>07/01/2020 19:43:08</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Controls/Cufex_Components/Cufex_MasterMenu.ascx">
-      <publishTime>11/26/2019 12:22:28</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
+    </File>
+    <File Include="Controls/Cufex_Components/Cufex_Warehouse_OrderTracking_CarrierEvents.ascx">
+      <publishTime>09/03/2020 23:07:51</publishTime>
     </File>
     <File Include="Controls/Cufex_PlugIns/Cufex_Logout.aspx">
-      <publishTime>11/26/2019 11:41:34</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex.aspx">
-      <publishTime>07/02/2020 11:26:30</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_ExportLogs.aspx">
-      <publishTime>06/04/2020 01:28:50</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_FileManagement.aspx">
-      <publishTime>06/04/2020 01:29:28</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_FileManagementLogs.aspx">
-      <publishTime>06/04/2020 01:29:46</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_ImportLogs.aspx">
-      <publishTime>06/04/2020 01:29:01</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_UITemplates.aspx">
-      <publishTime>06/07/2020 21:06:14</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ItemCatalogue.aspx">
-      <publishTime>08/07/2020 17:47:18</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_Items.aspx">
-      <publishTime>06/26/2020 23:15:54</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ShipFrom.aspx">
-      <publishTime>07/02/2020 01:15:44</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ShipTo.aspx">
-      <publishTime>07/02/2020 00:53:10</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_Suppliers.aspx">
       <publishTime>04/29/2020 17:50:15</publishTime>
     </File>
     <File Include="Cufex/Cufex_Dashboard.aspx">
-      <publishTime>07/23/2020 21:18:31</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_DashboardSite.Master">
-      <publishTime>07/06/2020 20:27:19</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Default.aspx">
-      <publishTime>08/18/2020 21:21:42</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_ForgotPassword.aspx">
-      <publishTime>07/01/2020 18:26:22</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Inventory_Balance.aspx">
-      <publishTime>07/02/2020 01:16:09</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Popup_Items.aspx">
-      <publishTime>07/02/2020 22:45:01</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Popup_Locations.aspx">
-      <publishTime>06/12/2020 21:07:20</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Popup_Packs.aspx">
-      <publishTime>06/12/2020 21:07:08</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Reporting_ReportDesigner.aspx">
-      <publishTime>06/24/2020 23:10:57</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Reporting_ReportViewer.aspx">
-      <publishTime>06/16/2020 00:07:25</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Reporting_ViewReports.aspx">
-      <publishTime>05/09/2020 02:59:11</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_ReportsandKPIs_ReportDesigner.aspx">
       <publishTime>04/10/2020 17:25:33</publishTime>
@@ -1156,16 +1159,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2020 23:14:09</publishTime>
     </File>
     <File Include="Cufex/Cufex_ResetPasswordByCode.aspx">
-      <publishTime>07/01/2020 18:27:08</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_ChangePassword.aspx">
-      <publishTime>06/29/2020 20:59:40</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_Profiles.aspx">
-      <publishTime>06/06/2020 20:21:37</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_ProfilesDetails.aspx">
-      <publishTime>07/01/2020 19:20:16</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_Profile_ChangePassword.aspx">
       <publishTime>04/29/2020 17:32:44</publishTime>
@@ -1186,58 +1189,61 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2020 17:27:24</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_UserProfile.aspx">
-      <publishTime>06/09/2020 18:24:59</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_Users.aspx">
-      <publishTime>06/29/2020 20:59:18</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_UsersControl.aspx">
-      <publishTime>06/29/2020 22:06:44</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Site.Master">
-      <publishTime>07/01/2020 19:58:03</publishTime>
+      <publishTime>09/03/2020 23:36:08</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_ASN.aspx">
-      <publishTime>07/02/2020 21:16:49</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_OrderManagement.aspx">
-      <publishTime>07/02/2020 21:17:22</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
+    </File>
+    <File Include="Cufex/Cufex_Warehouse_OrderTracking.aspx">
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_PO.aspx">
-      <publishTime>07/02/2020 01:17:05</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_Shipment.aspx">
-      <publishTime>07/02/2020 21:18:02</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>05/19/2020 16:38:38</publishTime>
+      <publishTime>09/02/2020 20:41:50</publishTime>
     </File>
     <File Include="JS/Cufex/MainQuery.js">
-      <publishTime>05/08/2020 13:05:47</publishTime>
+      <publishTime>09/03/2020 23:19:27</publishTime>
     </File>
     <File Include="JS/Cufex/MainQuery.min.js">
-      <publishTime>05/08/2020 13:05:47</publishTime>
+      <publishTime>09/03/2020 23:19:28</publishTime>
     </File>
     <File Include="JS/Cufex/Master.js">
-      <publishTime>08/07/2020 17:49:25</publishTime>
+      <publishTime>09/03/2020 23:19:11</publishTime>
     </File>
     <File Include="JS/Cufex/Master.min.js">
-      <publishTime>08/07/2020 17:49:07</publishTime>
+      <publishTime>09/03/2020 23:19:02</publishTime>
     </File>
     <File Include="JS/Dashboards/DeleteExtension.js">
-      <publishTime>03/24/2020 13:57:47</publishTime>
+      <publishTime>09/02/2020 20:41:51</publishTime>
     </File>
     <File Include="JS/Dashboards/SaveAsExtension.js">
-      <publishTime>03/24/2020 13:57:47</publishTime>
+      <publishTime>09/02/2020 20:41:51</publishTime>
     </File>
     <File Include="JS/Dashboards/scripts.js">
-      <publishTime>08/18/2020 21:21:42</publishTime>
+      <publishTime>09/02/2020 20:41:51</publishTime>
     </File>
     <File Include="JS/Dashboards/styles.css">
-      <publishTime>06/24/2020 23:10:57</publishTime>
+      <publishTime>09/02/2020 20:41:51</publishTime>
     </File>
     <File Include="JS/JqueryMain/jquery-3.4.1.min.js">
-      <publishTime>12/22/2019 13:51:04</publishTime>
+      <publishTime>09/02/2020 20:41:51</publishTime>
     </File>
     <File Include="Portal Dependencies/Custom Explode Asn/SCE10.2/bin/AdvancedShipNoticeAPI.class">
       <publishTime>06/24/2019 22:55:05</publishTime>
@@ -1522,94 +1528,97 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 22:55:47</publishTime>
     </File>
     <File Include="Site.Master">
-      <publishTime>05/19/2020 16:38:39</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Style/ChosenSelect/chosen.css">
-      <publishTime>06/08/2020 00:30:47</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Style/ChosenSelect/chosen.min.css">
-      <publishTime>06/08/2020 00:30:47</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Style/Cufex/Cufex_Style.css">
-      <publishTime>07/01/2020 20:01:06</publishTime>
+      <publishTime>09/03/2020 23:42:17</publishTime>
     </File>
     <File Include="Style/Cufex/Cufex_Style.min.css">
-      <publishTime>07/01/2020 20:01:03</publishTime>
+      <publishTime>09/03/2020 23:42:18</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/11/2020 10:56:26</publishTime>
+      <publishTime>09/03/2020 23:55:03</publishTime>
     </File>
     <File Include="Webservices/ActionButtons.ashx">
-      <publishTime>03/03/2020 11:46:56</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/AutoPostBackDetailsDropDowns.ashx">
-      <publishTime>02/20/2020 00:41:07</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/AutoPostBackDropDowns.ashx">
-      <publishTime>02/09/2020 04:56:34</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
+    </File>
+    <File Include="Webservices/CarrierEvents.ashx">
+      <publishTime>09/01/2020 23:32:06</publishTime>
     </File>
     <File Include="Webservices/DeleteItems.ashx">
-      <publishTime>12/16/2019 22:51:10</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/DeleteItemsDetails.ashx">
-      <publishTime>04/21/2020 00:09:34</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/DisplayDropDowns.ashx">
-      <publishTime>02/08/2020 01:26:35</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/DisplayItems.ashx">
-      <publishTime>01/11/2020 17:19:06</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/DisplayItemsDetails.ashx">
-      <publishTime>04/20/2020 03:15:42</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/DisplayItemsNew.ashx">
-      <publishTime>04/20/2020 00:06:10</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/ExportItems.ashx">
-      <publishTime>05/18/2020 02:02:09</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/ExportItemsDetails.ashx">
-      <publishTime>06/01/2020 02:01:16</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/FetchPriceCurrency.ashx">
-      <publishTime>02/24/2020 00:16:35</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/FileUpload.ashx">
-      <publishTime>05/28/2020 01:59:58</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/GetItems.ashx">
-      <publishTime>12/16/2019 18:07:12</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/GetItemsDetails.ashx">
-      <publishTime>04/20/2020 01:33:56</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/GetItemsPopup.ashx">
-      <publishTime>06/11/2020 00:53:58</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/ImportItems.ashx">
-      <publishTime>05/22/2020 01:17:11</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/SaveItems.ashx">
-      <publishTime>01/11/2020 16:25:48</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/SaveItemsDetails.ashx">
-      <publishTime>04/26/2020 01:41:58</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/SaveItemsNew.ashx">
-      <publishTime>04/19/2020 15:46:28</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/SearchDropDowns.ashx">
-      <publishTime>02/18/2020 01:30:47</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/UpdateProfileDetail.ashx">
-      <publishTime>03/01/2020 01:47:38</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/UpdateUserActive.ashx">
-      <publishTime>05/07/2020 00:01:03</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
     <File Include="Webservices/UserConfiguration.ashx">
-      <publishTime>04/12/2020 23:22:22</publishTime>
+      <publishTime>09/02/2020 20:41:52</publishTime>
     </File>
   </ItemGroup>
 </Project>

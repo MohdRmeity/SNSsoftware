@@ -4,7 +4,6 @@
     <%--Page Title--%>
     <div class="NormalDiv1118Max GetFullHeightAtLeast">
 
-
         <div style="height: 33px;"></div>
 
         <div class="BackBtn BackHeader AnimateMe" style="display: none;">
@@ -1146,4 +1145,8 @@
         <input type="hidden" class="MyDetailsFields" value="ShippedQty" data-columnname="Shipped Qty" data-priority="14" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="PortalDescription" data-columnname="Status" data-priority="15" data-hidden="false" />
     </div>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCze8zLRsXWk6zE0aG8_Il61Xiis1rkbbs&callback=initMap"></script>
 </asp:Content>

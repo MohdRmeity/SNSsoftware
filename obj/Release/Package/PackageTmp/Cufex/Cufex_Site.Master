@@ -2,6 +2,8 @@
 
 <!DOCTYPE html>
 <%@ Register Src="~/Controls/Cufex_Components/Cufex_MasterHeader.ascx" TagPrefix="uc1" TagName="Cufex_MasterHeader" %>
+<%@ Register Src="~/Controls/Cufex_Components/Cufex_Warehouse_OrderTracking_CarrierEvents.ascx" TagPrefix="uc1" TagName="Cufex_Warehouse_OrderTracking_CarrierEvents" %>
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -165,6 +167,7 @@
                                             <div id="DivSubMain_Warehouse_ASN" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)%>">ASN</a></div>
                                             <div id="DivSubMain_Warehouse_Shipment" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)%>">Shipment</a></div>
                                             <div id="DivSubMain_Warehouse_OrderManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)%>">Order Management</a></div>
+                                            <div id="DivSubMain_Warehouse_OrderTracking" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderTracking", Nothing)%>">Order Tracking</a></div>
                                         </div>
                                     </div>
                                     <div id="DivMain_Inventory" runat="server">
@@ -219,6 +222,7 @@
                         </div>
                     </div>
                 </div>
+                <uc1:Cufex_Warehouse_OrderTracking_CarrierEvents runat="server" ID="CarrierEvents" />
                 <asp:ContentPlaceHolder ID="LogInContainer" runat="server">
                 </asp:ContentPlaceHolder>
                 <div class="PointsMenu">

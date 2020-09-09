@@ -3,40 +3,6 @@ a {
     display: inline;
 }
 
-
-/*@font-face {
-    font-family: 'Universlt59';
-    src: url('z-Fonts/DINCondensed_Bold.eot');
-    src: local('☺'), url('z-Fonts/DINCondensed_Bold.woff2') format('woff2'),url('z-Fonts/DINCondensed_Bold.woff') format('woff'), url('z-Fonts/DINCondensed_Bold.ttf') format('truetype'), url('z-Fonts/DINCondensed_Bold.svg#DINCondensed_Bold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    
-    src: url('z-Fonts/Aileron_Regular.eot');
-    src: local('☺'), url('z-Fonts/Aileron_Regular.eot?#iefix') format('embedded-opentype'), url('z-Fonts/Aileron_Regular.woff') format('woff'), url('z-Fonts/Aileron_Regular.svg#Aileron_Regular') format('svg'), url('z-Fonts/Aileron_Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'GothamBold';
-    src: url('z-Fonts/GothamBold.eot');
-    src: local('☺'), url('z-Fonts/GothamBold.eot?#iefix') format('embedded-opentype'), url('z-Fonts/GothamBold.woff') format('woff'), url('z-Fonts/GothamBold.svg#GothamBold') format('svg'), url('z-Fonts/GothamBold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'GothamLight';
-    src: url('z-Fonts/GothamLight.eot');
-    src: local('☺'), url('z-Fonts/GothamLight.eot?#iefix') format('embedded-opentype'), url('z-Fonts/GothamLight.woff') format('woff'), url('z-Fonts/GothamLight.svg#GothamLight') format('svg'), url('z-Fonts/GothamLight.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}*/
-
-
 @font-face {
     font-family: 'Inter-Regular';
     src: url('z-Fonts/Inter-Regular.eot?#iefix') format('embedded-opentype'), url('z-Fonts/Inter-Regular.otf') format('opentype'), url('z-Fonts/Inter-Regular.woff') format('woff'), url('z-Fonts/Inter-Regular.ttf') format('truetype'), url('z-Fonts/Inter-Regular.svg#Inter-Regular') format('svg');
@@ -44,7 +10,6 @@ a {
     font-style: normal;
     font-display: block;
 }
-
 
 @font-face {
     font-family: 'Inter-SemiBold';
@@ -67,7 +32,6 @@ html {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 
 *, *:after, *:before {
     padding: 0;
@@ -354,7 +318,6 @@ body {
     transition: all .3s ease-in-out;
 }
 
-
     .IWantAMouseOVerNowBut75Inv:hover, .IWantAMouseOVerNowBut80Inv:hover, .IWantAMouseOVerNowBut85Inv:hover, .IWantAMouseOVerNowInv:hover {
         opacity: 1;
     }
@@ -399,7 +362,6 @@ body {
     height: 100%;
     opacity: 0;
 }
-
 
 ::-webkit-input-placeholder {
     color: #C7CDD6;
@@ -493,7 +455,6 @@ body {
     margin: auto;
 }
 
-
 .Normal1240 {
     position: relative;
     width: 100%;
@@ -557,7 +518,6 @@ body {
     box-sizing: border-box;
 }
 
-
 .FloatStyleSemi {
     position: relative;
     width: 50%;
@@ -587,7 +547,6 @@ body {
         max-width: 100%;
     }
 }
-
 
 .FloatStyle25 {
     position: relative;
@@ -625,7 +584,6 @@ body {
     min-height: 80px;
 }
 
-
 .FloatStyle100 {
     position: relative;
     width: 100%;
@@ -637,7 +595,6 @@ body {
     box-sizing: border-box;
     min-height: 80px;
 }
-
 
 .MyTitleItem {
     position: relative;
@@ -704,7 +661,6 @@ body {
         background: url(../../images/Cufex_Images/RB.png) left bottom no-repeat;
     }
 
-
     .RadioCostumizedNS + label {
         font-size: 13px;
         color: #454B50 !important;
@@ -714,7 +670,7 @@ body {
 
 /*#endregion Radio Btn Ends*/
 
-/*#region CheckBox Start (Updated By Bilal) */
+/*#region CheckBox Start  */
 .CheckBoxCostumizedNS4 {
     display: none;
 }
@@ -815,13 +771,6 @@ body {
         color: #485869;
     }
 
-
-
-
-
-
-
-
 .costumCheck {
     display: none;
 }
@@ -885,7 +834,6 @@ body {
     text-transform: capitalize;
     color: #9F9F9F;
 }*/
-
 
 .logOutDiv {
     position: relative;
@@ -967,7 +915,6 @@ body {
     z-index: 1000 !important;
     min-width: 0;
 }
-
 
 .MenuItemStyle, .MenuItemStyleSel, .MenuItemStyleActive {
     position: relative;
@@ -1118,7 +1065,6 @@ body {
     left: -6px;
 }
 
-
 .MenuItemStyleActive {
     /*background-color: #0C0E10;*/
     height: 55px;
@@ -1136,7 +1082,6 @@ body {
         -moz-border-radius: 50%;
         border-radius: 50%;
     }*/
-
 
 .MenuSubItem, .MenuSubItemSel, .MenuSubItemActive {
     position: relative;
@@ -1177,11 +1122,9 @@ body {
         display: inline-block;
     }
 
-
     .MenuSubItem:hover {
         color: #0062ff;
     }
-
 
 /*.MenuSubItem:hover {
         color: #0062ff;
@@ -1212,7 +1155,6 @@ body {
         -moz-border-radius: 50%;
         border-radius: 50%;
     }*/
-
 
 .MenuSubSubItem, .MenuSubSubItemSel, .MenuSubSubItemActive {
     position: relative;
@@ -1636,7 +1578,6 @@ body {
     }
 }
 
-
 /*#endregion LogIn Ends*/
 
 /*#region Pages Start*/
@@ -1782,7 +1723,6 @@ body {
         opacity: 1;
     }
 
-
 .HttplinkTxt {
     padding-left: 57px;
 }
@@ -1833,7 +1773,6 @@ body {
     width: 75px;
     text-align: center;
 }
-
 
 .MainSearchDiv {
     position: relative;
@@ -1943,7 +1882,6 @@ body {
         background-color: #cccccc;
     }
 
-
 .BtnStyle2 {
     min-width: 114px;
     height: 43px;
@@ -1969,8 +1907,6 @@ body {
         background-color: #3673ff;
     }
 
-
-
 .BtnStyleWhite {
     min-width: 114px;
     height: 43px;
@@ -1995,7 +1931,6 @@ body {
         cursor: default;
         background-color: #728191;
     }
-
 
 .BtnStyle2Grey {
     min-width: 114px;
@@ -2054,7 +1989,6 @@ body {
         background-color: #666;
     }
 
-
 .BtnAddToGridStyle {
     border: 0 solid black;
     background-color: #3673ff;
@@ -2075,7 +2009,6 @@ body {
     background-image: url(../../images/Cufex_Images/AddBtn.png);
     background-repeat: no-repeat;
 }
-
 
 .AddBtn2 {
     background-image: url(../../images/Cufex_Images/plus.svg);
@@ -2110,7 +2043,6 @@ body {
     background-repeat: no-repeat;
 }
 
-
 .PrintBtn {
     background-image: url(../../images/Cufex_Images/PrintBtn.png);
     background-repeat: no-repeat;
@@ -2138,7 +2070,6 @@ body {
     background-image: url(../../images/Cufex_Images/WhiteDeleteIconW.png);
     background-repeat: no-repeat;
 }
-
 
 .DeleteMediaBtn {
     background-image: url(../../images/Cufex_Images/DeleteIconW.png);
@@ -2234,7 +2165,6 @@ body {
     z-index: 100 !important;
 }
 
-
 .FixedSearch {
     position: fixed;
     top: 0;
@@ -2262,8 +2192,6 @@ body {
     font-size: 14px;
     text-transform: uppercase;
 }
-
-
 
 .MainPageTitle {
     font-size: 32px;
@@ -2318,8 +2246,6 @@ body {
     border-left: 6px solid #454B50;
 }*/
 
-
-
 .DivCategoryItemDetails {
     position: relative;
     width: 100%;
@@ -2347,7 +2273,6 @@ body {
         background-color: #D12765;
         color: #fff;
     }
-
 
 .LanguageStyleSel {
     position: relative;
@@ -2399,7 +2324,6 @@ body {
     width: 100%;
 }
 
-
 .MyDualList tr:first-child td:first-child {
     height: 30px;
 }
@@ -2409,8 +2333,6 @@ body {
     border-bottom: 1px solid #fff;
     padding: 3px 10px;
 }
-
-
 
 .MyDualList tr td span {
     font-size: 14px;
@@ -2484,8 +2406,6 @@ body {
     .ActivateLink:hover {
         color: #3673ff;
     }
-
-
 
 .btnFetch {
     background-color: #ffffff;
@@ -2710,11 +2630,9 @@ body {
     font-size: 12px;
 }
 
-
 html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     color: #707883 !important;
 }
-
 
 .rcTable td:last-child {
     background-color: transparent !important;
@@ -2723,7 +2641,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .RadPicker_Bootstrap .rcTimePopup {
     background-color: #ffffff !important;
 }
-
 
 .HorizontalBorderVisible2 tr td {
     border-top: 0;
@@ -2747,7 +2664,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 /*#region FaceBook*/
 
-
 .ThemNocountBlack .sharrre .count {
     display: block;
     text-transform: initial;
@@ -2759,7 +2675,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     left: 0;
 }
 
-
 .ThemNocountBlack .sharrre .share {
     display: block;
     padding: 0;
@@ -2770,8 +2685,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     z-index: 10 !important;
     font-size: 0;
 }
-
-
 
 .ThemNocountBlack .faceBookSharrre .share {
     background-image: url(../../images/Cufex_Images/Social1.png);
@@ -2799,7 +2712,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
     font-size: 0;
 }
-
 
 /*#endregion*/
 
@@ -2891,7 +2803,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 }
 
-
 .lds-ripple {
     position: absolute;
     width: 64px;
@@ -2914,7 +2825,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         }
 
 @-moz-keyframes lds-ripple {
-
     0% {
         top: 28px;
         left: 28px;
@@ -2933,7 +2843,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 @-webkit-keyframes lds-ripple {
-
     0% {
         top: 28px;
         left: 28px;
@@ -2952,7 +2861,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 @keyframes lds-ripple {
-
     0% {
         top: 28px;
         left: 28px;
@@ -2989,12 +2897,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         display: none;
     }
 
-
-
-
-
-
-
 .PreloaderContainerB {
     width: 180px;
     height: 180px;
@@ -3016,7 +2918,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     font-style: italic;
     padding: 60px 0;
 }
-
 
 .loader,
 .loader:before,
@@ -3702,8 +3603,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     background-color: #f7f7f7;
 }
 
-
-
 .passwordChecker {
     position: absolute;
     right: 30px;
@@ -3755,9 +3654,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 @media all and (max-width: 880px) {
-
-
-
     .MyDualList tr td span {
         font-size: 11px;
     }
@@ -3859,8 +3755,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 @media all and (max-width: 550px) {
-
-
     .CreationsUser {
         width: calc(100% - 2px);
     }
@@ -3906,16 +3800,16 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     height: 25px;
     background-color: #3673ff;
     color: white;
-    
+
     font-weight: normal;
     font-size: 18px;
     text-align: center;
-    line-height: 25px; 
+    line-height: 25px;
 }
 
 .BtnDismiss {
     color: #3673ff;
-    
+
     font-weight: normal;
     font-size: 15px;
     text-transform: uppercase;
@@ -3934,12 +3828,12 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     height: 30px;
     background-color: #9f9f9f;
     color: white;
-    
+
     font-weight: normal;
     font-size: 15px;
     text-align: center;
     line-height: 30px;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
     .DismissAll:hover {
@@ -4065,7 +3959,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
             width: 16px;
         }
 
-
     #sortable.MediaGallery li:hover {
         opacity: 1;
     }
@@ -4091,7 +3984,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .ui-icon-arrowthick-2-n-s {
     background-position: -128px -48px;
 }
-
 
 .DeleteColumnBtn {
     position: absolute;
@@ -4140,7 +4032,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-top: 20px;
     margin-right: 20px;
 }
-
 
 .GlobaltextboxGoToPage {
     width: 40px;
@@ -4387,9 +4278,8 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 /*#endregion */
 
 /*#region Map */
-
-#map {
-    height: 152px;
+.map {
+    height: 235px;
     width: 100%;
 }
 
@@ -4460,7 +4350,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
     background-color: rgba(0,0,0,.1);
 }
-
 
 .Table_RowStyle:nth-child(2n+1) {
     background-color: rgba(0,0,0,.03);
@@ -4537,7 +4426,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-col-xs-65 {
     width: 65%;
 }
-
 
 .u-col-xs-70 {
     width: 70%;
@@ -4619,7 +4507,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-col-sm-65 {
         width: 65%;
     }
-
 
     .u-col-sm-70 {
         width: 70%;
@@ -4703,7 +4590,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         width: 65%;
     }
 
-
     .u-col-md-70 {
         width: 70%;
     }
@@ -4786,7 +4672,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         width: 65%;
     }
 
-
     .u-col-lg-70 {
         width: 70%;
     }
@@ -4818,8 +4703,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 /*#endregion */
 
 /*#region Grid 12 column */
-
-
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
     position: relative;
@@ -4879,7 +4762,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .col-xs-1 {
     width: 8.33333333%;
 }
-
 
 @media (min-width: 481px) {
     .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
@@ -5094,7 +4976,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     display: block;
 }
 
-
 .u-relative {
     position: relative;
 }
@@ -5183,7 +5064,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     background-color: #ffffff;
 }
 
-
 .u-bgBlack {
     background-color: #000000;
 }
@@ -5264,7 +5144,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin: 0 !important;
 }
 
-
 .u-inline {
     display: inline;
 }
@@ -5343,8 +5222,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     transform: translate(0, -50%);
 }
 
-
-
 .u-inheritStyle, .u-inheritstyle {
     font-size: inherit;
     color: inherit;
@@ -5372,7 +5249,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-zindex101 {
     z-index: 101;
 }
-
 
 .centerMe {
     margin: 0;
@@ -5518,7 +5394,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 }
 
-
 @media all and (max-width: 840px) {
     .u-hide840 {
         display: none;
@@ -5594,8 +5469,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         transform: translate(0,0);
     }
 }
-
-
 
 /*#endregion */
 
@@ -5673,7 +5546,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     height: 65px;
 }
 
-
 .u-ht-xs-70 {
     height: 70px;
 }
@@ -5705,7 +5577,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-ht-xs-105 {
     height: 105px;
 }
-
 
 .u-ht-xs-110 {
     height: 110px;
@@ -5755,7 +5626,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     height: 165px;
 }
 
-
 .u-ht-xs-170 {
     height: 170px;
 }
@@ -5783,7 +5653,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-ht-xs-200 {
     height: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-ht-sm-0 {
@@ -5841,7 +5710,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ht-sm-65 {
         height: 65px;
     }
-
 
     .u-ht-sm-70 {
         height: 70px;
@@ -5922,7 +5790,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ht-sm-165 {
         height: 165px;
     }
-
 
     .u-ht-sm-170 {
         height: 170px;
@@ -6010,7 +5877,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 65px;
     }
 
-
     .u-ht-md-70 {
         height: 70px;
     }
@@ -6038,8 +5904,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ht-md-100 {
         height: 100px;
     }
-
-
 
     .u-ht-md-105 {
         height: 105px;
@@ -6092,7 +5956,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ht-md-165 {
         height: 165px;
     }
-
 
     .u-ht-md-170 {
         height: 170px;
@@ -6180,7 +6043,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 65px;
     }
 
-
     .u-ht-lg-70 {
         height: 70px;
     }
@@ -6208,8 +6070,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ht-lg-100 {
         height: 100px;
     }
-
-
 
     .u-ht-lg-105 {
         height: 105px;
@@ -6263,7 +6123,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         height: 165px;
     }
 
-
     .u-ht-lg-170 {
         height: 170px;
     }
@@ -6300,7 +6159,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-left: 0px;
 }
 
-
 .u-pl-xs-1 {
     padding-left: 1px;
 }
@@ -6308,7 +6166,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pl-xs-2 {
     padding-left: 2px;
 }
-
 
 .u-pl-xs-5 {
     padding-left: 5px;
@@ -6371,7 +6228,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-left: 65px;
 }
 
-
 .u-pl-xs-70 {
     padding-left: 70px;
 }
@@ -6403,7 +6259,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pl-xs-105 {
     padding-left: 105px;
 }
-
 
 .u-pl-xs-110 {
     padding-left: 110px;
@@ -6453,7 +6308,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-left: 165px;
 }
 
-
 .u-pl-xs-170 {
     padding-left: 170px;
 }
@@ -6481,7 +6335,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pl-xs-200 {
     padding-left: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-pl-sm-0 {
@@ -6539,7 +6392,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pl-sm-65 {
         padding-left: 65px;
     }
-
 
     .u-pl-sm-70 {
         padding-left: 70px;
@@ -6620,7 +6472,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pl-sm-165 {
         padding-left: 165px;
     }
-
 
     .u-pl-sm-170 {
         padding-left: 170px;
@@ -6708,7 +6559,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-left: 65px;
     }
 
-
     .u-pl-md-70 {
         padding-left: 70px;
     }
@@ -6736,8 +6586,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pl-md-100 {
         padding-left: 100px;
     }
-
-
 
     .u-pl-md-105 {
         padding-left: 105px;
@@ -6790,7 +6638,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pl-md-165 {
         padding-left: 165px;
     }
-
 
     .u-pl-md-170 {
         padding-left: 170px;
@@ -6878,7 +6725,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-left: 65px;
     }
 
-
     .u-pl-lg-70 {
         padding-left: 70px;
     }
@@ -6906,8 +6752,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pl-lg-100 {
         padding-left: 100px;
     }
-
-
 
     .u-pl-lg-105 {
         padding-left: 105px;
@@ -6960,7 +6804,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pl-lg-165 {
         padding-left: 165px;
     }
-
 
     .u-pl-lg-170 {
         padding-left: 170px;
@@ -7058,7 +6901,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-right: 65px;
 }
 
-
 .u-pr-xs-70 {
     padding-right: 70px;
 }
@@ -7090,7 +6932,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pr-xs-105 {
     padding-right: 105px;
 }
-
 
 .u-pr-xs-110 {
     padding-right: 110px;
@@ -7140,7 +6981,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-right: 165px;
 }
 
-
 .u-pr-xs-170 {
     padding-right: 170px;
 }
@@ -7168,7 +7008,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pr-xs-200 {
     padding-right: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-pr-sm-0 {
@@ -7226,7 +7065,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pr-sm-65 {
         padding-right: 65px;
     }
-
 
     .u-pr-sm-70 {
         padding-right: 70px;
@@ -7307,7 +7145,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pr-sm-165 {
         padding-right: 165px;
     }
-
 
     .u-pr-sm-170 {
         padding-right: 170px;
@@ -7395,7 +7232,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-right: 65px;
     }
 
-
     .u-pr-md-70 {
         padding-right: 70px;
     }
@@ -7423,8 +7259,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pr-md-100 {
         padding-right: 100px;
     }
-
-
 
     .u-pr-md-105 {
         padding-right: 105px;
@@ -7477,7 +7311,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pr-md-165 {
         padding-right: 165px;
     }
-
 
     .u-pr-md-170 {
         padding-right: 170px;
@@ -7565,7 +7398,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-right: 65px;
     }
 
-
     .u-pr-lg-70 {
         padding-right: 70px;
     }
@@ -7593,8 +7425,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pr-lg-100 {
         padding-right: 100px;
     }
-
-
 
     .u-pr-lg-105 {
         padding-right: 105px;
@@ -7648,7 +7478,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-right: 165px;
     }
 
-
     .u-pr-lg-170 {
         padding-right: 170px;
     }
@@ -7692,7 +7521,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pt-xs-2 {
     padding-top: 2px;
 }
-
 
 .u-pt-xs-5 {
     padding-top: 5px;
@@ -7746,7 +7574,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-top: 65px;
 }
 
-
 .u-pt-xs-70 {
     padding-top: 70px;
 }
@@ -7778,7 +7605,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pt-xs-105 {
     padding-top: 105px;
 }
-
 
 .u-pt-xs-110 {
     padding-top: 110px;
@@ -7828,7 +7654,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-top: 165px;
 }
 
-
 .u-pt-xs-170 {
     padding-top: 170px;
 }
@@ -7856,7 +7681,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pt-xs-200 {
     padding-top: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-pt-sm-0 {
@@ -7914,7 +7738,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pt-sm-65 {
         padding-top: 65px;
     }
-
 
     .u-pt-sm-70 {
         padding-top: 70px;
@@ -7995,7 +7818,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pt-sm-165 {
         padding-top: 165px;
     }
-
 
     .u-pt-sm-170 {
         padding-top: 170px;
@@ -8083,7 +7905,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-top: 65px;
     }
 
-
     .u-pt-md-70 {
         padding-top: 70px;
     }
@@ -8111,8 +7932,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pt-md-100 {
         padding-top: 100px;
     }
-
-
 
     .u-pt-md-105 {
         padding-top: 105px;
@@ -8165,7 +7984,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pt-md-165 {
         padding-top: 165px;
     }
-
 
     .u-pt-md-170 {
         padding-top: 170px;
@@ -8253,7 +8071,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-top: 65px;
     }
 
-
     .u-pt-lg-70 {
         padding-top: 70px;
     }
@@ -8281,8 +8098,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pt-lg-100 {
         padding-top: 100px;
     }
-
-
 
     .u-pt-lg-105 {
         padding-top: 105px;
@@ -8335,7 +8150,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pt-lg-165 {
         padding-top: 165px;
     }
-
 
     .u-pt-lg-170 {
         padding-top: 170px;
@@ -8437,7 +8251,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-bottom: 65px;
 }
 
-
 .u-pb-xs-70 {
     padding-bottom: 70px;
 }
@@ -8469,7 +8282,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pb-xs-105 {
     padding-bottom: 105px;
 }
-
 
 .u-pb-xs-110 {
     padding-bottom: 110px;
@@ -8519,7 +8331,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-bottom: 165px;
 }
 
-
 .u-pb-xs-170 {
     padding-bottom: 170px;
 }
@@ -8547,7 +8358,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-pb-xs-200 {
     padding-bottom: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-pb-sm-0 {
@@ -8605,7 +8415,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pb-sm-65 {
         padding-bottom: 65px;
     }
-
 
     .u-pb-sm-70 {
         padding-bottom: 70px;
@@ -8686,7 +8495,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pb-sm-165 {
         padding-bottom: 165px;
     }
-
 
     .u-pb-sm-170 {
         padding-bottom: 170px;
@@ -8774,7 +8582,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-bottom: 65px;
     }
 
-
     .u-pb-md-70 {
         padding-bottom: 70px;
     }
@@ -8802,8 +8609,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pb-md-100 {
         padding-bottom: 100px;
     }
-
-
 
     .u-pb-md-105 {
         padding-bottom: 105px;
@@ -8856,7 +8661,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pb-md-165 {
         padding-bottom: 165px;
     }
-
 
     .u-pb-md-170 {
         padding-bottom: 170px;
@@ -8944,7 +8748,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-bottom: 65px;
     }
 
-
     .u-pb-lg-70 {
         padding-bottom: 70px;
     }
@@ -8972,8 +8775,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pb-lg-100 {
         padding-bottom: 100px;
     }
-
-
 
     .u-pb-lg-105 {
         padding-bottom: 105px;
@@ -9026,7 +8827,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-pb-lg-165 {
         padding-bottom: 165px;
     }
-
 
     .u-pb-lg-170 {
         padding-bottom: 170px;
@@ -9116,7 +8916,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-left: 65px;
 }
 
-
 .u-ml-xs-70 {
     margin-left: 70px;
 }
@@ -9148,7 +8947,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-ml-xs-105 {
     margin-left: 105px;
 }
-
 
 .u-ml-xs-110 {
     margin-left: 110px;
@@ -9198,7 +8996,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-left: 165px;
 }
 
-
 .u-ml-xs-170 {
     margin-left: 170px;
 }
@@ -9226,7 +9023,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-ml-xs-200 {
     margin-left: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-ml-sm-0 {
@@ -9284,7 +9080,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ml-sm-65 {
         margin-left: 65px;
     }
-
 
     .u-ml-sm-70 {
         margin-left: 70px;
@@ -9365,7 +9160,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ml-sm-165 {
         margin-left: 165px;
     }
-
 
     .u-ml-sm-170 {
         margin-left: 170px;
@@ -9453,7 +9247,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-left: 65px;
     }
 
-
     .u-ml-md-70 {
         margin-left: 70px;
     }
@@ -9481,8 +9274,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ml-md-100 {
         margin-left: 100px;
     }
-
-
 
     .u-ml-md-105 {
         margin-left: 105px;
@@ -9535,7 +9326,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ml-md-165 {
         margin-left: 165px;
     }
-
 
     .u-ml-md-170 {
         margin-left: 170px;
@@ -9623,7 +9413,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-left: 65px;
     }
 
-
     .u-ml-lg-70 {
         margin-left: 70px;
     }
@@ -9651,8 +9440,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ml-lg-100 {
         margin-left: 100px;
     }
-
-
 
     .u-ml-lg-105 {
         margin-left: 105px;
@@ -9705,7 +9492,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-ml-lg-165 {
         margin-left: 165px;
     }
-
 
     .u-ml-lg-170 {
         margin-left: 170px;
@@ -9795,7 +9581,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-right: 65px;
 }
 
-
 .u-mr-xs-70 {
     margin-right: 70px;
 }
@@ -9827,7 +9612,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-mr-xs-105 {
     margin-right: 105px;
 }
-
 
 .u-mr-xs-110 {
     margin-right: 110px;
@@ -9877,7 +9661,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-right: 165px;
 }
 
-
 .u-mr-xs-170 {
     margin-right: 170px;
 }
@@ -9905,7 +9688,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-mr-xs-200 {
     margin-right: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-mr-sm-0 {
@@ -9963,7 +9745,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mr-sm-65 {
         margin-right: 65px;
     }
-
 
     .u-mr-sm-70 {
         margin-right: 70px;
@@ -10044,7 +9825,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mr-sm-165 {
         margin-right: 165px;
     }
-
 
     .u-mr-sm-170 {
         margin-right: 170px;
@@ -10132,7 +9912,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-right: 65px;
     }
 
-
     .u-mr-md-70 {
         margin-right: 70px;
     }
@@ -10160,8 +9939,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mr-md-100 {
         margin-right: 100px;
     }
-
-
 
     .u-mr-md-105 {
         margin-right: 105px;
@@ -10214,7 +9991,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mr-md-165 {
         margin-right: 165px;
     }
-
 
     .u-mr-md-170 {
         margin-right: 170px;
@@ -10302,7 +10078,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-right: 65px;
     }
 
-
     .u-mr-lg-70 {
         margin-right: 70px;
     }
@@ -10330,8 +10105,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mr-lg-100 {
         margin-right: 100px;
     }
-
-
 
     .u-mr-lg-105 {
         margin-right: 105px;
@@ -10384,7 +10157,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mr-lg-165 {
         margin-right: 165px;
     }
-
 
     .u-mr-lg-170 {
         margin-right: 170px;
@@ -10474,7 +10246,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-top: 65px;
 }
 
-
 .u-mt-xs-70 {
     margin-top: 70px;
 }
@@ -10506,7 +10277,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-mt-xs-105 {
     margin-top: 105px;
 }
-
 
 .u-mt-xs-110 {
     margin-top: 110px;
@@ -10556,7 +10326,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-top: 165px;
 }
 
-
 .u-mt-xs-170 {
     margin-top: 170px;
 }
@@ -10584,7 +10353,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-mt-xs-200 {
     margin-top: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-mt-sm-0 {
@@ -10642,7 +10410,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mt-sm-65 {
         margin-top: 65px;
     }
-
 
     .u-mt-sm-70 {
         margin-top: 70px;
@@ -10723,7 +10490,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mt-sm-165 {
         margin-top: 165px;
     }
-
 
     .u-mt-sm-170 {
         margin-top: 170px;
@@ -10811,7 +10577,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-top: 65px;
     }
 
-
     .u-mt-md-70 {
         margin-top: 70px;
     }
@@ -10839,8 +10604,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mt-md-100 {
         margin-top: 100px;
     }
-
-
 
     .u-mt-md-105 {
         margin-top: 105px;
@@ -10893,7 +10656,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mt-md-165 {
         margin-top: 165px;
     }
-
 
     .u-mt-md-170 {
         margin-top: 170px;
@@ -10981,7 +10743,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-top: 65px;
     }
 
-
     .u-mt-lg-70 {
         margin-top: 70px;
     }
@@ -11009,8 +10770,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mt-lg-100 {
         margin-top: 100px;
     }
-
-
 
     .u-mt-lg-105 {
         margin-top: 105px;
@@ -11063,7 +10822,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mt-lg-165 {
         margin-top: 165px;
     }
-
 
     .u-mt-lg-170 {
         margin-top: 170px;
@@ -11153,7 +10911,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-bottom: 65px;
 }
 
-
 .u-mb-xs-70 {
     margin-bottom: 70px;
 }
@@ -11185,7 +10942,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-mb-xs-105 {
     margin-bottom: 105px;
 }
-
 
 .u-mb-xs-110 {
     margin-bottom: 110px;
@@ -11235,7 +10991,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     margin-bottom: 165px;
 }
 
-
 .u-mb-xs-170 {
     margin-bottom: 170px;
 }
@@ -11263,7 +11018,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .u-mb-xs-200 {
     margin-bottom: 200px;
 }
-
 
 @media (min-width: 481px) {
     .u-mb-sm-0 {
@@ -11321,7 +11075,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mb-sm-65 {
         margin-bottom: 65px;
     }
-
 
     .u-mb-sm-70 {
         margin-bottom: 70px;
@@ -11402,7 +11155,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mb-sm-165 {
         margin-bottom: 165px;
     }
-
 
     .u-mb-sm-170 {
         margin-bottom: 170px;
@@ -11490,7 +11242,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-bottom: 65px;
     }
 
-
     .u-mb-md-70 {
         margin-bottom: 70px;
     }
@@ -11518,8 +11269,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mb-md-100 {
         margin-bottom: 100px;
     }
-
-
 
     .u-mb-md-105 {
         margin-bottom: 105px;
@@ -11572,7 +11321,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mb-md-165 {
         margin-bottom: 165px;
     }
-
 
     .u-mb-md-170 {
         margin-bottom: 170px;
@@ -11660,7 +11408,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         margin-bottom: 65px;
     }
 
-
     .u-mb-lg-70 {
         margin-bottom: 70px;
     }
@@ -11688,8 +11435,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mb-lg-100 {
         margin-bottom: 100px;
     }
-
-
 
     .u-mb-lg-105 {
         margin-bottom: 105px;
@@ -11742,7 +11487,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     .u-mb-lg-165 {
         margin-bottom: 165px;
     }
-
 
     .u-mb-lg-170 {
         margin-bottom: 170px;
@@ -11806,7 +11550,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-bottom: 75%;
 }
 
-
 /*#endregion */
 
 /*#endregion */
@@ -11818,15 +11561,17 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     position: relative;
     height: 100vh;
 }
+
 @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
     .widthMenu {
         display: none;
     }
 }
 
-    .widthMenu.Closed {
-        width: 60px;
-    }
+.widthMenu.Closed {
+    width: 60px;
+}
+
 @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
     .widthMenu.Closed {
         display: none;
@@ -11836,24 +11581,26 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 .widthContent {
     width: calc(100% - 250px);
 }
+
 @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
     .widthContent {
         width: 100%;
     }
 }
 
-    .widthContent.Closed {
-        width: calc(100% - 60px);
-    }
+.widthContent.Closed {
+    width: calc(100% - 60px);
+}
+
 @media all and (max-width: 786px), only screen and (max-device-width: 852px) {
     .widthContent.Closed {
         width: 100%;
     }
 }
 
-    .widthContent.FullContent {
-        width: 100%;
-    }
+.widthContent.FullContent {
+    width: 100%;
+}
 
 .MenuContainer {
     width: 250px;
@@ -12139,7 +11886,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-image: url(../../images/Cufex_Images/EditNewB.svg);
     }
 
-
 .editStyleView {
     margin-left: 14px;
     margin-right: 0;
@@ -12269,6 +12015,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     }
 
 /*#endregion */
+
 /*#region Common */
 .AllMenuItems {
     opacity: 1;
@@ -12621,9 +12368,9 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 .SearchClass {
-    position:absolute;
-    top:0;
-    left:0;
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: transparent;
     border-width: 0;
     width: 100%;
@@ -13190,6 +12937,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         padding-left: 0;
     }
 
+    .FloatRecordNew:nth-child(4n+4) {
+        padding-right: 0;
+    }
+
     .FloatRecordNew .chosen-choices {
         background-color: #FFF !important;
         font-size: 13px !important;
@@ -13368,7 +13119,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         background-image: url(../../images/Cufex_Images/ClosePopupH.svg);
     }
 
-
 .SaveRecordNow {
     position: absolute;
     right: 55px;
@@ -13397,7 +13147,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px 0 rgba(9, 30, 66, 0.31);
     z-index: 10 !important;
 }
-
 
 .BtnDoSomeThing {
     position: relative;
@@ -13433,7 +13182,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding-bottom: 13px;
 }
 
-
 .Details_FloatRecordNew {
     width: 25%;
     padding: 5px;
@@ -13441,6 +13189,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
     .Details_FloatRecordNew:nth-child(4n+1) {
         padding-left: 0;
+    }
+
+    .Details_FloatRecordNew:nth-child(4n+4) {
+        padding-right: 0;
     }
 
     .Details_FloatRecordNew .chosen-choices {
@@ -13555,6 +13307,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     background-color: #fafbfc;
 }
 /*#endregion*/
+
 /*#region Adjust Columns Popup */
 .Adjust_Columns_PopUp {
     display: none;
@@ -13735,7 +13488,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     right: 0;
     background-color: #FFF;
 }
-
 
 .CarrierEventsBtn {
     position: absolute;
@@ -13940,7 +13692,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 
 .preloader2 {
     position: absolute !important;
-    background-color: transparent;
+    background-color: #f8f9fb;
     display: none;
 }
 
@@ -13975,6 +13727,10 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         font-size: 17px;
     }
 
+    .CarrierEventDescription.Small {
+        font-family: 'Inter-Light';
+    }
+
 .EventDescriptionBullet {
     position: absolute;
     top: 50%;
@@ -13987,6 +13743,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     -ms-transform: translate(0,-50%);
     -o-transform: translate(0,-50%);
     -webkit-transform: translate(0,-50%);
+    z-index: 1;
 }
 
     .EventDescriptionBullet.Category1 {
@@ -14118,7 +13875,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     display: none;
 }
 
-
 .HLine {
     border-bottom: 1px solid #F2F2F2;
 }
@@ -14131,12 +13887,63 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     font-weight: 600;
     padding: 15px 18px;
 }
+
+.EventsDivContainer {
+    padding: 20px;
+}
+
+.EventDiv {
+    position: relative;
+    padding-bottom: 35px;
+}
+
+    .EventDiv:last-child {
+        padding-bottom: 0;
+    }
+
+.EventDivLine {
+    border-left: 2px solid #F2F2F2;
+    position: absolute;
+    left: 3px;
+}
+
+.EventDate {
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+    display: inline-block;
+    color: #4a4a4a;
+    line-height: 17px;
+    font-family: 'Inter-Light';
+}
+
+.VLine {
+    height: 13px;
+    border-left: 1px solid #979797;
+    opacity: 0.3;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.EventInfo {
+    font-family: 'Inter-Light';
+    color: #949494;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    font-weight: 400;
+    padding-left: 13px;
+}
+
+    .EventInfo.Location {
+        text-transform: uppercase;
+        padding-top: 7px;
+    }
 /*#endregion Carrier Events */
 
 /*#region Responsive */
-
 @media all and (max-width:1320px) {
-
     .FloatRecord {
         width: 50%;
         max-width: 100%;
@@ -14175,6 +13982,14 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
             padding-left: 0;
         }
+
+        .FloatRecordNew:nth-child(4n+4), .Details_FloatRecordNew:nth-child(4n+4) {
+            padding-right: 5px;
+        }
+
+        .FloatRecordNew:nth-child(3n+3), .Details_FloatRecordNew:nth-child(3n+3) {
+            padding-right: 0;
+        }
 }
 
 @media all and (max-width: 1080px) {
@@ -14206,8 +14021,13 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
             padding-left: 5px;
         }
 
-        .FloatRecordNew:nth-child(2n+1), .Details_FloatRecordNew:nth-child(2n+1) {
-            padding-left: 0;
+        .FloatRecordNew:nth-child(3n+3), .Details_FloatRecordNew:nth-child(3n+3) {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .FloatRecordNew:nth-child(2n+2), .Details_FloatRecordNew:nth-child(2n+2) {
+            padding-right: 0;
         }
 
     .NewHeaderRecord {
@@ -14279,10 +14099,14 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
         .FloatRecordNew:nth-child(3n+1), .Details_FloatRecordNew:nth-child(3n+1) {
             padding-left: 0;
         }
+
+        .FloatRecordNew:nth-child(3n+3), .Details_FloatRecordNew:nth-child(3n+3) {
+            padding-left: 0;
+            padding-right: 0;
+        }
 }
 
 @media all and (max-width:550px) {
-
     .MainHeader:not(.MainHeaderProfileDetails) table, .MainHeader:not(.MainHeaderProfileDetails) table tbody, .MainHeader:not(.MainHeaderProfileDetails) table tr {
         width: 100%;
         display: block;
@@ -14306,7 +14130,6 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
             .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(9) div, .MainHeader:not(.MainHeaderProfileDetails) table td:nth-child(7) a {
                 margin-bottom: 0;
             }
-
 
     .MainHeaderProfileDetails table td a {
         margin-bottom: 25px;

@@ -46,5 +46,47 @@
     "inputFiles": [
       "Style/IonIcons/ionicons.css"
     ]
+  },
+  {
+    "outputFileName": "JS/Dashboards/DeleteExtension.min.js",
+    "inputFiles": [
+      "JS/Dashboards/DeleteExtension.js"
+    ]
+  },
+  {
+    "outputFileName": "JS/Dashboards/SaveAsExtension.min.js",
+    "inputFiles": [
+      "JS/Dashboards/SaveAsExtension.js"
+    ]
+  },
+  {
+    "outputFileName": "JS/Dashboards/scripts.min.js",
+    "inputFiles": [
+      "JS/Dashboards/scripts.js"
+    ]
+  },
+  {
+    "outputFileName": "JS/Dashboards/styles.min.css",
+    "inputFiles": [
+      "JS/Dashboards/styles.css"
+    ]
+  },
+  {
+    "outputFileName": "JS/JqueryMain/jquery-3.4.1.min.min.js",
+    "inputFiles": [
+      "JS/JqueryMain/jquery-3.4.1.min.js"
+    ]
+  },
+  {
+    "outputFileName": "JS/JqueryMain/jquery-3.5.1.min.min.js",
+    "inputFiles": [
+      "JS/JqueryMain/jquery-3.5.1.min.js"
+    ]
+  },
+  {
+    "outputFileName": "JS/PasswordStrength.min.js",
+    "inputFiles": [
+      "JS/PasswordStrength.js"
+    ]
   }
 ]

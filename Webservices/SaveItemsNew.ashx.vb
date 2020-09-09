@@ -56,6 +56,9 @@ Public Class SaveItemsNew
             writer.WritePropertyName("Facility")
             writer.WriteValue(CommonMethods.getFacilityDBName(HttpContext.Current.Request.Item("Field_Facility")))
 
+            writer.WritePropertyName("Warehouse")
+            writer.WriteValue(HttpContext.Current.Request.Item("Field_Facility"))
+
             writer.WritePropertyName("serialkey")
             writer.WriteValue(MyDataTable.Rows(0)!serialkey)
 

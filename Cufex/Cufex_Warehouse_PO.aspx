@@ -796,6 +796,7 @@
 
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
+        <input type="hidden" id="HiddenKeys" runat="server" class="HiddenKeys" value="" />
 
         <input type="hidden" id="HiddenCanUploadFiles" runat="server" class="HiddenCanUploadFiles" value="0" />
         <input type="hidden" id="HiddenCanViewOwnFiles" runat="server" class="HiddenCanViewOwnFiles" value="0" />

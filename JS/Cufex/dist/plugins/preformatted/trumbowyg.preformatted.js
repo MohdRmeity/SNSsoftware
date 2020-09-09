@@ -6,7 +6,6 @@
  * Author : Casella Edoardo (Civile)
  */
 
-
 (function ($) {
     'use strict';
 
@@ -101,6 +100,4 @@
             $(container).contents().unwrap('code');
         }
     }
-
-
 })(jQuery);

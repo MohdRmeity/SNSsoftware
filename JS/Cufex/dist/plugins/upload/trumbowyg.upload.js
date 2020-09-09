@@ -56,7 +56,7 @@
         upload: {
             serverPath: 'https://api.imgur.com/3/image',
             fileFieldName: 'image',
-            headers: {'Authorization': 'Client-ID 9e57cb1c4791cea'},
+            headers: { 'Authorization': 'Client-ID 9e57cb1c4791cea' },
             urlPropertyName: 'data.link',
             data: [],
             statusPropertyName: 'success',
@@ -164,7 +164,6 @@
             }
         }
     });
-
 
     function addXhrProgressEvent() {
         if (!$.trumbowyg && !$.trumbowyg.addedXhrProgressEvent) {   // Avoid adding progress event multiple times

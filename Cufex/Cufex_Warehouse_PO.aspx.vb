@@ -18,8 +18,11 @@ Partial Public Class Cufex_Warehouse_PO
             End If
 
             Dim MyWarehouse As String = Request.QueryString("warehouse")
-                Dim MyPO As String = Request.QueryString("po")
-                If MyWarehouse <> "" And MyPO <> "" Then HiddenID.Value = "?warehouse=" & MyWarehouse & "&po=" & MyPO
+            Dim MyPO As String = Request.QueryString("po")
+            If MyWarehouse <> "" And MyPO <> "" Then
+                HiddenID.Value = "?warehouse=" & MyWarehouse & "&po=" & MyPO
+                HiddenKeys.Value = CommonMethods.getFacilityDBAlias(MyWarehouse) & "~~~" & MyPO
             End If
+        End If
     End Sub
 End Class

@@ -57,7 +57,6 @@
         }
     });
 
-
     function buildDropdown(func) {
         var dropdown = [];
 

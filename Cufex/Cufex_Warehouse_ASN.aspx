@@ -296,7 +296,7 @@
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <<!-- Mohamad Rmeity - Changing label from Receipt Key to Receipt No. -->
+                            <!-- Mohamad Rmeity - Changing label from Receipt Key to Receipt No. -->
                             <div class="FloatRecordTitleNew">Receipt No.</div>
                             <div>
                                 <input type="text" class="textRecordStyle InputReceiptKey" data-value="Auto Generated" data-disabled="" />
@@ -1219,6 +1219,7 @@
         <input type="hidden" id="SortBy" value="SerialKey desc" />
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
+        <input type="hidden" id="HiddenKeys" runat="server" class="HiddenKeys" value="" />
 
         <input type="hidden" class="MyFields" value="ReceiptKey" data-columnname="Receipt" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" data-primarykey="true" />
