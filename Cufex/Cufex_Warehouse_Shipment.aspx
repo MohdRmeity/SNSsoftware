@@ -794,25 +794,25 @@
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Ordered Qty</div>
                             <div>
-                                <input type="text" class="Details_textRecordStyle InputDetailsOriginalQty" data-disabled=""/>
+                                <input type="text" class="Details_textRecordStyle InputDetailsOriginalQty" data-disabled="" />
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Allocated Qty</div>
                             <div>
-                                <input type="text" class="Details_textRecordStyle InputDetailsQtyAllocated" data-disabled=""/>
+                                <input type="text" class="Details_textRecordStyle InputDetailsQtyAllocated" data-disabled="" />
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Picked Qty</div>
                             <div>
-                                <input type="text" class="Details_textRecordStyle InputDetailsQtyPicked" data-disabled=""/>
+                                <input type="text" class="Details_textRecordStyle InputDetailsQtyPicked" data-disabled="" />
                             </div>
                         </div>
                         <div class="Details_FloatRecordNew floatL">
                             <div class="Details_FloatRecordTitleNew">Shipped Qty</div>
                             <div>
-                                <input type="text" class="Details_textRecordStyle InputDetailsShippedQty" data-disabled=""/>
+                                <input type="text" class="Details_textRecordStyle InputDetailsShippedQty" data-disabled="" />
                             </div>
                         </div>
                         <!-- Mohamad Rmeity - Adding OriginalQty, QtyAllocated, QtyPicked, ShippedQty to Detail Grid - END -->
@@ -1224,6 +1224,7 @@
         <input type="hidden" id="SortBy" value="SerialKey desc" />
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
+        <input type="hidden" id="HiddenKeys" runat="server" class="HiddenKeys" value="" />
 
         <input type="hidden" class="MyFields" value="OrderKey" data-columnname="Order" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" data-primarykey="true" />

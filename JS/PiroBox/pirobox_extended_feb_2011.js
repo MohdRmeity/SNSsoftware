@@ -16,7 +16,6 @@
         }, opt);
         $.fn.piroFadeIn = function (speed, callback) {
             $(this).fadeIn(speed, function () {
-
                 var ua = window.navigator.userAgent;
                 var msie = ua.indexOf("MSIE ");
 
@@ -28,7 +27,6 @@
         };
         $.fn.piroFadeOut = function (speed, callback) {
             $(this).fadeOut(speed, function () {
-
                 var ua = window.navigator.userAgent;
                 var msie = ua.indexOf("MSIE ");
 
@@ -55,7 +53,6 @@
         var piro_gallery = $(my_gall_obj);
 
         $('a[class*="pirobox_gall"]').each(function (rev) {
-
             this.rev = rev + 0
         });
         if ($('a[class*="pirobox_gall"]').length == 1) {
@@ -67,7 +64,7 @@
             //alert($(piro_gallery).length);
         }
         var piro_capt_cont = '<div class="caption"></div>';
-        //var rz_img =0.90; 
+        //var rz_img =0.90;
         var rz_img = 1.203; /*::::: ORIGINAL SIZE :::::*/
         var struct = (
             '<div class="piro_overlay"></div>' +
@@ -100,21 +97,21 @@
             '<td class="h_b_r"></td>' +
             '</tr>' +
             '</table>'
-            );
+        );
         $('body').append(struct);
         var wrapper = $('.piro_html');
         piro_bg = $('.piro_overlay'),
-        piro_nav = $('.nav_container'),
-        piro_next = $('.piro_next'),
-        piro_prev = $('.piro_prev'),
-        piro_next_fake = $('.piro_next_fake'),
-        piro_prev_fake = $('.piro_prev_fake'),
-        piro_close = $('.piro_close'),
-        div_reg = $('.div_reg'),
-        piro_loader = $('.piro_loader'),
-        resize = $('.resize'),
-        y = $(window).height(),
-        x = $(window).width();
+            piro_nav = $('.nav_container'),
+            piro_next = $('.piro_next'),
+            piro_prev = $('.piro_prev'),
+            piro_next_fake = $('.piro_next_fake'),
+            piro_prev_fake = $('.piro_prev_fake'),
+            piro_close = $('.piro_close'),
+            div_reg = $('.div_reg'),
+            piro_loader = $('.piro_loader'),
+            resize = $('.resize'),
+            y = $(window).height(),
+            x = $(window).width();
         piro_nav.hide().css(opt.piro_nav_pos, '-38px');
         if (opt.piro_nav_pos == 'top') {
             var position = +5;
@@ -160,9 +157,9 @@
         });
         $(window).resize(function () {
             var new_y = $(window).height(),
-            new_x = $(window).width(),
-            new_h = wrapper.height(),
-            new_w = wrapper.width();
+                new_x = $(window).width(),
+                new_h = wrapper.height(),
+                new_w = wrapper.width();
             wrapper.css({
                 left: ((new_x / 2) - (new_w / 2)) + 'px',
                 top: parseInt($(document).scrollTop()) + (new_y - new_h) / 2 + position
@@ -171,9 +168,9 @@
         function scrollIt() {
             $(window).scroll(function () {
                 var new_y = $(window).height(),
-                new_x = $(window).width(),
-                new_h = wrapper.height() - 20,
-                new_w = wrapper.width();
+                    new_x = $(window).width(),
+                    new_h = wrapper.height() - 20,
+                    new_w = wrapper.width();
                 wrapper.css({
                     left: ((new_x / 2) - (new_w / 2)) + 'px',
                     top: parseInt($(document).scrollTop()) + (new_y - new_h) / 2 + position
@@ -185,11 +182,9 @@
         }
         //$('a[class*="pirobox_gall"]');
         $(piro_gallery).each(function () {
-
-
             var descr = $(this).attr('title'),
-            params = $(this).attr('data-rel').split('-'),
-            p_link = $(this).attr('href');
+                params = $(this).attr('data-rel').split('-'),
+                p_link = $(this).attr('href');
 
             $(this).unbind();
             $(this).bind('click', function (e) {
@@ -217,9 +212,7 @@
                 }
                 if ($(this).is('.last') && $(this).is('.first')) {
                     piro_next.add(piro_prev).hide();
-
                 }
-
             });
             function open_all() {
                 wrapper.add(piro_bg).add(div_reg).add(piro_loader).show();
@@ -330,7 +323,6 @@
                                     }
                                 });
                                 $('.zoomOut').on('click', function (h) {
-
                                     h.preventDefault();
                                     $('.immagine').css('cursor', 'auto');
                                     if (opt.piro_drag == true) {
@@ -388,7 +380,7 @@
                         animate_html();
                         div_reg.piroFadeIn(300, function () {
                             div_reg.append(
-                            '<iframe id="my_frame" class="my_frame" src="' + p_link + '" frame allowtransparency="true" scrolling="auto" align="top"></iframe>'
+                                '<iframe id="my_frame" class="my_frame" src="' + p_link + '" frame allowtransparency="true" scrolling="auto" align="top"></iframe>'
                             );
                             $('.my_frame').css({ 'height': +(params[2]) + 'px', 'width': +(params[1]) + 'px' });
                             piro_loader.hide();
@@ -425,15 +417,15 @@
                         div_reg.html('').css('overflow', 'hidden');
                         animate_html();
                         var flash_cont = (
-                        '<object  width="' + params[1] + '" height="' + params[2] + '">' +
-                        '<param name="movie" value="' + p_link + '" />' +
-                        '<param name="wmode" value="transparent" />' +
-                        '<param name="allowFullScreen" value="true" />' +
-                        '<param name="allowscriptaccess" value="always" />' +
-                        '<param name="menu" value="false" />' +
-                        '<embed src="' + p_link + '" type="application/x-shockwave-flash" allowscriptaccess="always" menu="false" wmode="transparent" allowfullscreen="true" width="' + params[1] + '" height="' + params[2] + '">' +
-                        '</embed>' +
-                        '</object>');
+                            '<object  width="' + params[1] + '" height="' + params[2] + '">' +
+                            '<param name="movie" value="' + p_link + '" />' +
+                            '<param name="wmode" value="transparent" />' +
+                            '<param name="allowFullScreen" value="true" />' +
+                            '<param name="allowscriptaccess" value="always" />' +
+                            '<param name="menu" value="false" />' +
+                            '<embed src="' + p_link + '" type="application/x-shockwave-flash" allowscriptaccess="always" menu="false" wmode="transparent" allowfullscreen="true" width="' + params[1] + '" height="' + params[2] + '">' +
+                            '</embed>' +
+                            '</object>');
                         div_reg.piroFadeIn(300, function () {
                             $(flash_cont).appendTo(div_reg);
                             piro_loader.hide();

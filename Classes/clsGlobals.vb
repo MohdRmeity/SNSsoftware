@@ -1,7 +1,7 @@
 ﻿
 Public Class clsGlobals
     Implements IRequiresSessionState
-    Public Const ConstAppVersion As Integer = 3
+    Public Const ConstAppVersion As Integer = 4
     Public Shared WebAppVersion As Integer = Val(ConfigurationManager.AppSettings("AppVersion"))
     Public Shared AppVersion As Integer = IIf(ConstAppVersion > WebAppVersion, ConstAppVersion, WebAppVersion)
     Public Shared ReadOnly Property sAppPath() As String

@@ -27,6 +27,8 @@ Public Class CommonMethods
     Public Shared TopCount As String = ConfigurationManager.AppSettings("TopCount")
     Public Shared LoginBackgroundColor As String = ConfigurationManager.AppSettings("LoginBackgroundColor")
     Public Shared ExternalDashboardRefreshTimeInSeconds As String = ConfigurationManager.AppSettings("ExternalDashboardRefreshTimeInSeconds")
+    Public Shared ShowCarrierEventsMap As String = ConfigurationManager.AppSettings("ShowCarrierEventMap")
+    Public Shared GoogleMapAPIKey As String = ConfigurationManager.AppSettings("GoogleMapAPIKey")
     Public Shared Function AreEqual(ByVal plainTextInput As String, ByVal hashedInput As String, ByVal salt As String) As Boolean
         Dim newHashedPin As String = GenerateHash(plainTextInput, salt)
         Return newHashedPin.Equals(hashedInput)
@@ -287,6 +289,8 @@ Public Class CommonMethods
             logger.Error(e1, "", "")
         End Try
     End Sub
+
+
     Public Shared Sub SendEmail(ByVal addresses As String, ByVal subject As String, ByVal body As String, ByVal attachmentFilename As String)
         Try
             Dim fromAddress = New MailAddress(ConfigurationManager.AppSettings("smtp_email"), "SNS Support")
@@ -736,9 +740,9 @@ Public Class CommonMethods
     Public Shared Function getButtons(ByVal profile As String) As DataTable
         Dim sql As String = ""
         If profile = "getAll" Then
-            sql += "select BUTTON from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALBUTTONS"
+            sql += "select BUTTON, BLOCKED from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALBUTTONS"
         Else
-            sql += "select BUTTON  from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALBUTTONS WHERE BUTTON NOT IN (SELECT SCREENBUTTONNAME FROM " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PROFILEDETAIL WHERE PROFILENAME='" & profile & "')"
+            sql += "select BUTTON, BLOCKED  from " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PORTALBUTTONS WHERE BUTTON NOT IN (SELECT SCREENBUTTONNAME FROM " & IIf(dbtype <> "sql", "SYSTEM.", "") & "PROFILEDETAIL WHERE PROFILENAME='" & profile & "')"
         End If
         sql += " ORDER BY BUTTON ASC "
         Dim ds As DataSet = (New SQLExec).Cursor(sql)

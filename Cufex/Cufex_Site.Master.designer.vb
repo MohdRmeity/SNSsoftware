@@ -446,15 +446,6 @@ Partial Public Class Cufex_Site
     Protected WithEvents DivMain As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''CarrierEvents control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents CarrierEvents As Global.SNSsoftware.Cufex_Warehouse_OrderTracking_CarrierEvents
-    
-    '''<summary>
     '''HeaderMenu control.
     '''</summary>
     '''<remarks>
@@ -489,6 +480,15 @@ Partial Public Class Cufex_Site
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents DivDenied As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''CarrierEvents control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents CarrierEvents As Global.SNSsoftware.Cufex_Warehouse_OrderTracking_CarrierEvents
     
     '''<summary>
     '''LogInContainer control.

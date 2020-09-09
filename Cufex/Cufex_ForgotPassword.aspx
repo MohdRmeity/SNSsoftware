@@ -50,7 +50,7 @@
         $(document).ready(function () {
             Cufex_Set();
         });
-        $(window).load(function () {
+        $(window).on("load", function () {
             $('.LogInMainDiv').show();
             $('.DivFooter').show();
         });

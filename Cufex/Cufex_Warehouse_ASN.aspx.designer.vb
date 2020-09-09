@@ -140,6 +140,15 @@ Partial Public Class Cufex_Warehouse_ASN
     Protected WithEvents HiddenID As Global.System.Web.UI.HtmlControls.HtmlInputHidden
     
     '''<summary>
+    '''HiddenKeys control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HiddenKeys As Global.System.Web.UI.HtmlControls.HtmlInputHidden
+    
+    '''<summary>
     '''HiddenCanUploadFiles control.
     '''</summary>
     '''<remarks>

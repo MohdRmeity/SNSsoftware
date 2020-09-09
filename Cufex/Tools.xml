@@ -1,95 +1,86 @@
 ﻿<root>
 	<modules>
 		<module name="RadEditorStatistics" dockingZone="Bottom" enabled="true" visible="true" dockable="true" />
-
 	</modules>
-  
 
   <tools dockable="true" enabled="true">
-<tool name="ToggleScreenMode" shortcut="CTRL+SHIFT+S"/>
+<tool name="ToggleScreenMode" shortcut="CTRL+SHIFT+S" />
 		<tool name="InsertSymbol" />
 		<tool name="FormatStripper" />
-		<tool separator="true"/>
-		<tool name="AjaxSpellCheck" shortcut="CTRL+S"/>
-  
+		<tool separator="true" />
+		<tool name="AjaxSpellCheck" shortcut="CTRL+S" />
 	</tools>
 
-	<tools enabled="true">		
+	<tools enabled="true">
 		<tool name="Undo" />
 		<tool name="Redo" />
 <tool name="FlashManager" />
 <tool name="MediaManager" />
 <tool name="ImageManager" shortcut="CTRL+M" />
-		<tool separator="true"/>
-		<tool name="Cut" shortcut="CTRL+X"/>
-		<tool name="Copy" shortcut="CTRL+C"/>
-		<tool name="Paste" shortcut="CTRL+V"/>
+		<tool separator="true" />
+		<tool name="Cut" shortcut="CTRL+X" />
+		<tool name="Copy" shortcut="CTRL+C" />
+		<tool name="Paste" shortcut="CTRL+V" />
 
-		<tool name="PastePlainText" />		
-		<tool separator="true"/>
+		<tool name="PastePlainText" />
+		<tool separator="true" />
 		<tool name="Print" />
 		<tool name="FindAndReplace" />
-		<tool name="SelectAll" />		
+		<tool name="SelectAll" />
 	</tools>
 
-	
 	<tools enabled="true" dockable="true">
 
 		<tool name="InsertGroupbox" />
 		<tool name="InsertParagraph" />
 		<tool name="InsertHorizontalRule" />
-		<tool separator="true"/>
+		<tool separator="true" />
 		<tool name="Superscript" />
 		<tool name="Subscript" />
 	</tools>
 	<tools enabled="true" dockable="true">
 		<tool name="ConvertToLower" />
 		<tool name="ConvertToUpper" />
-			<tool separator="true"/>	
+			<tool separator="true" />
 		<tool name="Indent" />
 		<tool name="Outdent" />
 
-
-		<tool separator="true"/>
-
+		<tool separator="true" />
 
 		<tool name="InsertOrderedList" />
-		<tool name="InsertUnorderedList"/>
+		<tool name="InsertUnorderedList" />
 	</tools>
 	<tools enabled="true" dockable="true">
 		<tool name="LinkManager" />
 		<tool name="Unlink" />
 		<tool name="InsertTable" />
 	</tools>
-	<tools enabled="true"  dockable="true" >
-		<tool name="FormatBlock"/>
-		<tool name="FontName"/>
-		<tool name="RealFontSize"/>
+	<tools enabled="true"  dockable="true">
+		<tool name="FormatBlock" />
+		<tool name="FontName" />
+		<tool name="RealFontSize" />
 	</tools>
 	<tools enabled="true" dockable="true">
 		<tool name="Bold" />
 		<tool name="Italic" />
 		<tool name="Underline" />
 		<tool name="StrikeThrough" />
-		<tool separator="true"/>
+		<tool separator="true" />
 		<tool name="JustifyLeft" />
 		<tool name="JustifyCenter" />
 		<tool name="JustifyRight" />
 		<tool name="JustifyFull" />
 		<tool name="JustifyNone" />
 	</tools>
-	<tools enabled="true" dockable="true" >
+	<tools enabled="true" dockable="true">
 		<tool name="ForeColor" />
-		<tool name="BackColor"/>
-		<tool separator="true"/>
-		<tool name="InsertCustomLink"/>
+		<tool name="BackColor" />
+		<tool separator="true" />
+		<tool name="InsertCustomLink" />
 		<tool name="Zoom" />
 		<tool name="InsertDate" />
 		<tool name="InsertTime" />
-   	
-
 	</tools>
- 
 
 	<links>
 		<link name="Search Engines">
@@ -99,9 +90,7 @@
 		</link>
 	</links>
 
-
 	<symbols>
-
 	</symbols>
 	<fontNames>
 		<item name="Arial" />
@@ -112,7 +101,7 @@
 		<item name="Hacen_Tunisia_Lt_0Font" />
 		<item name="HelveticaCdThnFont" />
 		<item name="HelveticaCdMedFontneue" />
-		<item name="Conv_gesstwomedium_medium"  />
+		<item name="Conv_gesstwomedium_medium" />
 </fontNames>
 	<fontSizes>
 	</fontSizes>

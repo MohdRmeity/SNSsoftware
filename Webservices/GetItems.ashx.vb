@@ -35,7 +35,7 @@ Public Class GetItems
                 SortBy = "SerialKey desc"
             End If
         ElseIf SearchTable = "PROFILEDETAIL" Or SearchTable = "REPORTSPROFILEDETAIL" Or SearchTable = "PROFILEDETAILDASHBOARDS" Then
-            AndFilter = " and ProfileName='" & QueryUrlStr & "' and Blocked = 0 "
+            AndFilter = " and ProfileName='" & QueryUrlStr & "'" & IIf(SearchTable = "PROFILEDETAIL", " and Blocked = 0 ", "")
             If CommonMethods.dbtype <> "sql" Then
                 SearchTable = "System." & SearchTable
                 SortBy = "SerialKey desc"
@@ -867,14 +867,14 @@ Public Class GetItems
             With OBJTable.Rows(i)
                 MyRecords += "		<tr Class='GridRow GridResults'>"
                 MyRecords += "                    <td class='GridCell selectAllWidth'>"
-                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrd' type='checkbox' " & IIf(LCase(!ExternPOKey).ToString = "", "disabled", "") & " id='ChkSelect" & i & "' data-id='" & !SerialKey & "' />"
+                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrd' type='checkbox' " & IIf(LCase(!ExternPOKey).ToString = "", "disabled", "") & " id='ChkSelect" & i & "' data-id='" & !SerialKey & "' data-keys = '" & !Facility & "~~~" & !POKey & "~~~" & !ExternPOKey & "' />"
                 MyRecords += "                        <label for='ChkSelect" & i & "'><span class='CheckBoxStyle'></span></label>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
-                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&po=" & !POKey & "'></div>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&po=" & !POKey & "' data-keys = '" & !Facility & "~~~" & !POKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
-                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&po=" & !POKey & "'></div>"
+                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&po=" & !POKey & "' data-keys = '" & !Facility & "~~~" & !POKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&po=" & !POKey & "'>"
@@ -944,14 +944,14 @@ Public Class GetItems
             With OBJTable.Rows(i)
                 MyRecords += "		<tr Class='GridRow GridResults'>"
                 MyRecords += "                    <td class='GridCell selectAllWidth'>"
-                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrd' type='checkbox' " & IIf(LCase(!ExternReceiptKey).ToString = "", "disabled", "") & " id='ChkSelect" & i & "' data-id='" & !SerialKey & "' />"
+                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrd' type='checkbox' " & IIf(LCase(!ExternReceiptKey).ToString = "", "disabled", "") & " id='ChkSelect" & i & "' data-id='" & !SerialKey & "' data-keys = '" & !Facility & "~~~" & !ReceiptKey & "~~~" & !ExternReceiptKey & "' />"
                 MyRecords += "                        <label for='ChkSelect" & i & "'><span class='CheckBoxStyle'></span></label>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
-                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&receipt=" & !ReceiptKey & "'></div>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&receipt=" & !ReceiptKey & "' data-keys = '" & !Facility & "~~~" & !ReceiptKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
-                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&receipt=" & !ReceiptKey & "'></div>"
+                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&receipt=" & !ReceiptKey & "' data-keys = '" & !Facility & "~~~" & !ReceiptKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&receipt=" & !ReceiptKey & "'>"
@@ -1014,14 +1014,14 @@ Public Class GetItems
             With OBJTable.Rows(i)
                 MyRecords += "		<tr Class='GridRow GridResults'>"
                 MyRecords += "                    <td class='GridCell selectAllWidth'>"
-                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrd' type='checkbox' " & IIf(LCase(!ExternOrderKey).ToString = "", "disabled", "") & " id='ChkSelect" & i & "' data-id='" & !SerialKey & "' />"
+                MyRecords += "                        <input class='CheckBoxCostumizedNS2 chkSelectGrd' type='checkbox' " & IIf(LCase(!ExternOrderKey).ToString = "", "disabled", "") & " id='ChkSelect" & i & "' data-id='" & !SerialKey & "' data-keys='" & !Facility & "~~~" & !OrderKey & "~~~" & !ExternOrderKey & "' />"
                 MyRecords += "                        <label for='ChkSelect" & i & "'><span class='CheckBoxStyle'></span></label>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch borderRight0 selectAllWidth'>"
-                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&order=" & !OrderKey & "'></div>"
+                MyRecords += "                        <div class='editStyleNew' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&order=" & !OrderKey & "' data-keys='" & !Facility & "~~~" & !OrderKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridHeadSearch selectAllWidth'>"
-                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&order=" & !OrderKey & "'></div>"
+                MyRecords += "                        <div class='editStyle' data-id='" & !SerialKey & "' data-queryurl='?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&order=" & !OrderKey & "' data-keys='" & !Facility & "~~~" & !OrderKey & "'></div>"
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='1'>"
                 MyRecords += "                        <a target='_blank' rel='noopener' href='" & HttpContext.Current.Server.UrlDecode(page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)) & "?warehouse=" & CommonMethods.getFacilityDBName(!Facility) & "&order=" & !OrderKey & "'>"
@@ -1513,6 +1513,17 @@ Public Class GetItems
                     SQL += " from " & warehouselevel & ".Orders where 1=1  " & AndFilter
                     SQL += " UNION"
                 Next
+
+                'SQL += " select top 1 SerialKey, '" & wname & "' as Facility, StorerKey, OrderKey, "
+                'SQL += " ConsigneeKey, ExternOrderKey, SUsr1, SUsr2, SUsr3, SUsr4, SUsr5, "
+                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , OrderDate )", "(OrderDate + interval '" & TimeZone & "' hour)") & " as OrderDate, "
+                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , ActualShipDate )", "(ActualShipDate + interval '" & TimeZone & "' hour)") & " as ActualShipDate, "
+                'SQL += IIf(CommonMethods.dbtype = "sql", "DATEADD (hh , " & TimeZone & " , RequestedShipDate )", "(RequestedShipDate + interval '" & TimeZone & "' hour)") & " as RequestedShipDate, "
+                'SQL += " (select DESCRIPTION from wmwhse1.codelkup where code=Orders.Type And listname = 'ORDERTYPE' ) as OrderType, "
+                'SQL += " (select DESCRIPTION from wmwhse1.orderstatussetup where code=orders.Status ) as Status, "
+                'SQL += " (select Company from wmwhse1.storer where type=2 and storerkey=orders.ConsigneeKey) as ConsigneeName "
+                'SQL += " from  wmwhse1.Orders where 1=1  and Orderkey = '0000273661'"
+                'SQL += " UNION"
 
                 If SQL.EndsWith("UNION") Then SQL = SQL.Remove(SQL.Length - 5)
                 SQL += ") as ds where 1=1 "

@@ -111,7 +111,6 @@
         </div>
 
         <div style="position: relative; height: 15px;"></div>
-
     </div>
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />

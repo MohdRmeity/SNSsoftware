@@ -260,45 +260,44 @@ Public Class Cufex_Site
                 widthMenu.Visible = False
                 widthContent.Attributes("class") += " FullContent"
             End If
+        End If
 
-            If Subsection = SubSectionName.Warehouse_OrderTracking Then
-                CarrierEvents.Visible = True
-            Else
-                CarrierEvents.Visible = False
-            End If
+        If Subsection = SubSectionName.Warehouse_OrderTracking Then
+            CarrierEvents.Visible = CommonMethods.getPermission("Order Tracking->Carrier Events (Action)", Session("userkey").ToString) <> "0"
+        Else
+            CarrierEvents.Visible = False
         End If
     End Sub
     Public Sub FixMenuVisibleItems()
         SetMenuItemsClass()
-
         DivMain_Home_Def.Visible = True
+        If Session("userkey") IsNot Nothing Then
+            DivSubMain_Security_ChangePassword.Visible = CommonMethods.getPermission("Security->Change Password (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Security_Users.Visible = CommonMethods.getPermission("Security->Users (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Security_UsersControl.Visible = CommonMethods.getPermission("Security->User Control (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Security_UserProfile.Visible = CommonMethods.getPermission("Security->User Profile (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Security_Profiles.Visible = CommonMethods.getPermission("Security->Profiles (Screen)", Session("userkey").ToString) <> "0"
+            DivMain_Security.Visible = DivSubMain_Security_ChangePassword.Visible Or DivSubMain_Security_Users.Visible Or DivSubMain_Security_UsersControl.Visible Or DivSubMain_Security_UserProfile.Visible Or DivSubMain_Security_Profiles.Visible
 
-        DivSubMain_Security_ChangePassword.Visible = CommonMethods.getPermission("Security->Change Password (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Security_Users.Visible = CommonMethods.getPermission("Security->Users (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Security_UsersControl.Visible = CommonMethods.getPermission("Security->User Control (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Security_UserProfile.Visible = CommonMethods.getPermission("Security->User Profile (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Security_Profiles.Visible = CommonMethods.getPermission("Security->Profiles (Screen)", Session("userkey").ToString) <> "0"
-        DivMain_Security.Visible = DivSubMain_Security_ChangePassword.Visible Or DivSubMain_Security_Users.Visible Or DivSubMain_Security_UsersControl.Visible Or DivSubMain_Security_UserProfile.Visible Or DivSubMain_Security_Profiles.Visible
+            DivSubMain_Configuration_ShipTo.Visible = CommonMethods.getPermission("Configuration->Ship To (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Configuration_ShipFrom.Visible = CommonMethods.getPermission("Configuration->Ship From (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Configuration_Items.Visible = CommonMethods.getPermission("Configuration->Items (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Configuration_ItemCatalogue.Visible = CommonMethods.getPermission("Configuration->Item Catalogue (Screen)", Session("userkey").ToString) <> "0"
+            DivMain_Configuration.Visible = DivSubMain_Configuration_ShipTo.Visible Or DivSubMain_Configuration_ShipFrom.Visible Or DivSubMain_Configuration_Items.Visible Or DivSubMain_Configuration_ItemCatalogue.Visible
 
-        DivSubMain_Configuration_ShipTo.Visible = CommonMethods.getPermission("Configuration->Ship To (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Configuration_ShipFrom.Visible = CommonMethods.getPermission("Configuration->Ship From (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Configuration_Items.Visible = CommonMethods.getPermission("Configuration->Items (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Configuration_ItemCatalogue.Visible = CommonMethods.getPermission("Configuration->Item Catalogue (Screen)", Session("userkey").ToString) <> "0"
-        DivMain_Configuration.Visible = DivSubMain_Configuration_ShipTo.Visible Or DivSubMain_Configuration_ShipFrom.Visible Or DivSubMain_Configuration_Items.Visible Or DivSubMain_Configuration_ItemCatalogue.Visible
+            DivSubMain_Warehouse_PO.Visible = CommonMethods.getPermission("Warehouse->Purchase Order (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Warehouse_ASN.Visible = CommonMethods.getPermission("Warehouse->ASN Receipt (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Warehouse_Shipment.Visible = CommonMethods.getPermission("Warehouse->Shipment Order (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Warehouse_OrderManagement.Visible = CommonMethods.getPermission("Warehouse->Order Management (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Warehouse_OrderTracking.Visible = CommonMethods.getPermission("Warehouse->Order Tracking (Screen)", Session("userkey").ToString) <> "0"
+            DivMain_Warehouse.Visible = DivSubMain_Warehouse_PO.Visible Or DivSubMain_Warehouse_ASN.Visible Or DivSubMain_Warehouse_Shipment.Visible Or DivSubMain_Warehouse_OrderManagement.Visible Or DivSubMain_Warehouse_OrderTracking.Visible
 
-        DivSubMain_Warehouse_PO.Visible = CommonMethods.getPermission("Warehouse->Purchase Order (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Warehouse_ASN.Visible = CommonMethods.getPermission("Warehouse->ASN Receipt (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Warehouse_Shipment.Visible = CommonMethods.getPermission("Warehouse->Shipment Order (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Warehouse_OrderManagement.Visible = CommonMethods.getPermission("Warehouse->Order Management (Screen)", Session("userkey").ToString) <> "0"
-        'DivSubMain_Warehouse_OrderTracking.Visible = CommonMethods.getPermission("Warehouse->Order Tracking (Screen)", Session("userkey").ToString) <> "0"
-        DivSubMain_Warehouse_OrderTracking.Visible = False
-        DivMain_Warehouse.Visible = DivSubMain_Warehouse_PO.Visible Or DivSubMain_Warehouse_ASN.Visible Or DivSubMain_Warehouse_Shipment.Visible Or DivSubMain_Warehouse_OrderManagement.Visible Or DivSubMain_Warehouse_OrderTracking.Visible
+            DivSubMain_Inventory_Balance.Visible = CommonMethods.getPermission("Inventory->Inventory Balance (Screen)", Session("userkey").ToString) <> "0"
+            DivMain_Inventory.Visible = DivSubMain_Inventory_Balance.Visible
 
-        DivSubMain_Inventory_Balance.Visible = CommonMethods.getPermission("Inventory->Inventory Balance (Screen)", Session("userkey").ToString) <> "0"
-        DivMain_Inventory.Visible = DivSubMain_Inventory_Balance.Visible
-
-        DivSubMain_Reporting_ViewReports.Visible = CommonMethods.getPermission("ReportsAndKPIs->Reports (Screen)", Session("userkey").ToString) <> "0"
-        DivMain_Reporting.Visible = DivSubMain_Reporting_ViewReports.Visible
+            DivSubMain_Reporting_ViewReports.Visible = CommonMethods.getPermission("ReportsAndKPIs->Reports (Screen)", Session("userkey").ToString) <> "0"
+            DivMain_Reporting.Visible = DivSubMain_Reporting_ViewReports.Visible
+        End If
     End Sub
 
     Private Sub SetMenuItemsClass()

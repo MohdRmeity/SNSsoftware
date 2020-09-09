@@ -229,8 +229,5 @@
 .dx-dashboard-compact {
     width: 16px;
     height: 16px;
-    margin-right: 18px;
-    margin-top: 7px;
-    margin-bottom: 7px;
-    margin-left: 2px;
+    margin: 7px 18px 7px 2px;
 }

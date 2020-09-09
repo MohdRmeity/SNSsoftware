@@ -72,7 +72,6 @@ jQuery.trumbowyg = {
     }
 };
 
-
 (function (navigator, window, document, $, undefined) {
     'use strict';
 
@@ -343,7 +342,7 @@ jQuery.trumbowyg = {
             t.$ta
                 .addClass(prefix + 'textarea')
                 .attr('tabindex', -1)
-            ;
+                ;
 
             t.$ed
                 .addClass(prefix + 'editor')
@@ -352,7 +351,7 @@ jQuery.trumbowyg = {
                     'dir': t.lang._dir || t.o.dir
                 })
                 .html(html)
-            ;
+                ;
 
             if (t.o.tabindex) {
                 t.$ed.attr('tabindex', t.o.tabindex);
@@ -373,7 +372,6 @@ jQuery.trumbowyg = {
             }
 
             t.semanticCode();
-
 
             t._ctrl = false;
             t.$ed
@@ -453,7 +451,6 @@ jQuery.trumbowyg = {
                         }
                         t.$c.trigger('tbwpaste', e);
                     }, 0);
-
                 });
             t.$ta.on('keyup paste', function () {
                 t.$c.trigger('tbwchange');
@@ -466,7 +463,6 @@ jQuery.trumbowyg = {
                 }
             });
         },
-
 
         // Build button pane, use o.btns and o.btnsAdd options
         buildBtnPane: function () {
@@ -536,14 +532,12 @@ jQuery.trumbowyg = {
                             })
                     );
 
-
             // Add right li only if isn't empty
             if ($liRight.not(':empty'))
                 t.$btnPane.append($liRight);
 
             t.$box.prepend(t.$btnPane);
         },
-
 
         // Build a button and his action
         buildBtn: function (n) { // n is name of the button
@@ -696,7 +690,7 @@ jQuery.trumbowyg = {
                                 left: fixedFullWidth ? '0' : 'auto',
                                 zIndex: 7
                             });
-                            $([t.$ta, t.$ed]).css({marginTop: bp.height()});
+                            $([t.$ta, t.$ed]).css({ marginTop: bp.height() });
                         }
                         bp.css({
                             width: fixedFullWidth ? '100%' : ((box.width() - 1) + 'px')
@@ -710,7 +704,7 @@ jQuery.trumbowyg = {
                     } else if (t.isFixed) {
                         t.isFixed = false;
                         bp.removeAttr('style');
-                        $([t.$ta, t.$ed]).css({marginTop: 0});
+                        $([t.$ta, t.$ed]).css({ marginTop: 0 });
                         $('.' + t.o.prefix + 'fixed-top', box).css({
                             position: 'absolute',
                             top: oh
@@ -718,7 +712,6 @@ jQuery.trumbowyg = {
                     }
                 });
         },
-
 
         // Destroy the editor
         destroy: function () {
@@ -729,7 +722,7 @@ jQuery.trumbowyg = {
             if (t.isTextarea) {
                 t.$box.after(
                     t.$ta
-                        .css({height: height})
+                        .css({ height: height })
                         .val(t.html())
                         .removeClass(prefix + 'textarea')
                         .show()
@@ -737,7 +730,7 @@ jQuery.trumbowyg = {
             } else {
                 t.$box.after(
                     t.$ed
-                        .css({height: height})
+                        .css({ height: height })
                         .removeClass(prefix + 'editor')
                         .removeAttr('contenteditable')
                         .html(t.html())
@@ -749,13 +742,11 @@ jQuery.trumbowyg = {
             t.$c.removeData('trumbowyg');
         },
 
-
         // Empty the editor
         empty: function () {
             this.$ta.val('');
             this.syncCode(true);
         },
-
 
         // Function call when click on viewHTML button
         toggle: function () {
@@ -802,7 +793,6 @@ jQuery.trumbowyg = {
                 $('body', d).trigger('mousedown');
         },
 
-
         // HTML Code management
         html: function (html) {
             var t = this;
@@ -825,7 +815,7 @@ jQuery.trumbowyg = {
             if (t.o.autogrow) {
                 t.height = t.$ed.height();
                 if (t.height != t.$ta.css('height')) {
-                    t.$ta.css({height: t.height});
+                    t.$ta.css({ height: t.height });
                     t.$c.trigger('tbwresize');
                 }
             }
@@ -960,7 +950,6 @@ jQuery.trumbowyg = {
             });
         },
 
-
         /*
          * Call method of trumbowyg if exist
          * else try to call anonymous function
@@ -989,7 +978,6 @@ jQuery.trumbowyg = {
             if (cmd != 'dropdown')
                 t.syncCode();
         },
-
 
         // Open a modal box
         openModal: function (title, content) {
@@ -1033,7 +1021,6 @@ jQuery.trumbowyg = {
                     return false;
                 });
 
-
             // Build ModalBox and animate to show them
             var $box = $('<div/>', {
                 'class': prefix + 'modal-box',
@@ -1049,7 +1036,6 @@ jQuery.trumbowyg = {
                     opacity: 1
                 }, 100);
 
-
             // Append title
             $('<span/>', {
                 text: title,
@@ -1058,15 +1044,12 @@ jQuery.trumbowyg = {
 
             $modal.height($box.outerHeight() + 10);
 
-
             // Focus in modal box
             $('input:first', $box).focus();
-
 
             // Append Confirm and Cancel buttons
             t.buildModalBtn('submit', $box);
             t.buildModalBtn('reset', $box);
-
 
             $(window).trigger('scroll');
 
@@ -1174,7 +1157,6 @@ jQuery.trumbowyg = {
                     })
                 );
         },
-
 
         // Selection management
         saveSelection: function () {

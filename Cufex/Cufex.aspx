@@ -10,7 +10,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="LogInContainer" runat="server">
     <div class="LogInMainDiv CufexBG GetFullHeightAtLeast CoverImage">
         <div class="NormalDiv">
-           <%-- <div class="HeaderFloat1">
+            <%-- <div class="HeaderFloat1">
                 <a href="<%= sAppPath %>" title="Cufex">
                     <img src="<%= sAppPath%>images/Cufex_Images/CufexLoginLogo.png" alt="Cufex Logo" /></a>
             </div>--%>
@@ -58,7 +58,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -68,7 +67,7 @@
         $(document).ready(function () {
             Cufex_Set();
         });
-        $(window).load(function () {
+        $(document).on("load", function () {
             $('.LogInMainDiv').show();
             $('.DivFooter').show();
         });
