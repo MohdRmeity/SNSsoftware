@@ -21,7 +21,7 @@
                                 <a class="BackBtn BackDetail AnimateMe" href="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)) %>">Back to List
                                 </a>
                             </td>
-                           <%-- <td style="width: 13px;"></td>
+                            <%-- <td style="width: 13px;"></td>
                             <td>
                                 <div class="VerticalSep"></div>
                             </td>

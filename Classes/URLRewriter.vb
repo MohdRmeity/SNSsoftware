@@ -53,7 +53,7 @@ Public Class URLRewriter
             routes.MapPageRoute("SNSsoftware-Cufex-Dashboard", "cufex/Dashboard", "~/Cufex/Cufex_Dashboard.aspx")
 #End Region
 
-            routes.Canonicalize().Www().Lowercase().NoTrailingSlash()
+            routes.Canonicalize().Lowercase().NoTrailingSlash()
         Catch ex As Exception
             Dim MyString As String = ex.Message
         End Try

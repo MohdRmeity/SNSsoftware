@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 22:55:46</publishTime>
     </File>
     <File Include="App_GlobalResources/Resources.resx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="bin/Canonicalize.dll">
-      <publishTime>09/02/2020 20:42:15</publishTime>
+      <publishTime>09/09/2020 23:53:12</publishTime>
     </File>
     <File Include="bin/CKEditor.NET.dll">
       <publishTime>07/15/2014 13:47:02</publishTime>
@@ -541,10 +541,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:27:18</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
-      <publishTime>09/02/2020 20:42:15</publishTime>
+      <publishTime>09/09/2020 23:53:13</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.pdb">
-      <publishTime>09/02/2020 20:42:15</publishTime>
+      <publishTime>09/09/2020 23:53:13</publishTime>
     </File>
     <File Include="bin/it/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:26:02</publishTime>
@@ -709,25 +709,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/22/2011 15:31:50</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
-      <publishTime>09/02/2020 20:42:17</publishTime>
+      <publishTime>09/09/2020 23:53:16</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.Common.dll">
-      <publishTime>09/02/2020 20:42:23</publishTime>
+      <publishTime>09/09/2020 23:53:17</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.WebForms.dll">
-      <publishTime>09/02/2020 20:42:23</publishTime>
+      <publishTime>09/09/2020 23:53:17</publishTime>
     </File>
     <File Include="bin/Microsoft.SqlServer.Types.dll">
       <publishTime>02/21/2014 04:28:46</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>09/02/2020 20:42:25</publishTime>
+      <publishTime>09/09/2020 23:53:20</publishTime>
     </File>
     <File Include="bin/NLog.dll">
-      <publishTime>09/02/2020 20:42:24</publishTime>
+      <publishTime>09/09/2020 23:53:17</publishTime>
     </File>
     <File Include="bin/Oracle.ManagedDataAccess.dll">
-      <publishTime>09/02/2020 20:42:27</publishTime>
+      <publishTime>08/27/2020 23:28:50</publishTime>
     </File>
     <File Include="bin/pt/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 04:25:24</publishTime>
@@ -1054,13 +1054,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:25:46</publishTime>
     </File>
     <File Include="bin/SNSsoftware.dll">
-      <publishTime>09/03/2020 23:55:02</publishTime>
+      <publishTime>09/15/2020 02:14:58</publishTime>
     </File>
     <File Include="bin/SNSsoftware.pdb">
-      <publishTime>09/03/2020 23:55:02</publishTime>
+      <publishTime>09/15/2020 02:14:58</publishTime>
     </File>
     <File Include="bin/SNSsoftware.xml">
-      <publishTime>09/03/2020 23:55:01</publishTime>
+      <publishTime>09/15/2020 02:14:58</publishTime>
     </File>
     <File Include="bin/Tinify.dll">
       <publishTime>05/24/2018 10:15:50</publishTime>
@@ -1072,82 +1072,82 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 04:28:10</publishTime>
     </File>
     <File Include="Controls/Cufex_Components/Cufex_MasterHeader.ascx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Controls/Cufex_Components/Cufex_MasterMenu.ascx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Controls/Cufex_Components/Cufex_Warehouse_OrderTracking_CarrierEvents.ascx">
-      <publishTime>09/03/2020 23:07:51</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Controls/Cufex_PlugIns/Cufex_Logout.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_ExportLogs.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_FileManagement.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_FileManagementLogs.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_ImportLogs.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Administration_UITemplates.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ItemCatalogue.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_Items.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ShipFrom.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_ShipTo.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Configuration_Suppliers.aspx">
       <publishTime>04/29/2020 17:50:15</publishTime>
     </File>
     <File Include="Cufex/Cufex_Dashboard.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_DashboardSite.Master">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Default.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_ForgotPassword.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Inventory_Balance.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Popup_Items.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Popup_Locations.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Popup_Packs.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Reporting_ReportDesigner.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Reporting_ReportViewer.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Reporting_ViewReports.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_ReportsandKPIs_ReportDesigner.aspx">
       <publishTime>04/10/2020 17:25:33</publishTime>
@@ -1159,16 +1159,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2020 23:14:09</publishTime>
     </File>
     <File Include="Cufex/Cufex_ResetPasswordByCode.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_ChangePassword.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_Profiles.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_ProfilesDetails.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_Profile_ChangePassword.aspx">
       <publishTime>04/29/2020 17:32:44</publishTime>
@@ -1189,58 +1189,58 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2020 17:27:24</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_UserProfile.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_Users.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Security_UsersControl.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Site.Master">
-      <publishTime>09/03/2020 23:36:08</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_ASN.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_OrderManagement.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_OrderTracking.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_PO.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Cufex/Cufex_Warehouse_Shipment.aspx">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>09/02/2020 20:41:50</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="JS/Cufex/MainQuery.js">
-      <publishTime>09/03/2020 23:19:27</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="JS/Cufex/MainQuery.min.js">
-      <publishTime>09/03/2020 23:19:28</publishTime>
+      <publishTime>09/09/2020 23:53:01</publishTime>
     </File>
     <File Include="JS/Cufex/Master.js">
-      <publishTime>09/03/2020 23:19:11</publishTime>
+      <publishTime>09/12/2020 03:02:10</publishTime>
     </File>
     <File Include="JS/Cufex/Master.min.js">
-      <publishTime>09/03/2020 23:19:02</publishTime>
+      <publishTime>09/12/2020 03:02:09</publishTime>
     </File>
     <File Include="JS/Dashboards/DeleteExtension.js">
-      <publishTime>09/02/2020 20:41:51</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="JS/Dashboards/SaveAsExtension.js">
-      <publishTime>09/02/2020 20:41:51</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="JS/Dashboards/scripts.js">
-      <publishTime>09/02/2020 20:41:51</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="JS/Dashboards/styles.css">
-      <publishTime>09/02/2020 20:41:51</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="JS/JqueryMain/jquery-3.4.1.min.js">
       <publishTime>09/02/2020 20:41:51</publishTime>
@@ -1528,97 +1528,97 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 22:55:47</publishTime>
     </File>
     <File Include="Site.Master">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Style/ChosenSelect/chosen.css">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Style/ChosenSelect/chosen.min.css">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Style/Cufex/Cufex_Style.css">
-      <publishTime>09/03/2020 23:42:17</publishTime>
+      <publishTime>09/12/2020 03:02:04</publishTime>
     </File>
     <File Include="Style/Cufex/Cufex_Style.min.css">
-      <publishTime>09/03/2020 23:42:18</publishTime>
+      <publishTime>09/12/2020 03:02:02</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/03/2020 23:55:03</publishTime>
+      <publishTime>09/15/2020 02:15:03</publishTime>
     </File>
     <File Include="Webservices/ActionButtons.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/AutoPostBackDetailsDropDowns.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/AutoPostBackDropDowns.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/CarrierEvents.ashx">
-      <publishTime>09/01/2020 23:32:06</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/DeleteItems.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/DeleteItemsDetails.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/DisplayDropDowns.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/DisplayItems.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/DisplayItemsDetails.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/DisplayItemsNew.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/ExportItems.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/ExportItemsDetails.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/FetchPriceCurrency.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/FileUpload.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/GetItems.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/GetItemsDetails.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/GetItemsPopup.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/ImportItems.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/SaveItems.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/SaveItemsDetails.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/SaveItemsNew.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/SearchDropDowns.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/UpdateProfileDetail.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/UpdateUserActive.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
     <File Include="Webservices/UserConfiguration.ashx">
-      <publishTime>09/02/2020 20:41:52</publishTime>
+      <publishTime>09/09/2020 23:53:02</publishTime>
     </File>
   </ItemGroup>
 </Project>

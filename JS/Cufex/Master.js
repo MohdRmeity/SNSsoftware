@@ -4813,10 +4813,10 @@ function GetCarrierDetails() {
                 $(this).css({ "top": top, "height": height });
             });
 
-            $(".map").each(function (e) {
-                var location = $(this).data("location");
-                initMap(e, location);
-            });
+            //$(".map").each(function (e) {
+            //    var location = $(this).data("location");
+            //    initMap(e, location);
+            //});
 
             $(".EventsDiv").hide();
             $('.preloader2').fadeOut(300, function () {

@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Cufex/Cufex_Site.Master" CodeBehind="Cufex_Popup_Packs.aspx.vb" Inherits="SNSsoftware.Cufex_Popup_Packs" %>
 
-
 <asp:Content ID="Content3" ContentPlaceHolderID="Cufex_MainContent" runat="server">
     <%--Page Title--%>
     <div class="NormalDiv1118Max GetFullHeightAtLeast">
@@ -90,7 +89,6 @@
         </div>
 
         <div style="position: relative; height: 15px;"></div>
-
     </div>
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />

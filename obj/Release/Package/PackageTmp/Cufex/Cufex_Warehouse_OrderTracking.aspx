@@ -4,7 +4,6 @@
     <%--Page Title--%>
     <div class="NormalDiv1118Max GetFullHeightAtLeast">
 
-
         <div style="height: 33px;"></div>
 
         <div class="BackBtn BackHeader AnimateMe" style="display: none;">
@@ -41,7 +40,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a id="btnVAS" runat="server" class="btnQuickEntry AnimateMe">VAS
+                                <a id="btnVAS" runat="server" class="btnVAS AnimateMe">VAS
                                 </a>
                             </td>
                         </tr>
@@ -1101,6 +1100,76 @@
                 </div>
             </div>
         </div>
+
+        <div class="VAS_PopUp">
+            <div style="position: relative;">
+                <div class="MyAbso_VAS_PopUpContainer">
+                    <div class="CloseVASPopup"></div>
+                    <div class="MainVAS">
+                        <div class="iWantMyChildrenFloatHeight">
+                            <div class="floatL Width100">
+                                <div class="floatL Width100 VASDateLabel">
+                                    Start Date & Time
+                                </div>
+                                <div class="floatL VASDate">
+                                    <input type="text" class="textRecordStyle datepicker" placeholder="MM/DD/YYYY" />
+                                </div>
+                                <div class="floatL VASTime">
+                                    <div class="floatL Hours">
+                                        <input type="text" class="textRecordStyle NumericInput" placeholder="hh" maxlength="2" />
+                                    </div>
+                                    <div class="floatL TwoPoints">:</div>
+                                    <div class="floatL Minutes">
+                                        <input type="text" class="textRecordStyle NumericInput" placeholder="mm" maxlength="2" />
+                                    </div>
+                                    <div class="floatL TwoPoints">:</div>
+                                    <div class="floatL Seconds">
+                                        <input type="text" class="textRecordStyle NumericInput" placeholder="ss" maxlength="2" />
+                                    </div>
+                                    <div class="floatL AMPM">
+                                        <input type="text" class="textRecordStyle" placeholder="tt" style="cursor:pointer;" />
+                                        <div class="TimeOptions">
+                                            <div class="TimeLabel TimeLabel1 AnimateMe">AM</div>
+                                            <div class="TimeLabel TimeLabel2 AnimateMe">PM</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="floatL VASSettings">
+                                </div>
+                                <div class="floatL Width100 VASDateLabel End">
+                                    End Date & Time
+                                </div>
+                                <div class="floatL VASDate">
+                                    <input type="text" class="textRecordStyle datepicker" placeholder="MM/DD/YYYY" />
+                                </div>
+                                <div class="floatL VASTime">
+                                    <div class="floatL Hours">
+                                        <input type="text" class="textRecordStyle NumericInput" placeholder="hh" maxlength="2" />
+                                    </div>
+                                    <div class="floatL TwoPoints">:</div>
+                                    <div class="floatL Minutes">
+                                        <input type="text" class="textRecordStyle NumericInput" placeholder="mm" maxlength="2" />
+                                    </div>
+                                    <div class="floatL TwoPoints">:</div>
+                                    <div class="floatL Seconds">
+                                        <input type="text" class="textRecordStyle NumericInput" placeholder="ss" maxlength="2" />
+                                    </div>
+                                    <div class="floatL AMPM">
+                                        <input type="text" class="textRecordStyle" placeholder="tt" style="cursor:pointer;" />
+                                        <div class="TimeOptions">
+                                            <div class="TimeLabel TimeLabel1 AnimateMe">AM</div>
+                                            <div class="TimeLabel TimeLabel2 AnimateMe">PM</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="floatL VASSettings">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />
@@ -1146,4 +1215,8 @@
         <input type="hidden" class="MyDetailsFields" value="ShippedQty" data-columnname="Shipped Qty" data-priority="14" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="PortalDescription" data-columnname="Status" data-priority="15" data-hidden="false" />
     </div>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="Cufex_ScriptContent" runat="server">
+    <script async defer src="<%= "https://maps.googleapis.com/maps/api/js?key=" & ConfigurationManager.AppSettings("GoogleMapAPIKey") & "&callback=initMap" %>"></script>
 </asp:Content>

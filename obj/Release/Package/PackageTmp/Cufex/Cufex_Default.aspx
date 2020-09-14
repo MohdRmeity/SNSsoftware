@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Cufex_HeadContent" runat="server">
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/DeleteExtension.js"></script>
     <script type="text/javascript" src="<%= sAppPath %>JS/Dashboards/SaveAsExtension.js"></script>
-    <script src="../JS/Dashboards/ExportExtension.js"></script>
+    <%--<script src="../JS/Dashboards/ExportExtension.js"></script>--%>
 
     <script src="../JS/Dashboards/scripts.js?v=2013"></script>
     <link href="../JS/Dashboards/styles.css?v=2013" rel="stylesheet" />
@@ -170,7 +170,7 @@
         <div class="MainDashboardSettings" id="MainDashboardSettingsID">
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
-                    <asp:Button ID="Button1" runat="server" Text="Button" Visible="False"  OnClick="Button1_Click" />
+                    <asp:Button ID="Button1" runat="server" Text="Button" Visible="False" OnClick="Button1_Click" />
                     <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton floatL" />
 
                     <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton floatL" />

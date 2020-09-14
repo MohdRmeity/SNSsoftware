@@ -63,6 +63,7 @@ Public Class CarrierEvents
                 CarrierDetailsRecords += "   <div class='EventsDiv'>"
                 If CommonMethods.ShowCarrierEventsMap = "true" Then
                     CarrierDetailsRecords += "      <div class='map' id='map" & i & "' data-location='" & !EventLocation & "'>"
+                    CarrierDetailsRecords += "           <iframe width='100%' height='100%' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='https://maps.google.com/maps?width=100%25&amp;height=235&amp;hl=en&amp;q=" & HttpUtility.UrlEncode(!EventLocation.ToString) & "+()&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'>"
                     CarrierDetailsRecords += "      </div>"
                 End If
                 CarrierDetailsRecords += "      <div class='TrackingEventsDetailsDiv'> Tracking Events Details"
