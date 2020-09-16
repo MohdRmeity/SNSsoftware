@@ -564,6 +564,9 @@
     <Compile Include="Webservices\FileUpload.ashx.vb">
       <DependentUpon>FileUpload.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Webservices\FileUploadDashboard.ashx.vb">
+      <DependentUpon>FileUploadDashboard.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Webservices\GetItemsDetails.ashx.vb">
       <DependentUpon>GetItemsDetails.ashx</DependentUpon>
     </Compile>
@@ -684,6 +687,7 @@
     <Content Include="Webservices\FileUpload.ashx" />
     <Content Include="Webservices\ImportItems.ashx" />
     <Content Include="Webservices\CarrierEvents.ashx" />
+    <Content Include="Webservices\FileUploadDashboard.ashx" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

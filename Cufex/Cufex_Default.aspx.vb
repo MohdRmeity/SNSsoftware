@@ -227,39 +227,7 @@ Partial Public Class Cufex_Default
         End If
 
         If parameters("ExtensionName") = "dxdde-Export-dashboard" AndAlso parameters.ContainsKey("DashboardID") Then
-
-            Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage()
-            Try
-
-                Dim dashboardXML = dashboardStorage.LoadDashboard(parameters("DashboardID"))
-
-                Button1_Click(sender, New EventArgs())
-
-                Dim linkButoon As LinkButton = New LinkButton()
-
-                'Response.AddHeader("Content-Disposition", "attachment; filename=some_name.xml")
-                'Response.ContentType = "application/xml"
-                'Response.Clear()
-
-                'dashboardXML.Save(Response.OutputStream)
-                'Response.Flush()
-            Catch ex As Exception
-                Dim sss As String
-                sss = ex.Message
-
-            End Try
-
-            'Dim stream As MemoryStream = New MemoryStream()
-            'Dim writer As XmlTextWriter = New XmlTextWriter(stream, Encoding.UTF8)
-            'dashboardXML.WriteTo(writer)
-            'writer.Flush()
-            'Response.Clear()
-            'Dim byteArray As Byte() = stream.ToArray()
-            'Response.AppendHeader("Content-Disposition", "filename=Books.xml")
-            'Response.AppendHeader("Content-Length", byteArray.Length.ToString())
-            'Response.ContentType = "application/octet-stream"
-            'Response.BinaryWrite(byteArray)
-            'writer.Close()
+            Session("dashboardID") = parameters("DashboardID")
         End If
     End Sub
 
@@ -325,6 +293,34 @@ Partial Public Class Cufex_Default
         response.TransmitFile(Server.MapPath("~/temp.xml"))
         response.Flush()
         HttpContext.Current.ApplicationInstance.CompleteRequest()
+
+    End Sub
+
+    Protected Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
+        Dim dashboardStorage As CustomDashboardStorage = New CustomDashboardStorage()
+        Try
+
+            Dim xdoc = dashboardStorage.LoadDashboard(Session("dashboardID"))
+
+            xdoc.Save(Server.MapPath("~/ExportImages/" & Session("dashboardID") & ".xml"))
+
+            Dim fileInfo As FileInfo = New FileInfo(Server.MapPath("~/ExportImages/" & Session("dashboardID") & ".xml"))
+            Dim title As String = (CType((CType(xdoc.FirstNode, XContainer)).FirstNode, XElement)).LastAttribute.Value
+
+            Dim response As System.Web.HttpResponse = System.Web.HttpContext.Current.Response
+            response.ClearContent()
+            response.Clear()
+            response.ContentType = "application/octet-stream"
+
+            response.AddHeader("Content-Length", fileInfo.Length)
+            response.AddHeader("Content-Disposition", "attachment; filename=" & title & "_" & DateTime.Now.ToString("ddMMyyyyHHmmss") & ".xml" & ";")
+            response.WriteFile(fileInfo.FullName)
+            response.End()
+
+        Catch ex As Exception
+            Return
+        End Try
+
 
     End Sub
 

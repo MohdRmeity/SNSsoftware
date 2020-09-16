@@ -11,7 +11,7 @@ function SaveAsDashboardExtension(dashboardControl) {
         template: "dx-save-as-form",
         selected: ko.observable(true),
         disabled: ko.computed(function () { return !dashboardControl.dashboard(); }),
-        index: 112,
+        index: 113,
         data: _this
     };
     this.saveAs = function () {

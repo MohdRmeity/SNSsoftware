@@ -13,12 +13,24 @@
     <link href="../JS/Dashboards/styles.css?v=2013" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="../JS/Dashboards/ExportExtension.js"></script>
+    <script src="../JS/Dashboards/ImportExtension.js"></script>
+
     <!-- Defines the "Save As" extension template. -->
     <script type="text/html" id="dx-save-as-form">
         <div>Dashboard Name:</div>
         <div style="margin: 10px 0" data-bind="dxTextBox: { value: newName }"></div>
         <div data-bind="dxButton: { text: 'Save', onClick: saveAs }"></div>
     </script>
+      <script type="text/html" id="dx-Import-form">     
+        <div id="fileUploader" style="margin: 10px 0; width:70%"
+            data-bind="dxFileUploader: { selectButtonText: 'Select File or Drop File Here', allowedFileExtensions:['.xml'], labelText: '',  accept: '' , 
+            uploadUrl: '../Webservices/FileUploadDashboard.ashx' ,
+            onUploaded: function (e) {DevExpress.ui.notify('.    File Uploaded successfully ', 'success', 1000);    window.location.href='Cufex_Default.aspx'},
+            onUploadError: function (e) {DevExpress.ui.notify(' .    Error uploading file!', 'error', 1000);},
+            onUploadAborted: function (e) {DevExpress.ui.notify('.   Error uploading file!', 'error', 1000);} }"
+        </div>
+  </script>
 
     <script>
         function getDashboardControl() {
@@ -67,6 +79,14 @@
     </script>
 
     <style>
+           .dx-fileuploader-button-container, .dx-fileuploader-input-container {
+            display: block;
+        }
+        .dx-dashboard-property-grid :not(.dx-toolbar-item-content):not(.dx-calendar-navigator) > .dx-button:not(.dx-buttongroup-item) {
+            width: 100%;
+            height: 60px;
+        }
+
         .MainDashboardSettings {
             padding: 10px 20px;
         }
@@ -170,7 +190,8 @@
         <div class="MainDashboardSettings" id="MainDashboardSettingsID">
             <div class="iWantMyChildrenFloatHeight">
                 <div class="floatL Width100">
-                    <asp:Button ID="Button1" runat="server" Text="Button" Visible="False" OnClick="Button1_Click" />
+                     <asp:LinkButton ID="btnDownload" runat="server" Text="" OnClick="btnDownload_Click" />
+
                     <input type="button" onclick="onExpand();" data-toggle="tooltip" title="Expand" class="expandButton floatL" />
 
                     <input type="button" onclick="onCollapse();" data-toggle="tooltip" title="Collapse" class="collapseButton floatL" />
