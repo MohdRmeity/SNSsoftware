@@ -86,8 +86,6 @@ Public Class GetItems
             GetOrderTrackingQuery(SQL, SearchQuery)
         ElseIf SearchTable = "Inventory_Balance" Then
             GetInventoryBalanceQuery(SQL)
-            'Mohamad Rmeity - Sort by storer
-            SortBy = "StorerKey asc"
         ElseIf SearchTable = "REPORTSPORTAL" Then
             SearchTable = "REPORTSPROFILEDETAIL"
             If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable

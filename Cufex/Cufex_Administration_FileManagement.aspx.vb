@@ -5,7 +5,7 @@ Partial Public Class Cufex_Administration_FileManagement
         If Not Page.IsPostBack Then
             Dim myMasterPage As Cufex_Site = CType(Page.Master, Cufex_Site)
             myMasterPage.FormParentName = "Administration"
-            myMasterPage.FormName = "Import Logs"
+            myMasterPage.FormName = "File Management"
             myMasterPage.section = Cufex_Site.SectionName.Administration
             myMasterPage.Subsection = Cufex_Site.SubSectionName.Administration_FileManagement
         End If

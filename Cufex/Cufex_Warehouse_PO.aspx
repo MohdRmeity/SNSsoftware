@@ -481,14 +481,14 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="QtyOrdered">
-                                    <span class="MyTitleHead">Open Ordered</span>
+                                <td class="GridCell GridHead" data-id="QtyOrdered" data-numeric="true">
+                                    <span class="MyTitleHead">Qty Ordered</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead borderRight0" data-id="QtyReceived">
+                                <td class="GridCell GridHead borderRight0" data-id="QtyReceived" data-numeric="true">
                                     <span class="MyTitleHead">Qty Received</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>

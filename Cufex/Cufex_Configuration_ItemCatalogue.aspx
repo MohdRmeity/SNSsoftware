@@ -96,7 +96,7 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="Price">
+                    <td class="GridCell GridHead" data-id="Price" data-numeric="true">
                         <span class="MyTitleHead">Price</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>

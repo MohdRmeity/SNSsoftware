@@ -1103,10 +1103,26 @@ function SetGridActions() {
         }
 
         if ($(".GridResults").length > 0) {
-            SortTable($(this).index(), dir);
+            //SortTable($(this).index(), dir);
+            var isNumeric = $(this).attr("data-numeric") == "true";
+            var index = $(this).index();
+            var sorted = $(this).closest(".GridContainer").find('.GridResults').sort(function (a, b) {
+                var a = $(a).find('td').eq(index).text(), b = $(b).find('td').eq(index).text();
+                if (dir == "asc")
+                {
+                    return a.localeCompare(b, false, { numeric: isNumeric });
+                }
+                else
+                {
+                    return b.localeCompare(a, false, { numeric: isNumeric });
+
+                }
+            });
+            $(this).closest(".GridContainer").find('.SearchStyle').after(sorted);
             if ($("MyTab").length > 0) PageTableTab(GridName);
             else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
+            setTimeout(function () { InitColResizable(); }, 300);
         }
     });
 
@@ -1127,10 +1143,18 @@ function SetGridActions() {
         else SortByDetails = $(this).parent().parent().attr("data-id") + " asc";
 
         if ($(".GridResults").length > 0) {
-            SortTable($(this).closest(".GridCell").index(), "asc");
+            //SortTable($(this).closest(".GridCell").index(), "asc");
+            var isNumeric = $(this).closest(".GridCell").attr("data-numeric") == "true";
+            var index = $(this).closest(".GridCell").index();
+            var sorted = $(this).closest(".GridContainer").find('.GridResults').sort(function (a, b) {
+                var a = $(a).find('td').eq(index).text(), b = $(b).find('td').eq(index).text();
+                return a.localeCompare(b, false, { numeric: isNumeric });
+            });
+            $(this).closest(".GridContainer").find('.SearchStyle').after(sorted);
             if ($("MyTab").length > 0) PageTableTab(GridName);
             else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
+            setTimeout(function () { InitColResizable(); }, 300);
         }
     });
 
@@ -1151,10 +1175,18 @@ function SetGridActions() {
         else SortByDetails = $(this).parent().parent().attr("data-id") + " desc";
 
         if ($(".GridResults").length > 0) {
-            SortTable($(this).closest(".GridCell").index(), "desc");
+            //SortTable($(this).closest(".GridCell").index(), "desc");
+            var isNumeric = $(this).closest(".GridCell").attr("data-numeric") == "true";
+            var index = $(this).closest(".GridCell").index();
+            var sorted = $(this).closest(".GridContainer").find('.GridResults').sort(function (a, b) {
+                var a = $(a).find('td').eq(index).text(), b = $(b).find('td').eq(index).text();
+                return b.localeCompare(a, false, { numeric: isNumeric });
+            });
+            $(this).closest(".GridContainer").find('.SearchStyle').after(sorted);
             if ($("MyTab").length > 0) PageTableTab(GridName);
             else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
+            setTimeout(function () { InitColResizable(); },300);
         }
     });
 
@@ -1345,11 +1377,13 @@ function SetGridActions() {
         if ($(".HeaderGridView:visible").length > 0) {
             $(".HeaderGridView").find('.SearchClass').val("");
             $(".HeaderGridView").find('.chosen-select').val("").trigger("chosen:updated");
+            $(".HeaderGridView").find('.chosen-select').siblings(".chosen-container").find(".search-field").show();
             SearchQuery = "";
         }
         else {
             $(".DetailsGridView").find('.SearchClass').val("");
             $(".DetailsGridView").find('.chosen-select').val("").trigger("chosen:updated");
+            $(".DetailsGridView").find('.chosen-select').siblings(".chosen-container").find(".search-field").show();
             SearchQueryDetails = "";
         }
     });

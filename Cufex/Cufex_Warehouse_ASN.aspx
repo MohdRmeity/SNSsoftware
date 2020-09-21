@@ -454,14 +454,14 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="QtyExpected">
+                                <td class="GridCell GridHead" data-id="QtyExpected" data-numeric="true">
                                     <span class="MyTitleHead">Qty Expected</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="QtyReceived">
+                                <td class="GridCell GridHead" data-id="QtyReceived" data-numeric="true">
                                     <span class="MyTitleHead">Qty Received</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
@@ -640,8 +640,20 @@
                                 <%--<td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="ToLoc" />
                                 </td>--%>
-                                <td class="GridCell GridHeadSearch">
-                                    <input type="text" placeholder="Search" class="SearchClass" data-id="ConditionCode" />
+                                <td class="GridCell GridHeadSearch" style="overflow: visible;">
+                                    <select data-placeholder="Search" multiple class="chosen-select SearchClass" data-id="ConditionCode">
+                                        <option value="CUSTOMS">Customs</option>
+                                        <option value="DAMAGED">Damaged</option>
+                                        <option value="EXPIRED">Expired</option>
+                                        <option value="HOST PROCESSING">Host Processing</option>
+                                        <option value="INSPECTION REQUIRED">Insepection Required</option>
+                                        <option value="LOST">Lost</option>
+                                        <option value="OK">Ok</option>
+                                        <option value="OTHER">Other</option>
+                                        <option value="PHYSICAL INVENTORY">Physical Inventory</option>
+                                        <option value="QUARANTINE">Quarantine</option>
+                                        <option value="RETURNS">Returns</option>
+                                    </select>
                                 </td>
                                 <%--<td class="GridCell GridHeadSearch">
                                     <input type="text" placeholder="Search" class="SearchClass" data-id="TariffKey" />
@@ -709,8 +721,6 @@
                                 <td class="GridCell GridContentCell borderRight0" data-id="19"></td>
                                 <td class="GridCell GridContentCell borderRight0" data-id="20"></td>
                                 <td class="GridCell GridContentCell borderRight0" data-id="21"></td>
-                                <td class="GridCell GridContentCell borderRight0" data-id="22"></td>
-                                <td class="GridCell GridContentCell borderRight0" data-id="23"></td>
                             </tr>
                         </table>
                         <div class="PagingContainer">
@@ -1252,19 +1262,19 @@
         <input type="hidden" class="MyDetailsFields" value="POKey" data-columnname="PO" data-priority="7" data-hidden="false" />
         <input type="hidden" class="MyDetailsFields" value="ToId" data-columnname="To LPN" data-priority="8" data-hidden="false" />
         <!--<input type="hidden" class="MyDetailsFields" value="ToLoc" data-columnname="To Location" data-priority="9" data-hidden="false" />-->
-        <input type="hidden" class="MyDetailsFields" value="ConditionCode" data-columnname="Hold" data-priority="10" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="ConditionCode" data-columnname="Hold" data-priority="9" data-hidden="false" />
         <!--<input type="hidden" class="MyDetailsFields" value="TariffKey" data-columnname="Tarrif Key" data-priority="11" data-hidden="false" />-->
-        <input type="hidden" class="MyDetailsFields" value="Lottable01" data-columnname="Lottable01" data-priority="12" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable02" data-columnname="Lottable02" data-priority="13" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable03" data-columnname="Lottable03" data-priority="14" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable04" data-columnname="Lottable04" data-priority="15" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable05" data-columnname="Lottable05" data-priority="16" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable06" data-columnname="Lottable06" data-priority="17" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable07" data-columnname="Lottable07" data-priority="18" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable08" data-columnname="Lottable08" data-priority="19" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable09" data-columnname="Lottable09" data-priority="20" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable10" data-columnname="Lottable10" data-priority="21" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable11" data-columnname="Lottable11" data-priority="22" data-hidden="false" />
-        <input type="hidden" class="MyDetailsFields" value="Lottable12" data-columnname="Lottable12" data-priority="23" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable01" data-columnname="Lottable01" data-priority="10" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable02" data-columnname="Lottable02" data-priority="11" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable03" data-columnname="Lottable03" data-priority="12" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable04" data-columnname="Lottable04" data-priority="13" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable05" data-columnname="Lottable05" data-priority="14" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable06" data-columnname="Lottable06" data-priority="15" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable07" data-columnname="Lottable07" data-priority="16" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable08" data-columnname="Lottable08" data-priority="17" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable09" data-columnname="Lottable09" data-priority="18" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable10" data-columnname="Lottable10" data-priority="19" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable11" data-columnname="Lottable11" data-priority="20" data-hidden="false" />
+        <input type="hidden" class="MyDetailsFields" value="Lottable12" data-columnname="Lottable12" data-priority="21" data-hidden="false" />
     </div>
 </asp:Content>

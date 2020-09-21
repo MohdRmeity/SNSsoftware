@@ -104,21 +104,21 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="StdCube">
+                    <td class="GridCell GridHead" data-id="StdCube" data-numeric="true">
                         <span class="MyTitleHead">Cube</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="StdNetWgt">
+                    <td class="GridCell GridHead" data-id="StdNetWgt" data-numeric="true">
                         <span class="MyTitleHead">Net Wgt</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="StdGrossWgt">
+                    <td class="GridCell GridHead" data-id="StdGrossWgt" data-numeric="true">
                         <span class="MyTitleHead">Gross Wgt</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>

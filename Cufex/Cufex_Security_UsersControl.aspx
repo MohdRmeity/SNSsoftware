@@ -91,21 +91,21 @@
                     <td class="GridCell GridHead" data-id="Facility">
                         <span class="MyTitleHead">Facility</span>
                     </td>
-                    <td class="GridCell GridHead" data-id="ExportRowsLimit">
+                    <td class="GridCell GridHead" data-id="ExportRowsLimit" data-numeric="true">
                         <span class="MyTitleHead">Export Rows Limit</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="FileImportLimit">
+                    <td class="GridCell GridHead" data-id="FileImportLimit" data-numeric="true">
                         <span class="MyTitleHead">File Import Limit (MB)</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="FileUploadLimit">
+                    <td class="GridCell GridHead" data-id="FileUploadLimit" data-numeric="true">
                         <span class="MyTitleHead">File Upload Limit (MB)</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>

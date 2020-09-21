@@ -272,6 +272,13 @@ Public Class Cufex_Site
         SetMenuItemsClass()
         DivMain_Home_Def.Visible = True
         If Session("userkey") IsNot Nothing Then
+            DivSubMain_Administration_ExportLogs.Visible = CommonMethods.getPermission("Administration->Export Logs (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Administration_ImportLogs.Visible = CommonMethods.getPermission("Administration->Import Logs (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Administration_FileManagementLogs.Visible = CommonMethods.getPermission("Administration->File Management Logs (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Administration_FileManagement.Visible = CommonMethods.getPermission("Administration->File Management (Screen)", Session("userkey").ToString) <> "0"
+            DivSubMain_Administration_UITemplates.Visible = CommonMethods.getPermission("Administration->UI Templates (Screen)", Session("userkey").ToString) <> "0"
+            DivMain_Administration.Visible = False
+
             DivSubMain_Security_ChangePassword.Visible = CommonMethods.getPermission("Security->Change Password (Screen)", Session("userkey").ToString) <> "0"
             DivSubMain_Security_Users.Visible = CommonMethods.getPermission("Security->Users (Screen)", Session("userkey").ToString) <> "0"
             DivSubMain_Security_UsersControl.Visible = CommonMethods.getPermission("Security->User Control (Screen)", Session("userkey").ToString) <> "0"
