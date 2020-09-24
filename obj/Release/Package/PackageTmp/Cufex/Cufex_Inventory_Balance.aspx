@@ -69,14 +69,14 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="Qty">
+                    <td class="GridCell GridHead" data-id="Qty" data-numeric="true">
                         <span class="MyTitleHead">Qty on Hand</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
-                    <td class="GridCell GridHead" data-id="Available">
+                    <td class="GridCell GridHead" data-id="Available" data-numeric="true">
                         <span class="MyTitleHead">Qty Available</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
@@ -328,7 +328,7 @@
     </div>
     <div class="FormSettings">
         <input type="hidden" id="NumberOfRecordsInPage" value="10" />
-        <input type="hidden" id="SortBy" value="SerialKey desc" />
+        <input type="hidden" id="SortBy" value="StorerKey asc" />
 
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="2" data-hidden="false" data-primarykey="true" />

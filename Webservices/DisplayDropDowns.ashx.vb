@@ -28,7 +28,12 @@ Public Class DisplayDropDowns
                 End With
             Next
         ElseIf mySearchTable = "USERCONTROL" Or mySearchTable = "Warehouse_PO" Or mySearchTable = "Warehouse_SO" Or mySearchTable = "Warehouse_OrderManagement" Or mySearchTable = "Inventory_Balance" Then
-            DTable1 = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
+
+            If mySearchTable = "USERCONTROL" Then
+                DTable1 = CommonMethods.getFacilities()
+            Else
+                DTable1 = CommonMethods.getFacilitiesPerUser(HttpContext.Current.Session("userkey").ToString)
+            End If
 
             DropDownFields += "Facility:::"
             For i = 0 To DTable1.Rows.Count - 1

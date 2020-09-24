@@ -261,13 +261,13 @@ Public Class ExportItems
     'Queries
     Private Sub GetFileManagementQuery(ByRef SQL As String)
         SQL += " select top " & CommonMethods.TopCount & " * from ("
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_PO' as ScreenName,POKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_PO' as ScreenName,POKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From PO_FILES UNION ALL"
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_ASN' as ScreenName,ReceiptKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_ASN' as ScreenName,ReceiptKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From RECEIPT_FILES UNION ALL"
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_SO' as ScreenName,OrderKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_SO' as ScreenName,OrderKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From ORDERS_FILES UNION ALL"
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_OrderManagement' as ScreenName,OrderManagKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_OrderManagement' as ScreenName,OrderManagKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From ORDERMANAG_FILES"
         SQL += " ) as ds where 1=1 "
     End Sub

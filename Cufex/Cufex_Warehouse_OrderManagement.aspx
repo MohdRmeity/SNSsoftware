@@ -465,7 +465,7 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="OpenQty">
+                                <td class="GridCell GridHead" data-id="OpenQty" data-numeric="true">
                                     <span class="MyTitleHead">Open Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
@@ -486,7 +486,7 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="UnitPrice">
+                                <td class="GridCell GridHead" data-id="UnitPrice" data-numeric="true">
                                     <span class="MyTitleHead">Price</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>

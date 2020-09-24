@@ -236,58 +236,58 @@ Public Class GetItemsDetails
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
                 MyRecords += "                        " & !ToId
                 MyRecords += "                    </td>"
+                'MyRecords += "                    <td class='GridCell GridContentCell' data-id='9'>"
+                'MyRecords += "                        " & !ToLoc
+                'MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='9'>"
-                MyRecords += "                        " & !ToLoc
-                MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='10'>"
                 MyRecords += "                        " & !ConditionCode
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='11'>"
-                MyRecords += "                        " & !TariffKey
-                MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='12'>"
+                'MyRecords += "                    <td class='GridCell GridContentCell' data-id='11'>"
+                'MyRecords += "                        " & !TariffKey
+                'MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='10'>"
                 MyRecords += "                        " & !Lottable01
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='13'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='11'>"
                 MyRecords += "                        " & !Lottable02
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='14'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='12'>"
                 MyRecords += "                        " & !Lottable03
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='15'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='13'>"
                 If Not .IsNull("Lottable04") Then
                     Lottable04 = Format(!Lottable04, "MM/dd/yyyy <br/> hh:mm:ss tt")
                 End If
                 MyRecords += "                        " & Lottable04
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='16'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='14'>"
                 If Not .IsNull("Lottable05") Then
                     Lottable05 = Format(!Lottable05, "MM/dd/yyyy <br/> hh:mm:ss tt")
                 End If
                 MyRecords += "                        " & Lottable05
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='17'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='15'>"
                 MyRecords += "                        " & !Lottable06
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='18'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='16'>"
                 MyRecords += "                        " & !Lottable07
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='19'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='17'>"
                 MyRecords += "                        " & !Lottable08
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='20'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='18'>"
                 MyRecords += "                        " & !Lottable09
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='21'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='19'>"
                 MyRecords += "                        " & !Lottable10
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='23'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='20'>"
                 If Not .IsNull("Lottable11") Then
                     Lottable11 = Format(!Lottable11, "MM/dd/yyyy <br/> hh:mm:ss tt")
                 End If
                 MyRecords += "                        " & Lottable11
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='23'>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='21'>"
                 If Not .IsNull("Lottable12") Then
                     Lottable12 = Format(!Lottable12, "MM/dd/yyyy <br/> hh:mm:ss tt")
                 End If

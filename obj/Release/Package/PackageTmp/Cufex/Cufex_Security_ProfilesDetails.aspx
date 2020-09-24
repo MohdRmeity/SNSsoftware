@@ -21,7 +21,7 @@
                                 <a class="BackBtn BackDetail AnimateMe" href="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Security_Profiles", Nothing)) %>">Back to List
                                 </a>
                             </td>
-                            <td style="width: 13px;"></td>
+                            <%-- <td style="width: 13px;"></td>
                             <td>
                                 <div class="VerticalSep"></div>
                             </td>
@@ -44,7 +44,7 @@
                             <td style="width: 13px;"></td>
                             <td>
                                 <a id="btnRefresh" runat="server" class="btnRefresh AnimateMe" title="Refresh"></a>
-                            </td>
+                            </td>--%>
                             <td style="width: 13px; display: none;"></td>
                             <td>
                                 <a id="btnDelete" runat="server" class="btnDelete AnimateMe DisplayNone">Delete

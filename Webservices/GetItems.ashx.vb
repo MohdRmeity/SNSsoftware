@@ -35,7 +35,7 @@ Public Class GetItems
                 SortBy = "SerialKey desc"
             End If
         ElseIf SearchTable = "PROFILEDETAIL" Or SearchTable = "REPORTSPROFILEDETAIL" Or SearchTable = "PROFILEDETAILDASHBOARDS" Then
-            AndFilter = " and ProfileName='" & QueryUrlStr & "'" & IIf(SearchTable = "PROFILEDETAIL", " and Blocked = 0 ", "")
+            AndFilter = " and ProfileName='" & QueryUrlStr & "'" & IIf(CommonMethods.PhaseVersion = "3.0", IIf(SearchTable = "PROFILEDETAIL", " and Blocked = 0 ", ""), "")
             If CommonMethods.dbtype <> "sql" Then
                 SearchTable = "System." & SearchTable
                 SortBy = "SerialKey desc"
@@ -86,8 +86,6 @@ Public Class GetItems
             GetOrderTrackingQuery(SQL, SearchQuery)
         ElseIf SearchTable = "Inventory_Balance" Then
             GetInventoryBalanceQuery(SQL)
-            'Mohamad Rmeity - Sort by storer
-            SortBy = "StorerKey asc"
         ElseIf SearchTable = "REPORTSPORTAL" Then
             SearchTable = "REPORTSPROFILEDETAIL"
             If CommonMethods.dbtype <> "sql" Then SearchTable = "System." & SearchTable
@@ -329,20 +327,28 @@ Public Class GetItems
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !RecKey
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='5'>"
-                Dim FileExtension As String = LCase(!FileName.ToString.Substring(!FileName.ToString.LastIndexOf(".") + 1))
-                Dim IsImage As Boolean = FileExtension = "png" Or FileExtension = "tiff" Or FileExtension = "jpg" Or FileExtension = "jpeg" Or FileExtension = "gif"
-                MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicFiles/FileManagement/" & !FileName & "' " & IIf(IsImage, "target='_blank' rel='noopener'", "") & ">"
-                MyRecords += "                        " & !FileName
-                MyRecords += "                        </a>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                MyRecords += "                        " & !OriginalFileName
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
-                MyRecords += "                        " & CommonMethods.FormatFileSize(!FileSize)
+                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='6'>"
+                Dim FilePath As String = HttpContext.Current.Server.MapPath("~/DynamicFiles/FileManagement/") & !FileName
+                If File.Exists(FilePath) Then
+                    Dim FileExtension As String = LCase(!FileName.ToString.Substring(!FileName.ToString.LastIndexOf(".") + 1))
+                    Dim IsImage As Boolean = FileExtension = "png" Or FileExtension = "tiff" Or FileExtension = "jpg" Or FileExtension = "jpeg" Or FileExtension = "gif" Or FileExtension = "xml"
+                    MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicFiles/FileManagement/" & !FileName & "' " & IIf(IsImage, "target='_blank' rel='noopener'", "") & ">"
+                    MyRecords += "                        " & !FileName
+                    MyRecords += "                        </a>"
+                Else
+                    MyRecords += "                        " & !FileName
+                End If
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
-                MyRecords += "                        " & !ActivityType
+                MyRecords += "                        " & CommonMethods.FormatFileSize(!FileSize)
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
+                MyRecords += "                        " & !ActivityType
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='9'>"
                 MyRecords += "                        " & Format(!AddDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
                 MyRecords += "                    </td>"
                 MyRecords += "                </tr>"
@@ -369,17 +375,25 @@ Public Class GetItems
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='4'>"
                 MyRecords += "                        " & !RecKey
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='5'>"
-                Dim FileExtension As String = LCase(!FileName.ToString.Substring(!FileName.ToString.LastIndexOf(".") + 1))
-                Dim IsImage As Boolean = FileExtension = "png" Or FileExtension = "tiff" Or FileExtension = "jpg" Or FileExtension = "jpeg" Or FileExtension = "gif"
-                MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicFiles/FileManagement/" & !FileName & "' " & IIf(IsImage, "target='_blank' rel='noopener'", "") & ">"
-                MyRecords += "                        " & !FileName
-                MyRecords += "                        </a>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='5'>"
+                MyRecords += "                        " & !OriginalFileName
                 MyRecords += "                    </td>"
-                MyRecords += "                    <td class='GridCell GridContentCell' data-id='6'>"
-                MyRecords += "                        " & CommonMethods.FormatFileSize(!FileSize)
+                MyRecords += "                    <td class='GridCell GridContentCell Link' data-id='6'>"
+                Dim FilePath As String = HttpContext.Current.Server.MapPath("~/DynamicFiles/FileManagement/") & !FileName
+                If File.Exists(FilePath) Then
+                    Dim FileExtension As String = LCase(!FileName.ToString.Substring(!FileName.ToString.LastIndexOf(".") + 1))
+                    Dim IsImage As Boolean = FileExtension = "png" Or FileExtension = "tiff" Or FileExtension = "jpg" Or FileExtension = "jpeg" Or FileExtension = "gif" Or FileExtension = "xml"
+                    MyRecords += "                        <a href='" & clsGlobals.sAppPath & "DynamicFiles/FileManagement/" & !FileName & "' " & IIf(IsImage, "target='_blank' rel='noopener'", "") & ">"
+                    MyRecords += "                        " & !FileName
+                    MyRecords += "                        </a>"
+                Else
+                    MyRecords += "                        " & !FileName
+                End If
                 MyRecords += "                    </td>"
                 MyRecords += "                    <td class='GridCell GridContentCell' data-id='7'>"
+                MyRecords += "                        " & CommonMethods.FormatFileSize(!FileSize)
+                MyRecords += "                    </td>"
+                MyRecords += "                    <td class='GridCell GridContentCell' data-id='8'>"
                 MyRecords += "                        " & Format(!AddDate, "MM/dd/yyyy <br/> hh:mm:ss tt")
                 MyRecords += "                    </td>"
                 MyRecords += "                </tr>"
@@ -1335,13 +1349,13 @@ Public Class GetItems
     'Queries
     Private Sub GetFileManagementQuery(ByRef SQL As String)
         SQL += " select top " & CommonMethods.TopCount & " * from ("
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_PO' as ScreenName,POKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_PO' as ScreenName,POKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "PO_FILES UNION ALL"
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_ASN' as ScreenName,ReceiptKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_ASN' as ScreenName,ReceiptKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "RECEIPT_FILES UNION ALL"
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_SO' as ScreenName,OrderKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_SO' as ScreenName,OrderKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERS_FILES UNION ALL"
-        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_OrderManagement' as ScreenName,OrderManagKey as RecKey,FileName,FileSize,AddDate "
+        SQL += " select SerialKey, AddWho As UserKey,WHSEID, 'Warehouse_OrderManagement' as ScreenName,OrderManagKey as RecKey,OriginalFileName,FileName,FileSize,AddDate "
         SQL += " From " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & "ORDERMANAG_FILES"
         SQL += " ) as ds where 1=1 "
     End Sub

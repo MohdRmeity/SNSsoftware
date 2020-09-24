@@ -481,14 +481,14 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="QtyOrdered">
-                                    <span class="MyTitleHead">Open Ordered</span>
+                                <td class="GridCell GridHead" data-id="QtyOrdered" data-numeric="true">
+                                    <span class="MyTitleHead">Qty Ordered</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead borderRight0" data-id="QtyReceived">
+                                <td class="GridCell GridHead borderRight0" data-id="QtyReceived" data-numeric="true">
                                     <span class="MyTitleHead">Qty Received</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
@@ -796,6 +796,7 @@
 
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_PO", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
+        <input type="hidden" id="HiddenKeys" runat="server" class="HiddenKeys" value="" />
 
         <input type="hidden" id="HiddenCanUploadFiles" runat="server" class="HiddenCanUploadFiles" value="0" />
         <input type="hidden" id="HiddenCanViewOwnFiles" runat="server" class="HiddenCanViewOwnFiles" value="0" />

@@ -284,6 +284,5 @@
         <input type="hidden" class="MyFields" value="GridBackgroundColor" data-columnname="Grid Color" data-priority="5" data-hidden="false" />
         <input type="hidden" class="MyFields" value="ButtonBackgroundColor" data-columnname="Button Color" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyFields" value="TextBackgroundColor" data-columnname="Text Color" data-priority="7" data-hidden="false" />
-
     </div>
 </asp:Content>

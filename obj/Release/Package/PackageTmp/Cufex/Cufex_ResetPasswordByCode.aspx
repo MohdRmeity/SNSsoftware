@@ -11,7 +11,7 @@
     <div class="LogInMainDiv CufexBG GetFullHeightAtLeast CoverImage">
 
         <div class="NormalDiv">
-           <%-- <div class="HeaderFloat1">
+            <%-- <div class="HeaderFloat1">
                 <a href="<%= sAppPath %>" title="Cufex">
                     <img src="<%= sAppPath%>images/Cufex_Images/CufexLoginLogo.png" alt="Cufex Logo" /></a>
             </div>--%>
@@ -37,7 +37,7 @@
                                     <asp:RequiredFieldValidator ID="rqConfirmPassword" runat="server" ControlToValidate="txtConfirmPassword" CssClass="LogInError" Display="Dynamic" ErrorMessage=""></asp:RequiredFieldValidator>
                                 </div>
                             </div>
-                             <div class="floatL Width100 PasswordInfo" style="padding-left: 0; padding-right: 0; padding-top: 0;">
+                            <div class="floatL Width100 PasswordInfo" style="padding-left: 0; padding-right: 0; padding-top: 0;">
                                 * Password must be at least 10 characters, have one upper case letter, one lower case letter, one special character and one base 10 digits (0 to 9)
                             </div>
                             <div class="floatL Width100 MarginMe">
@@ -58,7 +58,7 @@
         $(document).ready(function () {
             Cufex_Set();
         });
-        $(window).load(function () {
+        $(window).on("load", function () {
             $('.LogInMainDiv').show();
             $('.DivFooter').show();
         });

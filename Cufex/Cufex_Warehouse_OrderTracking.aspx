@@ -604,42 +604,42 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="OriginalQty">
+                                <td class="GridCell GridHead" data-id="OriginalQty" data-numeric="true">
                                     <span class="MyTitleHead">Order Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="OpenQty">
+                                <td class="GridCell GridHead" data-id="OpenQty" data-numeric="true">
                                     <span class="MyTitleHead">Open Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="AvailableQty">
+                                <td class="GridCell GridHead" data-id="AvailableQty" data-numeric="true">
                                     <span class="MyTitleHead">Available Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="QtyAllocated">
+                                <td class="GridCell GridHead" data-id="QtyAllocated" data-numeric="true">
                                     <span class="MyTitleHead">Allocated Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="QtyPicked">
+                                <td class="GridCell GridHead" data-id="QtyPicked" data-numeric="true">
                                     <span class="MyTitleHead">Picked Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="ShippedQty">
+                                <td class="GridCell GridHead" data-id="ShippedQty" data-numeric="true">
                                     <span class="MyTitleHead">Shipped Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>

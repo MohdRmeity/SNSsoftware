@@ -58,7 +58,8 @@
                             <td id="TableAction2" runat="server">
                                 <div class="btnActions">Actions</div>
                                 <div class="ActionHiddenButtons">
-                                    <div class="BtnDoSomeThing AnimateMe" data-id="1"><span class="ion-ios-trending-up MyFontIon"></span><span style="vertical-align: 4px;">Release to SCE</span></div>
+                                    <!-- Mohamad Rmeity - Changing label from Release to SCE to Release to WMS -->
+                                    <div class="BtnDoSomeThing AnimateMe" data-id="1"><span class="ion-ios-trending-up MyFontIon"></span><span style="vertical-align: 4px;">Release to WMS</span></div>
                                     <div class="BtnDoSomeThing AnimateMe" data-id="2"><span class="ion-ios-trending-up MyFontIon"></span><span style="vertical-align: 4px;">Release & Allocate</span></div>
                                 </div>
                             </td>
@@ -77,7 +78,8 @@
                         <div class="AdjustColumns"></div>
                     </td>
                     <td class="GridCell GridHead" data-id="OrderManagKey">
-                        <span class="MyTitleHead">Order Manag Key</span>
+                        <!-- Mohamad Rmeity - Changing label from Order Manag Key to Order Management No. -->
+                        <span class="MyTitleHead">Order Management No.</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -98,21 +100,23 @@
                         </div>
                     </td>
                     <td class="GridCell GridHead" data-id="ExternOrderKey">
-                        <span class="MyTitleHead">Extern Order Key</span>
+                        <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+                        <span class="MyTitleHead">External Order No.</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
+                    <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
                     <td class="GridCell GridHead" data-id="ConsigneeKey">
-                        <span class="MyTitleHead">Consignee</span>
+                        <span class="MyTitleHead">Ship To</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
                         </div>
                     </td>
                     <td class="GridCell GridHead" data-id="ConsigneeName">
-                        <span class="MyTitleHead">Consignee Name</span>
+                        <span class="MyTitleHead">Ship To Name</span>
                         <div class="AbsoSorting">
                             <div class="SortUp"></div>
                             <div class="SortDown"></div>
@@ -308,13 +312,15 @@
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Order Key</div>
+                            <!-- Mohamad Rmeity - Changing label from Order Key to Order Management No. -->
+                            <div class="FloatRecordTitleNew">Order Management No.</div>
                             <div>
                                 <input type="text" class="textRecordStyle InputOrderManagKey" data-value="Auto Generated" data-disabled="" />
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Extern Order Key</div>
+                            <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+                            <div class="FloatRecordTitleNew">External Order No.</div>
                             <div>
                                 <input type="text" class="textRecordStyle InputExternOrderKey" />
                             </div>
@@ -346,9 +352,10 @@
                             </div>
                         </div>
                         <div class="FloatRecordNew floatL">
-                            <div class="FloatRecordTitleNew">Consignee</div>
+                            <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
+                            <div class="FloatRecordTitleNew">Ship To</div>
                             <div>
-                                <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey" data-mode="single">
+                                <select data-placeholder="Select Ship To" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                 </select>
                             </div>
                         </div>
@@ -458,7 +465,7 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="OpenQty">
+                                <td class="GridCell GridHead" data-id="OpenQty" data-numeric="true">
                                     <span class="MyTitleHead">Open Qty</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
@@ -479,7 +486,7 @@
                                         <div class="SortDown"></div>
                                     </div>
                                 </td>
-                                <td class="GridCell GridHead" data-id="UnitPrice">
+                                <td class="GridCell GridHead" data-id="UnitPrice" data-numeric="true">
                                     <span class="MyTitleHead">Price</span>
                                     <div class="AbsoSorting">
                                         <div class="SortUp"></div>
@@ -882,14 +889,16 @@
                                     </div>
                                 </div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Order Key</div>
+                                    <!-- Mohamad Rmeity - Changing label from Order Manag Key to Order Management No. -->
+                                    <div class="FloatRecordTitle floatL">Order Management No.</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputOrderManagKey" data-value="Auto Generated" data-disabled="" />
                                     </div>
                                 </div>
                                 <div class="FloatRecordSep floatL"></div>
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Extern Order Key</div>
+                                    <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+                                    <div class="FloatRecordTitle floatL">External Order No.</div>
                                     <div class="FloatRecordField floatL">
                                         <input type="text" class="textRecordStyle InputExternOrderKey" />
                                     </div>
@@ -922,10 +931,11 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
                                 <div class="FloatRecord floatL">
-                                    <div class="FloatRecordTitle floatL">Consignee</div>
+                                    <div class="FloatRecordTitle floatL">Ship To</div>
                                     <div class="FloatRecordField floatL">
-                                        <select data-placeholder="Select Consignees" multiple class="chosen-select InputConsigneeKey" data-mode="single">
+                                        <select data-placeholder="Select Ship To" multiple class="chosen-select InputConsigneeKey" data-mode="single">
                                         </select>
                                     </div>
                                 </div>
@@ -1021,6 +1031,13 @@
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
+                                                <div class="Details_FloatRecordTitle floatL">UDF1</div>
+                                                <div class="Details_FloatRecordField floatL">
+                                                    <input type="text" class="Details_textRecordStyle InputDetailsSUsr1" />
+                                                </div>
+                                            </div>
+                                            <!-- Mohamad Rmeity - Changing Order Management Detail record to have less fields -->
+                                            <%--<div class="Details_FloatRecord floatL">
                                                 <div class="Details_FloatRecordTitle floatL">Price</div>
                                                 <div class="Details_FloatRecordField floatL">
                                                     <input type="text" class="Details_textRecordStyle InputDetailsPrice" data-disabled="" />
@@ -1030,12 +1047,6 @@
                                                 <div class="Details_FloatRecordTitle floatL">Currency</div>
                                                 <div class="Details_FloatRecordField floatL">
                                                     <input type="text" class="Details_textRecordStyle InputDetailsCurrency" data-disabled="" />
-                                                </div>
-                                            </div>
-                                            <div class="Details_FloatRecord floatL">
-                                                <div class="Details_FloatRecordTitle floatL">UDF1</div>
-                                                <div class="Details_FloatRecordField floatL">
-                                                    <input type="text" class="Details_textRecordStyle InputDetailsSUsr1" />
                                                 </div>
                                             </div>
                                             <div class="Details_FloatRecord floatL">
@@ -1115,7 +1126,7 @@
                                                 <div class="Details_FloatRecordField floatL">
                                                     <input type="text" class="Details_textRecordStyle InputDetailsLottable10" />
                                                 </div>
-                                            </div>
+                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -1157,12 +1168,15 @@
         <input type="hidden" class="HiddenDetailLink" value="<%= Server.UrlDecode(Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)) %>" />
         <input type="hidden" id="HiddenID" runat="server" class="HiddenID" value="0" />
 
-        <input type="hidden" class="MyFields" value="OrderManagKey" data-columnname="Order Manag Key" data-priority="1" data-hidden="false" data-primarykey="true" />
+        <!-- Mohamad Rmeity - Changing label from Order Manag Key to Order Management No. -->
+        <input type="hidden" class="MyFields" value="OrderManagKey" data-columnname="Order Management No." data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="Facility" data-columnname="Facility" data-priority="2" data-hidden="false" />
         <input type="hidden" class="MyFields" value="StorerKey" data-columnname="Owner" data-priority="3" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ExternOrderKey" data-columnname="Extern Order Key" data-priority="4" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Consignee" data-priority="5" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ConsigneeName" data-columnname="Consignee Name" data-priority="6" data-hidden="false" />
+        <!-- Mohamad Rmeity - Changing label from Extern Order Key to External Order No. -->
+        <input type="hidden" class="MyFields" value="ExternOrderKey" data-columnname="External Order No." data-priority="4" data-hidden="false" />
+        <!-- Mohamad Rmeity - Changing label from Consignee to Ship To -->
+        <input type="hidden" class="MyFields" value="ConsigneeKey" data-columnname="Ship To" data-priority="5" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="ConsigneeName" data-columnname="Ship To Name" data-priority="6" data-hidden="false" />
         <input type="hidden" class="MyFields" value="OrderManagStatus" data-columnname="Status" data-priority="7" data-hidden="false" />
         <input type="hidden" class="MyFields" value="Type" data-columnname="Type" data-priority="8" data-hidden="false" />
         <input type="hidden" class="MyFields" value="OrderDate" data-columnname="Order Date" data-priority="9" data-hidden="false" />

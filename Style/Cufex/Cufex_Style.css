@@ -4284,12 +4284,11 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
 }
 
 .gmnoprint a, .gmnoprint span, .gm-style-cc, .gm-style-mtc, img[src="https://maps.gstatic.com/mapfiles/api-3/images/google4.png"] {
-    display: none;
+    display: none !important;
 }
 /*#endregion Map */
 
 /*#region TableStyle*/
-
 .Table_Style {
     border-color: #e5e5e5;
     border-style: solid;
@@ -13951,7 +13950,7 @@ html body .RadInput_Bootstrap .riTextBox, html body .RadInputMgr_Bootstrap {
     padding: 8px 25px;
     position: relative;
     display: none;
-    opacity:0;
+    opacity: 0;
 }
 
     .btnVAS:hover {

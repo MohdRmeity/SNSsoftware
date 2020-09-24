@@ -159,7 +159,7 @@
 
         <input type="hidden" class="MyFields" value="UserKey" data-columnname="User ID" data-priority="1" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="ScreenName" data-columnname="Screen Name" data-priority="2" data-hidden="false" data-primarykey="true" />
-        <input type="hidden" class="MyFields" value="RecordsCount" data-columnname="Records Count" data-priority="3" data-hidden="false"/>
+        <input type="hidden" class="MyFields" value="RecordsCount" data-columnname="Records Count" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyFields" value="AddDate" data-columnname="Log Date" data-priority="4" data-hidden="false" />
     </div>
 </asp:Content>

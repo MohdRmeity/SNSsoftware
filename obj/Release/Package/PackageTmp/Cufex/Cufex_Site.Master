@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <%@ Register Src="~/Controls/Cufex_Components/Cufex_MasterHeader.ascx" TagPrefix="uc1" TagName="Cufex_MasterHeader" %>
+<%@ Register Src="~/Controls/Cufex_Components/Cufex_Warehouse_OrderTracking_CarrierEvents.ascx" TagPrefix="uc1" TagName="Cufex_Warehouse_OrderTracking_CarrierEvents" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -30,8 +31,6 @@
         <link href="<%= sAppPath %>Style/Jcrop/jquery.Jcrop.min.css?<%=AppVersion%>" rel="stylesheet" type="text/css" />
         <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet" />
         <link rel="shortcut icon" href="<%=sAppPath %>favicon.ico" />
-
-
     </asp:ContentPlaceHolder>
     <asp:ContentPlaceHolder ID="Cufex_HeadContent" runat="server">
     </asp:ContentPlaceHolder>
@@ -52,9 +51,8 @@
                 var BUserCode = "<%= BUserCode%>";
             </script>
 
-            <script src="<%=sAppPath %>JS/JqueryMain/jquery-3.4.1.min.js?v=<%=AppVersion%>" type="text/javascript"></script>
+            <script src="<%=sAppPath %>JS/JqueryMain/jquery-3.5.1.min.js?v=<%=AppVersion%>" type="text/javascript"></script>
             <script src="<%= sAppPath %>js/JqueryMain/jquery-migrate-1.4.1.min.js?v=<%=AppVersion%>" type="text/javascript"></script>
-
 
             <input type="hidden" class="sAppPath" value="<%=sAppPath %>" />
             <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server">
@@ -147,7 +145,6 @@
                                             <div id="DivSubMain_Configuration_ShipFrom" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ShipFrom", Nothing)%>">Ship From</a></div>
                                             <div id="DivSubMain_Configuration_Items" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_Items", Nothing)%>">Items</a></div>
                                             <div id="DivSubMain_Configuration_ItemCatalogue" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Configuration_ItemCatalogue", Nothing)%>">Item Catalogue</a></div>
-
                                         </div>
                                     </div>
                                     <div id="DivMain_Warehouse" runat="server">
@@ -165,6 +162,7 @@
                                             <div id="DivSubMain_Warehouse_ASN" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_ASN", Nothing)%>">ASN</a></div>
                                             <div id="DivSubMain_Warehouse_Shipment" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_Shipment", Nothing)%>">Shipment</a></div>
                                             <div id="DivSubMain_Warehouse_OrderManagement" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderManagement", Nothing)%>">Order Management</a></div>
+                                            <div id="DivSubMain_Warehouse_OrderTracking" runat="server"><a href="<%= Page.GetRouteUrl("SNSsoftware-Cufex-Warehouse_OrderTracking", Nothing)%>">Order Tracking</a></div>
                                         </div>
                                     </div>
                                     <div id="DivMain_Inventory" runat="server">
@@ -219,13 +217,13 @@
                         </div>
                     </div>
                 </div>
+                <uc1:Cufex_Warehouse_OrderTracking_CarrierEvents runat="server" ID="CarrierEvents" />
                 <asp:ContentPlaceHolder ID="LogInContainer" runat="server">
                 </asp:ContentPlaceHolder>
                 <div class="PointsMenu">
                 </div>
             </div>
         </div>
-
 
         <asp:UpdatePanel ID="panel1" runat="server">
             <ContentTemplate>
@@ -246,7 +244,6 @@
             </ContentTemplate>
         </asp:UpdatePanel>
 
-
         <script type="text/javascript" src="<%= sAppPath %>js/CaroufredSel/jquery.mousewheel.min.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>js/CaroufredSel/jquery.touchSwipe.min.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>js/CaroufredSel/jquery.transit.min.js?v=<%=AppVersion%>"></script>
@@ -262,14 +259,11 @@
         <script type="text/javascript" src="<%= sAppPath %>JS/ColResizable/colResizable-1.6.min.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/ColorPicker/jscolor.js?v=<%=AppVersion%>"></script>
 
-
-
         <asp:ContentPlaceHolder ID="Cufex_ScriptContent" runat="server">
         </asp:ContentPlaceHolder>
 
         <script type="text/javascript" src="<%= sAppPath %>js/JqueryMain/jquery-ui.min.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>js/JqueryMain/modernizr.custom.js?v=<%=AppVersion%>"></script>
-
 
         <script type="text/javascript" src="<%= sAppPath %>JS/Cufex/legacy.js?v=<%=AppVersion%>"></script>
         <script type="text/javascript" src="<%= sAppPath %>JS/Jcrop/jquery.Jcrop.js?v=<%=AppVersion%>"></script>

@@ -23,10 +23,10 @@ dxDemo.Navigation = {
         var newParameterValue = value ? key + "=" + encodeURIComponent(value) : "";
         var newUrl;
         if (uri.match(re)) {
-            var separator = !!newParameterValue ? '$1' : "";
+            separator = !newParameterValue ? '$1' : "";
             newUrl = uri.replace(re, separator + newParameterValue + '$2');
         }
-        else if (!!newParameterValue) {
+        else if (!newParameterValue) {
             newUrl = uri + separator + newParameterValue;
         }
         return newUrl;
@@ -48,7 +48,7 @@ dxDemo.Navigation = {
     }
 };
 
-function onDashboardTitleToolbarUpdated(args) {
+function onDashboardTitleToolbarUpdated(s, e) {
     var colorSchemaList = {
         "light": "Light",
         "dark": "Dark",
@@ -57,29 +57,23 @@ function onDashboardTitleToolbarUpdated(args) {
         "greenmist": "Green Mist",
         "darkviolet": "Dark Violet",
         "softblue": "Soft Blue",
-
         "light.compact": "Light Compact",
         "dark.compact": "Dark Compact",
-        //"carmine.compact": "Carmine Compact",
-        //"darkmoon.compact": "Dark Moon Compact",
-        //"greenmist.compact": "Green Mist Compact",
-        //"darkviolet.compact": "Dark Violet Compact",
-        //"softblue.compact": "Soft Blue Compact"
 
         "light-blue": "Light Blue",
         "dark-blue": "Dark Blue "
     };
 
     if (dxDemo.Sidebar && DevExpress.devices.real().phone) {
-        args.options.actionItems.unshift(dxDemo.Sidebar.getToolbarItem(args.component));
+        e.Options.actionItems.unshift(dxDemo.Sidebar.getToolbarItem(s.component));
     }
 
-    args.options.actionItems.unshift({
+    e.Options.actionItems.unshift({
         type: "menu",
         icon: "colorSchemeIcon",
         hint: "Theme",
         menu: {
-            items: Object.keys(colorSchemaList).map(function (key) { return colorSchemaList[key] }),
+            items: Object.keys(colorSchemaList).map(function (key) { return colorSchemaList[key]; }),
             type: 'list',
             selectionMode: 'single',
             selectedItems: [colorSchemaList[dxDemo.State.getColorSchema()]],
@@ -127,17 +121,21 @@ function onBeforeRender(sender) {
         dxDemo.State.isDesignerMode = isDesignValue;
     });
 
-    var svgIcon = ' <svg  id="exportItemIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="5px"width="15" height="15"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#707070"><path d="M143.33333,0c-15.84505,0 -28.66667,12.82162 -28.66667,28.66667c0,1.98763 0.27995,3.94726 0.67188,5.82292l-65.17187,32.69792c-5.26302,-6.01888 -12.8776,-9.85417 -21.5,-9.85417c-15.84505,0 -28.66667,12.82162 -28.66667,28.66667c0,15.84506 12.82162,28.66667 28.66667,28.66667c8.6224,0 16.23698,-3.83528 21.5,-9.85417l65.17188,32.69792c-0.39192,1.87565 -0.67187,3.83528 -0.67187,5.82292c0,15.84506 12.82162,28.66667 28.66667,28.66667c15.84506,0 28.66667,-12.82161 28.66667,-28.66667c0,-15.84505 -12.82161,-28.66667 -28.66667,-28.66667c-8.6224,0 -16.23698,3.83528 -21.5,9.85417l-65.17187,-32.69792c0.39193,-1.87565 0.67188,-3.83528 0.67188,-5.82292c0,-1.98763 -0.27994,-3.94726 -0.67187,-5.82292l65.17188,-32.69792c5.26302,6.01888 12.8776,9.85417 21.5,9.85417c15.84506,0 28.66667,-12.82161 28.66667,-28.66667c0,-15.84505 -12.82161,-28.66667 -28.66667,-28.66667z"></path></g></g></svg>'
+    var svgIcon = ' <svg  id="exportItemIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="5px"width="15" height="15"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#707070"><path d="M143.33333,0c-15.84505,0 -28.66667,12.82162 -28.66667,28.66667c0,1.98763 0.27995,3.94726 0.67188,5.82292l-65.17187,32.69792c-5.26302,-6.01888 -12.8776,-9.85417 -21.5,-9.85417c-15.84505,0 -28.66667,12.82162 -28.66667,28.66667c0,15.84506 12.82162,28.66667 28.66667,28.66667c8.6224,0 16.23698,-3.83528 21.5,-9.85417l65.17188,32.69792c-0.39192,1.87565 -0.67187,3.83528 -0.67187,5.82292c0,15.84506 12.82162,28.66667 28.66667,28.66667c15.84506,0 28.66667,-12.82161 28.66667,-28.66667c0,-15.84505 -12.82161,-28.66667 -28.66667,-28.66667c-8.6224,0 -16.23698,3.83528 -21.5,9.85417l-65.17187,-32.69792c0.39193,-1.87565 0.67188,-3.83528 0.67188,-5.82292c0,-1.98763 -0.27994,-3.94726 -0.67187,-5.82292l65.17188,-32.69792c5.26302,6.01888 12.8776,9.85417 21.5,9.85417c15.84506,0 28.66667,-12.82161 28.66667,-28.66667c0,-15.84505 -12.82161,-28.66667 -28.66667,-28.66667z"></path></g></g></svg>';
 
-
+    var svgIcon2 = ' <svg  id="exportItemIconMain" xmlns="http://www.w3.org/2000/svg" x="0px" y="5px"width="15" height="15"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#707070"><path d="M143.33333,0c-15.84505,0 -28.66667,12.82162 -28.66667,28.66667c0,1.98763 0.27995,3.94726 0.67188,5.82292l-65.17187,32.69792c-5.26302,-6.01888 -12.8776,-9.85417 -21.5,-9.85417c-15.84505,0 -28.66667,12.82162 -28.66667,28.66667c0,15.84506 12.82162,28.66667 28.66667,28.66667c8.6224,0 16.23698,-3.83528 21.5,-9.85417l65.17188,32.69792c-0.39192,1.87565 -0.67187,3.83528 -0.67187,5.82292c0,15.84506 12.82162,28.66667 28.66667,28.66667c15.84506,0 28.66667,-12.82161 28.66667,-28.66667c0,-15.84505 -12.82161,-28.66667 -28.66667,-28.66667c-8.6224,0 -16.23698,3.83528 -21.5,9.85417l-65.17187,-32.69792c0.39193,-1.87565 0.67188,-3.83528 0.67188,-5.82292c0,-1.98763 -0.27994,-3.94726 -0.67187,-5.82292l65.17188,-32.69792c5.26302,6.01888 12.8776,9.85417 21.5,9.85417c15.84506,0 28.66667,-12.82161 28.66667,-28.66667c0,-15.84505 -12.82161,-28.66667 -28.66667,-28.66667z"></path></g></g></svg>';
 
     DevExpress.Dashboard.ResourceManager.registerIcon(svgIcon);
+    DevExpress.Dashboard.ResourceManager.registerIcon(svgIcon2);
 
     panelExtension = new DevExpress.Dashboard.DashboardPanelExtension(dashboardControl, { dashboardThumbnail: "./Content/DashboardThumbnail/{0}.png" });
     dashboardControl.registerExtension(panelExtension);
 
     dashboardControl.registerExtension(new SaveAsDashboardExtension(dashboardControl));
     dashboardControl.registerExtension(new DeleteDashboardExtension(sender));
+
+    dashboardControl.registerExtension(new ImportXMLDashboardExtension(sender));
+    dashboardControl.registerExtension(new ExportDashboardExtension(sender));
 }
 function onExpand() {
     var control = webDesigner.GetDashboardControl();
@@ -172,11 +170,11 @@ function initializeControls() {
 
 function getDashboardIDs() {
     return webDashboard.cpGetDashboardIDs;
-};
+}
 
 function dashboardExportedSuccess(args) {
     DevExpress.ui.notify('A dashboard was exported to ' + args.result, 'success', 5000);
-};
+}
 
 function ItemCaptionToolbarUpdated(s, e) {
     var formInstance = null;
@@ -196,7 +194,7 @@ function ItemCaptionToolbarUpdated(s, e) {
                 position: {
                     my: 'center',
                     at: 'center',
-                    of: '#ctl00_TableNotloggedIn'
+                    of: '#ctl00_Cufex_MainContent_ASPxDashboard1'
                 },
                 dragEnabled: true,
                 contentTemplate: function (e) {
@@ -266,14 +264,15 @@ function ItemCaptionToolbarUpdated(s, e) {
             });
         }
     });
-};
+}
 
 function DashboardTitleToolbarUpdated(s, e) {
+    onDashboardTitleToolbarUpdated(s, e);
     var formInstance = null;
     e.Options.actionItems.push({
         type: "button",
         text: "Email",
-        icon: "exportItemIcon",
+        icon: "exportItemIconMain",
         click: function () {
             var selectedDashboardID = webDesigner.GetDashboardId();
             var parameters = "ExportDashboard" + "|" + selectedDashboardID;
@@ -286,7 +285,7 @@ function DashboardTitleToolbarUpdated(s, e) {
                 position: {
                     my: 'center',
                     at: 'center',
-                    of: '#ctl00_TableNotloggedIn'
+                    of: '#ctl00_Cufex_MainContent_ASPxDashboard1'
                 },
                 dragEnabled: true,
                 contentTemplate: function (e) {
@@ -356,4 +355,4 @@ function DashboardTitleToolbarUpdated(s, e) {
             });
         }
     });
-};
+}

@@ -1103,10 +1103,24 @@ function SetGridActions() {
         }
 
         if ($(".GridResults").length > 0) {
-            SortTable($(this).index(), dir);
+            //SortTable($(this).index(), dir);
+            var isNumeric = $(this).attr("data-numeric") == "true";
+            var index = $(this).index();
+            var sorted = $(this).closest(".GridContainer").find('.GridResults').sort(function (a, b) {
+                var a = $(a).find('td').eq(index).text(), b = $(b).find('td').eq(index).text();
+                if (dir == "asc") {
+                    return a.localeCompare(b, false, { numeric: isNumeric });
+                }
+                else {
+                    return b.localeCompare(a, false, { numeric: isNumeric });
+
+                }
+            });
+            $(this).closest(".GridContainer").find('.SearchStyle').after(sorted);
             if ($("MyTab").length > 0) PageTableTab(GridName);
             else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
+            setTimeout(function () { InitColResizable(); }, 300);
         }
     });
 
@@ -1127,10 +1141,18 @@ function SetGridActions() {
         else SortByDetails = $(this).parent().parent().attr("data-id") + " asc";
 
         if ($(".GridResults").length > 0) {
-            SortTable($(this).closest(".GridCell").index(), "asc");
+            //SortTable($(this).closest(".GridCell").index(), "asc");
+            var isNumeric = $(this).closest(".GridCell").attr("data-numeric") == "true";
+            var index = $(this).closest(".GridCell").index();
+            var sorted = $(this).closest(".GridContainer").find('.GridResults').sort(function (a, b) {
+                var a = $(a).find('td').eq(index).text(), b = $(b).find('td').eq(index).text();
+                return a.localeCompare(b, false, { numeric: isNumeric });
+            });
+            $(this).closest(".GridContainer").find('.SearchStyle').after(sorted);
             if ($("MyTab").length > 0) PageTableTab(GridName);
             else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
+            setTimeout(function () { InitColResizable(); }, 300);
         }
     });
 
@@ -1151,10 +1173,18 @@ function SetGridActions() {
         else SortByDetails = $(this).parent().parent().attr("data-id") + " desc";
 
         if ($(".GridResults").length > 0) {
-            SortTable($(this).closest(".GridCell").index(), "desc");
+            //SortTable($(this).closest(".GridCell").index(), "desc");
+            var isNumeric = $(this).closest(".GridCell").attr("data-numeric") == "true";
+            var index = $(this).closest(".GridCell").index();
+            var sorted = $(this).closest(".GridContainer").find('.GridResults').sort(function (a, b) {
+                var a = $(a).find('td').eq(index).text(), b = $(b).find('td').eq(index).text();
+                return b.localeCompare(a, false, { numeric: isNumeric });
+            });
+            $(this).closest(".GridContainer").find('.SearchStyle').after(sorted);
             if ($("MyTab").length > 0) PageTableTab(GridName);
             else PageTable(GridName);
             $('.Arrow-Left-Back-First').trigger("click");
+            setTimeout(function () { InitColResizable(); }, 300);
         }
     });
 
@@ -1345,11 +1375,13 @@ function SetGridActions() {
         if ($(".HeaderGridView:visible").length > 0) {
             $(".HeaderGridView").find('.SearchClass').val("");
             $(".HeaderGridView").find('.chosen-select').val("").trigger("chosen:updated");
+            $(".HeaderGridView").find('.chosen-select').siblings(".chosen-container").find(".search-field").show();
             SearchQuery = "";
         }
         else {
             $(".DetailsGridView").find('.SearchClass').val("");
             $(".DetailsGridView").find('.chosen-select').val("").trigger("chosen:updated");
+            $(".DetailsGridView").find('.chosen-select').siblings(".chosen-container").find(".search-field").show();
             SearchQueryDetails = "";
         }
     });
@@ -1595,9 +1627,11 @@ function SetDropZone() {
     if ($(".dropzone").length > 0) {
         myDropzone = new Dropzone(".dropzone", {
             url: sAppPath + "WebServices/FileUpload.ashx",
-            addRemoveLinks: $(".HiddenCanRemoveOwnFiles").val() == 0 && $(".HiddenCanRemoveOwnFiles").val() == 0 ? false : true,
+            //addRemoveLinks: $(".HiddenCanRemoveOwnFiles").val() == 0 && $(".HiddenCanRemoveOwnFiles").val() == 0 ? false : true,
+            addRemoveLinks: true,
             maxFilesize: $(".HiddenFileUploadLimit").val(),
             autoProcessQueue: false,
+            timeout: 0,
             success: function (file, response) {
                 file.previewElement.classList.add("dz-success");
             },
@@ -1606,7 +1640,8 @@ function SetDropZone() {
             },
             removedfile: function (file) {
                 if (file.status != "queued" && file.status != "canceled" && file.status != "error" && file.status != "added" && file.status != "success") {
-                    var success = UploadedFileAction(file.name, file.size, "delete");
+                    var originalFileName = file.previewElement.querySelector('[data-dz-name]').innerHTML;
+                    var success = UploadedFileAction(originalFileName, file.name, file.size, "delete");
                     if (success) file.previewElement.remove();
                 } else {
                     file.previewElement.remove();
@@ -1969,7 +2004,7 @@ function DeleteItemsDetails(MyItems) {
     }
 }
 
-function UploadedFileAction(FileName, FileSize, ActivityType) {
+function UploadedFileAction(OriginalFileName, FileName, FileSize, ActivityType) {
     var success = true;
     AvoidWebServiceRaceCondition = 0;
     if (AvoidWebServiceRaceCondition == 0) {
@@ -1988,6 +2023,7 @@ function UploadedFileAction(FileName, FileSize, ActivityType) {
                 "Facility": $(".NewHeaderRecord").find(".InputFacility ").siblings(".chosen-container").find(".search-choice").find("span").html(),
                 "Key": MyKey,
                 "SearchTable": $('.MainPageTitle').attr("data-id"),
+                "OriginalFileName": OriginalFileName,
                 "FileName": FileName,
                 "FileSize": FileSize,
                 "ActivityType": ActivityType
@@ -2210,6 +2246,7 @@ function SaveItemsNew() {
         }
         if (success) {
             AvoidWebServiceRaceCondition = 0;
+            var Timer = 0;
             if ($(".dropzone").length > 0) {
                 myDropzone.options.parallelUploads = $(".dz-preview").length;
                 myDropzone.options.params = {
@@ -2219,18 +2256,24 @@ function SaveItemsNew() {
                     ActivityType: "upload"
                 };
                 myDropzone.processQueue();
+                if (!$(".dropzone").parent("div").hasClass("DisplayNone")) Timer = 3000;
             }
+
             $(".HeaderGridView").mCustomScrollbar("scrollTo", "first");
             $(".HeaderGridView").mCustomScrollbar("update");
             if ($(".MyRecordID").val() == 0) {
-                DisplayItemNew(obj.serialkey, obj.Warehouse + "~~~" + obj.key, obj.queryurl);
+                setTimeout(function () {
+                    DisplayItemNew(obj.serialkey, obj.Warehouse + "~~~" + obj.key, obj.queryurl);
+                }, Timer);
             }
             else {
                 if ($(".DetailsGridView:visible").length == 0 && $(".MyDetailRecordID").length > 0) {
                     SaveItemsDetails(obj.serialkey, obj.queryurl);
                 }
                 else {
-                    DisplayItemNew(obj.serialkey, obj.Warehouse + "~~~" + obj.key, obj.queryurl);
+                    setTimeout(function () {
+                        DisplayItemNew(obj.serialkey, obj.Warehouse + "~~~" + obj.key, obj.queryurl);
+                    }, Timer);
                 }
             }
         }
@@ -2697,6 +2740,8 @@ function DisplayItemNew(DisplayID, Keys, QueryURL) {
                         var myFileSize = "";
                         var myFile = "";
                         var myFileExtension = "";
+                        var myOriginalFile = "";
+                        var UploaderName = "";
                         var isImage = false;
                         var ItsMyFile = true;
 
@@ -2708,6 +2753,8 @@ function DisplayItemNew(DisplayID, Keys, QueryURL) {
                         }
                         if (MyFilesValues.length > 1) { myFileSize = MyFilesValues[1]; }
                         if (MyFilesValues.length > 2) { ItsMyFile = MyFilesValues[2] == "0" ? true : false; }
+                        if (MyFilesValues.length > 3) { myOriginalFile = MyFilesValues[3] }
+                        if (MyFilesValues.length > 4) { UploaderName = MyFilesValues[4] }
 
                         var mockFile = { name: myFile, size: myFileSize };
                         myDropzone.options.addedfile.call(myDropzone, mockFile);
@@ -2715,34 +2762,42 @@ function DisplayItemNew(DisplayID, Keys, QueryURL) {
                             myDropzone.options.thumbnail.call(myDropzone, mockFile, sAppPath + "DynamicFiles/FileManagement/" + myFile);
                         }
                         myDropzone.emit("complete", mockFile);
+                        $(".dz-preview").eq(i).find(".dz-filename").html("<span data-dz-name>" + myOriginalFile + "</span>");
 
                         var a = document.createElement('a');
                         a.setAttribute('href', sAppPath + "DynamicFiles/FileManagement/" + myFile);
                         a.setAttribute('class', "dz-remove download");
                         a.setAttribute("data-filename", myFile);
                         a.setAttribute("data-filesize", myFileSize);
-                        if (isImage) a.setAttribute('target', '_blank');
+                        a.setAttribute("data-originalfileName", myOriginalFile);
+                        if (isImage || myFileExtension == "xml") a.setAttribute('target', '_blank');
                         a.innerHTML = "View file";
                         $(".dz-preview").eq(i).find(".dz-remove").after(a);
+
+                        var div = document.createElement("div");
+                        div.setAttribute('class', "dz-remove uploadedby");
+                        div.innerHTML = "Uploaded by <span>" + UploaderName + "</span>";
+                        $(".dz-preview").eq(i).find(a).after(div);
+
                         $(".dz-default").hide();
 
                         if ($(".HiddenCanViewOwnFiles").val() == 0 && $(".HiddenCanViewAllFiles").val() == 0) {
-                            $(".dz-preview").eq(i).find(".dz-remove download").hide();
+                            $(".dz-preview").eq(i).find(a).hide();
                         }
                         else if ($(".HiddenCanViewOwnFiles").val() == 1 && $(".HiddenCanViewAllFiles").val() == 0) {
-                            if (!ItsMyFile) $(".dz-preview").eq(i).find(".dz-remove download").hide();
+                            if (!ItsMyFile) $(".dz-preview").eq(i).find(a).hide();
                         }
 
                         if ($(".HiddenCanRemoveOwnFiles").val() == 0 && $(".HiddenCanRemoveAllFiles").val() == 0) {
-                            $(".dz-preview").eq(i).find(".dz-remove").hide();
+                            $(".dz-preview").eq(i).find(".dz-remove[data-dz-remove]").hide();
                         }
                         else if ($(".HiddenCanRemoveOwnFiles").val() == 1 && $(".HiddenCanRemoveAllFiles").val() == 0) {
-                            if (!ItsMyFile) $(".dz-preview").eq(i).find(".dz-remove").hide();
+                            if (!ItsMyFile) $(".dz-preview").eq(i).find(".dz-remove[data-dz-remove]").hide();
                         }
                     });
 
                     $(".dz-remove.download").click(function () {
-                        UploadedFileAction($(this).attr("data-filename"), $(this).attr("data-filesize"), "view");
+                        UploadedFileAction($(this).attr("data-originalfilename"), $(this).attr("data-filename"), $(this).attr("data-filesize"), "view");
                     });
                 }
 
@@ -4813,10 +4868,10 @@ function GetCarrierDetails() {
                 $(this).css({ "top": top, "height": height });
             });
 
-            $(".map").each(function (e) {
-                var location = $(this).data("location");
-                initMap(e, location);
-            });
+            //$(".map").each(function (e) {
+            //    var location = $(this).data("location");
+            //    initMap(e, location);
+            //});
 
             $(".EventsDiv").hide();
             $('.preloader2').fadeOut(300, function () {

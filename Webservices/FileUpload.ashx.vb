@@ -32,12 +32,13 @@ Public Class FileUpload
                     fileExtension = Path.GetExtension(fileName)
                     str_file = SearchTable & "-" & Warehouse & "-" & Key & "-" & fileName.Substring(0, fileName.LastIndexOf(".")) & "-" & Now.Ticks & fileExtension
                     pathToSave = dirFullPath & str_file
-                    tmp = SaveUploadedFile(SearchTable, Warehouse, Key, str_file, fileSize)
-                    If tmp = "" Then tmp = CommonMethods.SaveFileActiviyLogs(SearchTable, Warehouse, Key, str_file, Val(fileSize), ActivityType)
+                    tmp = SaveUploadedFile(SearchTable, Warehouse, Key, fileName, str_file, fileSize)
+                    If tmp = "" Then tmp = CommonMethods.SaveFileActiviyLogs(SearchTable, Warehouse, Key, fileName, str_file, Val(fileSize), ActivityType)
                     If tmp = "" Then File.SaveAs(pathToSave)
                 End If
             Next
         Else
+            Dim OriginalFileName As String = HttpContext.Current.Request.Item("OriginalFileName")
             str_file = HttpContext.Current.Request.Item("FileName")
             fileSize = HttpContext.Current.Request.Item("FileSize")
             Dim TableName As String = "", KeyName As String = ""
@@ -55,13 +56,17 @@ Public Class FileUpload
                 KeyName = "ORDERMANAGKEY"
             End If
             If ActivityType = "delete" Then tmp = (New SQLExec).Execute("Delete from " & IIf(CommonMethods.dbtype <> "sql", "SYSTEM.", "") & TableName & " Where WHSEID='" & Warehouse & "' and " & KeyName & "='" & Key & "' and FileName = '" & str_file & "'")
-            If tmp = "" Then tmp = CommonMethods.SaveFileActiviyLogs(SearchTable, Warehouse, Key, str_file, Val(fileSize), ActivityType)
+            If tmp = "" Then tmp = CommonMethods.SaveFileActiviyLogs(SearchTable, Warehouse, Key, OriginalFileName, str_file, Val(fileSize), ActivityType)
+            If tmp = "" Then
+                Dim FileToDelete As String = dirFullPath & str_file
+                If File.Exists(FileToDelete) Then File.Delete(FileToDelete)
+            End If
         End If
 
         context.Response.Write(tmp & "~~~" & str_file)
     End Sub
 
-    Private Function SaveUploadedFile(SearchTable, Warehouse, Key, FileName, FileSize) As String
+    Private Function SaveUploadedFile(SearchTable, Warehouse, Key, OriginalFileName, FileName, FileSize) As String
         Dim tmp As String = ""
         Dim TableName As String = ""
         Dim KeyName As String = ""
@@ -82,7 +87,7 @@ Public Class FileUpload
 
         Try
             If CommonMethods.dbtype = "sql" Then
-                Dim insert As String = "set dateformat dmy insert into dbo." & TableName & " (WHSEID," & KeyName & ",FileName,FileSize,ADDDATE,ADDWHO) values (@warehouse, @key, @filename,@filesize,'" & Now & "',@ukey);"
+                Dim insert As String = "set dateformat dmy insert into dbo." & TableName & " (WHSEID," & KeyName & ",OriginalFileName,FileName,FileSize,ADDDATE,ADDWHO) values (@warehouse, @key,@originalfilename,@filename,@filesize,'" & Now & "',@ukey);"
 
                 Dim conn As SqlConnection = New SqlConnection(CommonMethods.dbconx)
                 conn.Open()
@@ -90,6 +95,7 @@ Public Class FileUpload
                 Dim cmd As SqlCommand = New SqlCommand(insert, conn)
                 cmd.Parameters.AddWithValue("@warehouse", Warehouse)
                 cmd.Parameters.AddWithValue("@key", Key)
+                cmd.Parameters.AddWithValue("@originalfilename", OriginalFileName)
                 cmd.Parameters.AddWithValue("@filename", FileName)
                 cmd.Parameters.AddWithValue("@filesize", FileSize)
                 cmd.Parameters.AddWithValue("@ukey", HttpContext.Current.Session("userkey"))
@@ -97,13 +103,14 @@ Public Class FileUpload
 
                 conn.Close()
             Else
-                Dim insert As String = "set dateformat dmy insert into SYSTEM." & TableName & " (WHSEID," & KeyName & ",FileName,ADDDATE,ADDWHO) values (:warehouse, :key, :filename,:filesize,SYSDATE,:ukey);"
+                Dim insert As String = "set dateformat dmy insert into SYSTEM." & TableName & " (WHSEID," & KeyName & ",OriginalFileName,FileName,ADDDATE,ADDWHO) values (:warehouse, :key,:originalfilename, :filename,:filesize,SYSDATE,:ukey);"
                 Dim conn As OracleConnection = New OracleConnection(CommonMethods.dbconx)
                 conn.Open()
 
                 Dim cmd As OracleCommand = New OracleCommand(insert, conn)
                 cmd.Parameters.Add(New OracleParameter("warehouse", Warehouse))
                 cmd.Parameters.Add(New OracleParameter("key", Key))
+                cmd.Parameters.Add(New OracleParameter("originalfilename", OriginalFileName))
                 cmd.Parameters.Add(New OracleParameter("filename", FileName))
                 cmd.Parameters.Add(New OracleParameter("filesize", FileSize))
                 cmd.Parameters.Add(New OracleParameter("ukey", HttpContext.Current.Session("userkey")))

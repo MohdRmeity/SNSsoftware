@@ -206,6 +206,10 @@
     <Content Include="Style\Cufex\Cufex_Style.min.css">
       <DependentUpon>Cufex_Style.css</DependentUpon>
     </Content>
+    <Content Include="Style\Dropzone\dropzone.css" />
+    <Content Include="Style\Dropzone\dropzone.min.css">
+      <DependentUpon>dropzone.css</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

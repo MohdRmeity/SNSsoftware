@@ -1,12 +1,12 @@
 var Pirobox = false;
 var ToucheEvent = false;
-var Responsive = true; 
+var Responsive = true;
 var ScrollSpeed = false;
 
 //ASK NADER BEFORE CHANGING ANYTHING BELOW THIS COMMENT
 var isMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 var isTablet = (/iPad/i.test(navigator.userAgent));
-var isIOS = (/iPhone|iPad|iPod/i.test(navigator.userAgent)); 
+var isIOS = (/iPhone|iPad|iPod/i.test(navigator.userAgent));
 var sAppPath = $('.sAppPath').val();
 
 var myClickEvent = ('ontouchstart' in document.documentElement ? "click" : "click");
@@ -15,19 +15,18 @@ $(document).ready(function () {
     MainLoad();
 });
 
-$(window).load(function () {
+$(window).on("load", function () {
     SetMasterResize();
 });
 
+
 var prm = Sys.WebForms.PageRequestManager.getInstance();
 prm.add_endRequest(function () { MainLoad(); });
-
 
 function GetWindowObj() {
     var MyWindow;
     if (parseInt($('.isInIframe').val()) == 1) MyWindow = window.top;
     else MyWindow = window;
-
 
     return MyWindow;
 }
@@ -43,21 +42,20 @@ function GotoParentIfInIfram(OpenNewWindow, Link, width, height) {
     } else {
         MyWindow.location = Link;
     }
-} 
+}
 
 function MainLoad() {
-      
-    SetMainEvents(); 
+    SetMainEvents();
     if (ToucheEvent) AddTouchHandler();
     if (Pirobox) SetPiroBox();
-    if (ScrollSpeed) SetScrollSpeed(); 
-     
+    if (ScrollSpeed) SetScrollSpeed();
+
     if (Responsive) {
         SetMasterResize();
         $(window).resize(function () {
             SetMasterResize();
         });
-    }   
+    }
 }
 function SetScrollSpeed() {
     var platform = navigator.platform.toLowerCase();
@@ -84,7 +82,6 @@ function SetPiroBox() {
     }
 }
 function SetMainEvents() {
-     
     $('.GoToChildOnClick').unbind(myClickEvent).bind(myClickEvent, function () {
         GotoParentIfInIfram(false, $(this).find('a').attr("href"), 0, 0);
     });
@@ -111,13 +108,12 @@ function SetMainEvents() {
     });
 }
 function SetMasterResize() {
-
     var WindowHeight = parseInt($(window).height());
     var WindowWidth = $(window).width();
 
-    //$('.GetFullHeightAtLeast').css({ "min-height": WindowHeight + "px" }); 
+    //$('.GetFullHeightAtLeast').css({ "min-height": WindowHeight + "px" });
 
-    $('.GetFullHeightAtLeast').css({ "min-height": WindowHeight - parseInt($('.WhiteHead').height()) + "px" }); 
+    $('.GetFullHeightAtLeast').css({ "min-height": WindowHeight - parseInt($('.WhiteHead').height()) + "px" });
 
     $('.GetFullHeightAtLeastRemoveFooter').css({ "min-height": WindowHeight - parseInt($('.DivFooter').height()) + "px" });
     $('.GetFullHeight').css({ "height": WindowHeight + "px" });
@@ -126,8 +122,8 @@ function SetMasterResize() {
     $('.GetFullHeightFullScreen').css({ "min-height": WindowHeight - 1 + "px" });
     $('.GetFullHeightAtLeastRemoveHeader').css({ "min-height": WindowHeight - parseInt($('.DivHeader').height()) + "px" });
     $('.GetFullHeightRemoveHeader').css({ "height": WindowHeight - parseInt($('.DivHeader').height()) + "px" });
-    $('.GetFullHeightForPopup').css({ "height": WindowHeight - parseInt($('.WhiteHead').height()) -200 + "px" });
-    
+    $('.GetFullHeightForPopup').css({ "height": WindowHeight - parseInt($('.WhiteHead').height()) - 200 + "px" });
+
     $('.GetFullHeightRemoveHeaderRemoveFollow').css({ "height": parseInt($('.fixedInMenu ').height()) - parseInt($('.FollowUsMenu').height()) + "px" });
     $('.GetFullHeightAtMaxRemoveHeader').css({ "max-height": WindowHeight - parseInt($('.DivHeader').height()) + "px" });
     $('.GetFullHeightRemoveCufex').css({ "height": WindowHeight - parseInt($('.CufexLogo').height()) + "px" });
@@ -154,21 +150,18 @@ function SetMasterResize() {
     });
 
     $('.GetMyParentWidth').css({ "width": "100%" });
-     
+
     $('.GetMyParentWidth').each(function () {
         $(this).css({ "width": parseInt($(this).parent().width()) + "px" });
-    }); 
+    });
 
     $('.GetMyChildrenHeight').each(function () {
         $(this).css({ "height": parseInt($(this).children().height()) + "px" });
-    }); 
-
+    });
 }
 function BtnClick(ValidationGroup) {
-
     var val = Page_ClientValidate(ValidationGroup);
     if (!val) {
-
         for (var i = 0; i < Page_Validators.length; i++) {
             var myPageID = "#" + Page_Validators[i].controltovalidate;
             var myPageIDClass = "." + Page_Validators[i].controltovalidate;
@@ -178,7 +171,7 @@ function BtnClick(ValidationGroup) {
             if ($(myPageID).attr('data-val') == 'Cmb') {
                 $(myPageID).css({ "border-bottom": "1px solid #0068ff" });
             }
-            else { 
+            else {
                 $(myPageID).removeClass("control_validation_error").removeClass("txtError");
             }
             $(myPageID).parent().removeClass("borderColorCustomError");
@@ -196,14 +189,13 @@ function BtnClick(ValidationGroup) {
                 }
                 else {
                     $(myPageID2).addClass("control_validation_error").addClass("txtError");
-                } 
+                }
             }
         }
     }
     Page_BlockSubmit = false;
 
     return val;
-
 }
 function AddTouchHandler() {
     document.addEventListener("touchstart", touchHandler, true);
@@ -220,16 +212,15 @@ function touchHandler(event) {
         touchmove: "mousemove",
         touchend: "mouseup"
     }[event.type], true, true, window, 1,
-    touch.screenX, touch.screenY,
-    touch.clientX, touch.clientY, false,
-    false, false, false, 0, null);
+        touch.screenX, touch.screenY,
+        touch.clientX, touch.clientY, false,
+        false, false, false, 0, null);
 
     touch.target.dispatchEvent(simulatedEvent);
     event.preventDefault();
 }
 
-
-var keys = [37, 38, 39, 40];
+var keys = { 32: 1, 33: 1, 34: 1, 35: 1, 36: 1, 37: 1, 38: 1, 39: 1, 40: 1 };
 
 function preventDefault(e) {
     e = e || window.event;
@@ -238,29 +229,64 @@ function preventDefault(e) {
     e.returnValue = false;
 }
 
-function keydown(e) {
-    for (var i = keys.length; i--;) {
-        if (e.keyCode === keys[i]) {
-            preventDefault(e);
-            return;
-        }
-    }
-}
+//function keydown(e) {
+//    for (var i = keys.length; i--;) {
+//        if (e.keyCode === keys[i]) {
+//            preventDefault(e);
+//            return;
+//        }
+//    }
+//}
 
 function wheel(e) {
     preventDefault(e);
 }
-function disable_scroll() {
-    if (window.addEventListener) {
-        window.addEventListener('DOMMouseScroll', wheel, false);
+
+//function disable_scroll() {
+//    if (window.addEventListener) {
+//        window.addEventListener('DOMMouseScroll', wheel, false);
+//    }
+//    window.onmousewheel = document.onmousewheel = wheel;
+//    document.onkeydown = keydown;
+//}
+
+//function enable_scroll() {
+//    if (window.removeEventListener) {
+//        window.removeEventListener('DOMMouseScroll', wheel, false);
+//    }
+//    window.onmousewheel = document.onmousewheel = document.onkeydown = null;
+//}
+
+function preventDefaultForScrollKeys(e) {
+    if (keys[e.keyCode]) {
+        preventDefault(e);
+        return false;
     }
-    window.onmousewheel = document.onmousewheel = wheel;
-    document.onkeydown = keydown;
 }
 
+// modern Chrome requires { passive: false } when adding event
+var supportsPassive = false;
+try {
+    window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+        get: function () { supportsPassive = true; }
+    }));
+} catch (e) { console.log(e.message); }
+
+var wheelOpt = supportsPassive ? { passive: false } : false;
+var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+// call this to Disable
+function disable_scroll() {
+    window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
+    window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+    window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+    window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
+// call this to Enable
 function enable_scroll() {
-    if (window.removeEventListener) {
-        window.removeEventListener('DOMMouseScroll', wheel, false);
-    }
-    window.onmousewheel = document.onmousewheel = document.onkeydown = null;
+    window.removeEventListener('DOMMouseScroll', preventDefault, false);
+    window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
+    window.removeEventListener('touchmove', preventDefault, wheelOpt);
+    window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
 }

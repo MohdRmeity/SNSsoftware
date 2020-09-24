@@ -46,5 +46,11 @@
     "inputFiles": [
       "Style/IonIcons/ionicons.css"
     ]
+  },
+  {
+    "outputFileName": "Style/Dropzone/dropzone.min.css",
+    "inputFiles": [
+      "Style/Dropzone/dropzone.css"
+    ]
   }
 ]
