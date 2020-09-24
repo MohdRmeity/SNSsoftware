@@ -69,6 +69,13 @@
                             <div class="SortDown"></div>
                         </div>
                     </td>
+                    <td class="GridCell GridHead" data-id="OriginalFileName">
+                        <span class="MyTitleHead">Original File Name</span>
+                        <div class="AbsoSorting">
+                            <div class="SortUp"></div>
+                            <div class="SortDown"></div>
+                        </div>
+                    </td>
                     <td class="GridCell GridHead" data-id="FileName">
                         <span class="MyTitleHead">File Name</span>
                         <div class="AbsoSorting">
@@ -118,6 +125,9 @@
                         <input type="text" placeholder="Search" class="SearchClass" data-id="RecKey" />
                     </td>
                     <td class="GridCell GridHeadSearch">
+                        <input type="text" placeholder="Search" class="SearchClass" data-id="OriginalFileName" />
+                    </td>
+                    <td class="GridCell GridHeadSearch">
                         <input type="text" placeholder="Search" class="SearchClass" data-id="FileName" />
                     </td>
                     <td class="GridCell GridHeadSearch">
@@ -142,6 +152,7 @@
                     <td class="GridCell GridContentCell borderRight0" data-id="6"></td>
                     <td class="GridCell GridContentCell borderRight0" data-id="7"></td>
                     <td class="GridCell GridContentCell borderRight0" data-id="8"></td>
+                    <td class="GridCell GridContentCell borderRight0" data-id="9"></td>
                 </tr>
             </table>
             <div class="PagingContainer">
@@ -205,9 +216,10 @@
         <input type="hidden" class="MyFields" value="ScreenName" data-columnname="Screen Name" data-priority="2" data-hidden="false" data-primarykey="true" />
         <input type="hidden" class="MyFields" value="WhseID" data-columnname="Warehouse" data-priority="3" data-hidden="false" />
         <input type="hidden" class="MyFields" value="RecKey" data-columnname="Record Key" data-priority="4" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="FileName" data-columnname="File Name" data-priority="5" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="FileSize" data-columnname="File Size" data-priority="6" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="ActivityType" data-columnname="Activity Type" data-priority="7" data-hidden="false" />
-        <input type="hidden" class="MyFields" value="AddDate" data-columnname="Log Date" data-priority="8" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="OriginalFileName" data-columnname="Original File Name" data-priority="5" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="FileName" data-columnname="File Name" data-priority="6" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="FileSize" data-columnname="File Size" data-priority="7" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="ActivityType" data-columnname="Activity Type" data-priority="8" data-hidden="false" />
+        <input type="hidden" class="MyFields" value="AddDate" data-columnname="Log Date" data-priority="9" data-hidden="false" />
     </div>
 </asp:Content>

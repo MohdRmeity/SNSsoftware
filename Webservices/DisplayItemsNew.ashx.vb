@@ -846,11 +846,11 @@ Public Class DisplayItemsNew
                     TableName = "ORDERS_FILES"
                     KeyName = "ORDERKEY"
                 End If
-                Sql = " select * from " & TableName & " where 1=1 and WHSEID = '" & Warehouse & "' and " & KeyName & " ='" & KeyValue & "'"
+                Sql = " select * from " & TableName & " where 1=1 and WHSEID = '" & Warehouse & "' and " & KeyName & " ='" & KeyValue & "' order by serialkey "
                 ds = tb.Cursor(Sql)
                 For i = 0 To ds.Tables(0).Rows.Count - 1
                     With ds.Tables(0).Rows(i)
-                        SavedFiles += IIf(i <> 0, ";;;", "") & !FileName & ":::" & !FileSize & ":::" & IIf(!AddWho = HttpContext.Current.Session("userkey"), "0", "1")
+                        SavedFiles += IIf(i <> 0, ";;;", "") & !FileName & ":::" & !FileSize & ":::" & IIf(!AddWho = HttpContext.Current.Session("userkey"), "0", "1") & ":::" & !OriginalFileName & ":::" & !AddWho
                     End With
                 Next
             End If

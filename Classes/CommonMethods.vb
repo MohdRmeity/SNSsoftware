@@ -29,6 +29,7 @@ Public Class CommonMethods
     Public Shared ExternalDashboardRefreshTimeInSeconds As String = ConfigurationManager.AppSettings("ExternalDashboardRefreshTimeInSeconds")
     Public Shared ShowCarrierEventsMap As String = ConfigurationManager.AppSettings("ShowCarrierEventMap")
     Public Shared GoogleMapAPIKey As String = ConfigurationManager.AppSettings("GoogleMapAPIKey")
+    Public Shared PhaseVersion As String = ConfigurationManager.AppSettings("PhaseVersion")
     Public Shared Function AreEqual(ByVal plainTextInput As String, ByVal hashedInput As String, ByVal salt As String) As Boolean
         Dim newHashedPin As String = GenerateHash(plainTextInput, salt)
         Return newHashedPin.Equals(hashedInput)
@@ -1068,7 +1069,7 @@ Public Class CommonMethods
         Return ds.Tables(0)
     End Function
     Public Shared Function getFacilities() As DataTable
-        Dim sql As String = "select db_alias, db_name from wmsadmin.pl_db where isActive=1 and db_enterprise=0"
+        Dim sql As String = "select db_alias as DB_LOGID, db_name from wmsadmin.pl_db where isActive=1 and db_enterprise=0"
         Dim ds As DataSet = (New SQLExec).Cursor(sql)
         Return ds.Tables(0)
     End Function
@@ -1612,12 +1613,12 @@ Public Class CommonMethods
         End Try
         Return tmp
     End Function
-    Public Shared Function SaveFileActiviyLogs(ByVal SearchTable As String, ByVal Warehouse As String, ByVal Key As String, ByVal FileName As String, ByVal FileSize As Integer, ByVal ActivityType As String) As String
+    Public Shared Function SaveFileActiviyLogs(ByVal SearchTable As String, ByVal Warehouse As String, ByVal Key As String, ByVal OriginalFileName As String, ByVal FileName As String, ByVal FileSize As Integer, ByVal ActivityType As String) As String
         Dim tmp As String = ""
 
         Try
             If dbtype = "sql" Then
-                Dim insert As String = "set dateformat dmy insert into dbo.LOGSFILES (SCREENNAME, WHSEID,RECKEY,FileName,FileSize,ActivityType,ADDDATE,ADDWHO) values (@screenname,@warehouse, @key, @filename,@filesize,@activitytype,'" & Now & "',@ukey);"
+                Dim insert As String = "set dateformat dmy insert into dbo.LOGSFILES (SCREENNAME, WHSEID,RECKEY,OriginalFileName, FileName,FileSize,ActivityType,ADDDATE,ADDWHO) values (@screenname,@warehouse, @key, @originalfilename, @filename,@filesize,@activitytype,'" & Now & "',@ukey);"
 
                 Dim conn As SqlConnection = New SqlConnection(dbconx)
                 conn.Open()
@@ -1626,6 +1627,7 @@ Public Class CommonMethods
                 cmd.Parameters.AddWithValue("@screenname", SearchTable)
                 cmd.Parameters.AddWithValue("@warehouse", Warehouse)
                 cmd.Parameters.AddWithValue("@key", Key)
+                cmd.Parameters.AddWithValue("@originalfilename", OriginalFileName)
                 cmd.Parameters.AddWithValue("@filename", FileName)
                 cmd.Parameters.AddWithValue("@filesize", FileSize)
                 cmd.Parameters.AddWithValue("@activitytype", ActivityType)
@@ -1634,7 +1636,7 @@ Public Class CommonMethods
 
                 conn.Close()
             Else
-                Dim insert As String = "set dateformat dmy insert into SYSTEM.LOGSFILES (SCREENNAME, WHSEID,RECKEY,FileName,FileSize,ActivityType,ADDDATE,ADDWHO) values (:screenname,:warehouse, :key, :filename,:filesize,:activitytype,SYSDATE,:ukey);"
+                Dim insert As String = "set dateformat dmy insert into SYSTEM.LOGSFILES (SCREENNAME, WHSEID,RECKEY,OriginalFileName,FileName,FileSize,ActivityType,ADDDATE,ADDWHO) values (:screenname,:warehouse, :key,:originalfilename,:filename,:filesize,:activitytype,SYSDATE,:ukey);"
                 Dim conn As OracleConnection = New OracleConnection(dbconx)
                 conn.Open()
 
@@ -1642,6 +1644,7 @@ Public Class CommonMethods
                 cmd.Parameters.Add(New OracleParameter("screenname", SearchTable))
                 cmd.Parameters.Add(New OracleParameter("warehouse", Warehouse))
                 cmd.Parameters.Add(New OracleParameter("key", Key))
+                cmd.Parameters.Add(New OracleParameter("originalfilename", OriginalFileName))
                 cmd.Parameters.Add(New OracleParameter("filename", FileName))
                 cmd.Parameters.Add(New OracleParameter("filesize", FileSize))
                 cmd.Parameters.Add(New OracleParameter("activitytype", ActivityType))
