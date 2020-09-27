@@ -2000,6 +2000,8 @@ function LoadItems() {
             var TabName = "";
             if ($(".MyTab").length > 0) TabName = $(".MyTab.Active").data("id");
             var QueryUrlStr = $(".QueryUrlStr").val();
+
+            
            
 
             var data = new FormData();
@@ -2119,6 +2121,7 @@ function LoadItems() {
             console.log(response.error);
             $('.preloader').fadeOut(300, function () {
                 AvoidWebServiceRaceCondition = 0;
+
             });
         }
     }
